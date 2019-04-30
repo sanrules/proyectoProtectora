@@ -6,12 +6,15 @@ R::setup('mysql:host=localhost;dbname=test',
 
 /**
  * Inserta un animal en la base de datos
+ * y devuelve true o false en función de si se inserta o no
  * @param Animal $new_animal Nuevo animal a insertar en la base de datos
+ * @return boolean $inserted true si se ha insertado correctamente, false si ha habido errores
  */
 function insert_animal($new_animal)
 {
-    $animal = R::dispense('animal');
-    // TODO comprobar si funciona esta inserción o si tiene que ser parámetro a parámetro
+    $animal   = R::dispense('animal');
+    $inserted = false;
+    // FIXME comprobar si funciona esta inserción o si tiene que ser parámetro a parámetro
     $animal = $new_animal;
 
     // $animal->name = $this->name;
@@ -26,7 +29,15 @@ function insert_animal($new_animal)
     // $animal->pictures = $this->pictures;
 
     // TODO validaciones si existe el animal ?
-    $id = R::store($animal);
+    // FIXME comprobar si esto funciona
+    try {
+        $id       = R::store($animal);
+        $inserted = true;
+    } catch (Exception $e) {
+        $inserted = false;
+    }
+
+    return $inserted;
 }
 
 /**
