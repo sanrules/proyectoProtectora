@@ -1,13 +1,14 @@
 <?php
 
 /**
- * FICHERO CON FUNCIONES AUXILIARES
- * VALIDACIONES
- * COMPROBACIONES
- * CONVERSIONES
+ * Fichero con FUNCIONES AUXILIARES, VALIDACIONES, COMPROBACIONES, CONVERSIONES
+ * que tratan datos genéricos y son susceptibles de ser usadas en más de una ocasión
  */
 
-/** Comprueba si una fecha está en un formato válido y además existe en el calendario */
+/** Comprueba si una fecha está en un formato válido y además existe en el calendario
+ * @param date $date fecha en formato j/m/Y
+ * @return boolean $valid true si el formato es válido y existe, false si no
+ */
 function validate_date($date)
 {
     $valid      = false;
