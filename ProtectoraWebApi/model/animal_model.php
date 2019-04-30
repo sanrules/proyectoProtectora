@@ -53,6 +53,38 @@ function retrieve_animal($id)
 }
 
 /**
+ * Obtiene todos los animales de la base de datos
+ * @return Array $animals array de Animal multidimensional recogido de la base de datos
+ */
+function retrieve_animal_all()
+{
+    $animals = R::getAll('select * from animal');
+
+    return $animals;
+}
+
+/**
+ * Obtiene todos los animales de la base de datos en función a los parámetros pasados
+ * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+ * @return Array $animals array de Animal multidimensional recogido de la base de datos
+ */
+function retrieve_animal_params($params)
+{
+    $num = $count($paramS);
+    $sql = "SELECT * FROM animal WHERE ";
+
+    foreach ($params as $field->$value) {
+        --$num;
+        $sql .= " $field = $value ";
+        $sql .= $num != 0 ? ' AND ' : ' ;';
+    }
+
+    $animals = R::find($sql);
+
+    return $animals;
+}
+
+/**
  * Actualiza un animal de la base de datos
  * @param int $id ID del animal
  * @param Animal $updated_animal animal con los datos actualizados

@@ -19,7 +19,7 @@ function create_animal()
 
     if (isset($postdata) && !empty($postdata)) {
         $animal  = new Animal();
-        $aStatus = ['adoptado', 'pre-adoptado', 'en adopción'];
+        $vStatus = ['adoptado', 'pre-adoptado', 'en adopción'];
 
         // Extract the data.
         $request = json_decode($postdata);
@@ -37,8 +37,8 @@ function create_animal()
         $gender        = filter_var($request['gender'], FILTER_SANITIZE_STRING); // Se aceptarán M y H (macho / hembra)
         $birth_date    = validate_date($request['birth_date']) ? $request['birth_date'] : ''; // Formato j/m/Y
         $entrance_date = validate_date($request['entrance_date']) ? $request['entrance_date'] : ''; // Formato j/m/Y
-        $adoption_date = validate_date($request['adoption_date']) ? $request['adoption_date'] : ''; // Si no existe, será 1/1/1970 (0 para Unix)
-        $status        = in_array(filter_var($request['status'], FILTER_SANITIZE_STRING), $aStatus) ? $request['status'] : ''; // Adoptado, pre-adoptado, en adopción
+        $adoption_date = validate_date($request['adoption_date']) ? $request['adoption_date'] : ''; // Si no existe, será 1/1/1970
+        $status        = in_array(filter_var($request['status'], FILTER_SANITIZE_STRING), $vStatus) ? $request['status'] : ''; // Adoptado, pre-adoptado, en adopción
         $description   = filter_var($request['description'], FILTER_SANITIZE_SPECIAL_CHARS);
         $pictures      = filter_var($request['pictures'], FILTER_REQUIRE_ARRAY) ? $request['pictures'] : ''; // Las imágenes tendrán que venir en un array
 
@@ -64,4 +64,40 @@ function create_animal()
     }
 
     return $answer;
+}
+
+/**
+ * Obtiene un animal de la base de datos, da formato y valida el mismo y lo devuelve
+ * @param int $id ID del animal a buscar
+ * @return Animal $animal obtenido de la base de datos
+ */
+function get_animal($id)
+{
+    $animal = retrieve_animal($id);
+
+    return $animal;
+
+}
+
+/**
+ * Obtiene todos los animales de la base de datos, da formato y valida el mismo y los devuelve
+ * @return array $animals array de Animal obtenido de la bbdd
+ */
+function get_animal_all()
+{
+    $animals = retrieve_animal_all();
+
+    return $animals;
+}
+
+/**
+ * Obtiene todos los animales de la base de datos en función a unos parámetros.
+ * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+ * @return array $animals array de Animal obtenido de la bbdd
+ */
+function get_animal_params($params)
+{
+    $animals = retrieve_animal_params($params);
+
+    return $animals;
 }

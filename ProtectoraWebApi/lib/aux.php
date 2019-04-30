@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Fichero con FUNCIONES AUXILIARES, VALIDACIONES, COMPROBACIONES, CONVERSIONES
  * que tratan datos genéricos y son susceptibles de ser usadas en más de una ocasión
