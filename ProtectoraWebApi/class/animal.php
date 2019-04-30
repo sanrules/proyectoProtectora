@@ -4,19 +4,19 @@ require '../lib/RedBeanPHP5_3/rb.php';
 
 class Animal
 {
-    public $id = '';
-    public $name = '';
-    public $type = '';
-    public $breed = ''; // Raza
+    public $id     = '';
+    public $name   = '';
+    public $type   = '';
+    public $breed  = ''; // Raza
     public $gender = '';
 
-    public $birth_date = '';
+    public $birth_date    = '';
     public $entrance_date = '';
     public $adoption_date = ''; // Permite nulos
 
-    public $status = ''; // Adoptado, sin adoptar
+    public $status      = ''; // Adoptado, sin adoptar
     public $description = '';
-    public $pictures = '';
+    public $pictures    = '';
 
     // public function __construct($name, $type, $breed, $gender, $birth_date, $entrance_date, $adoption_date = null, $status, $description, $pictures)
     // {
