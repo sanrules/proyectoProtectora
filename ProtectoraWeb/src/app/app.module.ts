@@ -13,14 +13,14 @@ import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RegistroAnimalComponent } from './components/animal/register-animal/register-animal.component';
+import { RegisterAnimalComponent } from './components/animal/register-animal/register-animal.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    RegistroAnimalComponent,
+    RegisterAnimalComponent,
     NavbarComponent
   ],
   imports: [

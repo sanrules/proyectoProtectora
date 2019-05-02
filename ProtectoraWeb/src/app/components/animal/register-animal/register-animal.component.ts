@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-registro-animal',
-  templateUrl: './registro-animal.component.html',
-  styleUrls: ['./registro-animal.component.css']
+  templateUrl: './register-animal.component.html',
+  styleUrls: ['./register-animal.component.css']
 })
-export class RegistroAnimalComponent implements OnInit {
+export class RegisterAnimalComponent implements OnInit {
 
   constructor() { }
 
