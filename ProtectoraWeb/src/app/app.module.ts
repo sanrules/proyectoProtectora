@@ -15,6 +15,7 @@ import { RegisterComponent } from './components/user/register/register.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterAnimalComponent } from './components/animal/register-animal/register-animal.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
+import { RegisterAnimalComponent } from './components/animals/register/register_animal.component';
 
 @NgModule({
   declarations: [
