@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // Formularios
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user/user-service';
-import { userInfo } from 'os';
+/* import { userInfo } from 'os'; */
 
 
 @Component({
