@@ -44,7 +44,10 @@ export class RegisterComponent implements OnInit {
   registerSubmit() {
     console.log('entra en la función');
     console.log(this.registerForm.value);
-    this.user.getUser();
+    //this.user.registerUser();
+    this.user.registerUser().subscribe((resp: any[]) => {
+      console.log(resp);
+    });
   }
 
 }

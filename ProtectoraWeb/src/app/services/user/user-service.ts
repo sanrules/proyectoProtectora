@@ -7,14 +7,15 @@ import { HttpClient } from '@angular/common/http';
 export class UserService {
 
   // TODO: poner las variables de usuario en el fichero enviroment.ts (mirar en el trabajo cómo se hace)
-  baseURL = 'http://127.0.0.1:8080/';
+  baseURL = 'http://localhost:80/';
 
   constructor(private http: HttpClient) { }
 
 
   // Solicita a la API una lista con todos los usuarios.
   getUser() {
-    return this.http.get(`${this.baseURL}/ProtectoraWebApi/controller/user_controller.php/insert_user`);
+    console.log(this.http.get('https://github.com/typicode/demo/blob/master/db.json'));
+    return this.http.get('https://github.com/typicode/demo/blob/master/db.json');
   }
 
 
@@ -26,7 +27,8 @@ export class UserService {
 
   // Da de alta un nuevo usuario
   registerUser() {
-
+    console.log(this.http.get(`${this.baseURL}/ProtectoraWebApi/controller/user_controller.php/insert_user`));
+    return this.http.get(`${this.baseURL}/ProtectoraWebApi/controller/user_controller.php/create_user`);
   }
 
 
