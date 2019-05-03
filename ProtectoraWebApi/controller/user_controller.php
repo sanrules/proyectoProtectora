@@ -19,8 +19,7 @@ function create_user()
     $postdata = file_get_contents("php://input");
     $answer   = '';
 
-    prueba();
-
+    echo $postdata;
     if (isset($postdata) && !empty($postdata)) {
         $user = new User();
 
