@@ -17,7 +17,7 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { RegisterAnimalComponent } from './components/animals/register/register-animal.component';
 
 // Modelos
-import { UserModel } from './models/user-model';
+//import { UserModel } from './models/user-model';
 //import { User } from './models/user';
 
 @NgModule({
@@ -25,8 +25,8 @@ import { UserModel } from './models/user-model';
     AppComponent,
     RegisterComponent,
     RegisterAnimalComponent,
-    NavbarComponent,
-    UserModel
+    NavbarComponent
+    //UserModel
   ],
   imports: [
     BrowserModule,
@@ -35,9 +35,9 @@ import { UserModel } from './models/user-model';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
