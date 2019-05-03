@@ -1,6 +1,8 @@
 <?php
 
 require '../lib/RedBeanPHP5_3/rb.php';
+include 'ChromePhp.php';
+
 R::setup('mysql:host=localhost;dbname=test',
     'root', '');
 /**
@@ -25,6 +27,15 @@ function insert_user($new_user)
 
     // TODO validaciones si existe el usuario ?
     $id = R::store($user);
+}
+
+// Comprueba la función
+function prueba()
+{
+    $user       = R::dispense('user');
+    $user->name = 'prueba';
+    $id         = R::store($user);
+
 }
 
 /**
