@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
         [Validators.required, Validators.minLength(9), Validators.maxLength(9)]
       ],
       birthDate: [
-        '12/12/1993',
+        '',
         [
           Validators.required,
           Validators.minLength(10),
