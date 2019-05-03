@@ -5,6 +5,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 require_once '../class/user.php';
 require_once '../model/user_model.php';
 require_once '../lib/lib_aux.php';
+include 'ChromePhp.php';
 
 /**
  * Recibe los parámetros del user de Angular en formato json
@@ -13,9 +14,12 @@ require_once '../lib/lib_aux.php';
  */
 function create_user()
 {
+    ChromePhp::log('Hello console!');
     // Get the posted data.
     $postdata = file_get_contents("php://input");
     $answer   = '';
+
+    prueba();
 
     if (isset($postdata) && !empty($postdata)) {
         $user = new User();
