@@ -4,7 +4,7 @@ header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 require_once '../class/user.php';
 require_once '../model/user_model.php';
-require_once '../lib/aux.php';
+require_once '../lib/lib_aux.php';
 
 /**
  * Recibe los parámetros del user de Angular en formato json
