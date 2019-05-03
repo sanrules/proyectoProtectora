@@ -16,12 +16,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { RegisterAnimalComponent } from './components/animals/register/register-animal.component';
 
+// Modelos
+//import { UserModel } from './models/user-model';
+//import { User } from './models/user';
+
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     RegisterAnimalComponent,
     NavbarComponent
+    //UserModel
   ],
   imports: [
     BrowserModule,
@@ -35,4 +40,4 @@ import { RegisterAnimalComponent } from './components/animals/register/register-
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
