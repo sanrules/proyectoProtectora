@@ -1,7 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header('Access-Control-Allow-Headers: X-Requested-With');
+header('Content-Type: application/json');
 require_once '../class/user.php';
 require_once '../model/user_model.php';
 require_once '../lib/lib_aux.php';
@@ -19,8 +19,7 @@ function create_user()
     $postdata = file_get_contents("php://input");
     $answer   = '';
 
-    prueba();
-
+    echo $postdata;
     if (isset($postdata) && !empty($postdata)) {
         $user = new User();
 
