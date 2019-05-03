@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class UserService {
 
   // Solicita a la API una lista con todos los usuarios.
   getUser() {
+    console.log('Respuesta backEnd => insert_user()');
     console.log(this.http.get('https://github.com/typicode/demo/blob/master/db.json'));
     return this.http.get('https://github.com/typicode/demo/blob/master/db.json');
   }
@@ -26,7 +28,8 @@ export class UserService {
 
 
   // Da de alta un nuevo usuario
-  registerUser() {
+  registerUser(data) {
+    console.log('Respuesta backEnd => insert_user()');
     console.log(this.http.get(`${this.baseURL}/ProtectoraWebApi/controller/user_controller.php/insert_user`));
     return this.http.get(`${this.baseURL}/ProtectoraWebApi/controller/user_controller.php/create_user`);
   }

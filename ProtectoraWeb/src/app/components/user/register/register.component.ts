@@ -35,6 +35,11 @@ export class RegisterComponent implements OnInit {
       door: ['', []],
       userType: ['', []]
     });
+    console.log(this.registerForm.value);
+/*     this.user.registerUser('{userName: "User", email: "user@user.com", password: "1234", name: "Nombre", surname: "Apellido"}'); */
+    this.user.registerUser('{"username": "User", "email": "user@user.com", "password": "1234", "name": "Nombre", "surname": "Apellido","phone": "987654231", birth_date: "10/10/2019 00:00", "address": "Direccion", "user_type": "usuario"}').subscribe((resp: any[]) => {
+      console.log(resp);
+    });
   }
 
   dataParse() {
@@ -45,9 +50,10 @@ export class RegisterComponent implements OnInit {
     console.log('entra en la función');
     console.log(this.registerForm.value);
     //this.user.registerUser();
-    this.user.registerUser().subscribe((resp: any[]) => {
+    /* this.user.registerUser().subscribe((resp: any[]) => {
       console.log(resp);
-    });
+    }); */
+    this.user.registerUser("datos enviados desde angular");
   }
 
 }
