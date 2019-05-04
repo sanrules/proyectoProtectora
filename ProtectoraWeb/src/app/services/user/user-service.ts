@@ -7,7 +7,7 @@ import { Observable, throwError } from 'rxjs';
 })
 export class UserService {
   // TODO: poner las variables de usuario en el fichero enviroment.ts (mirar en el trabajo cómo se hace)
-  baseURL = 'http://localhost/';
+  baseURL = 'http://localhost';
 
   constructor(private http: HttpClient) {}
 
@@ -29,17 +29,22 @@ export class UserService {
   registerUser(data) {
     console.log('Respuesta backEnd => insert_user()');
     console.log(
-      this.http.get(
-        `${
-          this.baseURL
-        }/ProtectoraWebApi/controller/user_controller.php/insert_user`
-      )
+      this.http.get(`${this.baseURL}/ProtectoraWebApi/controller/index.php`)
     );
-    return this.http.get(
-      `${
-        this.baseURL
-      }/ProtectoraWebApi/controller/user_controller.php/create_user`
+    console.log('data es ' + data);
+    this.http.get(`${this.baseURL}/ProtectoraWebApi/controller/index.php`);
+    // return this.http.post(
+    //   `${this.baseURL}/ProtectoraWebApi/controller/index.php`,
+    //   data
+    // );
+
+    return this.http.post(
+      `${this.baseURL}/ProtectoraWebApi/controller/index.php`,
+      'cuerpo del mensaje'
     );
+    // return this.http.get(
+    //   `${this.baseURL}/ProtectoraWebApi/controller/index.php?data=data`
+    // );
   }
 
   // Modifica un usuario

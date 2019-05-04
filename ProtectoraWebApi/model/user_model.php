@@ -28,10 +28,10 @@ function insert_user($new_user)
 }
 
 // Comprueba la función
-function prueba()
+function prueba($name)
 {
     $user       = R::dispense('user');
-    $user->name = 'prueba';
+    $user->name = $name;
     $id         = R::store($user);
 
 }
