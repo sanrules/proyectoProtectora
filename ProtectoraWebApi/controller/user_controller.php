@@ -2,11 +2,15 @@
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: X-Requested-With');
 header('Content-Type: application/json');
+//require_once '../lib/RedBeanPHP5_3/rb.php';
 require_once '../class/user.php';
 require_once '../model/user_model.php';
 require_once '../lib/lib_aux.php';
-include 'ChromePhp.php';
+//include '../lib/ChromePhp.php';
 
+//R::setup('mysql:host=localhost;dbname=test', 'root', '');
+ChromePhp::log('Entra a la clase');
+echo 'clase php';
 /**
  * Recibe los parámetros del user de Angular en formato json
  * y llama al modelo para su posterior inserción en base de datos
@@ -22,6 +26,7 @@ function create_user()
     echo $postdata;
     if (isset($postdata) && !empty($postdata)) {
         $user = new User();
+        ChromePhp::log($user);
 
         // Extract the data.
         $request = json_decode($postdata);
@@ -84,6 +89,7 @@ function get_user($id)
  */
 function get_user_all()
 {
+    ChromePhp::log('get_user_all()');
     $users = retrieve_user_all();
 
     return $users;

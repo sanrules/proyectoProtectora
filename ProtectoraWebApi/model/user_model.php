@@ -1,7 +1,7 @@
 <?php
 
 require '../lib/RedBeanPHP5_3/rb.php';
-include 'ChromePhp.php';
+include '../lib/ChromePhp.php';
 
 R::setup('mysql:host=localhost;dbname=test',
     'root', '');

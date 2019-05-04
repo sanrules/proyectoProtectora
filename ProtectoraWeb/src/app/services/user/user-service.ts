@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { throwError } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +9,19 @@ import { Observable, throwError } from 'rxjs';
 export class UserService {
 
   // TODO: poner las variables de usuario en el fichero enviroment.ts (mirar en el trabajo cómo se hace)
-  baseURL = 'http://localhost:80/';
+  baseURL = 'http://localhost:80//ProtectoraWebApi/controller';
 
   constructor(private http: HttpClient) { }
 
 
   // Solicita a la API una lista con todos los usuarios.
-  getUser() {
-    console.log('Respuesta backEnd => insert_user()');
-    console.log(this.http.get('https://github.com/typicode/demo/blob/master/db.json'));
-    return this.http.get('https://github.com/typicode/demo/blob/master/db.json');
+  getUsers() {
+    console.log('Respuesta backEnd => get_user_all()');
+    return this.http.get(`${this.baseURL}/user_controller.php/get_user_all()`).subscribe((data) => {
+      console.log('Recojo valores del backend: ', data);
+    }, (error) => {
+      console.log('Error: ', error);
+    });
   }
 
 
@@ -30,14 +34,21 @@ export class UserService {
   // Da de alta un nuevo usuario
   registerUser(data) {
     console.log('Respuesta backEnd => insert_user()');
-    console.log(this.http.get(`${this.baseURL}/ProtectoraWebApi/controller/user_controller.php/insert_user`));
-    return this.http.get(`${this.baseURL}/ProtectoraWebApi/controller/user_controller.php/create_user`);
+    console.log(this.http.get(`${this.baseURL}/user_controller.php/create_user()`));
+    return this.http.post(`${this.baseURL}/user_controller.php/create_user`, data);
   }
 
 
   // Modifica un usuario
   updateUser() {
 
+  }
+
+
+  private handleError(error: HttpErrorResponse) {
+    console.log(error);
+    // return an observable with a user friendly message
+    return throwError('Error! something went wrong.');
   }
 
 }

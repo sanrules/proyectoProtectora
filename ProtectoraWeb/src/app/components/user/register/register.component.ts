@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit {
   // Variables del componente
   registerForm: FormGroup;
 
+
   constructor(private formBuilder: FormBuilder, private user: UserService) {}
 
   // Carga los datos una vez haya cargado lo del constructor
@@ -28,7 +29,7 @@ export class RegisterComponent implements OnInit {
         [Validators.required, Validators.minLength(9), Validators.maxLength(9)]
       ],
       birthDate: [
-        '',
+        '10/10/2000',
         [
           Validators.required,
           Validators.minLength(10),
@@ -39,16 +40,19 @@ export class RegisterComponent implements OnInit {
       number: ['4', [Validators.required]],
       floor: ['3', []],
       door: ['2', []],
-      userType: ['', []]
+      userType: ['user', []]
     });
-    console.log(this.registerForm.value);
-/*     this.user.registerUser('{userName: "User", email: "user@user.com", password: "1234", name: "Nombre", surname: "Apellido"}'); */
-    this.user.registerUser('{"username": "User", "email": "user@user.com", "password": "1234", "name": "Nombre", "surname": "Apellido","phone": "987654231", birth_date: "10/10/2019 00:00", "address": "Direccion", "user_type": "usuario"}').subscribe((resp: any[]) => {
-      console.log(resp);
+
+    this.user.getUsers();
+    this.user.registerUser('{"username": "User", "email": "user@user.com", "password": "1234", "name": "Nombre", "surname": "Apellido","phone": "987654231", birth_date: "10/10/2019 00:00", "address": "Direccion", "user_type": "usuario"}').subscribe((data) => {
+      console.log('Recojo valores del backend: ', data);
+    }, (error) => {
+      console.log('Error: ', error);
     });
   }
 
-  dataParse() {}
+  dataParse() {
+  }
 
   registerSubmit() {
     console.log('entra en la función');
@@ -57,6 +61,6 @@ export class RegisterComponent implements OnInit {
     /* this.user.registerUser().subscribe((resp: any[]) => {
       console.log(resp);
     }); */
-    this.user.registerUser("datos enviados desde angular");
+    /* this.user.registerUser("datos enviados desde angular"); */
   }
 }
