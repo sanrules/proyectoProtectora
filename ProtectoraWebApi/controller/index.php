@@ -8,10 +8,13 @@ include '../model/user_model.php';
 // $postdata = file_get_contents("php://input");
 // $request  = json_decode($postdata);
 
-$data = $_REQUEST['data'];
+$data    = $_REQUEST['data'];
+$decoded = json_decode($data);
+
+print_r($decoded);
 
 $fp = fopen("../lib/fichero.txt", "a+");
-fputs($fp, $data . ' es request');
+fputs($fp, "$data son los datos y $decoded->username es el usuario");
 fclose($fp);
 
 echo $request;
