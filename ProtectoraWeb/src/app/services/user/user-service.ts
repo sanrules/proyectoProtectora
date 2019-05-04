@@ -31,20 +31,16 @@ export class UserService {
     console.log(
       this.http.get(`${this.baseURL}/ProtectoraWebApi/controller/index.php`)
     );
-    console.log('data es ' + data);
     this.http.get(`${this.baseURL}/ProtectoraWebApi/controller/index.php`);
     // return this.http.post(
     //   `${this.baseURL}/ProtectoraWebApi/controller/index.php`,
     //   data
     // );
 
-    return this.http.post(
-      `${this.baseURL}/ProtectoraWebApi/controller/index.php`,
-      'cuerpo del mensaje'
+    // Envía los datos por GET y se recogen con $_REQUEST['dates']
+    return this.http.get(
+      `${this.baseURL}/ProtectoraWebApi/controller/index.php?data=${data}`
     );
-    // return this.http.get(
-    //   `${this.baseURL}/ProtectoraWebApi/controller/index.php?data=data`
-    // );
   }
 
   // Modifica un usuario
