@@ -36,7 +36,9 @@ export class UserService {
   // Da de alta un nuevo usuario
   registerUser(data) {
     return this.http.get(
-      `${this.baseURL}ProtectoraWebApi/controller/index.php?createuser=${data}`
+      `${
+        this.baseURL
+      }ProtectoraWebApi/controller/insert_user.php?createuser=${data}`
     );
   }
 

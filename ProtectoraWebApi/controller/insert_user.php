@@ -14,9 +14,18 @@ R::setup('mysql:host=localhost;dbname=proyecto',
 if ($_REQUEST['createuser']) {
     $data = $_REQUEST['createuser'];
     // $dates      = explode(',', $data);
-    $request    = json_decode($data);
-    $user       = R::dispense('user');
-    $user->data = $request['email'];
-    $id         = R::store($user);
+    $new  = json_decode($data);
+    $user = R::dispense('user');
 
+    $user->username   = $new->username;
+    $user->password   = $new->password;
+    $user->name       = $new->name;
+    $user->surname    = $new->surname;
+    $user->address    = $new->address;
+    $user->email      = $new->email;
+    $user->phone      = $new->phone;
+    $user->birth_date = $new->birth_date;
+    $user->user_type  = $new->user_type;
+
+    $id = R::store($user);
 }

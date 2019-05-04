@@ -1,7 +1,7 @@
 <?php
 require_once '../lib/RedBeanPHP5_3/rb.php';
 
-R::setup('mysql:host=localhost;dbname=test',
+R::setup('mysql:host=localhost;dbname=proyecto',
     'root', '');
 /**
  * Inserta un usuario en la base de datos
