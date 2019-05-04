@@ -7,12 +7,10 @@ import { throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-
   // TODO: poner las variables de usuario en el fichero enviroment.ts (mirar en el trabajo cómo se hace)
   baseURL = 'http://localhost:80//ProtectoraWebApi/controller';
 
   constructor(private http: HttpClient) { }
-
 
   // Solicita a la API una lista con todos los usuarios.
   getUsers() {
@@ -26,18 +24,27 @@ export class UserService {
 
 
   // Solicita a la API el usuario que se le manda por parámetro
-  getuserById() {
-
-  }
-
+  getuserById() {}
 
   // Da de alta un nuevo usuario
   registerUser(data) {
     console.log('Respuesta backEnd => insert_user()');
-    console.log(this.http.get(`${this.baseURL}/user_controller.php/create_user()`));
-    return this.http.post(`${this.baseURL}/user_controller.php/create_user`, data);
-  }
 
+    console.log(
+      this.http.get(`${this.baseURL}/ProtectoraWebApi/controller/index.php`)
+    );
+    this.http.get(`${this.baseURL}/ProtectoraWebApi/controller/index.php`);
+    // return this.http.post(
+    //   `${this.baseURL}/ProtectoraWebApi/controller/index.php`,
+    //   data
+    // );
+
+    // Envía los datos por GET y se recogen con $_REQUEST['dates']
+    return this.http.get(
+      `${this.baseURL}/ProtectoraWebApi/controller/index.php?data=${data}`
+    );
+
+  }
 
   // Modifica un usuario
   updateUser() {

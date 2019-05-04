@@ -1,7 +1,5 @@
 <?php
-
-require '../lib/RedBeanPHP5_3/rb.php';
-include '../lib/ChromePhp.php';
+require_once '../lib/RedBeanPHP5_3/rb.php';
 
 R::setup('mysql:host=localhost;dbname=test',
     'root', '');
@@ -30,10 +28,10 @@ function insert_user($new_user)
 }
 
 // Comprueba la función
-function prueba()
+function prueba($name)
 {
     $user       = R::dispense('user');
-    $user->name = 'prueba';
+    $user->name = $name;
     $id         = R::store($user);
 
 }

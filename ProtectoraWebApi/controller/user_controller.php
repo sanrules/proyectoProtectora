@@ -1,12 +1,13 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header('Access-Control-Allow-Headers: X-Requested-With');
-header('Content-Type: application/json');
-//require_once '../lib/RedBeanPHP5_3/rb.php';
+header("Access-Control-Allow-Origin");
+header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header('Content-type: application/json');
+
 require_once '../class/user.php';
 require_once '../model/user_model.php';
 require_once '../lib/lib_aux.php';
-//include '../lib/ChromePhp.php';
+require_once '../lib/RedBeanPHP5_3/rb.php';
 
 //R::setup('mysql:host=localhost;dbname=test', 'root', '');
 ChromePhp::log('Entra a la clase');
@@ -18,12 +19,14 @@ echo 'clase php';
  */
 function create_user()
 {
-    ChromePhp::log('Hello console!');
     // Get the posted data.
+    echo file_get_contents('php://input');
+
     $postdata = file_get_contents("php://input");
     $answer   = '';
 
     echo $postdata;
+    prueba();
     if (isset($postdata) && !empty($postdata)) {
         $user = new User();
         ChromePhp::log($user);
@@ -38,15 +41,15 @@ function create_user()
 
         // FIXME comprobar si sanitize comprueba si está vacío
         // Validate & sanitize
-        $username   = filter_var($request['userName'], FILTER_SANITIZE_STRING);
-        $email      = filter_var($request['email'], FILTER_VALIDATE_EMAIL) ? $request['email'] : '';
-        $password   = filter_var($request['password'], FILTER_SANITIZE_STRING);
-        $name       = filter_var($request['name'], FILTER_SANITIZE_STRING);
-        $surname    = filter_var($request['surname'], FILTER_SANITIZE_STRING);
-        $phone      = filter_var($request['phone'], FILTER_SANITIZE_NUMBER_INT);
-        $birth_date = validate_date($request['birthDate']) ? $request['birth_date'] : '';
-        $address    = filter_var($request['address'], FILTER_SANITIZE_STRING);
-        $user_type  = filter_var($request['userType'], FILTER_SANITIZE_STRING);
+        $username   = filter_var($request->data->userName, FILTER_SANITIZE_STRING);
+        $email      = filter_var($request->data->email, FILTER_VALIDATE_EMAIL) ? $request['email'] : '';
+        $password   = filter_var($request->data->password, FILTER_SANITIZE_STRING);
+        $name       = filter_var($request->data->name, FILTER_SANITIZE_STRING);
+        $surname    = filter_var($request->data->surname, FILTER_SANITIZE_STRING);
+        $phone      = filter_var($request->data->phone, FILTER_SANITIZE_NUMBER_INT);
+        $birth_date = validate_date($request->data->birthDate) ? $request->data->birth_date : '';
+        $address    = filter_var($request->data->address, FILTER_SANITIZE_STRING);
+        $user_type  = filter_var($request->data->userType, FILTER_SANITIZE_STRING);
 
         // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($username != '' || $email != '' || $password != '' || $name != '' || $surname != '' || $phone != '' || $birth_date != '' || $address != '' || $user_type != '') {
