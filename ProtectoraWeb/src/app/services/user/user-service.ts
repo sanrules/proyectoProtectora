@@ -8,7 +8,7 @@ import {
 })
 export class UserService {
   // TODO: poner las variables de usuario en el fichero enviroment.ts (mirar en el trabajo cómo se hace)
-  baseURL = 'http://localhost/ProtectoraWebApiPruebas/controller';
+  baseURL = 'http://localhost/ProtectoraWebApi/controller';
 
   constructor(private http: HttpClient) {}
 

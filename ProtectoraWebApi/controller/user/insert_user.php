@@ -15,15 +15,18 @@ if ($request) {
     //$new  = json_decode($data);
     $user = R::dispense('user');
 
-    $user->username   = $new->username;
-    $user->password   = $new->password;
-    $user->name       = $new->name;
-    $user->surname    = $new->surname;
-    $user->address    = $new->address;
-    $user->email      = $new->email;
-    $user->phone      = $new->phone;
-    $user->birth_date = $new->birth_date;
-    $user->user_type  = $new->user_type;
+    $user->username   = $request->userName;
+    $user->password   = $request->password;
+    $user->name       = $request->name;
+    $user->surname    = $request->surname;
+    $user->email      = $request->email;
+    $user->phone      = $request->phone;
+    $user->birth_date = $request->birthDate;
+    $user->street     = $request->street;
+    $user->number     = $request->number;
+    $user->floor     = $request->floor;
+    $user->door     = $request->door;
+    $user->user_type  = $request->userType;
 
     $id = R::store($user);
     ChromePhp::log('insert_user $user: ', $user);
