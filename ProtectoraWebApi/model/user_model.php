@@ -1,14 +1,14 @@
 <?php
-require_once '../lib/RedBeanPHP5_3/rb.php';
+require_once '../../lib/connection.php';
 
-R::setup('mysql:host=localhost;dbname=test',
-    'root', '');
 /**
  * Inserta un usuario en la base de datos
  * @param User $new_user Usuario
  */
 function insert_user($new_user)
 {
+    ChromePhp::log('Entra en Model: insert_user()');
+
     $user = R::dispense('user');
     // TODO comprobar si funciona esta inserción o si tiene que ser parámetro a parámetro
     $user = $new_user;
@@ -25,6 +25,8 @@ function insert_user($new_user)
 
     // TODO validaciones si existe el usuario ?
     $id = R::store($user);
+    ChromePhp::log('Model: insert_user(): $user', $user);
+    ChromePhp::log('Sale de Model: insert_user()');
 }
 
 // Comprueba la función
@@ -34,6 +36,19 @@ function prueba($name)
     $user->name = $name;
     $id         = R::store($user);
 
+}
+
+/**
+ * Obtiene todos los usuarios de la base de datos
+ * @return Array $users array de Animal multidimensional recogido de la base de datos
+ */
+function retrieve_user_all()
+{
+    $users = R::getAll('select * from user');
+    ChromePhp::log('Entra en retrieve_users_all()');
+    ChromePhp::log($users);
+    ChromePhp::log('Sale de retrieve_users_all()');
+    return $users;
 }
 
 /**

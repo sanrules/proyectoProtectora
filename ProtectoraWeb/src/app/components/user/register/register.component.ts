@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // Formularios
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user/user-service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -11,56 +12,57 @@ import { UserService } from '../../../services/user/user-service';
 export class RegisterComponent implements OnInit {
   // Variables del componente
   registerForm: FormGroup;
+  private user: User;
 
-  constructor(private formBuilder: FormBuilder, private user: UserService) {}
+  constructor(private formBuilder: FormBuilder, private userService: UserService) {}
 
   // Carga los datos una vez haya cargado lo del constructor
   ngOnInit() {
     // Crea el formulario y le agrega a un formGroup, para poder tener las validaciones y los métodos de los formularios reactivos de Angular
     this.registerForm = this.formBuilder.group({
-      userName: ['username', [Validators.required]],
-      password: ['pass', [Validators.required]],
-      email: ['email@email.com', [Validators.required, Validators.email]],
-      name: ['name', [Validators.required]],
-      surname: ['surname', [Validators.required]],
-      phone: [
-        '66666',
-        [Validators.required, Validators.minLength(9), Validators.maxLength(9)]
+      userName: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      name: ['', [Validators.required]],
+      surname: ['', [Validators.required]],
+      phone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]
       ],
-      birthDate: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(10)
-        ]
-      ],
-      street: ['street', [Validators.required]],
-      number: ['4', [Validators.required]],
-      floor: ['3', []],
-      door: ['2', []],
-      userType: ['', []]
+      birthDate: ['', [ Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      street: ['', [Validators.required]],
+      number: ['', [Validators.required]],
+      floor: ['', []],
+      door: ['', []],
+      userType: ['user', []]
     });
-    console.log(this.registerForm.value);
-    /*     this.user.registerUser('{userName: "User", email: "user@user.com", password: "1234", name: "Nombre", surname: "Apellido"}'); */
-    this.user
-      .registerUser(
-        '{"username": "User", "email": "user@user.com", "password": "1234", "name": "Nombre", "surname": "Apellido","phone": "987654231", birth_date: "10/10/2019 00:00", "address": "Direccion", "user_type": "usuario"}'
-      )
-      .subscribe((resp: any[]) => {
-        console.log(resp);
-      });
+
+/*     this.userService.getUsers().subscribe(data => {
+      this.user = new User(data);
+      console.log('Recojo valores del backend: ', this.user);
+      },
+      error => {
+        console.log('Error: ', error);
+      }
+    ); */
+
   }
 
-  dataParse() {}
-
   registerSubmit() {
-    console.log('entra en la función');
-    console.log(this.registerForm.value);
-    //this.user.registerUser();
-    /* this.user.registerUser().subscribe((resp: any[]) => {
-      console.log(resp);
-    }); */
-    this.user.registerUser('datos enviados desde angular');
+    console.log('Entra en registerSubmit()');
+
+    // Se guardan los datos del formulario en un objeto usuario
+    this.user = new User(this.registerForm.value);
+    console.log('this.user: ', this.user);
+
+    // Se convierte el objeto user a JSON para enviarlo a la API
+    let userJSON = JSON.stringify(this.user);
+    console.log('Conversión JSON: ', userJSON);
+
+    this.userService.registerUser(userJSON).subscribe(data => {
+      console.log('repuesta registerUser(data): ', data);
+      },
+      error => {
+        console.log('Error: ', error);
+      }
+    );
   }
 }
