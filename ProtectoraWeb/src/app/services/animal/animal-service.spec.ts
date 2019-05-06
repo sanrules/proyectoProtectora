@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AnimalServiceService } from './animal-service.service';
+import { AnimalService } from './animal-service';
 
 describe('AnimalServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: AnimalServiceService = TestBed.get(AnimalServiceService);
+    const service: AnimalService = TestBed.get(AnimalService);
     expect(service).toBeTruthy();
   });
 });

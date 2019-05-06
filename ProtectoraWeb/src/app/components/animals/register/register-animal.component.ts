@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AnimalServiceService } from '../../../services/animal/animal-service.service';
+import { AnimalService } from '../../../services/animal/animal-service';
+import { Animal } from 'src/app/models/animal.model';
+
 
 
 @Component({
@@ -11,45 +13,61 @@ import { AnimalServiceService } from '../../../services/animal/animal-service.se
 export class RegisterAnimalComponent implements OnInit {
 
   registerForm: FormGroup;
+  private animal: Animal;
 
-  constructor(private formBuilder: FormBuilder, private animalService: AnimalServiceService) { }
+  constructor(private formBuilder: FormBuilder, private animalService: AnimalService) { }
 
   ngOnInit() {
 
     this.registerForm = this.formBuilder.group({
-      name: ['Nombre', [Validators.required]],
-      type: ['Tipo', [Validators.required]],
-      breed: ['Raza', [Validators.required]],
-      gender: ['Genero', [Validators.required]],
-      birthDate: ['Fecha de Nacimiento', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      entranceDate: ['Fecha de Entrada', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      name: ['', [Validators.required]],
+      type: ['', [Validators.required]],
+      breed: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      birthDate: ['', [Validators.required]],
       adoptionDate: ['', []],
+      entranceDate: ['', []],
       status: ['sin adoptar', []],
-      description: ['Descripcion', [Validators.required]],
+      description: ['', [Validators.required]],
       pictures: ['', []]
-
     });
-    console.log("primer console log");
-    console.log(this.registerForm.value);
-    /*     this.user.registerUser('{userName: "User", email: "user@user.com", password: "1234", name: "Nombre", surname: "Apellido"}'); */
-    this.animalService
-      .registerAnimal(
-        '{"name": "Nombre", "type": "Gato", "breed": "Raza1", "genero": "Macho", "birth_date": "12/12/2000 00:00","entrance_date": "14/10/2018 00:00","adoption_date": "10/10/2019 00:00", "status": "sin_adoptar", "description": "Descripcion","pictures":"url_imagen"}'
-      )
-      .subscribe((resp: any[]) => {
-        console.log(resp);
-      });
 
   }
 
-  dataParse() {}
+  dataPrepare() {
+
+    const entranceDate = new Date();
+
+    let formData = {
+      "name": this.registerForm.get('name').value.trim(),
+      "type": this.registerForm.get('type').value.trim(),
+      "breed": this.registerForm.get('breed').value.trim(),
+      "gender": this.registerForm.get('gender').value.trim(),
+      "birth_date": this.registerForm.get('birthDate').value,
+      "entrance_date": entranceDate,
+      "adoption_date": this.registerForm.get('adoptionDate').value.trim(),
+      "status": this.registerForm.get('status').value,
+      "description": this.registerForm.get('description').value.trim(),
+      "pictures": this.registerForm.get('pictures').value,
+    };
+
+    return formData;
+
+  }
 
   registerSubmit() {
-    console.log("segundo console log");
+    console.log('Entra en registerSubmit()');
 
-    console.log(this.registerForm.value);
-
-    this.animalService.registerAnimal('datos enviados desde angular');
+    let formData = this.dataPrepare();
+    //formData = JSON.stringify(formData);
+    console.log('formData: ', formData);
+    this.animalService.registerAnimal(formData).subscribe(resp => {
+        // this.datosResultado = this.datosCliente.getClientes();
+        //this.formCliente.reset();
+        //this.toastr.success('Cliente dado de alta');
+        console.log('respuesta servidor: ', resp);
+    }, error => {
+        console.warn(error.message);
+    });
   }
-
 }

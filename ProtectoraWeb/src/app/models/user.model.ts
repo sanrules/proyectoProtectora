@@ -9,6 +9,7 @@ export class User {
   public birthDate: Date;
   public street: string;
   public number: number;
+  public portal: string;
   public floor: number;
   public door: string;
   public userType:string;

@@ -25,11 +25,11 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       name: ['', [Validators.required]],
       surname: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]
-      ],
+      phone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
       birthDate: ['', [ Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       street: ['', [Validators.required]],
       number: ['', [Validators.required]],
+      portal: ['', []],
       floor: ['', []],
       door: ['', []],
       userType: ['user', []]

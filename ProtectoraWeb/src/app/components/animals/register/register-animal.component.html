@@ -1,5 +1,5 @@
 <div class="container">
-    <form [formGroup]="registerForm" (onSubmit)="registerSubmit()">
+    <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
     <div class="row">
       <div class="form-group col-md-12">
         <mat-form-field>
@@ -14,7 +14,7 @@
           <mat-form-field>
             <input matInput placeholder="Tipo" type="text" formControlName="type" id="type" >
             <mat-error *ngIf="registerForm.controls['type'].errors">
-              Tipo de Animal requerido 
+              Tipo de Animal requerido
             </mat-error>
           </mat-form-field>
         </div>
@@ -45,16 +45,6 @@
             </mat-form-field>
         </div>
         <div class="form-group col-md-12">
-                <mat-form-field>
-                    <input matInput [matDatepicker]="picker" placeholder="Fecha de Entrada" formControlName="entranceDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="registerForm.controls['entranceDate'].errors">
-                      Fecha de Entrada requerida en formato DD/MM/AAAA
-                    </mat-error>
-                  </mat-form-field>
-        </div>
-        <div class="form-group col-md-12">
             <mat-form-field>
                 <textarea matInput placeholder="Descripción" formControlName="description" id="description"></textarea>
                 <mat-error *ngIf="registerForm.controls['description'].errors">
@@ -69,14 +59,15 @@
                     Archivo tipo imagenes
                   </mat-error>
                 </mat-form-field>
-              </div> 
-      </div>
+              </div>
+        </div>
         <div class="row">
           <div class="col-md-12">
-            <button mat-raised-button color="primary" (click)="registerSubmit()" [disabled]="!registerForm.valid">Registrar Animal</button>
+            <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Animal</button>
           </div>
         </div>
-        <!-- <input type="hidden" formControlName="idUser" value="1"> -->
+        <!-- <input type="hidden" formControlName="idAnimal" value=""> -->
+        <input type="hidden" formControlName="entranceDate" id="entranceDate" value="">
         <input type="hidden" formControlName="adoptionDate" id="adoptionDate" value="">
         <input type="hidden" formControlName="status" id="status" value="sin adoptar">
       </form>
