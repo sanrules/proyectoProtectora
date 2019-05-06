@@ -8,13 +8,6 @@ require_once '../../lib/connection.php';
 
 ChromePhp::log('Entra en insert_user');
 
-$incomingContentType = $_SERVER['CONTENT_TYPE'];
-
-if($incomingContentType != 'application/json') {
-    header($_SERVER['SERVER_PROTOCOL']. '500 Internal Server Error');
-    exit();
-}
-
 $postdata = file_get_contents("php://input");
 $request  = json_decode($postdata,true);
 ChromePhp::log('insert_user $postdata: ', $postdata);
