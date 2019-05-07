@@ -13,20 +13,24 @@ import { MaterialModule } from './material.module';
 // Componentes
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
-import { RegisterComponent } from './components/user/register/register.component';
+import { RegisterUserComponent } from './components/user/register/register-user.component';
 import { RegisterAnimalComponent } from './components/animals/register/register-animal.component';
+import { AdministratorNavbarComponent } from './components/administrator/administrator-navbar/administrator-navbar.component';
+import { AdminUserRegisterComponent } from './components/administrator/admin-user-register/admin-user-register.component';
+import { AdminUserManagementComponent } from './components/administrator/admin-user-management/admin-user-management.component';
 
-// Modelos
-//import { UserModel } from './models/user-model';
-//import { User } from './models/user';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent,
+    RegisterUserComponent,
     RegisterAnimalComponent,
-    NavbarComponent
-    //UserModel
+    NavbarComponent,
+    AdministratorNavbarComponent,
+    AdminUserRegisterComponent,
+    AdminUserManagementComponent,
+
   ],
   imports: [
     BrowserModule,

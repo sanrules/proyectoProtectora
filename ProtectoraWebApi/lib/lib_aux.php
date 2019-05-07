@@ -12,9 +12,10 @@ function validate_date($date)
 {
     $valid      = false;
     $valid_hour = false;
-
+    ChromePhp::log('PHP: Entra en validate_date() $postdata:');
+    ChromePhp::log('PHP: validate_date() $date: ', $date);
     // Comprobamos que el formato sea el correcto (j/m/Y)
-    if (strpos($date, '/') !== false) {
+    if (strpos($date, '-') !== false) {
         if (strpos($date, ' ') !== false) {
             // Si tiene minutos y segundos se toma solo la parte del día
             $date  = explode(' ', $date)[0];
@@ -31,6 +32,6 @@ function validate_date($date)
         // Comprobamos que existe en el calendario
         $valid = (count($adate) == 3 && checkdate($adate[1], $adate[0], $adate[2])) && valid_hour ? true : false;
     }
-
+    ChromePhp::log('PHP: validate_date() $valid: ', $valid);
     return $valid;
 }

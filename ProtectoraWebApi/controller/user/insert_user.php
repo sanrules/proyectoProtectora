@@ -22,7 +22,8 @@ try {
         $name       = filter_var($request['name'], FILTER_SANITIZE_STRING);
         $surname    = filter_var($request['surname'], FILTER_SANITIZE_STRING);
         $phone      = filter_var($request['phone'], FILTER_SANITIZE_NUMBER_INT);
-        $birth_date = validate_date($request['birthDate']) ? $request['birth_date'] : '';
+        $birth_date = new DateTime($request['birthDate']);
+        //$birth_date = validate_date($request['birthDate']) ? $request['birth_date'] : '';
         $street     = filter_var($request['street'], FILTER_SANITIZE_STRING);
         $number     = filter_var($request['number'], FILTER_SANITIZE_NUMBER_INT);
         $portal     = filter_var($request['street'], FILTER_SANITIZE_STRING);
@@ -40,12 +41,12 @@ try {
             $user->password   = $password;
             $user->name       = $name;
             $user->surname    = $surname;
-            $user->phone      = $phone;
+            $user->phone      = intval($phone);
             $user->birth_date = $birth_date;
             $user->street     = $street;
-            $user->number     = $number;
+            $user->number     = intval($number);
             $user->portal     = $portal;
-            $user->floor      = $floor;
+            $user->floor      = intval($floor);
             $user->door       = $door;
             $user->user_type  = $user_type;
 

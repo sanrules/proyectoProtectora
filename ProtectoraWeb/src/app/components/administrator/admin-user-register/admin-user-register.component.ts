@@ -5,20 +5,21 @@ import { UserService } from '../../../services/user/user-service';
 import { User } from 'src/app/models/user.model';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-admin-user-register',
+  templateUrl: './admin-user-register.component.html',
+  styleUrls: ['./admin-user-register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class AdminUserRegisterComponent implements OnInit {
+
   // Variables del componente
   registerForm: FormGroup;
   private user: User;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {}
+  constructor(private formBuilder: FormBuilder, private userService: UserService) { }
 
-  // Carga los datos una vez haya cargado lo del constructor
   ngOnInit() {
-    // Crea el formulario y le agrega a un formGroup, para poder tener las validaciones y los métodos de los formularios reactivos de Angular
+
+    // Carga el formulario.
     this.registerForm = this.formBuilder.group({
       userName: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -32,18 +33,8 @@ export class RegisterComponent implements OnInit {
       portal: ['', []],
       floor: ['', []],
       door: ['', []],
-      userType: ['user', []]
+      userType: ['', []]
     });
-
-    /* this.userService.getUsers().subscribe(data => {
-      this.user = new User(data);
-      console.log('Recojo valores del backend: ', this.user);
-      },
-      error => {
-        console.log('Error: ', error);
-      }
-    ); */
-
   }
 
   registerSubmit() {
@@ -54,7 +45,7 @@ export class RegisterComponent implements OnInit {
     console.log('this.user: ', this.user);
 
     // Se convierte el objeto user a JSON para enviarlo a la API
-    let userJSON = JSON.stringify(this.user);
+    const userJSON = JSON.stringify(this.user);
     console.log('Conversión JSON: ', userJSON);
 
     this.userService.registerUser(userJSON).subscribe(data => {
@@ -65,4 +56,5 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+
 }
