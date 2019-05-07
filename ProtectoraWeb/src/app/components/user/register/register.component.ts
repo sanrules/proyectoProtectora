@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
       userType: ['user', []]
     });
 
-/*     this.userService.getUsers().subscribe(data => {
+    /* this.userService.getUsers().subscribe(data => {
       this.user = new User(data);
       console.log('Recojo valores del backend: ', this.user);
       },

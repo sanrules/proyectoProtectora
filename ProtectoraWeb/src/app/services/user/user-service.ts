@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpClient
+  HttpClient, HttpHeaders, HttpErrorResponse
 } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,14 @@ import {
 export class UserService {
   // TODO: poner las variables de usuario en el fichero enviroment.ts (mirar en el trabajo cómo se hace)
   baseURL = 'http://localhost/ProtectoraWebApi/controller';
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   constructor(private http: HttpClient) {}
 
   // Solicita a la API una lista con todos los usuarios.
-  getUsers() {
-    console.log('Respuesta backEnd => get_user_all()');
+  getUsers(): Observable<any> {
     return this.http.get(`${this.baseURL}/user/get_all_users.php`);
   }
 
@@ -22,9 +25,8 @@ export class UserService {
   getuserById() {}
 
   // Da de alta un nuevo usuario
-  registerUser(data) {
-    //return this.http.get(`${this.baseURL}/user/insert_user.php?createuser=${data}`);
-    return this.http.post(`${this.baseURL}/user/insert_user.php`, data);
+  registerUser(data): Observable<any> {
+    return this.http.post(`${this.baseURL}/user/insert_user.php`, data, this.httpOptions);
   }
 
   // Modifica un usuario

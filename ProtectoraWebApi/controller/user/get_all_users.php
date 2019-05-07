@@ -8,10 +8,10 @@
 require_once '../../lib/connection.php';
 require_once '../../model/user_model.php';
 
-ChromePhp::log('get_user_all()');
+ChromePhp::log('PHP:get_user_all()');
 
 $users = retrieve_user_all();
-ChromePhp::log($users);
+ChromePhp::log('PHP: retrieve_user_all() response', $users);
 
 echo json_encode($users);
 header('Content-Type: application/json');
