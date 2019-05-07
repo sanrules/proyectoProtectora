@@ -14,8 +14,8 @@ function validate_date($date)
     $valid_hour = false;
 
     // Comprobamos que el formato sea el correcto (j/m/Y)
-    if (strpos($date, '/')) {
-        if (strpos($date, ' ')) {
+    if (strpos($date, '/') !== false) {
+        if (strpos($date, ' ') !== false) {
             // Si tiene minutos y segundos se toma solo la parte del día
             $date  = explode(' ', $date)[0];
             $ahour = explode(':', $date[1]);
