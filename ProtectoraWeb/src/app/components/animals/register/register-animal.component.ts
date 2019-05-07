@@ -27,7 +27,7 @@ export class RegisterAnimalComponent implements OnInit {
       birthDate: ['', [Validators.required]],
       adoptionDate: ['', []],
       entranceDate: ['', []],
-      status: ['sin adoptar', []],
+      status: ['en adopción', []],
       description: ['', [Validators.required]],
       pictures: ['', []]
     });
@@ -37,18 +37,18 @@ export class RegisterAnimalComponent implements OnInit {
   dataPrepare() {
 
     const entranceDate = new Date();
-
+   /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
     let formData = {
       "name": this.registerForm.get('name').value.trim(),
       "type": this.registerForm.get('type').value.trim(),
       "breed": this.registerForm.get('breed').value.trim(),
       "gender": this.registerForm.get('gender').value.trim(),
-      "birth_date": this.registerForm.get('birthDate').value,
-      "entrance_date": entranceDate,
-      "adoption_date": this.registerForm.get('adoptionDate').value.trim(),
+      "birthDate": this.registerForm.get('birthDate').value,
+      "entranceDate": entranceDate,
+      "adoptionDate": entranceDate,
       "status": this.registerForm.get('status').value,
       "description": this.registerForm.get('description').value.trim(),
-      "pictures": this.registerForm.get('pictures').value,
+      "pictures":  this.registerForm.get('pictures').value,
     };
 
     return formData;
@@ -58,16 +58,19 @@ export class RegisterAnimalComponent implements OnInit {
   registerSubmit() {
     console.log('Entra en registerSubmit()');
 
-    let formData = this.dataPrepare();
-    //formData = JSON.stringify(formData);
-    console.log('formData: ', formData);
-    this.animalService.registerAnimal(formData).subscribe(resp => {
+    this.animal = new Animal(this.dataPrepare());
+    console.log(this.animal);
+
+    let animalJSON = JSON.stringify(this.animal);
+    console.log('Conversión JSON: ', animalJSON);
+
+    this.animalService.registerAnimal(animalJSON).subscribe(data => {
         // this.datosResultado = this.datosCliente.getClientes();
         //this.formCliente.reset();
         //this.toastr.success('Cliente dado de alta');
-        console.log('respuesta servidor: ', resp);
+        console.log('respuesta registerAnimal(data): ', data);
     }, error => {
-        console.warn(error.message);
+        console.warn('Error: ', error);
     });
   }
 }
