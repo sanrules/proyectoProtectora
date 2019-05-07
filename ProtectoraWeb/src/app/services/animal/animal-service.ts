@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
 
@@ -10,7 +10,9 @@ export class AnimalService {
 
   // TODO: poner las variables de usuario en el fichero enviroment.ts (mirar en el trabajo cómo se hace)
   baseURL = 'http://localhost/ProtectoraWebApi/controller';
-
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
   constructor(private http: HttpClient) {}
 
   // Solicita a la API una lista con todos los usuarios.
@@ -23,9 +25,9 @@ export class AnimalService {
   getAnimalById() {}
 
   // Da de alta un nuevo usuario
-  registerAnimal(data) {
+  registerAnimal(data): Observable<any> {
     //return this.http.get(`${this.baseURL}/user/insert_user.php?createuser=${data}`);
-    return this.http.post(`${this.baseURL}/animal/insert_animal.php`, data);
+    return this.http.post(`${this.baseURL}/animal/insert_animal.php`, data, this.httpOptions);
   }
 
   // Modifica un usuario
