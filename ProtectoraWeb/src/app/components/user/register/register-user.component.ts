@@ -21,13 +21,15 @@ export class RegisterUserComponent implements OnInit {
   ngOnInit() {
     // Crea el formulario y le agrega a un formGroup, para poder tener las validaciones y los métodos de los formularios reactivos de Angular
     this.registerForm = this.formBuilder.group({
-      userName: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      userName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{4,16}$/)]],
+      password: ['', [Validators.required,
+                      Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,16}$/)
+                     ]],
       email: ['', [Validators.required, Validators.email]],
-      name: ['', [Validators.required]],
-      surname: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
-      birthDate: ['', [ Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      name: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚ]{1}[a-záéíúóç]+[ -]?){1,2}$/)]],
+      surname: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚ]{1}[a-záéíúóç]+[ -]?){1,2}$/)]],
+      phone: ['', [Validators.required, Validators.pattern(/^[6789]{1}[0-9]{8}$/)]],
+      birthDate: ['', [ Validators.required]],
       street: ['', [Validators.required]],
       number: ['', [Validators.required]],
       portal: ['', []],
@@ -35,23 +37,46 @@ export class RegisterUserComponent implements OnInit {
       door: ['', []],
       userType: ['user', []]
     });
+  }
 
-    /* this.userService.getUsers().subscribe(data => {
-      this.user = new User(data);
-      console.log('Recojo valores del backend: ', this.user);
-      },
-      error => {
-        console.log('Error: ', error);
-      }
-    ); */
+  dateToTimestamp(date) {
 
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
+    date = Date.UTC(year, month, day, 0, 0, 0);
+    console.log('date: ', date);
+
+    return date;
+  }
+  // Prepara los datos del formulario para enviarlos en el formato correcto a la API
+  dataPrepare() {
+
+    const formData = {
+      "userName": this.registerForm.get('userName').value.trim(),
+      "password": this.registerForm.get('password').value.trim(),
+      "email": this.registerForm.get('email').value.trim(),
+      "name": this.registerForm.get('name').value.trim(),
+      "surname": this.registerForm.get('surname').value.trim(),
+      "phone": this.registerForm.get('phone').value,
+      "birthDate": this.dateToTimestamp(this.registerForm.get('birthDate').value),
+      "street": this.registerForm.get('street').value.trim(),
+      "number": this.registerForm.get('number').value,
+      "portal": this.registerForm.get('portal').value.trim(),
+      "floor":  this.registerForm.get('floor').value,
+      "door":  this.registerForm.get('door').value.trim(),
+      "userType":  this.registerForm.get('userType').value.trim(),
+    };
+
+    return formData;
   }
 
   registerSubmit() {
     console.log('Entra en registerSubmit()');
 
     // Se guardan los datos del formulario en un objeto usuario
-    this.user = new User(this.registerForm.value);
+    this.user = new User(this.dataPrepare());
     console.log('this.user: ', this.user);
 
     // Se convierte el objeto user a JSON para enviarlo a la API
@@ -66,4 +91,5 @@ export class RegisterUserComponent implements OnInit {
       }
     );
   }
+
 }

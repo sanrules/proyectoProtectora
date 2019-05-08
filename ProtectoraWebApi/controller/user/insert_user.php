@@ -22,7 +22,7 @@ try {
         $name       = filter_var($request['name'], FILTER_SANITIZE_STRING);
         $surname    = filter_var($request['surname'], FILTER_SANITIZE_STRING);
         $phone      = filter_var($request['phone'], FILTER_SANITIZE_NUMBER_INT);
-        $birth_date = new DateTime($request['birthDate']);
+        $birth_date = filter_var($request['birthDate'], FILTER_SANITIZE_NUMBER_INT) / 1000;
         //$birth_date = validate_date($request['birthDate']) ? $request['birth_date'] : '';
         $street     = filter_var($request['street'], FILTER_SANITIZE_STRING);
         $number     = filter_var($request['number'], FILTER_SANITIZE_NUMBER_INT);
@@ -34,6 +34,10 @@ try {
         // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($username != '' || $email != '' || $password != '' || $name != '' || $surname != '' || $phone != '' || $birth_date != '' || $street != '' || $user_type != '') {
 
+            ChromePhp::log('PHP: insert_user $birth_date: ', $birth_date);
+            $birth_date = new DateTime("@$birth_date");
+            $birth_date->format("Y-m-d H:i:s");
+            ChromePhp::log('PHP: insert_user $birth_date: ', $birth_date);
             $user = R::dispense('user');
 
             $user->username   = $username;
