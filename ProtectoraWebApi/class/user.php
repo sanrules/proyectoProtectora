@@ -10,7 +10,11 @@ class User
     public $surname    = ''; // surname
     public $phone      = ''; // phone
     public $birth_date = ''; // birthDate
-    public $address    = ''; // address
+    public $street     = ''; // street
+    public $number     = ''; // number
+    public $portal     = ''; // portal
+    public $floor      = ''; // floor
+    public $door       = ''; // door
     public $user_type  = ''; // userType
 
     // public function __construct($name, $type, $breed, $gender, $birth_date, $entrance_date, $adoption_date = null, $status, $description, $pictures)
