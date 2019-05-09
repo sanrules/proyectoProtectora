@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AnimalService } from '../../../services/animal/animal-service';
 import { Animal } from 'src/app/models/animal.model';
+
 
 
 
@@ -14,21 +15,30 @@ export class RegisterAnimalComponent implements OnInit {
 
   registerForm: FormGroup;
   private animal: Animal;
-
+  public generos: any = [{
+    id: 'Macho',
+    name: 'Macho'},
+    {
+    id: 'Hembra',
+    name: 'Hembra'
+    }];
+ 
   constructor(private formBuilder: FormBuilder, private animalService: AnimalService) { }
 
   ngOnInit() {
 
+    const generosControl = this.generos.map(c => new FormControl(false, Validators.required));
+
     this.registerForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
       type: ['', [Validators.required]],
       breed: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
+      gender: ['' , [Validators.required]],
       birthDate: ['', [Validators.required]],
       adoptionDate: ['', []],
       entranceDate: ['', []],
       status: ['en adopción', []],
-      description: ['', [Validators.required]],
+      description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
       pictures: ['', []]
     });
 
