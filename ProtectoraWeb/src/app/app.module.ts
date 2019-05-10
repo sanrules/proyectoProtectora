@@ -18,6 +18,7 @@ import { RegisterAnimalComponent } from './components/animals/register/register-
 import { AdministratorNavbarComponent } from './components/administrator/administrator-navbar/administrator-navbar.component';
 import { AdminUserRegisterComponent } from './components/administrator/admin-user-register/admin-user-register.component';
 import { AdminUserManagementComponent } from './components/administrator/admin-user-management/admin-user-management.component';
+import { AdminAnimalManagementComponent } from './components/administrator/admin-animal-management/admin-animal-management.component';
 
 
 
@@ -30,6 +31,7 @@ import { AdminUserManagementComponent } from './components/administrator/admin-u
     AdministratorNavbarComponent,
     AdminUserRegisterComponent,
     AdminUserManagementComponent,
+    AdminAnimalManagementComponent
 
   ],
   imports: [
