@@ -16,9 +16,9 @@ export class AnimalService {
   constructor(private http: HttpClient) {}
 
   // Solicita a la API una lista con todos los usuarios.
-  getAnimals() {
+  getAnimals(): Observable<any> {
     console.log('Respuesta backEnd => get_animal_all()');
-    return this.http.get(`${this.baseURL}/user/get_all_animals.php`);
+    return this.http.get(`${this.baseURL}/animal/get_all_animals.php`);
   }
 
   // Solicita a la API el usuario que se le manda por parámetro
