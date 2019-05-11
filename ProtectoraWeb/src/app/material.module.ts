@@ -8,7 +8,8 @@ import {
 	MAT_DATE_LOCALE,
 	MatButtonModule,
 	MatTableModule,
-	MatPaginatorModule
+	MatPaginatorModule,
+	MatRadioModule
 } from '@angular/material';
 
 @NgModule({
@@ -19,7 +20,8 @@ import {
 		MatNativeDateModule,
 		MatButtonModule,
 		MatTableModule,
-		MatPaginatorModule
+		MatPaginatorModule,
+		MatRadioModule
 	],
 	exports: [
 		MatFormFieldModule,
@@ -28,7 +30,8 @@ import {
 		MatNativeDateModule,
 		MatButtonModule,
 		MatTableModule,
-		MatPaginatorModule
+		MatPaginatorModule,
+		MatRadioModule
 	],
 	providers: [
 		{provide: MAT_DATE_LOCALE, useValue: 'es-ES'},

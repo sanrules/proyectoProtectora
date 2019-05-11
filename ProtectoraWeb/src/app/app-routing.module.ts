@@ -6,6 +6,7 @@ import { RegisterUserComponent } from './components/user/register/register-user.
 import { RegisterAnimalComponent } from './components/animals/register/register-animal.component';
 import { AdminUserRegisterComponent } from './components/administrator/admin-user-register/admin-user-register.component';
 import { AdminUserManagementComponent } from './components/administrator/admin-user-management/admin-user-management.component';
+import { AdminAnimalManagementComponent } from './components/administrator/admin-animal-management/admin-animal-management.component';
 
 const routes: Routes = [
   {path: 'home', component: RegisterUserComponent},
@@ -13,7 +14,7 @@ const routes: Routes = [
   {path: 'admin-user-register', component: AdminUserRegisterComponent},
   {path: 'admin-user-management', component: AdminUserManagementComponent},
   {path: 'admin-animal-register', component: RegisterAnimalComponent},
-  {path: 'admin-animal-management', component: RegisterAnimalComponent},
+  {path: 'admin-animal-management', component: AdminAnimalManagementComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'home'}
 ];
 

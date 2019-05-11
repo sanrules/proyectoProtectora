@@ -1,8 +1,8 @@
 <?php
-
-require '../lib/RedBeanPHP5_3/rb.php';
-R::setup('mysql:host=localhost;dbname=test',
-    'root', '');
+require_once '../../lib/connection.php';
+/* require '../lib/RedBeanPHP5_3/rb.php'; */
+/* R::setup('mysql:host=localhost;dbname=test',
+    'root', ''); */
 
 /**
  * Inserta un animal en la base de datos
