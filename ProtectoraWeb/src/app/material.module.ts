@@ -9,7 +9,10 @@ import {
 	MatButtonModule,
 	MatTableModule,
 	MatPaginatorModule,
-	MatRadioModule
+	MatSortModule,
+	MatRadioModule,
+	MatIconModule
+
 } from '@angular/material';
 
 @NgModule({
@@ -21,7 +24,9 @@ import {
 		MatButtonModule,
 		MatTableModule,
 		MatPaginatorModule,
-		MatRadioModule
+		MatSortModule,
+		MatRadioModule,
+		MatIconModule
 	],
 	exports: [
 		MatFormFieldModule,
@@ -31,7 +36,9 @@ import {
 		MatButtonModule,
 		MatTableModule,
 		MatPaginatorModule,
-		MatRadioModule
+		MatSortModule,
+		MatRadioModule,
+		MatIconModule
 	],
 	providers: [
 		{provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
