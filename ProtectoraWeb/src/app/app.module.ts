@@ -14,11 +14,12 @@ import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { RegisterUserComponent } from './components/user/register/register-user.component';
-import { RegisterAnimalComponent } from './components/animals/register/register-animal.component';
+import { RegisterAnimalComponent } from './components/administrator/admin-animal-register/register-animal.component';
 import { AdministratorNavbarComponent } from './components/administrator/administrator-navbar/administrator-navbar.component';
 import { AdminUserRegisterComponent } from './components/administrator/admin-user-register/admin-user-register.component';
 import { AdminUserManagementComponent } from './components/administrator/admin-user-management/admin-user-management.component';
 import { AdminAnimalManagementComponent } from './components/administrator/admin-animal-management/admin-animal-management.component';
+import { FormularioAnimalModal } from './components/shared/formulario-animal-modal/formulario-animal-modal.component';
 
 
 
@@ -31,7 +32,9 @@ import { AdminAnimalManagementComponent } from './components/administrator/admin
     AdministratorNavbarComponent,
     AdminUserRegisterComponent,
     AdminUserManagementComponent,
-    AdminAnimalManagementComponent
+    AdminAnimalManagementComponent,
+    FormularioAnimalModal
+
 
   ],
   imports: [
@@ -42,8 +45,10 @@ import { AdminAnimalManagementComponent } from './components/administrator/admin
     ReactiveFormsModule,
     MaterialModule,
     BrowserAnimationsModule
+
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [FormularioAnimalModal]
 })
 export class AppModule {}

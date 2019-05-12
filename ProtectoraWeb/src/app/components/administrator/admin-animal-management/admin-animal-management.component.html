@@ -37,19 +37,11 @@
         <td mat-cell *matCellDef="let animales"> {{animales.entance_date}} </td>
       </ng-container>
 
-      <!-- Modificar -->
-      <ng-container matColumnDef="update">
-        <th mat-header-cell *matHeaderCellDef> Modificar </th>
+      <!-- Acceder -->
+      <ng-container matColumnDef="acces">
+        <th mat-header-cell *matHeaderCellDef> Acceder </th>
         <td mat-cell *matCellDef="let animales">
-          <button type="button" class="btn btn-primary">Modificar</button>
-        </td>
-      </ng-container>
-
-      <!-- Eliminar -->
-      <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef> Eliminar </th>
-        <td mat-cell *matCellDef="let animales">
-          <button type="button" class="btn btn-danger">Eliminar</button>
+          <button type="button" class="btn btn-primary" (click)="openModal(animales)">Acceder</button>
         </td>
       </ng-container>
 

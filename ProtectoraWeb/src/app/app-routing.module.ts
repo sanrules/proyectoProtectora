@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Componentes
 import { RegisterUserComponent } from './components/user/register/register-user.component';
-import { RegisterAnimalComponent } from './components/animals/register/register-animal.component';
+import { RegisterAnimalComponent } from './components/administrator/admin-animal-register/register-animal.component';
 import { AdminUserRegisterComponent } from './components/administrator/admin-user-register/admin-user-register.component';
 import { AdminUserManagementComponent } from './components/administrator/admin-user-management/admin-user-management.component';
 import { AdminAnimalManagementComponent } from './components/administrator/admin-animal-management/admin-animal-management.component';
