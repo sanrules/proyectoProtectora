@@ -21,6 +21,7 @@ export class RegisterUserComponent implements OnInit {
   ngOnInit() {
     // Crea el formulario y le agrega a un formGroup, para poder tener las validaciones y los métodos de los formularios reactivos de Angular
     this.registerForm = this.formBuilder.group({
+      idUser: ['', []],
       userName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{4,16}$/)]],
       password: ['', [Validators.required,
                       Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,16}$/)
@@ -54,6 +55,7 @@ export class RegisterUserComponent implements OnInit {
   dataPrepare() {
 
     const formData = {
+      "idUser": this.registerForm.get('idUser').value,
       "userName": this.registerForm.get('userName').value.trim(),
       "password": this.registerForm.get('password').value.trim(),
       "email": this.registerForm.get('email').value.trim(),
@@ -76,13 +78,18 @@ export class RegisterUserComponent implements OnInit {
     console.log('Entra en registerSubmit()');
 
     // Se guardan los datos del formulario en un objeto usuario
-    this.user = new User(this.dataPrepare());
+    // this.user = new User(this.dataPrepare());
+    this.user = this.dataPrepare();
     console.log('this.user: ', this.user);
+
+    // Se borra el campo de idUser para que no se envíe al back y se autogenere.
+    delete this.user.idUser;
 
     // Se convierte el objeto user a JSON para enviarlo a la API
     const userJSON = JSON.stringify(this.user);
     console.log('Conversión JSON: ', userJSON);
 
+    // Se envían los datos mediante post a la API
     this.userService.registerUser(userJSON).subscribe(data => {
       console.log('repuesta registerUser(data): ', data);
       },

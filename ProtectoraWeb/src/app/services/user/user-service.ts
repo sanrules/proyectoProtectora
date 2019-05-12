@@ -28,11 +28,7 @@ export class UserService {
 
   // Da de alta un nuevo usuario
   registerUser(data): Observable<any> {
-    return this.http.post(
-      `${this.baseURL}/user/insert_user.php`,
-      data,
-      this.httpOptions
-    );
+    return this.http.post(`${this.baseURL}/user/insert_user.php`, data, this.httpOptions);
   }
 
   // Modifica un usuario

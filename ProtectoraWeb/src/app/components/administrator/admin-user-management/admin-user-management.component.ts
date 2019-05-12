@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../../../models/user.model';
 import { UserService } from 'src/app/services/user/user-service';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 
 @Component({
   selector: 'app-admin-user-management',
@@ -14,13 +14,16 @@ export class AdminUserManagementComponent implements OnInit {
   displayedColumns: string[] = ['id', 'user', 'email', 'update', 'delete'];
   dataSource = new MatTableDataSource(this.usuarios);
 
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(private userService: UserService) { }
 
-  @ViewChild(MatSort) sort: MatSort;
   ngOnInit() {
 
     this.usuarios = this.userService.getUsers().subscribe(data => {
-      console.log('repuesta getUser(): ', data);
+      this.dataSource.data = data as User[];
+      console.log('datasource: ', this.dataSource.data);
       },
       error => {
         console.log('Error: ', error);
@@ -29,5 +32,13 @@ export class AdminUserManagementComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  public doFilter = (value: string) => {
+      this.dataSource.filter = value.trim().toLocaleLowerCase();
+    }
 
 }
