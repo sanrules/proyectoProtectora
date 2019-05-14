@@ -1,8 +1,7 @@
 <h1 mat-dialog-title>Modificacion de animal</h1>
 <div mat-dialog-content>
 <div class="container">
-    <form [formGroup]="registerForm" >
-        <!-- (ngSubmit)="registerSubmit()" -->
+    <form [formGroup]="registerForm" (ngSubmit)="guardar()">
     <div class="row">
       <div class="form-group col-md-12">
         <mat-form-field>
@@ -79,15 +78,14 @@
         
                 <div class="row">
                     <div class="col-md-12">
-                        <button mat-raised-button color="primary" [disabled]="!registerForm.valid" (onclick)="onsubmit()">Guardar</button>
-                        <button mat-raised-button color="warn" >Borrar</button>
+                        <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Guardar</button>
+                        <button mat-raised-button color="warn" (onclick)="borrar()">Borrar</button>
                         <button mat-raised-button color="basic" (click)="onClose()">Cerrar</button>
                     </div>
                 </div>
         </form>
       </div>
 
-      
 </div>
 <div mat-dialog-actions>
 

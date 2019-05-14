@@ -31,17 +31,41 @@ import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
             description: [this.data.description, [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
             pictures: [this.data.pictures, []]
           });
-
-
     }
+
+    dataPrepare() {
+
+      /* const entranceDate = new Date(); */
+     /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
+      let formData = {
+        "name": this.registerForm.get('name').value.trim(),
+        "type": this.registerForm.get('type').value.trim(),
+        "breed": this.registerForm.get('breed').value.trim(),
+        "gender": this.registerForm.get('gender').value.trim(),
+        "birthDate": this.registerForm.get('birthDate').value,
+        "entranceDate": this.registerForm.get('entranceDate').value,
+        "adoptionDate": this.registerForm.get('adoptionDate').value,
+        "status": this.registerForm.get('status').value,
+        "description": this.registerForm.get('description').value.trim(),
+        "pictures":  this.registerForm.get('pictures').value,
+      };
+  
+      return formData;
+  
+    }
+
     onClose(): void {
       this.dialogRef.close();
     }
 
-    onsubmit(){
+    guardar(){
 
-      console.log("formulario: ",this.registerForm);
+      console.log("formulario: ", this.dataPrepare());
 
+    }
+    borrar(){
+
+      console.log("borrar: ");
     }
 
 }

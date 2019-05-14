@@ -23,7 +23,7 @@ export class AdminUserRegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       userName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{4,16}$/)]],
       password: ['', [Validators.required,
-                      Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,16}$/)
+                    /*   Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,16}$/) */
                      ]],
       email: ['', [Validators.required, Validators.email]],
       name: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚ]{1}[a-záéíúóç]+[ -]?){1,2}$/)]],
@@ -78,6 +78,7 @@ export class AdminUserRegisterComponent implements OnInit {
 
     // Se guardan los datos del formulario en un objeto usuario
     // this.user = new User(this.dataPrepare());
+    console.log('this.user: ', this.dataPrepare());
     this.user = this.dataPrepare();
     console.log('this.user: ', this.user);
 

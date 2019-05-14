@@ -11,23 +11,22 @@ import { FormularioAnimalModal } from '../../shared/formulario-animal-modal/form
     styleUrls: ['./admin-animal-management.component.css']
   })
   export class AdminAnimalManagementComponent implements OnInit {
-    objAnimales: any;
+
     animales: any;
-    displayedColumns: string[] = ['id', 'name', 'type', 'breed', 'birthDate', 'entarnceDate', 'acces'];
+    displayedColumns: string[] = ['id', 'name', 'type', 'breed', 'birthDate', 'entranceDate', 'acces', 'delete'];
+    dataSource = new MatTableDataSource(this.animales);
+
     constructor(private animalService: AnimalService,
                 private dialog: MatDialog) { }
-    dataSource;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {
       this.animales = this.animalService.getAnimals().subscribe(data => {
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.sort = this.sort;
-        this.objAnimales = data;
-       
-        console.log('repuesta getAnimals(): ', data);
+        this.dataSource.data = data as Animal[];
+
+        console.log('repuesta getAnimals(): ', this.dataSource.data);
         },
         error => {
           console.log('Error: ', error);
@@ -36,6 +35,10 @@ import { FormularioAnimalModal } from '../../shared/formulario-animal-modal/form
       );
 
 
+    }
+    ngAfterViewInit(): void {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     }
     openModal(animales) {
       console.log("row: ", animales);

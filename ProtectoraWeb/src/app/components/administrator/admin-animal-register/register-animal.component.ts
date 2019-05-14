@@ -44,6 +44,18 @@ export class RegisterAnimalComponent implements OnInit {
 
   }
 
+  dateToTimestamp(date) {
+
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
+    date = Date.UTC(year, month, day, 0, 0, 0);
+    console.log('date: ', date);
+
+    return date;
+  }
+
   dataPrepare() {
 
     const entranceDate = new Date();
@@ -53,9 +65,9 @@ export class RegisterAnimalComponent implements OnInit {
       "type": this.registerForm.get('type').value.trim(),
       "breed": this.registerForm.get('breed').value.trim(),
       "gender": this.registerForm.get('gender').value.trim(),
-      "birthDate": this.registerForm.get('birthDate').value,
-      "entranceDate": entranceDate,
-      "adoptionDate": entranceDate,
+      "birthDate": this.dateToTimestamp(this.registerForm.get('birthDate').value),
+      "entranceDate": this.dateToTimestamp(entranceDate),
+      "adoptionDate": this.dateToTimestamp(entranceDate) ,
       "status": this.registerForm.get('status').value,
       "description": this.registerForm.get('description').value.trim(),
       "pictures":  this.registerForm.get('pictures').value,
