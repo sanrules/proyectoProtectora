@@ -19,19 +19,42 @@ import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 
       console.log("data:", this.data);
 
-        this.registerForm = this.formBuilder.group({
-            name: [this.data.name, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-            type: [this.data.type, [Validators.required]],
-            breed: [this.data.breed, [Validators.required]],
-            gender: [this.data.gender , [Validators.required]],
-            birthDate: [this.data.birthDate, [Validators.required]],
-            adoptionDate: [this.data.adoptionDate, []],
-            entranceDate: [this.data.entranceDate, []],
-            status: [this.data.adoptionDate, []],
-            description: [this.data.description, [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
-            pictures: [this.data.pictures, []]
+      this.registerForm = this.formBuilder.group({
+            name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+            type: ['', [Validators.required]],
+            breed: ['', [Validators.required]],
+            gender: ['', [Validators.required]],
+            birthDate: ['', [Validators.required]],
+            adoptionDate: ['', []],
+            entranceDate: ['', []],
+            status: ['', []],
+            description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
+            pictures: ['', []]
           });
+        
+      this.setDatosUpdate(this.data);
     }
+    public spararFechaYHora(fecha) {
+      let arrayFechaYHora = fecha.split(" ");
+      let arrayfecha = arrayFechaYHora[0].split("-");
+      fecha = new Date(arrayfecha[0],(arrayfecha[1]-1),arrayfecha[2]);
+      return fecha;
+    }
+
+    public setDatosUpdate(data) {
+
+      this.registerForm.get('name').setValue(data.name);
+      this.registerForm.get('type').setValue(data.type);
+      this.registerForm.get('breed').setValue(data.breed);
+      this.registerForm.get('gender').setValue(data.gender);
+      this.registerForm.get('birthDate').setValue(this.spararFechaYHora(data.birth_date));
+      this.registerForm.get('adoptionDate').setValue(data.adoption_date);
+      this.registerForm.get('entranceDate').setValue(this.spararFechaYHora(data.entrance_date));
+      this.registerForm.get('status').setValue(data.status);
+      this.registerForm.get('description').setValue(data.description);
+      this.registerForm.get('pictures').setValue(data.pictures);
+
+  }
 
     dataPrepare() {
 
@@ -49,9 +72,9 @@ import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
         "description": this.registerForm.get('description').value.trim(),
         "pictures":  this.registerForm.get('pictures').value,
       };
-  
+
       return formData;
-  
+
     }
 
     onClose(): void {
