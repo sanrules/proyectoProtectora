@@ -2,19 +2,20 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Componentes
-import { RegisterUserComponent } from './components/user/register/register-user.component';
-import { RegisterAnimalComponent } from './components/administrator/admin-animal-register/register-animal.component';
-import { AdminUserRegisterComponent } from './components/administrator/admin-user-register/admin-user-register.component';
-import { AdminUserManagementComponent } from './components/administrator/admin-user-management/admin-user-management.component';
-import { AdminAnimalManagementComponent } from './components/administrator/admin-animal-management/admin-animal-management.component';
+import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
+import { AdminUserRegisterComponent } from './components/admin/users/user-register/admin-user-register.component';
+import { UserManagementComponent } from './components/admin/users/user-management/user-management.component';
+import { AnimalRegisterComponent } from './components/admin/animals/animal-register/animal-register.component';
+import { AnimalManagementComponent } from './components/admin/animals/animal-management/animal-management.component';
+
 
 const routes: Routes = [
-  {path: 'home', component: RegisterUserComponent},
-  {path: 'register-user', component: RegisterUserComponent},
-  {path: 'admin-user-register', component: AdminUserRegisterComponent},
-  {path: 'admin-user-management', component: AdminUserManagementComponent},
-  {path: 'admin-animal-register', component: RegisterAnimalComponent},
-  {path: 'admin-animal-management', component: AdminAnimalManagementComponent},
+  {path: 'home', component: UserRegisterComponent},
+  {path: 'registro', component: UserRegisterComponent},
+  {path: 'admin/user/register', component: AdminUserRegisterComponent},
+  {path: 'admin/user/management', component: UserManagementComponent},
+  {path: 'admin/animal/register', component: AnimalRegisterComponent},
+  {path: 'admin/animal/management', component: AnimalManagementComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'home'}
 ];
 

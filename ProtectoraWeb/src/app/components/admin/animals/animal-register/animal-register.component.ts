@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AnimalService } from '../../../services/animal/animal-service';
+import { AnimalService } from '../../../../services/animal/animal-service';
 import { Animal } from 'src/app/models/animal.model';
 
 
 
 
 @Component({
-  selector: 'app-registro-animal',
-  templateUrl: './register-animal.component.html',
-  styleUrls: ['./register-animal.component.css']
+  selector: 'app-admin/animal/register',
+  templateUrl: './animal-register.component.html',
+  styleUrls: ['./animal-register.component.css']
 })
-export class RegisterAnimalComponent implements OnInit {
+export class AnimalRegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   private animal: Animal;
@@ -22,7 +22,7 @@ export class RegisterAnimalComponent implements OnInit {
     id: 'Hembra',
     name: 'Hembra'
     }];
- 
+
   constructor(private formBuilder: FormBuilder, private animalService: AnimalService) { }
 
   ngOnInit() {

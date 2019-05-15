@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 // Formularios
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../../../services/user/user-service';
+import { UserService } from 'src/app/services/user/user-service';
 import { User } from 'src/app/models/user.model';
 
 @Component({
-  selector: 'app-register-user',
-  templateUrl: './register-user.component.html',
-  styleUrls: ['./register-user.component.css']
+  selector: 'app-user-form',
+  templateUrl: './user-form.component.html',
+  styleUrls: ['./user-form.component.css']
 })
-export class RegisterUserComponent implements OnInit {
+export class UserFormComponent implements OnInit {
 
   // Variables del componente
   registerForm: FormGroup;

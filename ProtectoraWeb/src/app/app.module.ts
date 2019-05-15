@@ -10,30 +10,38 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Material
 import { MaterialModule } from './material.module';
 
-// Componentes
+// Componentes Core
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
-import { RegisterUserComponent } from './components/user/register/register-user.component';
-import { RegisterAnimalComponent } from './components/administrator/admin-animal-register/register-animal.component';
-import { AdministratorNavbarComponent } from './components/administrator/administrator-navbar/administrator-navbar.component';
-import { AdminUserRegisterComponent } from './components/administrator/admin-user-register/admin-user-register.component';
-import { AdminUserManagementComponent } from './components/administrator/admin-user-management/admin-user-management.component';
-import { AdminAnimalManagementComponent } from './components/administrator/admin-animal-management/admin-animal-management.component';
+
+// Componentes Web
+import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
+
+// Componentes Admin
+import { AdministratorNavbarComponent } from './components/admin/navbar/administrator-navbar.component';
+import { AnimalManagementComponent } from './components/admin/animals/animal-management/animal-management.component';
+import { AnimalRegisterComponent } from './components/admin/animals/animal-register/animal-register.component';
+import { UserManagementComponent } from './components/admin/users/user-management/user-management.component';
+import { AdminUserRegisterComponent } from './components/admin/users/user-register/admin-user-register.component';
+
+// Componentes Shared
+import { UserFormComponent } from './components/shared/forms/user/user-form.component';
+import { AnimalFormComponent } from './components/shared/forms/animal/animal-form.component';
 import { FormularioAnimalModal } from './components/shared/formulario-animal-modal/formulario-animal-modal.component';
-
-
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterUserComponent,
-    RegisterAnimalComponent,
     NavbarComponent,
+    AnimalManagementComponent,
+    AnimalRegisterComponent,
+    UserRegisterComponent,
     AdministratorNavbarComponent,
     AdminUserRegisterComponent,
-    AdminUserManagementComponent,
-    AdminAnimalManagementComponent,
-    FormularioAnimalModal
+    UserManagementComponent,
+    FormularioAnimalModal,
+    AnimalFormComponent,
+    UserFormComponent
 
 
   ],

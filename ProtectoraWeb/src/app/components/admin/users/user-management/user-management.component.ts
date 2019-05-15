@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { User } from '../../../models/user.model';
+import { User } from '../../../../models/user.model';
 import { UserService } from 'src/app/services/user/user-service';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 
 @Component({
-  selector: 'app-admin-user-management',
-  templateUrl: './admin-user-management.component.html',
-  styleUrls: ['./admin-user-management.component.css']
+  selector: 'app-admin/user/management',
+  templateUrl: './user-management.component.html',
+  styleUrls: ['./user-management.component.css']
 })
-export class AdminUserManagementComponent implements OnInit {
+export class UserManagementComponent implements OnInit {
 
   usuarios: any;
   displayedColumns: string[] = ['id', 'user', 'email', 'update', 'delete'];
