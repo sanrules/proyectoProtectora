@@ -2,32 +2,53 @@
 
 <div class="container">
   <div class="mat-elevation-z18">
+<<<<<<< HEAD
     <table mat-table [dataSource]="dataSource">
 
       <!-- ID -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> ID </th>
+=======
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- ID -->
+      <ng-container matColumnDef="id" > 
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+>>>>>>> dev
         <td mat-cell *matCellDef="let animales"> {{animales.id}} </td>
       </ng-container>
 
       <!-- Nombre de Usuario -->
       <ng-container matColumnDef="name">
+<<<<<<< HEAD
         <th mat-header-cell *matHeaderCellDef> Nombre de animal </th>
+=======
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre de animal </th>
+>>>>>>> dev
         <td mat-cell *matCellDef="let animales"> {{animales.name}} </td>
       </ng-container>
 
       <!-- Tipo -->
       <ng-container matColumnDef="type">
+<<<<<<< HEAD
         <th mat-header-cell *matHeaderCellDef> Tipo de animal </th>
+=======
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de animal </th>
+>>>>>>> dev
         <td mat-cell *matCellDef="let animales"> {{animales.type}} </td>
       </ng-container>
       <!-- Raza -->
       <ng-container matColumnDef="breed">
+<<<<<<< HEAD
         <th mat-header-cell *matHeaderCellDef> Raza </th>
+=======
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Raza </th>
+>>>>>>> dev
         <td mat-cell *matCellDef="let animales"> {{animales.breed}} </td>
       </ng-container>
       <!-- Fecha Nacimiento -->
       <ng-container matColumnDef="birthDate">
+<<<<<<< HEAD
         <th mat-header-cell *matHeaderCellDef> Fecha de Nacimiento </th>
         <td mat-cell *matCellDef="let animales"> {{animales.birth_date}} </td>
       </ng-container>
@@ -42,14 +63,39 @@
         <th mat-header-cell *matHeaderCellDef> Modificar </th>
         <td mat-cell *matCellDef="let animales">
           <button type="button" class="btn btn-primary">Modificar</button>
+=======
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Nacimiento </th>
+        <td mat-cell *matCellDef="let animales"> {{animales.birth_date}} </td>
+      </ng-container>
+      <!-- Fecha Llegada -->
+      <ng-container matColumnDef="entranceDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Entarda </th>
+        <td mat-cell *matCellDef="let animales"> {{animales.entrance_date}} </td>
+      </ng-container>
+
+      <!-- Acceder -->
+      <ng-container matColumnDef="acces">
+        <th mat-header-cell *matHeaderCellDef> Acceder </th>
+        <td mat-cell *matCellDef="let animales">
+          <button mat-icon-button color="accent" (click)="openModal(animales)">
+            <mat-icon class="mat-18">system_update</mat-icon>
+        </button>
+>>>>>>> dev
         </td>
       </ng-container>
 
       <!-- Eliminar -->
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+<<<<<<< HEAD
         <td mat-cell *matCellDef="let animales">
           <button type="button" class="btn btn-danger">Eliminar</button>
+=======
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="warn" >
+                <mat-icon class="mat-18">delete</mat-icon>
+            </button>
+>>>>>>> dev
         </td>
       </ng-container>
 

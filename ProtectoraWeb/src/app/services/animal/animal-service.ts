@@ -15,8 +15,14 @@ export class AnimalService {
   };
   constructor(private http: HttpClient) {}
 
+<<<<<<< HEAD
   // Solicita a la API una lista con todos los animales.
   getAnimals(): Observable<any> {
+=======
+  // Solicita a la API una lista con todos los usuarios.
+  getAnimals(): Observable<any> {
+    console.log('Respuesta backEnd => get_animal_all()');
+>>>>>>> dev
     return this.http.get(`${this.baseURL}/animal/get_all_animals.php`);
   }
 

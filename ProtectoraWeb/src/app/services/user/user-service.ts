@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpClient, HttpHeaders, HttpErrorResponse
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
@@ -31,5 +33,4 @@ export class UserService {
 
   // Modifica un usuario
   updateUser() {}
-
 }

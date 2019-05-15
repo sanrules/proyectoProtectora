@@ -1,20 +1,21 @@
-export class User {
+export interface User {
 
-  public userName: string;
-  public password:string;
-  public email: string;
-  public name: string;
-  public surname: string;
-  public phone: number;
-  public birthDate: Date;
-  public street: string;
-  public number: number;
-  public portal: string;
-  public floor: number;
-  public door: string;
-  public userType:string;
+  idUser: number;
+  userName: string;
+  password: string;
+  email: string;
+  name: string;
+  surname: string;
+  phone: number;
+  birthDate: Date;
+  street: string;
+  number: number;
+  portal: string;
+  floor: number;
+  door: string;
+  userType: string;
 
-  public constructor(init?: Partial<User >) {
+  /*public constructor(init?: Partial<User >) {
     Object.assign(this, init);
-  }
+  }*/
 }

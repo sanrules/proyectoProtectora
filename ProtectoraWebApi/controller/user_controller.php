@@ -1,9 +1,9 @@
 <?php
-header("Access-Control-Allow-Origin");
 header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header('Content-type: application/json');
 
+include '../model/user_model.php';
 require_once '../class/user.php';
 require_once '../model/user_model.php';
 require_once '../lib/lib_aux.php';
@@ -14,18 +14,15 @@ require_once '../lib/RedBeanPHP5_3/rb.php';
  * y llama al modelo para su posterior inserción en base de datos
  * @return String $answer con error de creación o confirmación de creación
  */
-function create_user()
+function create_user($user)
 {
-    // Get the posted data.
-    echo file_get_contents('php://input');
+    $fp = fopen("../lib/fichero.txt", "a+");
+    fputs($fp, "$user son los datos");
+    fclose($fp);
 
-    $postdata = file_get_contents("php://input");
-    $answer   = '';
-
-    echo $postdata;
-    prueba();
     if (isset($postdata) && !empty($postdata)) {
         $user = new User();
+        ChromePhp::log($user);
 
         // Extract the data.
         $request = json_decode($postdata);
@@ -88,6 +85,7 @@ function get_user($id)
  */
 function get_user_all()
 {
+    ChromePhp::log('get_user_all()');
     $users = retrieve_user_all();
 
     return $users;
