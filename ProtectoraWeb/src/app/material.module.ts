@@ -9,14 +9,10 @@ import {
 	MatButtonModule,
 	MatTableModule,
 	MatPaginatorModule,
-<<<<<<< HEAD
-	MatRadioModule
-=======
 	MatSortModule,
 	MatRadioModule,
 	MatIconModule
 
->>>>>>> dev
 } from '@angular/material';
 
 @NgModule({
@@ -28,13 +24,9 @@ import {
 		MatButtonModule,
 		MatTableModule,
 		MatPaginatorModule,
-<<<<<<< HEAD
-		MatRadioModule
-=======
 		MatSortModule,
 		MatRadioModule,
 		MatIconModule
->>>>>>> dev
 	],
 	exports: [
 		MatFormFieldModule,
@@ -44,13 +36,9 @@ import {
 		MatButtonModule,
 		MatTableModule,
 		MatPaginatorModule,
-<<<<<<< HEAD
-		MatRadioModule
-=======
 		MatSortModule,
 		MatRadioModule,
 		MatIconModule
->>>>>>> dev
 	],
 	providers: [
 		{provide: MAT_DATE_LOCALE, useValue: 'es-ES'},

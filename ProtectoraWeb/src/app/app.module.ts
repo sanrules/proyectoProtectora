@@ -19,10 +19,7 @@ import { AdministratorNavbarComponent } from './components/administrator/adminis
 import { AdminUserRegisterComponent } from './components/administrator/admin-user-register/admin-user-register.component';
 import { AdminUserManagementComponent } from './components/administrator/admin-user-management/admin-user-management.component';
 import { AdminAnimalManagementComponent } from './components/administrator/admin-animal-management/admin-animal-management.component';
-<<<<<<< HEAD
-=======
 import { FormularioAnimalModal } from './components/shared/formulario-animal-modal/formulario-animal-modal.component';
->>>>>>> dev
 
 
 
@@ -35,13 +32,9 @@ import { FormularioAnimalModal } from './components/shared/formulario-animal-mod
     AdministratorNavbarComponent,
     AdminUserRegisterComponent,
     AdminUserManagementComponent,
-<<<<<<< HEAD
-    AdminAnimalManagementComponent
-=======
     AdminAnimalManagementComponent,
     FormularioAnimalModal
 
->>>>>>> dev
 
   ],
   imports: [
