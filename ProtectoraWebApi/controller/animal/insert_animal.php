@@ -23,9 +23,10 @@ if ($request) {
     $type          = filter_var($request['type'], FILTER_SANITIZE_STRING); // Se aceptarán perro, gato, otros
     $breed         = filter_var($request['breed'], FILTER_SANITIZE_STRING); // Raza.
     $gender        = filter_var($request['gender'], FILTER_SANITIZE_STRING); // Se aceptarán M y H (macho / hembra)
-    $birth_date    = validate_date($request['birthDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
-    $entrance_date = validate_date($request['entranceDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
-    $adoption_date = validate_date($request['adoptionDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Si no existe, será 1/1/1970
+    $birth_date    = filter_var($request['birthDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
+    ChromePhp::log('insert_animal $birth_date: ', $birth_date);
+    $entrance_date = filter_var($request['entranceDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
+    $adoption_date = filter_var($request['adoptionDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Si no existe, será 1/1/1970
     $status        = in_array(filter_var($request['status'], FILTER_SANITIZE_STRING), $vStatus) ? $request['status'] : ''; // Adoptado, pre-adoptado, en adopción
     $description   = filter_var($request['description'], FILTER_SANITIZE_SPECIAL_CHARS);
     $pictures      = filter_var($request['pictures'], FILTER_SANITIZE_STRING); // String provisionalmente
@@ -38,6 +39,7 @@ if ($request) {
        
         $birth_date = new DateTime("@$birth_date");
             $birth_date->format("Y-m-d H:i:s");
+            ChromePhp::log('insert_animal $birth_date_DATE: ', $birth_date);
         $entrance_date = new DateTime("@$entrance_date");
             $entrance_date->format("Y-m-d H:i:s");
         /* $adoption_date = new DateTime($request['adoptionDate']); */

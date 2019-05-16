@@ -5,7 +5,7 @@ import { UserService } from '../../../../services/user/user-service';
 import { User } from 'src/app/models/user.model';
 
 @Component({
-  selector: 'app-admin/user/register',
+  selector: 'app-registro',
   templateUrl: './admin-user-register.component.html',
   styleUrls: ['./admin-user-register.component.css']
 })
@@ -21,9 +21,10 @@ export class AdminUserRegisterComponent implements OnInit {
   ngOnInit() {
     // Crea el formulario y le agrega a un formGroup, para poder tener las validaciones y los métodos de los formularios reactivos de Angular
     this.registerForm = this.formBuilder.group({
+      idUser: ['', []],
       userName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{4,16}$/)]],
       password: ['', [Validators.required,
-                    /*   Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,16}$/) */
+                      Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,16}$/)
                      ]],
       email: ['', [Validators.required, Validators.email]],
       name: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚ]{1}[a-záéíúóç]+[ -]?){1,2}$/)]],
@@ -54,7 +55,7 @@ export class AdminUserRegisterComponent implements OnInit {
   dataPrepare() {
 
     const formData = {
-      "idUser": this.registerForm.get('idUSer').value,
+      "idUser": this.registerForm.get('idUser').value,
       "userName": this.registerForm.get('userName').value.trim(),
       "password": this.registerForm.get('password').value.trim(),
       "email": this.registerForm.get('email').value.trim(),
@@ -78,7 +79,6 @@ export class AdminUserRegisterComponent implements OnInit {
 
     // Se guardan los datos del formulario en un objeto usuario
     // this.user = new User(this.dataPrepare());
-    console.log('this.user: ', this.dataPrepare());
     this.user = this.dataPrepare();
     console.log('this.user: ', this.user);
 

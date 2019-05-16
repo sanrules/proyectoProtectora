@@ -1,5 +1,5 @@
 export class Animal {
-
+  public idAnimal: number;
   public name: string;
   public type: string;
   public breed: string;
