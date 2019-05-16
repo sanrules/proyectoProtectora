@@ -41,4 +41,6 @@ if ($_REQUEST['createuser']) {
     }
 
     echo json_encode($response, JSON_UNESCAPED_UNICODE);
+    header('Content-Type: application/json');
+
 }

@@ -33,7 +33,7 @@ class User
     }
 
     /**
-     * Inserta un usuario en la bbdd
+     * Inserta un usuario en la base de datos
      */
     public function insertUser()
     {
@@ -56,6 +56,63 @@ class User
         $this->_id = $id;
 
         // TODO ALMACENAR PASSWORD SEGURA
+
+    }
+
+    /**
+     * Obtiene un usuario de la base de datos en base a su id
+     * @param int $id ID del usuario
+     * @return User $user usuario recogido de la base de datos
+     */
+    public function retrieveUser($id)
+    {
+        $user = R::load('user', $id);
+        return $user;
+    }
+
+    /**
+     * Obtiene todos los usuarios de la base de datos
+     * @return Array $users array de Animal multidimensional recogido de la base de datos
+     */
+    public function retrieveUserAll()
+    {
+        $users = R::getAll('select * from user');
+        ChromePhp::log('Entra en retrieve_users_all()');
+        ChromePhp::log($users);
+        ChromePhp::log('Sale de retrieve_users_all()');
+
+        return $users;
+    }
+
+    /**
+     * Actualiza un usuario de la base de datos
+     * @param int $id ID del usuario
+     * @param User $updated_user usuario con los datos actualizados
+     */
+    public function updateUser($id, $updated_user)
+    {
+        $old_user = R::load('user', $id);
+        $old_user = $updated_user;
+
+        R::store($old_user);
+    }
+
+    /**
+     * Borra un usuario de la base de datos
+     * @param User $user usuario a borrar
+     */
+    public function deleteUser($user)
+    {
+        R::trash($user);
+    }
+
+    /**
+     * Obtiene todos los usuarios de la base de datos en función a unos parámetros.
+     * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+     * @return array $users array de user obtenido de la bbdd
+     */
+    public function getSpecificUser($params)
+    {
 
     }
 
