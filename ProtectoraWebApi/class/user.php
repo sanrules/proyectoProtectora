@@ -1,5 +1,8 @@
 <?php
-require '../lib/RedBeanPHP5_3/rb.php';
+require 'require(vendor/autoload.php)';
+R::setup('mysql:host=localhost;dbname=proyecto',
+    'root', '');
+
 class User
 {
     private $_idUser    = ''; //  idUser
