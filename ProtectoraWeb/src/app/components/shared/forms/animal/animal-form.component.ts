@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,  Inject} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AnimalService } from 'src/app/services/animal/animal-service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Animal } from 'src/app/models/animal.model';
-
 
 @Component({
   selector: 'app-animal-form',
@@ -20,14 +20,18 @@ export class AnimalFormComponent implements OnInit {
     id: 'Hembra',
     name: 'Hembra'
     }];
-
-  constructor(private formBuilder: FormBuilder, private animalService: AnimalService) { }
+  public es: string;
+  constructor(private formBuilder: FormBuilder,
+              private animalService: AnimalService,
+              /*public dialogRef: MatDialogRef<AnimalFormComponent>, 
+              @Inject(MAT_DIALOG_DATA) public data: Animal*/ ) { }
 
   ngOnInit() {
 
     const generosControl = this.generos.map(c => new FormControl(false, Validators.required));
 
     this.registerForm = this.formBuilder.group({
+      idAnimal: ['', []],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
       type: ['', [Validators.required]],
       breed: ['', [Validators.required]],
@@ -39,36 +43,76 @@ export class AnimalFormComponent implements OnInit {
       description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
       pictures: ['', []]
     });
-
+    /* if (this.data != null ){
+      this.es = "crear";
+      console.log("animal: ", this.data);
+     this.setDatosUpdate(this.data); 
+    }*/
   }
 
-  dataPrepare() {
-
-    const entranceDate = new Date();
-   /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
-    let formData = {
-      "name": this.registerForm.get('name').value.trim(),
-      "type": this.registerForm.get('type').value.trim(),
-      "breed": this.registerForm.get('breed').value.trim(),
-      "gender": this.registerForm.get('gender').value.trim(),
-      "birthDate": this.registerForm.get('birthDate').value,
-      "entranceDate": entranceDate,
-      "adoptionDate": entranceDate,
-      "status": this.registerForm.get('status').value,
-      "description": this.registerForm.get('description').value.trim(),
-      "pictures":  this.registerForm.get('pictures').value,
-    };
-
-    return formData;
-
+  public spararFechaYHora(fecha) {
+    let arrayFechaYHora = fecha.split(" ");
+    let arrayfecha = arrayFechaYHora[0].split("-");
+    fecha = new Date(arrayfecha[0],(arrayfecha[1]-1),arrayfecha[2]);
+    return fecha;
   }
+
+  public setDatosUpdate(data) {
+
+    this.registerForm.get('idAnimal').setValue(data.id);
+    this.registerForm.get('name').setValue(data.name);  
+    this.registerForm.get('type').setValue(data.type);
+    this.registerForm.get('breed').setValue(data.breed);
+    this.registerForm.get('gender').setValue(data.gender);
+    this.registerForm.get('birthDate').setValue(this.spararFechaYHora(data.birth_date));
+    this.registerForm.get('adoptionDate').setValue(data.adoption_date);
+    this.registerForm.get('entranceDate').setValue(this.spararFechaYHora(data.entrance_date));
+    this.registerForm.get('status').setValue(data.status);
+    this.registerForm.get('description').setValue(data.description);
+    this.registerForm.get('pictures').setValue(data.pictures);
+
+}
+
+dateToTimestamp(date) {
+
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+
+  date = Date.UTC(year, month, day, 0, 0, 0);
+  console.log('date: ', date);
+
+  return date;
+}
+
+dataPrepare() {
+
+  const entranceDate = new Date();
+ /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
+  let formData = {
+    "idAnimal": this.registerForm.get('idAnimal').value,
+    "name": this.registerForm.get('name').value.trim(),
+    "type": this.registerForm.get('type').value.trim(),
+    "breed": this.registerForm.get('breed').value.trim(),
+    "gender": this.registerForm.get('gender').value.trim(),
+    "birthDate": this.dateToTimestamp(this.registerForm.get('birthDate').value),
+    "entranceDate": this.dateToTimestamp(entranceDate),
+    "adoptionDate": this.dateToTimestamp(entranceDate) ,
+    "status": this.registerForm.get('status').value,
+    "description": this.registerForm.get('description').value.trim(),
+    "pictures":  this.registerForm.get('pictures').value,
+  };
+
+  return formData;
+
+}
 
   registerSubmit() {
     console.log('Entra en registerSubmit()');
 
-    this.animal = new Animal(this.dataPrepare());
+    this.animal = this.dataPrepare();
     console.log(this.animal);
-
+    delete this.animal.idAnimal;
     let animalJSON = JSON.stringify(this.animal);
     console.log('Conversión JSON: ', animalJSON);
 
@@ -81,4 +125,22 @@ export class AnimalFormComponent implements OnInit {
         console.warn('Error: ', error);
     });
   }
+
+  /* esCrear(){
+    if ( this.es = 'crear' ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  esGuardar(){
+    if ( this.es = 'guardar' ) {
+      return true;
+    } else {
+      return false;
+    }
+  } */
+
+
 }
