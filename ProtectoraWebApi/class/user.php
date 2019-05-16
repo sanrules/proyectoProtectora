@@ -1,5 +1,5 @@
 <?php
-require 'require(vendor/autoload.php)';
+require '(../vendor/autoload.php)';
 R::setup('mysql:host=localhost;dbname=proyecto',
     'root', '');
 
