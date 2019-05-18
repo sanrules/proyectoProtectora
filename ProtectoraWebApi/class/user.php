@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/lib/RedBean/rb.php';
+require_once '../../lib/RedBean/rb.php';
 R::setup('mysql:host=localhost;dbname=proyecto',
     'root', '');
 
@@ -20,7 +20,12 @@ class User
     private $_door      = ''; // door
     private $_userType  = ''; // userType
 
-    private function __construct($_idUser, $_username, $_email, $_password, $_name, $_surname, $_phone, $_birthDate, $_street, $_number, $_portal, $_floor, $_door, $_userType)
+    public function __construct()
+    {
+
+    }
+
+    public function createUser($_idUser, $_username, $_email, $_password, $_name, $_surname, $_phone, $_birthDate, $_street, $_number, $_portal, $_floor, $_door, $_userType)
     {
         $this->_username  = $_username;
         $this->_email     = $_email;

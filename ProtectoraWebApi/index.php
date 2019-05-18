@@ -1,2 +1,2 @@
 <?php
-header('location: controller/user/getAllUsers.php');
+header('location:controller/animal/getAllAnimals.php');

@@ -1,5 +1,5 @@
 <?php
-require_once '../../lib/connection.php';
+require_once '../../class/User.php';
 
 $error    = array();
 $response = '';
@@ -23,7 +23,8 @@ if ($_REQUEST['createuser']) {
 
     // Si no hay errores se crea el usuario
     if (count($error) == 0) {
-        $user = new User($username, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $door, $userType);
+        $user = new User();
+        $user->createUser($username, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $door, $userType);
 
         $user->insertUser();
 

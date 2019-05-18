@@ -14,7 +14,3 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
 //Funciones auxiliares
 require_once 'lib_aux.php';
-
-// Clases
-require_once '../class/Animal.php';
-require_once '../class/User.php';
