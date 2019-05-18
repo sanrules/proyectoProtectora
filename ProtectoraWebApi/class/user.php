@@ -1,5 +1,5 @@
 <?php
-require_once '../../lib/RedBean/rb.php';
+require_once 'lib/RedBean/rb.php';
 R::setup('mysql:host=localhost;dbname=proyecto',
     'root', '');
 
@@ -19,6 +19,7 @@ class User
     private $_floor     = ''; // floor
     private $_door      = ''; // door
     private $_userType  = ''; // userType
+    private $_token     = '';
 
     public function __construct()
     {
@@ -404,6 +405,26 @@ class User
     public function set_userType($_userType)
     {
         $this->_userType = $_userType;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _token
+     */
+    public function get_token()
+    {
+        return $this->_token;
+    }
+
+    /**
+     * Set the value of _token
+     *
+     * @return  self
+     */
+    public function set_token($_token)
+    {
+        $this->_token = $_token;
 
         return $this;
     }
