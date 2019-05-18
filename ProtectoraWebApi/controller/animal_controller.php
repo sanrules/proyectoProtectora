@@ -1,10 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-require_once '../class/animal.php';
-require_once '../model/animal_model.php';
-require_once '../lib/aux.php';
+require_once '../lib/connection.php';
 
 /**
  * Recibe los parámetros del animal de Angular en formato json

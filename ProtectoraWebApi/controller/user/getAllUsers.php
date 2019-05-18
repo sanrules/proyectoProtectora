@@ -1,7 +1,5 @@
 <?php
-include __DIR__ . '/lib/RedBean/rb.php';
-require_once __DIR__ . '/lib/connection.php';
-require_once __DIR__ . '/class/User.php';
+require_once '../../lib/connection.php';
 
 $users = retrieveUserAll();
 
