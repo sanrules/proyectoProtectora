@@ -1,5 +1,5 @@
 <?php
-require '(../vendor/autoload.php)';
+include __DIR__ . '/lib/RedBean/rb.php';
 R::setup('mysql:host=localhost;dbname=proyecto',
     'root', '');
 
