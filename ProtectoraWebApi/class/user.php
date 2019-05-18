@@ -1,5 +1,5 @@
 <?php
-require_once 'lib/RedBean/rb.php';
+require_once '../lib/RedBean/rb.php';
 R::setup('mysql:host=localhost;dbname=proyecto',
     'root', '');
 
