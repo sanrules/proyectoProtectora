@@ -19,7 +19,8 @@ export class UserFormComponent implements OnInit {
 
   // Carga los datos una vez haya cargado lo del constructor
   ngOnInit() {
-    // Crea el formulario y le agrega a un formGroup, para poder tener las validaciones y los métodos de los formularios reactivos de Angular
+    // Crea el formulario y le agrega a un formGroup:
+    // Así se tienen las validaciones y los métodos de los formularios reactivos de Angular
     this.registerForm = this.formBuilder.group({
       idUser: ['', []],
       userName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{4,16}$/)]],
@@ -27,8 +28,8 @@ export class UserFormComponent implements OnInit {
                       Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,16}$/)
                      ]],
       email: ['', [Validators.required, Validators.email]],
-      name: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚ]{1}[a-záéíúóç]+[ -]?){1,2}$/)]],
-      surname: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚ]{1}[a-záéíúóç]+[ -]?){1,2}$/)]],
+      name: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
+      surname: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-záéíúóñç]+[ -]?){1,2}$/)]],
       phone: ['', [Validators.required, Validators.pattern(/^[6789]{1}[0-9]{8}$/)]],
       birthDate: ['', [ Validators.required]],
       street: ['', [Validators.required]],
