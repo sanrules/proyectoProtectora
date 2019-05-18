@@ -1,5 +1,5 @@
 <?php
-require_once '(__DIR__/vendor/autoload.php)';
+include __DIR__ . '/lib/RedBean/rb.php';
 
 //header("Access-Control-Allow-Origin");
 header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");
