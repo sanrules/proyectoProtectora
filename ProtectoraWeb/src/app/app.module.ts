@@ -28,6 +28,7 @@ import { AdminUserRegisterComponent } from './components/admin/users/user-regist
 import { UserFormComponent } from './components/shared/forms/user/user-form.component';
 import { AnimalFormComponent } from './components/shared/forms/animal/animal-form.component';
 import { FormularioAnimalModal } from './components/shared/formulario-animal-modal/formulario-animal-modal.component';
+import { AnimalListComponent } from './components/web/animal/animal-list/animal-list.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { FormularioAnimalModal } from './components/shared/formulario-animal-mod
     UserManagementComponent,
     FormularioAnimalModal,
     AnimalFormComponent,
-    UserFormComponent
+    UserFormComponent,
+    AnimalListComponent
 
 
   ],

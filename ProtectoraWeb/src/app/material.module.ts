@@ -11,7 +11,10 @@ import {
 	MatPaginatorModule,
 	MatSortModule,
 	MatRadioModule,
-	MatIconModule
+	MatIconModule,
+	MatCardModule,
+	
+	MatGridListModule
 
 } from '@angular/material';
 
@@ -26,7 +29,9 @@ import {
 		MatPaginatorModule,
 		MatSortModule,
 		MatRadioModule,
-		MatIconModule
+		MatIconModule,
+		MatCardModule,
+		MatGridListModule
 	],
 	exports: [
 		MatFormFieldModule,
@@ -38,7 +43,9 @@ import {
 		MatPaginatorModule,
 		MatSortModule,
 		MatRadioModule,
-		MatIconModule
+		MatIconModule,
+		MatCardModule,
+		MatGridListModule
 	],
 	providers: [
 		{provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
