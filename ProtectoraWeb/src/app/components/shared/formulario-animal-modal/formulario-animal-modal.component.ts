@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 
 
 @Component({
-    selector: 'app-fiormulario-animal-modal',
-    templateUrl: './fromulario-animal-modal.component.html',
+    selector: 'app-formulario-animal-modal',
+    templateUrl: './formulario-animal-modal.component.html',
   })
   export class FormularioAnimalModal implements OnInit {
     registerForm: FormGroup;
@@ -31,7 +31,7 @@ import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
             description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
             pictures: ['', []]
           });
-        
+
       this.setDatosUpdate(this.data);
     }
     public spararFechaYHora(fecha) {

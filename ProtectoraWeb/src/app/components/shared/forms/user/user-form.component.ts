@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 // Formularios
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user/user-service';
@@ -13,12 +13,16 @@ export class UserFormComponent implements OnInit {
 
   // Variables del componente
   registerForm: FormGroup;
-  private user: User;
+
+  @Input() public tipo: string;
+  @Input() public userData: User;
+  user: User;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) {}
 
   // Carga los datos una vez haya cargado lo del constructor
   ngOnInit() {
+
     // Crea el formulario y le agrega a un formGroup:
     // Así se tienen las validaciones y los métodos de los formularios reactivos de Angular
     this.registerForm = this.formBuilder.group({
