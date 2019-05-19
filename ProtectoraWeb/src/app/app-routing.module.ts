@@ -7,7 +7,7 @@ import { AdminUserRegisterComponent } from './components/admin/users/user-regist
 import { UserManagementComponent } from './components/admin/users/user-management/user-management.component';
 import { AnimalRegisterComponent } from './components/admin/animals/animal-register/animal-register.component';
 import { AnimalManagementComponent } from './components/admin/animals/animal-management/animal-management.component';
-import { AnimalListComponent } from './components/web/animal/animal-list/animal-list.component';
+import { AnimalListComponent } from './components/web/animals/animal-list/animal-list.component';
 
 
 const routes: Routes = [

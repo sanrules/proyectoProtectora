@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 
 import {
-<<<<<<< HEAD
   MatFormFieldModule,
   MatInputModule,
   MatDatepickerModule,

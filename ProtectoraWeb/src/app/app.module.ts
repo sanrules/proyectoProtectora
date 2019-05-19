@@ -16,6 +16,7 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 // Componentes Web
 import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
+import { AnimalListComponent } from './components/web/animals/animal-list/animal-list.component';
 
 // Componentes Admin
 import { AdministratorNavbarComponent } from './components/admin/navbar/administrator-navbar.component';
@@ -30,7 +31,6 @@ import { AnimalFormComponent } from './components/shared/forms/animal/animal-for
 import { FormularioAnimalModal } from './components/shared/formulario-animal-modal/formulario-animal-modal.component';
 import { UserUpdateModalComponent } from './components/admin/users/user-management/user-update-modal/user-update-modal.component';
 
-import { AnimalListComponent } from './components/web/animal/animal-list/animal-list.component';
 
 
 @NgModule({
