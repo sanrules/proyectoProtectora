@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import {
+<<<<<<< HEAD
   MatFormFieldModule,
   MatInputModule,
   MatDatepickerModule,
@@ -12,7 +13,9 @@ import {
   MatSortModule,
   MatRadioModule,
   MatIconModule,
-  MatDialogModule
+  MatDialogModule,
+  MatCardModule,
+  MatGridListModule
 
 } from '@angular/material';
 
@@ -41,7 +44,9 @@ import {
     MatSortModule,
     MatRadioModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},

@@ -30,6 +30,9 @@ import { AnimalFormComponent } from './components/shared/forms/animal/animal-for
 import { FormularioAnimalModal } from './components/shared/formulario-animal-modal/formulario-animal-modal.component';
 import { UserUpdateModalComponent } from './components/admin/users/user-management/user-update-modal/user-update-modal.component';
 
+import { AnimalListComponent } from './components/web/animal/animal-list/animal-list.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +47,7 @@ import { UserUpdateModalComponent } from './components/admin/users/user-manageme
     AnimalFormComponent,
     UserFormComponent,
     UserUpdateModalComponent,
+    AnimalListComponent
   ],
   imports: [
     BrowserModule,

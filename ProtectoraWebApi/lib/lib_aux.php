@@ -35,3 +35,9 @@ function validate_date($date)
     ChromePhp::log('PHP: validate_date() $valid: ', $valid);
     return $valid;
 }
+
+function generateToken()
+{
+    $result = uniqid();
+    return $result;
+}
