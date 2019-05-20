@@ -1,3 +1,83 @@
-<p>
-  animal works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="jumbotron jumbotron-fluid col-md-12 mt-3">
+      <div class="container">
+        <h1 class="display-4 text-center">{{animal.name}}</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card mb-3 w-100">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src="https://images.pexels.com/photos/259803/pexels-photo-259803.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="card-img" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{animal.name}}</h5>
+
+            <div class="row">
+              <div class="col-md-4">
+                <p>Raza: </p>
+              </div>
+              <div class="col-md-4">
+                <p>{{animal.breed}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <p>Sexo: </p>
+              </div>
+              <div class="col-md-4">
+                <p>{{animal.gender}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <p>Fecha de Nacimiento: </p>
+              </div>
+              <div class="col-md-4">
+                <p>{{animal.birth_date}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <p>Fecha de Entrada: </p>
+              </div>
+              <div class="col-md-4">
+                <p>{{animal.entrance_date}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <p>Fecha de Entrada: </p>
+              </div>
+              <div class="col-md-4">
+                <p>{{animal.entrance_date}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="alert alert-success w-100 text-center" role="alert">
+                  <i class="material-icons">pets</i>
+                {{animal.status}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+      <a class="alert alert-primary w-100 text-center col-md-12" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        <h3>Descripción</h3>
+      </a>
+      <div class="collapse col-md-12" id="collapseExample">
+        <div class="card card-body ">
+          {{animal.description}}
+        </div>
+      </div>
+  </div>
+
+</div>

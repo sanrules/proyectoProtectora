@@ -22,7 +22,9 @@ export class AnimalService {
   }
 
   // Solicita a la API el animal que se le manda por parámetro
-  getAnimalById() {}
+  getAnimalById(id) {
+    return this.http.post(`${this.baseURL}/getAnimalById.php`, id, this.httpOptions);
+  }
 
   // Da de alta un nuevo animal
   registerAnimal(data): Observable<any> {
