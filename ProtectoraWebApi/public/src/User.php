@@ -1,7 +1,12 @@
 <?php
-require_once '../lib/RedBean/rb.php';
+require 'lib/RedBean/rb.php';
+
+// ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto',
-    'root', '');
+    'root', 'root');
+
+// ! configuración para xampp
+// R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
 class User
 {
@@ -112,6 +117,8 @@ class User
      */
     public function deleteUser($user)
     {
+        R::setup('mysql:host=localhost;dbname=proyecto',
+            'root', '');
         R::trash($user);
     }
 

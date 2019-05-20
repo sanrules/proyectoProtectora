@@ -1,8 +1,8 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
-require_once '../vendor/autoload.php';
-require_once 'lib_aux.php';
-require_once '../class/User.php';
+require_once '../../vendor/autoload.php';
+require_once '/lib/lib_aux.php';
+require_once 'User.php';
 
 sendMail();
 
