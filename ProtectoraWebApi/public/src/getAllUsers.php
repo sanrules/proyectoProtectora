@@ -1,5 +1,5 @@
 <?php
-require_once '../../class/user.php';
+require_once 'User.php';
 
 $user  = new User();
 $users = $user->retrieveUserAll();

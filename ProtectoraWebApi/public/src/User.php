@@ -3,7 +3,7 @@ require 'lib/RedBean/rb.php';
 
 // ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto',
-    'root', 'root');
+    'root', '');
 
 // ! configuración para xampp
 // R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
@@ -91,9 +91,6 @@ class User
     public function retrieveUserAll()
     {
         $users = R::getAll('select * from user');
-        ChromePhp::log('Entra en retrieve_users_all()');
-        ChromePhp::log($users);
-        ChromePhp::log('Sale de retrieve_users_all()');
 
         return $users;
     }

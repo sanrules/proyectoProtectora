@@ -12,3 +12,5 @@ table {
 .matRow:hover {
   background-color: rgba(66, 123, 255, 0.5);
 }
+
+button:focus {outline:0;}

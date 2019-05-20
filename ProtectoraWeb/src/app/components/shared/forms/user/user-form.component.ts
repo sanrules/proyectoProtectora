@@ -23,6 +23,8 @@ export class UserFormComponent implements OnInit {
   // Carga los datos una vez haya cargado lo del constructor
   ngOnInit() {
 
+/*     console.log('userDataForm: ', this.userData);
+    console.log('userDataForm name: ', this.userData['id']); */
     // Crea el formulario y le agrega a un formGroup:
     // Así se tienen las validaciones y los métodos de los formularios reactivos de Angular
     this.registerForm = this.formBuilder.group({

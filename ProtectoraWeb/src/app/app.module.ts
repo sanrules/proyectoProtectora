@@ -17,6 +17,7 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 // Componentes Web
 import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
 import { AnimalListComponent } from './components/web/animals/animal-list/animal-list.component';
+import { AnimalComponent } from './components/web/animals/animal/animal.component';
 
 // Componentes Admin
 import { AdministratorNavbarComponent } from './components/admin/navbar/administrator-navbar.component';
@@ -47,7 +48,8 @@ import { UserUpdateModalComponent } from './components/admin/users/user-manageme
     AnimalFormComponent,
     UserFormComponent,
     UserUpdateModalComponent,
-    AnimalListComponent
+    AnimalListComponent,
+    AnimalComponent
   ],
   imports: [
     BrowserModule,

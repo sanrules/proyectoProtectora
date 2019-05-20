@@ -11,7 +11,7 @@ import { Observable, throwError } from 'rxjs';
 })
 export class UserService {
   // TODO: poner las variables de usuario en el fichero enviroment.ts (mirar en el trabajo cómo se hace)
-  baseURL = 'http://localhost/ProtectoraWebApi/controller';
+  baseURL = 'http://localhost/ProtectoraWebApi/public/src';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -20,7 +20,7 @@ export class UserService {
 
   // Solicita a la API una lista con todos los usuarios.
   getUsers(): Observable<any> {
-    return this.http.get(`${this.baseURL}/user/getAllUsers.php`);
+    return this.http.get(`${this.baseURL}/getAllUsers.php`);
   }
 
   // Solicita a la API el usuario que se le manda por parámetro
@@ -29,7 +29,7 @@ export class UserService {
   // Da de alta un nuevo usuario
   registerUser(data): Observable<any> {
     // return this.http.post(`${this.baseURL}/user/insert_user.php`, data, this.httpOptions);
-    return this.http.post(`${this.baseURL}/user/insertUser.php`, data, this.httpOptions);
+    return this.http.post(`${this.baseURL}/insertUser.php`, data, this.httpOptions);
   }
 
   // Modifica un usuario

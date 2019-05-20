@@ -17,8 +17,8 @@ export class UserUpdateModalComponent implements OnInit {
                @Inject(MAT_DIALOG_DATA) public data: User) { }
 
   ngOnInit() {
-    console.log('user: ', this.data);
-    console.log('username: ', this.data.userName);
+    this.userData = this.data;
+    console.log('userData1: ', this.userData);
   }
 
 }
