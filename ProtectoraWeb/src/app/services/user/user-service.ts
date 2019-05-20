@@ -20,7 +20,7 @@ export class UserService {
 
   // Solicita a la API una lista con todos los usuarios.
   getUsers(): Observable<any> {
-    return this.http.get(`${this.baseURL}/user/get_all_users.php`);
+    return this.http.get(`${this.baseURL}/user/getAllUsers.php`);
   }
 
   // Solicita a la API el usuario que se le manda por parámetro

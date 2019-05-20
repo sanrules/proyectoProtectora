@@ -1,7 +1,13 @@
+// Angular Core imports
 import { Component, OnInit, ViewChild } from '@angular/core';
+// Component import
+import { UserUpdateModalComponent } from './user-update-modal/user-update-modal.component';
+// Interface import
 import { User } from '../../../../models/user.model';
+// Service import
 import { UserService } from 'src/app/services/user/user-service';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+// Angular Material import
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'app-admin/user/management',
@@ -10,23 +16,28 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 })
 export class UserManagementComponent implements OnInit {
 
-  usuarios: any;
-  displayedColumns: string[] = ['id', 'user', 'email', 'update', 'delete'];
-  dataSource = new MatTableDataSource(this.usuarios);
-
+  // Filtro y paginación de la tabla
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private userService: UserService) { }
+  // Variables
+  users: any;
+  displayedColumns: string[] = ['id', 'user', 'email', 'update', 'delete'];
+  dataSource = new MatTableDataSource(this.users);
+
+  constructor(
+                private userService: UserService,
+                private dialog: MatDialog
+             ) { }
 
   ngOnInit() {
-
-    this.usuarios = this.userService.getUsers().subscribe(data => {
+    // Se recuperan los datos de todos los usuarios para enviarlos a la tabla
+    this.users = this.userService.getUsers().subscribe(data => {
       this.dataSource.data = data as User[];
       console.log('datasource: ', this.dataSource.data);
       },
       error => {
-        console.log('Error: ', error);
+        console.error('Error: ', error);
       }
     );
     this.dataSource.sort = this.sort;
@@ -40,5 +51,15 @@ export class UserManagementComponent implements OnInit {
   public doFilter = (value: string) => {
       this.dataSource.filter = value.trim().toLocaleLowerCase();
     }
+
+  // Abre el modal de modificar usuario
+  openModal(users) {
+    console.log("row: ", users);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.height = "80%"
+    dialogConfig.width = "80%";
+    dialogConfig.data = users;
+    this.dialog.open(UserUpdateModalComponent, dialogConfig);
+  }
 
 }

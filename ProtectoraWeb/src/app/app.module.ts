@@ -16,6 +16,7 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 // Componentes Web
 import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
+import { AnimalListComponent } from './components/web/animals/animal-list/animal-list.component';
 
 // Componentes Admin
 import { AdministratorNavbarComponent } from './components/admin/navbar/administrator-navbar.component';
@@ -28,6 +29,9 @@ import { AdminUserRegisterComponent } from './components/admin/users/user-regist
 import { UserFormComponent } from './components/shared/forms/user/user-form.component';
 import { AnimalFormComponent } from './components/shared/forms/animal/animal-form.component';
 import { FormularioAnimalModal } from './components/shared/formulario-animal-modal/formulario-animal-modal.component';
+import { UserUpdateModalComponent } from './components/admin/users/user-management/user-update-modal/user-update-modal.component';
+
+
 
 @NgModule({
   declarations: [
@@ -41,9 +45,9 @@ import { FormularioAnimalModal } from './components/shared/formulario-animal-mod
     UserManagementComponent,
     FormularioAnimalModal,
     AnimalFormComponent,
-    UserFormComponent
-
-
+    UserFormComponent,
+    UserUpdateModalComponent,
+    AnimalListComponent
   ],
   imports: [
     BrowserModule,
@@ -53,10 +57,12 @@ import { FormularioAnimalModal } from './components/shared/formulario-animal-mod
     ReactiveFormsModule,
     MaterialModule,
     BrowserAnimationsModule
-
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [FormularioAnimalModal]
+  entryComponents: [
+    FormularioAnimalModal,
+    UserUpdateModalComponent
+  ]
 })
 export class AppModule {}

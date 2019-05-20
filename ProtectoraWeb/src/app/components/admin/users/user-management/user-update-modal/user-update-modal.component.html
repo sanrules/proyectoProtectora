@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button [matDialogClose]>
+          <i class="material-icons" style="color:red">close</i>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1 mat-dialog-title>Modificar usuario</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+          <mat-dialog-content>
+            <app-user-form #registerForm [tipo]="tipo" [userData]="userData"></app-user-form>
+          </mat-dialog-content>
+        </div>
+    </div>
+  </div>
+</div>
