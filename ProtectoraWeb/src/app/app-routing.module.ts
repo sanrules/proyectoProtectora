@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Componentes
+import { HomeComponent } from './components/web/home/home.component';
 import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
 import { AdminUserRegisterComponent } from './components/admin/users/user-register/admin-user-register.component';
 import { UserManagementComponent } from './components/admin/users/user-management/user-management.component';
@@ -12,7 +13,7 @@ import { AnimalComponent } from './components/web/animals/animal/animal.componen
 
 
 const routes: Routes = [
-  {path: 'home', component: UserRegisterComponent},
+  {path: 'home', component: HomeComponent},
   {path: 'registro', component: UserRegisterComponent},
   {path: 'admin/user/register', component: AdminUserRegisterComponent},
   {path: 'admin/user/management', component: UserManagementComponent},
