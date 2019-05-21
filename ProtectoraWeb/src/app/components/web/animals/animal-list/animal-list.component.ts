@@ -9,13 +9,15 @@ import { Observable } from 'rxjs';
   })
   export class AnimalListComponent implements OnInit {
 
-    public animales: Observable<any>;
+    public animales: any [];
     constructor(private animalService: AnimalService){
 
     }
 
     ngOnInit() {
-        this.animales = this.animalService.getAnimals();
+        this.animalService.getAnimals().subscribe( e =>{
+          this.animales = e;
+        });
     }
 
   }

@@ -31,6 +31,7 @@ import { UserFormComponent } from './components/shared/forms/user/user-form.comp
 import { AnimalFormComponent } from './components/shared/forms/animal/animal-form.component';
 import { FormularioAnimalModal } from './components/shared/formulario-animal-modal/formulario-animal-modal.component';
 import { UserUpdateModalComponent } from './components/admin/users/user-management/user-update-modal/user-update-modal.component';
+import { AnimalCardComponent } from './components/web/animals/animal-card/animal-card.component';
 
 
 
@@ -49,7 +50,8 @@ import { UserUpdateModalComponent } from './components/admin/users/user-manageme
     UserFormComponent,
     UserUpdateModalComponent,
     AnimalListComponent,
-    AnimalComponent
+    AnimalComponent,
+    AnimalCardComponent
   ],
   imports: [
     BrowserModule,
