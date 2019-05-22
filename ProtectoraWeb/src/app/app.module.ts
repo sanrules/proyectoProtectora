@@ -18,6 +18,7 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
 import { AnimalListComponent } from './components/web/animals/animal-list/animal-list.component';
 import { AnimalComponent } from './components/web/animals/animal/animal.component';
+import { AnimalCardComponent } from './components/web/animals/animal-card/animal-card.component';
 
 // Componentes Admin
 import { AdministratorNavbarComponent } from './components/admin/navbar/administrator-navbar.component';
@@ -32,6 +33,8 @@ import { AnimalFormComponent } from './components/shared/forms/animal/animal-for
 import { FormularioAnimalModal } from './components/shared/formulario-animal-modal/formulario-animal-modal.component';
 import { UserUpdateModalComponent } from './components/admin/users/user-management/user-update-modal/user-update-modal.component';
 import { HomeComponent } from './components/web/home/home.component';
+
+
 
 
 
@@ -51,7 +54,9 @@ import { HomeComponent } from './components/web/home/home.component';
     UserUpdateModalComponent,
     AnimalListComponent,
     AnimalComponent,
+    AnimalCardComponent,
     HomeComponent
+
   ],
   imports: [
     BrowserModule,

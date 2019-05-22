@@ -1,24 +1,8 @@
-
-<div class="container">
 <h1>Lista de animales</h1>
-    <mat-grid-list cols="2" gutterSize="1px"  Fixed height="100px">
-        <mat-grid-tile *ngFor="let animal of animales | async" [style.margin]="'50px'" >
-            <mat-card class="example-card" >
-                    <mat-card-header>
-                        <div mat-card-avatar class="example-header-image"></div>
-                            <mat-card-title>{{animal.name}}</mat-card-title>
-                            <mat-card-subtitle>{{animal.type}} {{animal.breed}}</mat-card-subtitle>
-                    </mat-card-header>
-                        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                        <mat-card-content>
-                        <p>
-                            {{animal.description}}
-                        </p>
-                        </mat-card-content>
-                        <mat-card-actions>
-                    <button mat-button [routerLink]="['../animal', animal.id]">Ver</button>
-                </mat-card-actions>
-            </mat-card>
-        </mat-grid-tile>
-    </mat-grid-list>
-</div>
+
+
+<div class="card-columns">
+
+    <app-animal-card [dato]="animal" [index]="i" *ngFor="let animal of animales, let i = index"></app-animal-card>
+
+</div>  
