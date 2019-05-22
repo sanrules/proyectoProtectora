@@ -3,6 +3,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user/user-service';
 import { User } from 'src/app/models/user.model';
+import { RegisterConfirmationComponent } from 'src/app/components/web/auth/register/register-confirmation/register-confirmation.component';
+// Material
+import { MatDialogConfig, MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-user-form',
@@ -13,18 +16,20 @@ export class UserFormComponent implements OnInit {
 
   // Variables del componente
   registerForm: FormGroup;
+  confirmMessage: string;
 
+  // Depende de la página que accede al formulario podrá ser:
+  // userUpdate, userAdmin o userRegister
   @Input() public tipo: string;
   @Input() public userData: User;
   user: User;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {}
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
+              private dialog: MatDialog) {}
 
-  // Carga los datos una vez haya cargado lo del constructor
   ngOnInit() {
-
-/*     console.log('userDataForm: ', this.userData);
-    console.log('userDataForm name: ', this.userData['id']); */
+    console.log('tipo: ', this.tipo);
     // Crea el formulario y le agrega a un formGroup:
     // Así se tienen las validaciones y los métodos de los formularios reactivos de Angular
     this.registerForm = this.formBuilder.group({
@@ -48,7 +53,6 @@ export class UserFormComponent implements OnInit {
   }
 
   dateToTimestamp(date) {
-
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();
@@ -58,9 +62,9 @@ export class UserFormComponent implements OnInit {
 
     return date;
   }
+
   // Prepara los datos del formulario para enviarlos en el formato correcto a la API
   dataPrepare() {
-
     const formData = {
       "idUser": this.registerForm.get('idUser').value,
       "userName": this.registerForm.get('userName').value.trim(),
@@ -82,10 +86,7 @@ export class UserFormComponent implements OnInit {
   }
 
   registerSubmit() {
-    console.log('Entra en registerSubmit()');
-
     // Se guardan los datos del formulario en un objeto usuario
-    // this.user = new User(this.dataPrepare());
     this.user = this.dataPrepare();
     console.log('this.user: ', this.user);
 
@@ -106,4 +107,23 @@ export class UserFormComponent implements OnInit {
     );
   }
 
+  openDialog() {
+    if (this.tipo === 'userRegister') {
+      this.confirmMessage =
+        'Su registro se ha completado correctamente, en breves momentos recibirá un correo electrónico para completarlo.';
+    } else {
+        this.confirmMessage = 'Usuario registrado correctamente';
+    }
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = this.confirmMessage;
+
+    this.dialog.open(RegisterConfirmationComponent, dialogConfig);
+  }
+
 }
+
+

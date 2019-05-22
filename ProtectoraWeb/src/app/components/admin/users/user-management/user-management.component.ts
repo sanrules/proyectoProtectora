@@ -54,10 +54,9 @@ export class UserManagementComponent implements OnInit {
 
   // Abre el modal de modificar usuario
   openModal(users) {
-    console.log("row: ", users);
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.height = "80%"
-    dialogConfig.width = "80%";
+    dialogConfig.height = '80%';
+    dialogConfig.width = '80%';
     dialogConfig.data = users;
     this.dialog.open(UserUpdateModalComponent, dialogConfig);
   }
