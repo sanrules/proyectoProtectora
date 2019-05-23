@@ -8,6 +8,8 @@ import { UserFormComponent } from 'src/app/components/shared/forms/user/user-for
 })
 export class UserRegisterComponent  {
 
+  public tipo = 'userRegister';
+
   @ViewChild('registerForm') registerForm: UserFormComponent;
 
 }

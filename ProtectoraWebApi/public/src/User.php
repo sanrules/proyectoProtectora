@@ -2,18 +2,17 @@
 require 'lib/RedBean/rb.php';
 
 // ! configuración para mamp
-R::setup('mysql:host=localhost;dbname=proyecto',
-    'root', '');
+// R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
 
 // ! configuración para xampp
-// R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
+R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
 class User
 {
     private $_idUser    = ''; //  idUser
     private $_username  = ''; //  userName
-    private $_email     = ''; //  email
     private $_password  = ''; //  password
+    private $_email     = ''; //  email
     private $_name      = ''; // name
     private $_surname   = ''; // surname
     private $_phone     = ''; // phone
@@ -24,16 +23,17 @@ class User
     private $_floor     = ''; // floor
     private $_door      = ''; // door
     private $_userType  = ''; // userType
-    private $_token     = '';
+    private $_token     = ''; // token
 
     public function __construct()
     {
 
     }
 
-    public function createUser($_idUser, $_username, $_email, $_password, $_name, $_surname, $_phone, $_birthDate, $_street, $_number, $_portal, $_floor, $_door, $_userType)
+    public function createUser($_username,$_password, $_email, $_name, $_surname, $_phone, $_birthDate, $_street, $_number, $_portal, $_floor, $_door, $_userType)
     {
         $this->_username  = $_username;
+        $this->_password  = $_password;
         $this->_email     = $_email;
         $this->_name      = $_name;
         $this->_surname   = $_surname;
@@ -42,6 +42,7 @@ class User
         $this->_street    = $_street;
         $this->_number    = $_number;
         $this->_portal    = $_portal;
+        $this->_floor     = $_floor;
         $this->_door      = $_door;
         $this->_userType  = $_userType;
     }
@@ -54,6 +55,7 @@ class User
         $bbddUser = R::dispense('user');
 
         $bbddUser->username  = $this->_username;
+        $bbddUser->password  = $this->_password;
         $bbddUser->email     = $this->_email;
         $bbddUser->name      = $this->_name;
         $bbddUser->surname   = $this->_surname;
@@ -62,6 +64,7 @@ class User
         $bbddUser->street    = $this->_street;
         $bbddUser->number    = $this->_number;
         $bbddUser->portal    = $this->_portal;
+        $bbddUser->floor     = $this->_floor;
         $bbddUser->door      = $this->_door;
         $bbddUser->userType  = $this->_userType;
 
