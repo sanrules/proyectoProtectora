@@ -28,13 +28,9 @@ try {
         if ($name != '' || $type != '' || $breed != '' || $gender != '' || $birth_date != '' || $entrance_date != '' || $adoption_date != '' || $status != '' || $description != '' || $pictures != '') {
 
             $birth_date = new DateTime("@$birth_date");
-            $birth_date->format("Y-m-d H:i:s");
+            $birth_date = $birth_date->format("Y-m-d H:i:s");
             $entrance_date = new DateTime("@$entrance_date");
-            $entrance_date->format("Y-m-d H:i:s");
-            if($adoption_date != null) {
-                $adoption_date = new DateTime($request['adoptionDate']); */
-
-            }
+            $entrance_date = $entrance_date->format("Y-m-d H:i:s");
 
             $animal = new Animal();
             $animal->createAnimal($name, $type, $breed, $gender, $birth_date, $entrance_date, $adoption_date, $status, $description, $pictures);

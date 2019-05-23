@@ -34,6 +34,7 @@ import { FormularioAnimalModal } from './components/shared/formulario-animal-mod
 import { UserUpdateModalComponent } from './components/admin/users/user-management/user-update-modal/user-update-modal.component';
 import { HomeComponent } from './components/web/home/home.component';
 import { RegisterConfirmationComponent } from './components/web/auth/register/register-confirmation/register-confirmation.component';
+import { LoginComponent } from './components/web/auth/login/login.component';
 
 
 
@@ -57,7 +58,8 @@ import { RegisterConfirmationComponent } from './components/web/auth/register/re
     AnimalComponent,
     AnimalCardComponent,
     HomeComponent,
-    RegisterConfirmationComponent
+    RegisterConfirmationComponent,
+    LoginComponent
 
   ],
   imports: [
@@ -74,7 +76,8 @@ import { RegisterConfirmationComponent } from './components/web/auth/register/re
   entryComponents: [
     FormularioAnimalModal,
     UserUpdateModalComponent,
-    RegisterConfirmationComponent
+    RegisterConfirmationComponent,
+    LoginComponent
   ]
 })
 export class AppModule {}

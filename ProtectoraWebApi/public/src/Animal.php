@@ -31,16 +31,16 @@ class Animal
 
     public function createAnimal($_name, $_type, $_breed, $_gender, $_birth_date, $_entrance_date, $_adoption_date = null, $_status, $_description, $_pictures)
     {
-        $this->$_name          = $_name;
-        $this->$_type          = $_type;
-        $this->$_breed         = $_breed;
-        $this->$_gender        = $_gender;
-        $this->$_birth_date    = $_birth_date;
-        $this->$_entrance_date = $_entrance_date;
-        $this->$_adoption_date = $_adoption_date;
-        $this->$_status        = $_status;
-        $this->$_description   = $_description;
-        $this->$_pictures      = $_pictures;
+        $this->_name          = $_name;
+        $this->_type          = $_type;
+        $this->_breed         = $_breed;
+        $this->_gender        = $_gender;
+        $this->_birth_date    = $_birth_date;
+        $this->_entrance_date = $_entrance_date;
+        $this->_adoption_date = $_adoption_date;
+        $this->_status        = $_status;
+        $this->_description   = $_description;
+        $this->_pictures      = $_pictures;
     }
 
     public function insertAnimal()
