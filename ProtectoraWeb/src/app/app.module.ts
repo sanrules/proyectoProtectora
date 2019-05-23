@@ -33,6 +33,10 @@ import { AnimalFormComponent } from './components/shared/forms/animal/animal-for
 import { FormularioAnimalModal } from './components/shared/formulario-animal-modal/formulario-animal-modal.component';
 import { UserUpdateModalComponent } from './components/admin/users/user-management/user-update-modal/user-update-modal.component';
 import { HomeComponent } from './components/web/home/home.component';
+import { AnimalTypeManagementComponent } from './components/admin/animal-type/animal-type-management/animal-type-management.component';
+import { AnimalTypeRegisterComponent } from './components/admin/animal-type/animal-type-register/animal-type-register.component';
+import { AnimalBreedRegisterComponent } from './components/admin/animal-breed/animal-breed-register/animal-breed-register.component';
+import { AnimalBreedManagementComponent } from './components/admin/animal-breed/animal-breed-management/animal-breed-management.component';
 
 
 
@@ -55,7 +59,11 @@ import { HomeComponent } from './components/web/home/home.component';
     AnimalListComponent,
     AnimalComponent,
     AnimalCardComponent,
-    HomeComponent
+    HomeComponent,
+    AnimalTypeManagementComponent,
+    AnimalTypeRegisterComponent,
+    AnimalBreedRegisterComponent,
+    AnimalBreedManagementComponent
 
   ],
   imports: [
