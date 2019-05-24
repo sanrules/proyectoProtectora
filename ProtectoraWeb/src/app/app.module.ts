@@ -39,6 +39,7 @@ import { AnimalBreedManagementComponent } from './components/admin/animal-breed/
 // Componentes Shared
 import { UserFormComponent } from './components/shared/forms/user/user-form.component';
 import { AnimalFormComponent } from './components/shared/forms/animal/animal-form.component';
+import { FormularioAnimalBreedUpdateModal } from './components/admin/animal-breed/animal-breed-management/animal-breed-update-modal/animal-breed-update-modal.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { AnimalFormComponent } from './components/shared/forms/animal/animal-for
     AnimalTypeManagementComponent,
     AnimalTypeRegisterComponent,
     AnimalBreedRegisterComponent,
-    AnimalBreedManagementComponent
+    AnimalBreedManagementComponent,
+    FormularioAnimalBreedUpdateModal
 
   ],
   imports: [
