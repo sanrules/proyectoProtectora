@@ -40,6 +40,7 @@ import { AnimalBreedManagementComponent } from './components/admin/animal-breed/
 import { UserFormComponent } from './components/shared/forms/user/user-form.component';
 import { AnimalFormComponent } from './components/shared/forms/animal/animal-form.component';
 import { FormularioAnimalBreedUpdateModal } from './components/admin/animal-breed/animal-breed-management/animal-breed-update-modal/animal-breed-update-modal.component';
+import { FormularioAnimalTypeUpdateModal } from './components/admin/animal-type/animal-type-management/animal-type-update-modal/animal-type-update-modal.component';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { FormularioAnimalBreedUpdateModal } from './components/admin/animal-bree
     AnimalTypeRegisterComponent,
     AnimalBreedRegisterComponent,
     AnimalBreedManagementComponent,
-    FormularioAnimalBreedUpdateModal
+    FormularioAnimalBreedUpdateModal,
+    FormularioAnimalTypeUpdateModal
 
   ],
   imports: [
@@ -85,7 +87,9 @@ import { FormularioAnimalBreedUpdateModal } from './components/admin/animal-bree
     UserUpdateModalComponent,
     RegisterConfirmationComponent,
     LoginComponent,
-    UserUpdateModalComponent
+    UserUpdateModalComponent,
+    FormularioAnimalTypeUpdateModal,
+    FormularioAnimalBreedUpdateModal
 
   ]
 })

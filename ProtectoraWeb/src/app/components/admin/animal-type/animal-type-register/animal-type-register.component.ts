@@ -39,7 +39,7 @@ dataPrepare() {
  /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
   let formData = {
     "id": this.registerForm.get('idType').value,
-    "nombre": this.registerForm.get('name').value.trim(),
+    "name": this.registerForm.get('name').value.trim(),
 
   };
 

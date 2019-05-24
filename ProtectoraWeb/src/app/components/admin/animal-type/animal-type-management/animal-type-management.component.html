@@ -7,21 +7,21 @@
       <!-- ID -->
       <ng-container matColumnDef="id" >
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-        <td mat-cell *matCellDef="let animales"> {{animales.id}} </td>
+        <td mat-cell *matCellDef="let types"> {{types.id}} </td>
       </ng-container>
 
       <!-- Nombre de Usuario -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre de tipo de animal </th>
-        <td mat-cell *matCellDef="let animales"> {{animales.name}} </td>
+        <td mat-cell *matCellDef="let types"> {{types.name}} </td>
       </ng-container>
 
       
       <!-- Acceder -->
       <ng-container matColumnDef="acces">
         <th mat-header-cell *matHeaderCellDef> Modificar </th>
-        <td mat-cell *matCellDef="let animales">
-          <button mat-icon-button color="accent" (click)="openModal(animales)">
+        <td mat-cell *matCellDef="let types">
+          <button mat-icon-button color="accent" (click)="openModal(types)">
             <mat-icon class="mat-18">system_update</mat-icon>
         </button>
         </td>
@@ -30,7 +30,7 @@
       <!-- Eliminar -->
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef> Eliminar </th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let types">
             <button mat-icon-button color="warn" >
                 <mat-icon class="mat-18">delete</mat-icon>
             </button>

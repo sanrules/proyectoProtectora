@@ -1,7 +1,8 @@
 import { OnInit, Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Type } from '../../../../models/type.model';
+
 import { AnimalBreedService } from 'src/app/services/raza-animal/animal-raza-service';
+import { Breed } from '../../../../models/breed.model';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { AnimalBreedService } from 'src/app/services/raza-animal/animal-raza-ser
 
   export class AnimalBreedRegisterComponent implements OnInit {
     registerForm: FormGroup;
-    public type: Type;
+    public breed: Breed;
     constructor(private formBuilder: FormBuilder,
                 private animalBreedService: AnimalBreedService){}
 
@@ -51,10 +52,10 @@ dataPrepare() {
   registerSubmit() {
     console.log('Entra en registerSubmit()');
 
-    this.type = this.dataPrepare();
-    console.log(this.type);
-    delete this.type.id;
-    let animalJSON = JSON.stringify(this.type);
+    this.breed = this.dataPrepare();
+    console.log(this.breed);
+    delete this.breed.id;
+    let animalJSON = JSON.stringify(this.breed);
     console.log('Conversión JSON: ', animalJSON);
 
     this.animalBreedService.registerAnimalBreed(animalJSON).subscribe(data => {
