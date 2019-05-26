@@ -1,7 +1,7 @@
 // Core
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/_models/user.model';
 
 @Component({
   selector: 'app-user-update-modal',

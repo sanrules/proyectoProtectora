@@ -25,6 +25,7 @@ try {
 
             $birthDate = new DateTime("@$birthDate");
             $birthDate->format("Y-m-d H:i:s");
+            $password = password_hash($password, PASSWORD_BCRYPT);
 
             $user = new User();
             $user->createUser($username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType);
@@ -37,6 +38,6 @@ try {
     }
 
 } catch(Exception $e) {
-    echo 'Error al registrar animal: ' . $e->getMessage();
+    echo 'Error al registrar el usuario: ' . $e->getMessage();
 }
 

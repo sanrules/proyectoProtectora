@@ -3,9 +3,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 // Component import
 import { UserUpdateModalComponent } from './user-update-modal/user-update-modal.component';
 // Interface import
-import { User } from '../../../../models/user.model';
+import { User } from '../../../../_models/user.model';
 // Service import
-import { UserService } from 'src/app/services/user/user-service';
+import { UserService } from 'src/app/_services/user/user-service';
 // Angular Material import
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig } from '@angular/material';
 

@@ -1,0 +1,16 @@
+.mat-form-field {
+	width: 100%;
+}
+
+.mat-raised-button {
+	margin-bottom: 2%;
+	width: 100%;
+}
+
+.close {
+	vertical-align: top;
+	text-align: right;
+	margin-right: 0%;
+	padding-right: 0%;
+	font-weight: bolder;
+}

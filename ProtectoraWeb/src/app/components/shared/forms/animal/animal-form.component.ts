@@ -1,8 +1,8 @@
 import { Component, OnInit ,  Inject} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AnimalService } from 'src/app/services/animal/animal-service';
+import { AnimalService } from 'src/app/_services/animal/animal-service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Animal } from 'src/app/models/animal.model';
+import { Animal } from 'src/app/_models/animal.model';
 
 @Component({
   selector: 'app-animal-form',
@@ -23,7 +23,7 @@ export class AnimalFormComponent implements OnInit {
   public es: string;
   constructor(private formBuilder: FormBuilder,
               private animalService: AnimalService,
-              /*public dialogRef: MatDialogRef<AnimalFormComponent>, 
+              /*public dialogRef: MatDialogRef<AnimalFormComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Animal*/ ) { }
 
   ngOnInit() {
@@ -46,7 +46,7 @@ export class AnimalFormComponent implements OnInit {
     /* if (this.data != null ){
       this.es = "crear";
       console.log("animal: ", this.data);
-     this.setDatosUpdate(this.data); 
+     this.setDatosUpdate(this.data);
     }*/
   }
 
@@ -60,7 +60,7 @@ export class AnimalFormComponent implements OnInit {
   public setDatosUpdate(data) {
 
     this.registerForm.get('idAnimal').setValue(data.id);
-    this.registerForm.get('name').setValue(data.name);  
+    this.registerForm.get('name').setValue(data.name);
     this.registerForm.get('type').setValue(data.type);
     this.registerForm.get('breed').setValue(data.breed);
     this.registerForm.get('gender').setValue(data.gender);

@@ -2,8 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { Type } from 'src/app/_models/type.model';
 
-import { Type } from '../../../../../models/type.model';
+
 
 
 @Component({
@@ -19,7 +20,7 @@ import { Type } from '../../../../../models/type.model';
 
     ngOnInit() {
 
-      console.log("data:", this.data);
+      console.log('data:', this.data);
 
       this.registerForm = this.formBuilder.group({
             idType: ['', []],
@@ -40,8 +41,8 @@ import { Type } from '../../../../../models/type.model';
       /* const entranceDate = new Date(); */
      /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
       let formData = {
-        "id": this.registerForm.get('idType').value.trim(),
-        "name": this.registerForm.get('name').value.trim(),
+        'id': this.registerForm.get('idType').value.trim(),
+        'name': this.registerForm.get('name').value.trim(),
 
       };
 
@@ -53,14 +54,14 @@ import { Type } from '../../../../../models/type.model';
       this.dialogRef.close();
     }
 
-    guardar(){
+    guardar() {
 
-      console.log("formulario: ", this.dataPrepare());
+      console.log('formulario: ', this.dataPrepare());
 
     }
-    borrar(){
+    borrar() {
 
-      console.log("borrar: ");
+      console.log('borrar: ');
     }
 
 }
