@@ -1,9 +1,9 @@
 import { OnInit, Component, ViewChild } from '@angular/core';
-//import { AnimalService } from '../../../../services/animal/animal-service';
+// import { AnimalService } from '../../../../_services/animal/animal-service';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} from '@angular/material';
-//import { Animal } from 'src/app/models/animal.model';
-//import { Observable } from 'rxjs';
-//import { FormularioAnimalModal } from '../../../shared/formulario-animal-modal/formulario-animal-modal.component'; */
+// import { Animal } from 'src/app/_models/animal.model';
+// import { Observable } from 'rxjs';
+// import { FormularioAnimalModal } from '../../../shared/formulario-animal-modal/formulario-animal-modal.component'; */
 
 @Component({
     selector: 'app-admin/animal-type/management',
@@ -12,16 +12,16 @@ import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} 
   })
   export class AnimalTypeManagementComponent implements OnInit {
 
-    tipos: any; 
+    tipos: any;
     displayedColumns: string[] = ['id', 'name' , 'acces', 'delete'];
     dataSource = new MatTableDataSource(this.tipos);
 
     constructor(/* private animalService: AnimalService, */
                 private dialog: MatDialog) { }
 
-    //@ViewChild(MatPaginator) paginator: MatPaginator;
-    //@ViewChild(MatSort) sort: MatSort;
- 
+    // @ViewChild(MatPaginator) paginator: MatPaginator;
+    // @ViewChild(MatSort) sort: MatSort;
+
     ngOnInit() {
      /*  this.animales = this.animalService.getAnimals().subscribe(data => {
         this.dataSource.data = data as Animal[];
@@ -40,7 +40,7 @@ import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} 
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }
-   */ 
+   */
     openModal(animales) {
      /* console.log("row: ", animales);
       const dialogConfig = new MatDialogConfig();

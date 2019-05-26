@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 // Formularios
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../../../../services/user/user-service';
-import { User } from 'src/app/models/user.model';
+import { UserService } from '../../../../_services/user/user-service';
+import { User } from 'src/app/_models/user.model';
 
 @Component({
   selector: 'app-registro',

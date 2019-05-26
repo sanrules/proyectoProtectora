@@ -1,7 +1,7 @@
 import { OnInit, Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Type } from '../../../../models/type.model';
-import { AnimalBreedService } from 'src/app/services/raza-animal/animal-raza-service';
+import { Type } from '../../../../_models/type.model';
+import { AnimalBreedService } from 'src/app/_services/raza-animal/animal-raza-service';
 
 
 @Component({
@@ -30,7 +30,7 @@ import { AnimalBreedService } from 'src/app/services/raza-animal/animal-raza-ser
 
     this.registerForm.get('idType').setValue(data.id);
     this.registerForm.get('idBreed').setValue(data.id);
-    this.registerForm.get('name').setValue(data.name);  
+    this.registerForm.get('name').setValue(data.name);
 }
 
 dataPrepare() {

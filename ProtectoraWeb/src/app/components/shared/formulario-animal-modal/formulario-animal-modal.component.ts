@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Animal } from '../../../models/animal.model';
+import { Animal } from '../../../_models/animal.model';
 import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 
 

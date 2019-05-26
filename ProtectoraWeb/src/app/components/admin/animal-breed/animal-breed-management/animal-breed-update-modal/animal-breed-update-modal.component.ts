@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
-import { Breed } from '../../../../../models/breed.model';
+import { Breed } from '../../../../../_models/breed.model';
 
 
 @Component({
@@ -18,7 +18,7 @@ import { Breed } from '../../../../../models/breed.model';
 
     ngOnInit() {
 
-      console.log("data:", this.data);
+      console.log('data:', this.data);
 
       this.registerForm = this.formBuilder.group({
             name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],

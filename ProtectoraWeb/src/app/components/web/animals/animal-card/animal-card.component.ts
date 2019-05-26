@@ -1,5 +1,5 @@
 import { OnInit, Component, Input } from '@angular/core';
-import { AnimalService } from '../../../../services/animal/animal-service';
+import { AnimalService } from '../../../../_services/animal/animal-service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   export class AnimalCardComponent implements OnInit {
 
 @Input() dato: any = {};
-@Input() index: number;  
+@Input() index: number;
     public animales: Observable<any>;
     constructor(private animalService: AnimalService){
 

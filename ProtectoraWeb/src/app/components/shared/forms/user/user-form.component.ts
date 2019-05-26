@@ -1,8 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 // Formularios
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/user/user-service';
-import { User } from 'src/app/models/user.model';
+// Servicios
+import { UserService } from 'src/app/_services/user/user-service';
+// Interfaces
+import { User } from 'src/app/_models/user.model';
+// Components
 import { RegisterConfirmationComponent } from 'src/app/components/web/auth/register/register-confirmation/register-confirmation.component';
 // Material
 import { MatDialogConfig, MatDialog } from '@angular/material';
@@ -29,7 +32,6 @@ export class UserFormComponent implements OnInit {
               private dialog: MatDialog) {}
 
   ngOnInit() {
-    console.log('tipo: ', this.tipo);
     // Crea el formulario y le agrega a un formGroup:
     // Así se tienen las validaciones y los métodos de los formularios reactivos de Angular
     this.registerForm = this.formBuilder.group({
@@ -100,6 +102,7 @@ export class UserFormComponent implements OnInit {
     // Se envían los datos mediante post a la API
     this.userService.registerUser(userJSON).subscribe(data => {
       console.log('repuesta registerUser(data): ', data);
+      this.openDialog();
       },
       error => {
         console.log('Error: ', error);
