@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AnimalBreedService } from 'src/app/services/raza-animal/animal-raza-service';
 import { Breed } from '../../../../models/breed.model';
+import { AnimalTypeService } from '../../../../services/tipo-animal/animal-type-service';
 
 
 @Component({
@@ -14,15 +15,20 @@ import { Breed } from '../../../../models/breed.model';
   export class AnimalBreedRegisterComponent implements OnInit {
     registerForm: FormGroup;
     public breed: Breed;
+    public types: any [];
     constructor(private formBuilder: FormBuilder,
-                private animalBreedService: AnimalBreedService){}
+                private animalBreedService: AnimalBreedService,
+                private animalTypeService: AnimalTypeService){}
 
     ngOnInit() {
-
+    this.animalTypeService.getAnimalTypes().subscribe(e => {
+      this.types = e;
+      console.log(e);
+    });
 
     this.registerForm = this.formBuilder.group({
-      idType: ['', []],
       idBreed: ['', []],
+      idType: ['', [Validators.required]],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     });
   }
@@ -39,8 +45,8 @@ dataPrepare() {
   const entranceDate = new Date();
  /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
   let formData = {
-    "id": this.registerForm.get('idType').value,
-    "idtipo": this.registerForm.get('idBreed').value,
+    "id": this.registerForm.get('idBreed').value,
+    "idtipo": this.registerForm.get('idType').value,
     "nombre": this.registerForm.get('name').value.trim(),
 
   };
@@ -58,11 +64,11 @@ dataPrepare() {
     let animalJSON = JSON.stringify(this.breed);
     console.log('Conversión JSON: ', animalJSON);
 
-    this.animalBreedService.registerAnimalBreed(animalJSON).subscribe(data => {
+    /* this.animalBreedService.registerAnimalBreed(animalJSON).subscribe(data => {
         console.log('respuesta registerAnimal(data): ', data);
     }, error => {
         console.warn('Error: ', error);
-    });
+    }); */
   }
 
 

@@ -5,10 +5,14 @@
       <div class="form-group col-md-12">
         <div class="form-group col-md-12">
         <mat-form-field>
-            <input matInput placeholder="Seleccionar tipo de animal" type="text" formControlName="name" id="name" >
-            <!-- <mat-error *ngIf="registerForm.controls[''].errors">
-            Nombre del tipo de animal requerido
-            </mat-error> -->
+          <mat-label>Favorite animal</mat-label>
+          <mat-select formControlName="idType" >
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let type of types" [value]="type.id">
+              {{type.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
         </mat-form-field>
         </div>
         <mat-form-field>
