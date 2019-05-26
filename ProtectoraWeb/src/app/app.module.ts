@@ -42,6 +42,8 @@ import { AnimalBreedRegisterComponent } from './components/admin/animal-breed/an
 import { AnimalBreedManagementComponent } from './components/admin/animal-breed/animal-breed-management/animal-breed-management.component';
 // tslint:disable-next-line: max-line-length
 import { FormularioAnimalBreedUpdateModal } from './components/admin/animal-breed/animal-breed-management/animal-breed-update-modal/animal-breed-update-modal.component';
+// tslint:disable-next-line: max-line-length
+import { FormularioAnimalTypeUpdateModal } from './components/admin/animal-type/animal-type-management/animal-type-update-modal/animal-type-update-modal.component';
 
 // Componentes Shared
 import { UserFormComponent } from './components/shared/forms/user/user-form.component';
@@ -75,7 +77,7 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
     AnimalBreedRegisterComponent,
     AnimalBreedManagementComponent,
     FormularioAnimalBreedUpdateModal,
-
+    FormularioAnimalTypeUpdateModal
   ],
   imports: [
     BrowserModule,
@@ -96,7 +98,9 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
     UserUpdateModalComponent,
     RegisterConfirmationComponent,
     LoginComponent,
-    UserUpdateModalComponent
+    UserUpdateModalComponent,
+    FormularioAnimalTypeUpdateModal,
+    FormularioAnimalBreedUpdateModal
   ]
 })
 export class AppModule {}

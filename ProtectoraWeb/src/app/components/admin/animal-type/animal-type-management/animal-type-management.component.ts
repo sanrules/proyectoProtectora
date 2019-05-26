@@ -1,9 +1,14 @@
 import { OnInit, Component, ViewChild } from '@angular/core';
-// import { AnimalService } from '../../../../_services/animal/animal-service';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} from '@angular/material';
+
+// import { AnimalService } from '../../../../_services/animal/animal-service';
 // import { Animal } from 'src/app/_models/animal.model';
 // import { Observable } from 'rxjs';
 // import { FormularioAnimalModal } from '../../../shared/formulario-animal-modal/formulario-animal-modal.component'; */
+import { FormularioAnimalTypeUpdateModal } from './animal-type-update-modal/animal-type-update-modal.component';
+import { AnimalTypeService } from 'src/app/_services/tipo-animal/animal-type-service';
+import { Type } from 'src/app/_models/type.model';
+
 
 @Component({
     selector: 'app-admin/animal-type/management',
@@ -16,40 +21,40 @@ import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} 
     displayedColumns: string[] = ['id', 'name' , 'acces', 'delete'];
     dataSource = new MatTableDataSource(this.tipos);
 
-    constructor(/* private animalService: AnimalService, */
+    constructor(private animalTypeService: AnimalTypeService,
                 private dialog: MatDialog) { }
 
-    // @ViewChild(MatPaginator) paginator: MatPaginator;
-    // @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {
-     /*  this.animales = this.animalService.getAnimals().subscribe(data => {
-        this.dataSource.data = data as Animal[];
+      this.tipos = this.animalTypeService.getAnimalTypes().subscribe(data => {
+      this.dataSource.data = data as Type[];
 
-        console.log('repuesta getAnimals(): ', this.dataSource.data);
-        },
-        error => {
-          console.log('Error: ', error);
-        }
+      console.log('repuesta getAnimals(): ', this.dataSource.data);
+      },
+      error => {
+        console.log('Error: ', error);
+      }
 
-      );
- */
+    );
 
     }
-  /*   ngAfterViewInit(): void {
+    ngAfterViewInit(): void {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }
-   */
-    openModal(animales) {
-     /* console.log("row: ", animales);
+
+    openModal(types) {
+
+      console.log('row: ', types);
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
-      dialogConfig.height = "80%"
-      dialogConfig.width = "80%";
-      dialogConfig.data = animales;
-      this.dialog.open(FormularioAnimalModal, dialogConfig);
-      */
+      dialogConfig.height = '80%';
+      dialogConfig.width = '80%';
+      dialogConfig.data = types;
+      this.dialog.open(FormularioAnimalTypeUpdateModal, dialogConfig);
+
     }
 
 }
