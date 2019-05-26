@@ -1,9 +1,8 @@
 import { OnInit, Component, ViewChild } from '@angular/core';
-//import { AnimalService } from '../../../../services/animal/animal-service';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} from '@angular/material';
-//import { Animal } from 'src/app/models/animal.model';
-//import { Observable } from 'rxjs';
-//import { FormularioAnimalModal } from '../../../shared/formulario-animal-modal/formulario-animal-modal.component'; */
+import { AnimalBreedService } from '../../../../services/raza-animal/animal-raza-service';
+import { Breed } from 'src/app/models/breed.model';
+import { FormularioAnimalBreedUpdateModal } from './animal-breed-update-modal/animal-breed-update-modal.component';
 
 @Component({
     selector: 'app-admin/animal-breed/management',
@@ -16,15 +15,15 @@ import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} 
     displayedColumns: string[] = ['id', 'idtype', 'name' , 'acces', 'delete'];
     dataSource = new MatTableDataSource(this.razas);
 
-    constructor(/* private animalService: AnimalService, */
+    constructor(private animalBreedService: AnimalBreedService,
                 private dialog: MatDialog) { }
 
-    //@ViewChild(MatPaginator) paginator: MatPaginator;
-    //@ViewChild(MatSort) sort: MatSort;
- 
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
+
     ngOnInit() {
-     /*  this.animales = this.animalService.getAnimals().subscribe(data => {
-        this.dataSource.data = data as Animal[];
+        this.razas = this.animalBreedService.getAnimalBreeds().subscribe(data => {
+        this.dataSource.data = data as Breed[];
 
         console.log('repuesta getAnimals(): ', this.dataSource.data);
         },
@@ -33,23 +32,23 @@ import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} 
         }
 
       );
- */
+
 
     }
-  /*   ngAfterViewInit(): void {
+      ngAfterViewInit(): void {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }
-   */ 
-    openModal(animales) {
-     /* console.log("row: ", animales);
+
+    openModal(razas) {
+      console.log("row: ", razas);
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.height = "80%"
       dialogConfig.width = "80%";
-      dialogConfig.data = animales;
-      this.dialog.open(FormularioAnimalModal, dialogConfig);
-      */
+      dialogConfig.data = razas;
+      this.dialog.open(FormularioAnimalBreedUpdateModal, dialogConfig);
+
     }
 
 }

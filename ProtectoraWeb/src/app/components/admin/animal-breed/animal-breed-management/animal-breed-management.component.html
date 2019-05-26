@@ -7,18 +7,18 @@
       <!-- ID -->
       <ng-container matColumnDef="id" >
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
-        <td mat-cell *matCellDef="let animales"> {{animales.id}} </td>
+        <td mat-cell *matCellDef="let razas"> {{razas.id}} </td>
       </ng-container>
       <!-- ID Tipo -->
       <ng-container matColumnDef="idtype" >
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Id tipo </th>
-        <td mat-cell *matCellDef="let animales"> {{animales.id}} </td>
+        <td mat-cell *matCellDef="let razas"> {{razas.idtype}} </td>
       </ng-container>
 
       <!-- Nombre de Usuario -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre de tipo de animal </th>
-        <td mat-cell *matCellDef="let animales"> {{animales.name}} </td>
+        <td mat-cell *matCellDef="let razas"> {{razas.name}} </td>
       </ng-container>
 
       
@@ -26,8 +26,8 @@
       <!-- Acceder -->
       <ng-container matColumnDef="acces">
         <th mat-header-cell *matHeaderCellDef> Modificar </th>
-        <td mat-cell *matCellDef="let animales">
-          <button mat-icon-button color="accent" (click)="openModal(animales)">
+        <td mat-cell *matCellDef="let razas">
+          <button mat-icon-button color="accent" (click)="openModal(razas)">
             <mat-icon class="mat-18">system_update</mat-icon>
         </button>
         </td>
@@ -36,7 +36,7 @@
       <!-- Eliminar -->
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef> Eliminar </th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let razas">
             <button mat-icon-button color="warn" >
                 <mat-icon class="mat-18">delete</mat-icon>
             </button>
@@ -47,6 +47,6 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
 </div>

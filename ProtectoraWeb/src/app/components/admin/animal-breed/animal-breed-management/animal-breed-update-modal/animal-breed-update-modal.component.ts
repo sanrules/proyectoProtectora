@@ -26,20 +26,21 @@ import { AnimalTypeService } from '../../../../../services/tipo-animal/animal-ty
             this.types = e;
             console.log(e);
           });
+
       this.registerForm = this.formBuilder.group({
-            idBreed: ['', [Validators.required]],
+            idBreed: ['', []],
             idType: ['', [Validators.required]],
             name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]]
           });
-
+      this.setDatosUpdate(this.data);
     }
 
 
     public setDatosUpdate(data) {
 
-      this.registerForm.get('idBreed').setValue(data.name);
-      this.registerForm.get('idType').setValue(data.type);
-      this.registerForm.get('name').setValue(data.breed);
+      this.registerForm.get('idBreed').setValue(data.id);
+      this.registerForm.get('idType').setValue(data.idtype);
+      this.registerForm.get('name').setValue(data.name);
 
 
   }

@@ -11,8 +11,8 @@ try {
         /* $picturesArray = explode(",",$request['pictures']); */
 
         // Validate & sanitize
-        $idtype = filter_var($request['idType'], FILTER_SANITIZE_NUMBER_INT;
-        $name = filter_var($request['name'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
+        $idtype = filter_var($request['idtipo'], FILTER_SANITIZE_NUMBER_INT);
+        $name = filter_var($request['nombre'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
        
         /*    $pictures      = filter_var($request['pictures'], FILTER_REQUIRE_ARRAY) ? $request['pictures'] : ''; // Las imágenes tendrán que venir en un array */
 

@@ -8,7 +8,7 @@ include('lib/ChromePhp.php');
 // ! configuración para xampp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
-class AnimalType
+class AnimalBreed
 {
     public $_id     = '';
     public $_idtype = '';
@@ -20,24 +20,24 @@ class AnimalType
 
     }
 
-    public function createAnimalType($_name, $_idtype)
+    public function createAnimalBreed($_name, $_idtype)
     {
         $this->_name          = $_name;
         $this->_idtype          = $_idtype;
 
     }
 
-    public function insertAnimalType()
+    public function insertAnimalBreed()
     {
+
         $animalBreed = R::dispense('animalbreed');
 
         $animalBreed->name          = $this->_name;
-        $animalBreed->idtype        = $this->_idtype;
+        $animalBreed->idtype          = $this->_idtype;
         
-
         $id = R::store($animalBreed);
-
         $this->_id = $id;
+        
     }
 
 /**
@@ -144,7 +144,7 @@ class AnimalType
     /**
      * Get the value of _idUser
      */
-    public function get_id()
+    public function get_idType()
     {
         return $this->_idtype;
     }
@@ -154,7 +154,7 @@ class AnimalType
      *
      * @return  self
      */
-    public function set_id($_idtype)
+    public function set_idType($_idtype)
     {
         $this->_idtype = $_idtype;
 

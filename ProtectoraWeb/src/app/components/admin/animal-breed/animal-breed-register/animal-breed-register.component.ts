@@ -64,11 +64,11 @@ dataPrepare() {
     let animalJSON = JSON.stringify(this.breed);
     console.log('Conversión JSON: ', animalJSON);
 
-    /* this.animalBreedService.registerAnimalBreed(animalJSON).subscribe(data => {
+    this.animalBreedService.registerAnimalBreed(animalJSON).subscribe(data => {
         console.log('respuesta registerAnimal(data): ', data);
     }, error => {
         console.warn('Error: ', error);
-    }); */
+    });
   }
 
 
