@@ -1,5 +1,7 @@
 <?php
 require_once 'AnimalBreed.php';
+require_once '../../vendor/autoload.php';
+
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
@@ -9,6 +11,7 @@ $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 try {
     $animalbreed = new AnimalBreed();
     $animalbreed = $animalbreed->retrieveAnimalBreedsAll();
+
 } catch (Exception $e) {
     $error = 'Error al recoger las razas de los animales';
     $logger->error($error);
