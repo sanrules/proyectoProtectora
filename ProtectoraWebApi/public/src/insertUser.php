@@ -1,4 +1,5 @@
 <?php
+use PHPMailer\PHPMailer\Exception;
 
 require_once 'User.php';
 
@@ -21,7 +22,7 @@ try {
         $door      = filter_var($request['door'], FILTER_SANITIZE_STRING); // String provisionalmente
         $userType  = filter_var($request['userType'], FILTER_SANITIZE_STRING); // String provisionalmente
 
-        if($username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor!= '' || $door != '' || $userType != '') {
+        if ($username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $userType != '') {
 
             $birthDate = new DateTime("@$birthDate");
             $birthDate->format("Y-m-d H:i:s");
@@ -29,15 +30,40 @@ try {
 
             $user = new User();
             $user->createUser($username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType);
-            $user->insertUser();
+            $emailBBDD = $user->retrieveUserEmail($email);
 
-            echo json_encode(array("status" => "ok", "data" => $user), JSON_FORCE_OBJECT);
-
+            if ($emailBBDD == '') {
+                $user->insertUser();
+            } else {
+                $error = 'El email ya existe en la base de datos';
+                $logger->error($error);
+                throw new Exception();
+            }
         }
-
     }
 
-} catch(Exception $e) {
-    echo 'Error al registrar el usuario: ' . $e->getMessage();
+} catch (Exception $e) {
+    // echo 'Error al registrar el usuario: ' . $e->getMessage();
+    $error = 'Error al registrar el usuario';
+    $logger->error($error);
 }
 
+if ($error == '') {
+    $reply = array(
+        'status'   => 'OK',
+        'response' => $user,
+    );
+    http_response_code(200); // 200 OK
+} else {
+    $reply = array(
+        'status' => 'Error',
+        'error'  => $error,
+    );
+    http_response_code(503); // 503 Service Unavailable
+    $logger->info("Error: $error");
+}
+
+header('Content-type:application/json;charset=utf-8');
+echo json_encode($reply, JSON_UNESCAPED_UNICODE);
+
+// echo json_encode(array("status" => "ok", "data" => $user), JSON_FORCE_OBJECT);

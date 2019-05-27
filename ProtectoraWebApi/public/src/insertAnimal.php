@@ -1,13 +1,17 @@
 <?php
 
 require_once 'Animal.php';
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+
+$logger = new Logger('insertAnimal');
+$logger->pushHandler(new StreamHandler($CFG->logfile, Logger::DEBUG));
 
 try {
     $postdata = file_get_contents("php://input");
     $request  = json_decode($postdata, true);
 
     if ($request) {
-
         $vStatus = ['adoptado', 'pre-adoptado', 'en adopción'];
         /* $picturesArray = explode(",",$request['pictures']); */
 
@@ -24,11 +28,11 @@ try {
         $pictures      = filter_var($request['pictures'], FILTER_SANITIZE_STRING); // String provisionalmente
         /*    $pictures      = filter_var($request['pictures'], FILTER_REQUIRE_ARRAY) ? $request['pictures'] : ''; // Las imágenes tendrán que venir en un array */
 
-// Comprobamos que todo viene con datos. Si no, se devolverá al formulario
+        // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($name != '' || $type != '' || $breed != '' || $gender != '' || $birth_date != '' || $entrance_date != '' || $adoption_date != '' || $status != '' || $description != '' || $pictures != '') {
 
-            $birth_date = new DateTime("@$birth_date");
-            $birth_date = $birth_date->format("Y-m-d H:i:s");
+            $birth_date    = new DateTime("@$birth_date");
+            $birth_date    = $birth_date->format("Y-m-d H:i:s");
             $entrance_date = new DateTime("@$entrance_date");
             $entrance_date = $entrance_date->format("Y-m-d H:i:s");
 
@@ -36,12 +40,28 @@ try {
             $animal->createAnimal($name, $type, $breed, $gender, $birth_date, $entrance_date, $adoption_date, $status, $description, $pictures);
 
             $animal->insertAnimal();
-
-            echo json_encode(array("status" => "ok", "data" => $animal), JSON_FORCE_OBJECT);
-
         }
     }
 
 } catch (Exception $e) {
-    echo 'Error al registrar animal: ' . $e->getMessage();
+    $error = 'Error al registrar animal: ' . $e->getMessage();
+    $logger->error("No se ha podido insertar el animal");
 }
+
+if ($animal != '') {
+    $reply = array(
+        'status'   => 'Created',
+        'response' => $animal,
+    );
+    http_response_code(200); // 200 OK
+} else {
+    $reply = array(
+        'status' => 'Error',
+        'error'  => $error,
+    );
+    http_response_code(503); // 503 Service Unavailable
+    $logger->info("Error: $error");
+}
+
+header('Content-type:application/json;charset=utf-8');
+echo json_encode($reply, JSON_UNESCAPED_UNICODE);

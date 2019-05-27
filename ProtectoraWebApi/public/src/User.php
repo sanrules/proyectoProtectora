@@ -30,7 +30,7 @@ class User
 
     }
 
-    public function createUser($_username,$_password, $_email, $_name, $_surname, $_phone, $_birthDate, $_street, $_number, $_portal, $_floor, $_door, $_userType)
+    public function createUser($_username, $_password, $_email, $_name, $_surname, $_phone, $_birthDate, $_street, $_number, $_portal, $_floor, $_door, $_userType)
     {
         $this->_username  = $_username;
         $this->_password  = $_password;
@@ -73,6 +73,19 @@ class User
         $this->_id = $id;
 
         // TODO ALMACENAR PASSWORD SEGURA
+
+    }
+
+    /**
+     * Obtiene un usuario de la base de datos en base a su email
+     * @param int $email MAIL del usuario
+     * @return User $user usuario recogido de la base de datos
+     */
+    public function retrieveUserEmail($email)
+    {
+        $user = R::find('user', ' email = ? ', [$email]);
+
+        return $user;
 
     }
 
