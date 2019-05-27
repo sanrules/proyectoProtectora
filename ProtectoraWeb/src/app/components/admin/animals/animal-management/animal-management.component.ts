@@ -3,8 +3,8 @@ import { AnimalService } from '../../../../_services/animal/animal-service';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} from '@angular/material';
 import { Animal } from 'src/app/_models/animal.model';
 import { Observable } from 'rxjs';
+import { FormularioAnimalModal } from './formulario-animal-modal/formulario-animal-modal.component';
 
-import { FormularioAnimalModal } from '../../../shared/formulario-animal-modal/formulario-animal-modal.component';
 
 @Component({
     selector: 'app-admin/animal/management',

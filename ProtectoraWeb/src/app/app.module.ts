@@ -34,7 +34,6 @@ import { AdminUserRegisterComponent } from './components/admin/users/user-regist
 import { UserUpdateModalComponent } from './components/admin/users/user-management/user-update-modal/user-update-modal.component';
 // Animals
 import { AnimalManagementComponent } from './components/admin/animals/animal-management/animal-management.component';
-import { FormularioAnimalModal } from './components/shared/formulario-animal-modal/formulario-animal-modal.component';
 import { AnimalRegisterComponent } from './components/admin/animals/animal-register/animal-register.component';
 import { AnimalTypeManagementComponent } from './components/admin/animal-type/animal-type-management/animal-type-management.component';
 import { AnimalTypeRegisterComponent } from './components/admin/animal-type/animal-type-register/animal-type-register.component';
@@ -50,6 +49,7 @@ import { UserFormComponent } from './components/shared/forms/user/user-form.comp
 import { AnimalFormComponent } from './components/shared/forms/animal/animal-form.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
+import { FormularioAnimalModal } from './components/admin/animals/animal-management/formulario-animal-modal/formulario-animal-modal.component';
 
 
 @NgModule({
@@ -62,7 +62,6 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
     AdministratorNavbarComponent,
     AdminUserRegisterComponent,
     UserManagementComponent,
-    FormularioAnimalModal,
     AnimalFormComponent,
     UserFormComponent,
     UserUpdateModalComponent,
@@ -77,7 +76,8 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
     AnimalBreedRegisterComponent,
     AnimalBreedManagementComponent,
     FormularioAnimalBreedUpdateModal,
-    FormularioAnimalTypeUpdateModal
+    FormularioAnimalTypeUpdateModal,
+    FormularioAnimalModal
   ],
   imports: [
     BrowserModule,
