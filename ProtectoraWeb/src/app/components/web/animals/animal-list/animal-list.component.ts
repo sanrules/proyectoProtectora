@@ -17,7 +17,6 @@ import { Observable } from 'rxjs';
     ngOnInit() {
         this.animalService.getAnimals().subscribe(animals => {
           this.animales = animals.response;
-          console.log('respuesta getAllAnimals: ', this.animales);
         });
     }
 
