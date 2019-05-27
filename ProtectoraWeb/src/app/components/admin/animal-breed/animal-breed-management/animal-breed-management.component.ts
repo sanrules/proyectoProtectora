@@ -23,7 +23,7 @@ import { AnimalBreedService } from 'src/app/_services/raza-animal/animal-raza-se
 
     ngOnInit() {
         this.razas = this.animalBreedService.getAnimalBreeds().subscribe(data => {
-        this.dataSource.data = data as Breed[];
+        this.dataSource.data = data.response as Breed[];
 
         console.log('repuesta getAnimals(): ', this.dataSource.data);
         },

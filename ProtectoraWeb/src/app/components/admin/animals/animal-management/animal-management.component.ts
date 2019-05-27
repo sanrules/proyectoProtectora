@@ -25,7 +25,7 @@ import { FormularioAnimalModal } from './formulario-animal-modal/formulario-anim
 
     ngOnInit() {
       this.animales = this.animalService.getAnimals().subscribe(data => {
-        this.dataSource.data = data as Animal[];
+        this.dataSource.data = data.response as Animal[];
 
         console.log('repuesta getAnimals(): ', this.dataSource.data);
         },

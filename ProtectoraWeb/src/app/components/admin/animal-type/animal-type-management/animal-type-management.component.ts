@@ -29,7 +29,7 @@ import { Type } from 'src/app/_models/type.model';
 
     ngOnInit() {
       this.tipos = this.animalTypeService.getAnimalTypes().subscribe(data => {
-      this.dataSource.data = data as Type[];
+      this.dataSource.data = data.response as Type[];
 
       console.log('repuesta getAnimals(): ', this.dataSource.data);
       },
