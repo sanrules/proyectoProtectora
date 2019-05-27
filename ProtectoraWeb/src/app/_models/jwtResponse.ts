@@ -4,6 +4,5 @@ export interface JwtResponse {
   email: string;
   password?: string;
   type: string;
-  token: string;
 
 }

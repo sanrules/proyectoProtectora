@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialogRef.close();
   }
 
