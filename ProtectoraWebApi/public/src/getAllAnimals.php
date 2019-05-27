@@ -31,7 +31,7 @@ if ($animals != '') {
     $logger->info("Error: $error");
 }
 
-header('Content-type:application/json;charset=utf-8');
+// header('Content-type:application/json;charset=utf-8');
 echo json_encode($reply, JSON_UNESCAPED_UNICODE);
 
 // Lo antiguo
