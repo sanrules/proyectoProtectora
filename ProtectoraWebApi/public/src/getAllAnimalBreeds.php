@@ -4,7 +4,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 $logger = new Logger('getAllAnimalBreeds');
-$logger->pushHandler(new StreamHandler($CFG->logfile, Logger::DEBUG));
+$logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {
     $animalbreed = new AnimalBreed();

@@ -7,7 +7,7 @@ try {
     $animaltypes = $animaltype->retrieveAnimalTypesAll();
 } catch (Exception $e) {
     $error = 'Error al recoger los tipos de animales';
-    $logger->error($error);
+    //$logger->error($error);
 }
 
 if ($animaltypes != '') {

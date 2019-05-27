@@ -5,7 +5,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 $logger = new Logger('insertAnimal');
-$logger->pushHandler(new StreamHandler($CFG->logfile, Logger::DEBUG));
+$logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {
     $animal  = new Animal();
