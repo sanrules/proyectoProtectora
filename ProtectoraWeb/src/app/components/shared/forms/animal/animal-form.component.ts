@@ -120,27 +120,18 @@ dataPrepare() {
         // this.datosResultado = this.datosCliente.getClientes();
         //this.formCliente.reset();
         //this.toastr.success('Cliente dado de alta');
+        this.limpiarForm();
         console.log('respuesta registerAnimal(data): ', data);
     }, error => {
         console.warn('Error: ', error);
     });
   }
 
-  /* esCrear(){
-    if ( this.es = 'crear' ) {
-      return true;
-    } else {
-      return false;
-    }
+  public limpiarForm() {
+    this.registerForm.markAsUntouched(); 
+    this.registerForm.reset();
+   /*  this.formBuilder.resetForm(); */
   }
-
-  esGuardar(){
-    if ( this.es = 'guardar' ) {
-      return true;
-    } else {
-      return false;
-    }
-  } */
 
 
 }

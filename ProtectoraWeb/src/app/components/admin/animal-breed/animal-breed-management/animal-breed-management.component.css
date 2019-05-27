@@ -4,3 +4,9 @@
 form {
     margin: 10%;
 }
+table {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+  
