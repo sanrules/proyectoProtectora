@@ -1,5 +1,6 @@
 <?php
 require_once 'Animal.php';
+require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;

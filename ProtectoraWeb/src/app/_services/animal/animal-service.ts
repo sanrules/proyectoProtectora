@@ -33,6 +33,8 @@ export class AnimalService {
   }
 
   // Modifica un animal
-  updateAnimal() {}
+  updateAnimal(data): Observable<any> {
+    return this.http.post(`${this.baseURL}/updateAnimal.php`, data, this.httpOptions);
+  }
 
 }
