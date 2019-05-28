@@ -1,6 +1,6 @@
 <?php
 require_once 'lib/RedBean/rb.php';
-include('lib/ChromePhp.php');
+include 'lib/ChromePhp.php';
 
 // ! configuración para mamp
 // R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -10,9 +10,8 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
 class AnimalType
 {
-    public $_id     = '';
-    public $_name   = '';
-   
+    public $_id   = '';
+    public $_name = '';
 
     public function __construct()
     {
@@ -21,16 +20,15 @@ class AnimalType
 
     public function createAnimalType($_name)
     {
-        $this->_name          = $_name;
-      
+        $this->_name = $_name;
+
     }
 
     public function insertAnimalType()
     {
         $animalType = R::dispense('animaltype');
 
-        $animalType->name          = $this->_name;
-        
+        $animalType->name = $this->_name;
 
         $id = R::store($animalType);
 
@@ -67,10 +65,10 @@ class AnimalType
  */
     public function retrieveAnimalTypeParams($params)
     {
-        $num = $count($paramS);
+        $num = count($params);
         $sql = "SELECT * FROM animal WHERE ";
 
-        foreach ($params as $field->$value) {
+        foreach ($params as $field => $value) {
             --$num;
             $sql .= " $field = $value ";
             $sql .= $num != 0 ? ' AND ' : ' ;';
@@ -112,7 +110,6 @@ class AnimalType
     {
 
     }
-
 
     /*
      *** GETTERS Y SETTERS
@@ -158,11 +155,4 @@ class AnimalType
         return $this;
     }
 
-    
-
-
 }
-
-
-
-

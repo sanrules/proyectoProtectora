@@ -1,24 +1,23 @@
 <?php
-require_once 'User.php';
 
+include 'lib/phpmailer.php';
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-$logger = new Logger('getAllUsers');
+$logger = new Logger('sendMail');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
+$error = '';
 
 try {
-    $user  = new User();
-    $users = $user->retrieveUserAll();
+    sendMail();
 } catch (Exception $e) {
-    $error = 'No se han podido obtener todos los usuarios';
+    $error = 'Mail no enviado';
     $logger->error($error);
 }
 
 if ($error == '') {
     $reply = array(
-        'status'   => 'Getted',
-        'response' => $users,
+        'status' => 'Sended',
     );
     http_response_code(200); // 200 OK
 } else {
@@ -29,6 +28,3 @@ if ($error == '') {
     http_response_code(503); // 503 Service Unavailable
     $logger->info("Error: $error");
 }
-
-echo json_encode($reply, JSON_UNESCAPED_UNICODE);
-// header('Content-Type: application/json');

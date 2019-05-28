@@ -1,7 +1,12 @@
 <?php
-use PHPMailer\PHPMailer\Exception;
 
 require_once 'User.php';
+require_once 'lib/phpmailer.php';
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+
+$logger = new Logger('insertUser');
+$logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {
     $postdata = file_get_contents("php://input");
@@ -54,6 +59,8 @@ if ($error == '') {
         'response' => $user,
     );
     http_response_code(200); // 200 OK
+    // envía el mail
+    sendMail($user);
 } else {
     $reply = array(
         'status' => 'Error',

@@ -1,13 +1,18 @@
 <?php
 
 require_once 'AnimalType.php';
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+
+$logger = new Logger('getAllAnimalTypes');
+$logger->pushHandler(new StreamHandler($CFG->logFile, Logger::DEBUG));
 
 try {
     $animaltype  = new AnimalType();
     $animaltypes = $animaltype->retrieveAnimalTypesAll();
 } catch (Exception $e) {
     $error = 'Error al recoger los tipos de animales';
-    //$logger->error($error);
+    $logger->error($error);
 }
 
 if ($animaltypes != '') {

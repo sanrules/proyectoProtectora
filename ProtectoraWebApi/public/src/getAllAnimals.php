@@ -5,7 +5,7 @@ require_once '../../vendor/autoload.php';
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-$logger = new Logger('insertAnimal');
+$logger = new Logger('getAllAnimals');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {
