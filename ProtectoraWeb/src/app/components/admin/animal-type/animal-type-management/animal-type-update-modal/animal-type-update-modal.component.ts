@@ -12,56 +12,17 @@ import { Type } from 'src/app/_models/type.model';
     templateUrl: './animal-type-update-modal.component.html',
   })
   export class FormularioAnimalTypeUpdateModal implements OnInit {
-    registerForm: FormGroup;
+    
+    public tipo = 'typeUpdate';
+    public typeData: Type;
+    
     constructor(
       public dialogRef: MatDialogRef<FormularioAnimalTypeUpdateModal>,
-      @Inject(MAT_DIALOG_DATA) public data: Type,
-      private formBuilder: FormBuilder) {}
+      @Inject(MAT_DIALOG_DATA) public data: Type) {}
 
     ngOnInit() {
+      this.typeData = this.data;
 
-      console.log('data:', this.data);
-
-      this.registerForm = this.formBuilder.group({
-            idType: ['', []],
-            name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-          });
-
-      this.setDatosUpdate(this.data);
-    }
-
-    public setDatosUpdate(data) {
-      this.registerForm.get('idType').setValue(data.id);
-      this.registerForm.get('name').setValue(data.name);
-
-  }
-
-    dataPrepare() {
-
-      /* const entranceDate = new Date(); */
-     /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
-      let formData = {
-        'id': this.registerForm.get('idType').value.trim(),
-        'name': this.registerForm.get('name').value.trim(),
-
-      };
-
-      return formData;
-
-    }
-
-    onClose(): void {
-      this.dialogRef.close();
-    }
-
-    guardar() {
-
-      console.log('formulario: ', this.dataPrepare());
-
-    }
-    borrar() {
-
-      console.log('borrar: ');
     }
 
 }

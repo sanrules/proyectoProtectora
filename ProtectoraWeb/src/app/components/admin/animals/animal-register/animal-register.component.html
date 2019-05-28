@@ -1,4 +1,4 @@
-<app-administrator-navbar></app-administrator-navbar>
+<app-administrator-navbar *ngIf="tipo != 'animalUpdate'"></app-administrator-navbar>
 <div class="container">
     <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
     <div class="row">
