@@ -14,7 +14,8 @@ import { Animal } from 'src/app/_models/animal.model';
 export class AnimalRegisterComponent implements OnInit {
 
   @Input() public tipo: string;
-  @Input() public userData: Animal;
+  @Input() public animalData: Animal;
+
   registerForm: FormGroup;
   private animal: Animal;
   public generos: any = [{
@@ -45,11 +46,10 @@ export class AnimalRegisterComponent implements OnInit {
       description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
       pictures: ['', []]
     });
-    /* if (this.data != null ){
-      this.es = "crear";
-      console.log("animal: ", this.data);
-     this.setDatosUpdate(this.data);
-    }*/
+    if (this.tipo == 'animalUpdate'){
+      console.log("animal: ", this.animalData);
+     this.setDatosUpdate(this.animalData);
+    }
   }
 
   public spararFechaYHora(fecha) {
