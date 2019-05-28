@@ -1,8 +1,10 @@
 <?php
 
 require_once 'AnimalType.php';
+require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
+use PHPMailer\PHPMailer\Exception;
 use Monolog\Logger;
 
 $logger = new Logger('insertAnimalType');
