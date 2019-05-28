@@ -17,7 +17,9 @@ export class NavbarComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private authService: AuthService) {
     this.authService.currentUser.subscribe(user => this.currentUser = user);
-    this.isAdmin = this.authService.isAdmin();
+    if (this.currentUser) {
+      this.isAdmin = this.authService.isAdmin();
+    }
 
     console.log('currentUser: ', this.currentUser);
   }
