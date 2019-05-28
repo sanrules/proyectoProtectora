@@ -83,7 +83,7 @@ class User
      */
     public function retrieveUserEmail($email)
     {
-        $user = R::find('user', ' email = ? ', [$email]);
+        $user = R::findOne('user', 'email=?', [$email]);
 
         return $user;
 

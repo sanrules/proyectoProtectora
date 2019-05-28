@@ -1,7 +1,8 @@
 <?php
-
+require_once '../../vendor/autoload.php';
 require_once 'User.php';
-require_once 'lib/phpmailer.php';
+
+use PHPMailer\PHPMailer\Exception;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
@@ -36,14 +37,33 @@ try {
             $user = new User();
             $user->createUser($username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType);
             $emailBBDD = $user->retrieveUserEmail($email);
-
-            if ($emailBBDD == '') {
+            if ($emailBBDD == null) {
                 $user->insertUser();
+                $error = '';
             } else {
                 $error = 'El email ya existe en la base de datos';
                 $logger->error($error);
-                throw new Exception();
+                // throw new Exception();
             }
+
+
+            if ($error == '') {
+                $reply = array(
+                    'status'   => 'OK',
+                    'response' => $user,
+                );
+                http_response_code(200); // 200 OK
+            } else {
+                $reply = array(
+                    'status' => 'Error',
+                    'error'  => $error,
+                );
+                http_response_code(503); // 503 Service Unavailable
+                $logger->info("Error: $error");
+            }
+
+            header('Content-type:application/json;charset=utf-8');
+            echo json_encode($reply, JSON_UNESCAPED_UNICODE);
         }
     }
 
@@ -53,24 +73,6 @@ try {
     $logger->error($error);
 }
 
-if ($error == '') {
-    $reply = array(
-        'status'   => 'OK',
-        'response' => $user,
-    );
-    http_response_code(200); // 200 OK
-    // envía el mail
-    sendMail($user);
-} else {
-    $reply = array(
-        'status' => 'Error',
-        'error'  => $error,
-    );
-    http_response_code(503); // 503 Service Unavailable
-    $logger->info("Error: $error");
-}
 
-header('Content-type:application/json;charset=utf-8');
-echo json_encode($reply, JSON_UNESCAPED_UNICODE);
 
 // echo json_encode(array("status" => "ok", "data" => $user), JSON_FORCE_OBJECT);
