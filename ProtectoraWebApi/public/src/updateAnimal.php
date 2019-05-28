@@ -11,7 +11,7 @@ $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 try {
     $postdata = file_get_contents("php://input");
     $request  = json_decode($postdata, true);
-    
+
     if ($request) {
         $vStatus = ['adoptado', 'pre-adoptado', 'en adopción'];
         /* $picturesArray = explode(",",$request['pictures']); */
@@ -34,12 +34,10 @@ try {
             $birth_date    = $birth_date->format("Y-m-d H:i:s");
             $entrance_date = new DateTime("@$entrance_date");
             $entrance_date = $entrance_date->format("Y-m-d H:i:s");
-            
-            $updated_animal = R::load('animal',$id);
 
-                
-            
-            $animal->updateAnimal($id, $updated_animal)
+            $updated_animal = R::load('animal', $id);
+
+            $animal->updateAnimal($id, $updated_animal);
         }
     }
 

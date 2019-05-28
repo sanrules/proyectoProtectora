@@ -4,8 +4,8 @@ include 'lib/phpmailer.php';
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-$logger = new Logger('sendMailTeacherData');
-$logger->pushHandler(new StreamHandler($CFG->logFile, Logger::DEBUG));
+$logger = new Logger('sendMail');
+$logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 $error = '';
 
 try {

@@ -6,7 +6,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 $logger = new Logger('insertUser');
-$logger->pushHandler(new StreamHandler($CFG->logFile, Logger::DEBUG));
+$logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {
     $postdata = file_get_contents("php://input");

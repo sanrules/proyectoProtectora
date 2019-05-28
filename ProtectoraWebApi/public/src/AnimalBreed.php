@@ -1,6 +1,6 @@
 <?php
 require_once 'lib/RedBean/rb.php';
-include('lib/ChromePhp.php');
+include 'lib/ChromePhp.php';
 
 // ! configuración para mamp
 // R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -13,7 +13,6 @@ class AnimalBreed
     public $_id     = '';
     public $_idtype = '';
     public $_name   = '';
-   
 
     public function __construct()
     {
@@ -22,22 +21,19 @@ class AnimalBreed
 
     public function createAnimalBreed($_name, $_idtype)
     {
-        $this->_name          = $_name;
-        $this->_idtype          = $_idtype;
-
+        $this->_name   = $_name;
+        $this->_idtype = $_idtype;
     }
 
     public function insertAnimalBreed()
     {
-
         $animalBreed = R::dispense('animalbreed');
 
-        $animalBreed->name          = $this->_name;
-        $animalBreed->idtype          = $this->_idtype;
-        
-        $id = R::store($animalBreed);
+        $animalBreed->name   = $this->_name;
+        $animalBreed->idtype = $this->_idtype;
+
+        $id        = R::store($animalBreed);
         $this->_id = $id;
-        
     }
 
 /**
@@ -70,10 +66,10 @@ class AnimalBreed
  */
     public function retrieveAnimalTypeParams($params)
     {
-        $num = $count($paramS);
+        $num = count($params);
         $sql = "SELECT * FROM animal WHERE ";
 
-        foreach ($params as $field->$value) {
+        foreach ($params as $field => $value) {
             --$num;
             $sql .= " $field = $value ";
             $sql .= $num != 0 ? ' AND ' : ' ;';
@@ -115,7 +111,6 @@ class AnimalBreed
     {
 
     }
-
 
     /*
      *** GETTERS Y SETTERS
@@ -180,8 +175,5 @@ class AnimalBreed
 
         return $this;
     }
-
-    
-
 
 }
