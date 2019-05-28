@@ -32,6 +32,7 @@ export class NavbarComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'customDialog';
+    dialogConfig.autoFocus = false;
 
     this.dialog.open(LoginComponent, dialogConfig);
   }
