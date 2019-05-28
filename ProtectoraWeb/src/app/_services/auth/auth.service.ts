@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { JwtResponse } from 'src/app/_models/jwtResponse';
@@ -9,6 +9,9 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
+
+  @Output() admin = new EventEmitter();
+  @Output() logged = new EventEmitter();
 
   baseURL = 'http://localhost/ProtectoraWebApi/public/src';
 
@@ -21,7 +24,6 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-
   public get currentUserValue() {
     return this.currentUserSubject.value;
   }
@@ -29,31 +31,56 @@ export class AuthService {
   login(email: string, password: string): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(`${this.baseURL}/login.php`, {email, password})
       .pipe(map(jwtResponse => {
-        localStorage.setItem('currentUser', JSON.stringify(jwtResponse));
-        this.currentUserSubject.next(jwtResponse);
-        return jwtResponse;
+        const token = this.saveTokenLocalStorage(jwtResponse);
+        return token;
       }));
+  }
+
+  saveTokenLocalStorage(token) {
+    localStorage.setItem('currentUser', JSON.stringify(token));
+    this.currentUserSubject.next(token);
+    this.admin.emit(this.isAdmin());
+    this.logged.emit(this.isLogged());
+    return token;
   }
 
   logOut() {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    this.logged.emit(this.isLogged());
+    this.admin.emit(this.isAdmin());
   }
 
   isAdmin() {
     // Se guarda el token almacenado en el sistema
     let token = this.currentUserSubject.value;
-    // Se recoje solo la propia cadena en la que está codificado el token
-    token = token.jwt;
-    // Se decodifica el token y se guarda el tipo de usuario
-    let user = this.decodeJWT(token);
-    user = user.data.type;
 
-    if (user === 'admin') {
-      return true;
-    } else {
-        return false;
+    if (token != null) {
+      // Se recoje solo la propia cadena en la que está codificado el token
+      token = token.jwt;
+
+      // Se decodifica el token y se guarda el tipo de usuario
+      let user = this.decodeJWT(token);
+      user = user.data.type;
+
+      if (user === 'admin') {
+        return true;
+      } else {
     }
+
+      return false;
+    }
+  }
+
+  isLogged() {
+    const token = this.currentUserSubject.value;
+    let logged = false;
+
+    if (token !== null) {
+      logged = true;
+    }
+
+    return logged;
   }
 
   /*

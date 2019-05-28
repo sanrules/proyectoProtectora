@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/_services/auth/auth.service';
 import { Router } from '@angular/router';
@@ -20,10 +20,10 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router) {
-      // Redirije al home si el usuario está logeado;
-      if (this.authService.currentUserValue) {
-        this.router.navigate(['/']);
-      }
+    // Redirije al home si el usuario está logeado;
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
   }
 
   // Carga el formulario una vez el componente se ha creado.
@@ -48,9 +48,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(this.form.email.value, this.form.password.value)
-      .pipe(first())
       .subscribe(data => {
-        this.router.navigateByUrl('/');
         this.closeDialog();
       }, error => {
           this.error = error;
