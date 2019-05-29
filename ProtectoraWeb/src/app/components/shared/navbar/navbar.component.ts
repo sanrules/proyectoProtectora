@@ -12,10 +12,12 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   isAdmin: boolean;
   isLogged: boolean;
+  currentUser: JwtResponse;
 
   constructor(private dialog: MatDialog,
               private authService: AuthService,
               private router: Router) {
+    this.authService.currentUser.subscribe(user => this.currentUser = user);
   }
 
   ngOnInit() {
