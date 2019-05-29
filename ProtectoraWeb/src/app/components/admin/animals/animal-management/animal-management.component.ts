@@ -48,6 +48,7 @@ import { FormularioAnimalModal } from './formulario-animal-modal/formulario-anim
       dialogConfig.height = '80%';
       dialogConfig.width = '80%';
       dialogConfig.data = animales;
+      dialogConfig.autoFocus = false;
       this.dialog.open(FormularioAnimalModal, dialogConfig);
     }
 

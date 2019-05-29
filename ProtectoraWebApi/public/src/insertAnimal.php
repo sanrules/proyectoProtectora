@@ -1,11 +1,14 @@
 <?php
 
 require_once 'Animal.php';
+require_once '../../vendor/autoload.php';
+
+use PHPMailer\PHPMailer\Exception;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 $logger = new Logger('insertAnimal');
-$logger->pushHandler(new StreamHandler($CFG->logfile, Logger::DEBUG));
+$logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {
     $postdata = file_get_contents("php://input");

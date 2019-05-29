@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { UserFormComponent } from 'src/app/components/shared/forms/user/user-form.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AdminUserRegisterComponent } from 'src/app/components/admin/users/user-register/admin-user-register.component';
 
 @Component({
   selector: 'app-register-confirmation',
@@ -10,7 +10,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class RegisterConfirmationComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<UserFormComponent>,
+    public dialogRef: MatDialogRef<AdminUserRegisterComponent>,
     @Inject(MAT_DIALOG_DATA) public message: string) { }
 
   ngOnInit() {

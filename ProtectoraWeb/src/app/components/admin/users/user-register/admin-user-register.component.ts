@@ -1,25 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 // Formularios
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../../../../_services/user/user-service';
+// Servicios
+import { UserService } from 'src/app/_services/user/user-service';
+// Interfaces
 import { User } from 'src/app/_models/user.model';
+// Components
+import { RegisterConfirmationComponent } from 'src/app/components/web/auth/register/register-confirmation/register-confirmation.component';
+// Material
+import { MatDialogConfig, MatDialog } from '@angular/material';
+
 
 @Component({
-  selector: 'app-registro',
+  selector: 'app-admin-user-registro',
   templateUrl: './admin-user-register.component.html',
   styleUrls: ['./admin-user-register.component.css']
 })
-export class AdminUserRegisterComponent implements OnInit {
+export class AdminUserRegisterComponent {
 
   // Variables del componente
   registerForm: FormGroup;
-  private user: User;
+  confirmMessage: string;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {}
+  // Depende de la página que accede al formulario podrá ser:
+  // userUpdate, userAdmin o userRegister
+  @Input() public tipo: string;
+  @Input() public userData: User;
+  user: User;
 
-  // Carga los datos una vez haya cargado lo del constructor
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
+              private dialog: MatDialog) {}
+
   ngOnInit() {
-    // Crea el formulario y le agrega a un formGroup, para poder tener las validaciones y los métodos de los formularios reactivos de Angular
+    // Crea el formulario y le agrega a un formGroup:
+    // Así se tienen las validaciones y los métodos de los formularios reactivos de Angular
     this.registerForm = this.formBuilder.group({
       idUser: ['', []],
       userName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{4,16}$/)]],
@@ -27,8 +42,8 @@ export class AdminUserRegisterComponent implements OnInit {
                       Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,16}$/)
                      ]],
       email: ['', [Validators.required, Validators.email]],
-      name: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚ]{1}[a-záéíúóç]+[ -]?){1,2}$/)]],
-      surname: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚ]{1}[a-záéíúóç]+[ -]?){1,2}$/)]],
+      name: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
+      surname: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-záéíúóñç]+[ -]?){1,2}$/)]],
       phone: ['', [Validators.required, Validators.pattern(/^[6789]{1}[0-9]{8}$/)]],
       birthDate: ['', [ Validators.required]],
       street: ['', [Validators.required]],
@@ -41,7 +56,6 @@ export class AdminUserRegisterComponent implements OnInit {
   }
 
   dateToTimestamp(date) {
-
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();
@@ -51,9 +65,9 @@ export class AdminUserRegisterComponent implements OnInit {
 
     return date;
   }
+
   // Prepara los datos del formulario para enviarlos en el formato correcto a la API
   dataPrepare() {
-
     const formData = {
       "idUser": this.registerForm.get('idUser').value,
       "userName": this.registerForm.get('userName').value.trim(),
@@ -75,10 +89,7 @@ export class AdminUserRegisterComponent implements OnInit {
   }
 
   registerSubmit() {
-    console.log('Entra en registerSubmit()');
-
     // Se guardan los datos del formulario en un objeto usuario
-    // this.user = new User(this.dataPrepare());
     this.user = this.dataPrepare();
     console.log('this.user: ', this.user);
 
@@ -92,11 +103,26 @@ export class AdminUserRegisterComponent implements OnInit {
     // Se envían los datos mediante post a la API
     this.userService.registerUser(userJSON).subscribe(data => {
       console.log('repuesta registerUser(data): ', data);
+      this.openDialog();
       },
       error => {
         console.log('Error: ', error);
       }
     );
+  }
+
+  openDialog() {
+
+    this.confirmMessage = 'Usuario registrado correctamente';
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = this.confirmMessage;
+    dialogConfig.autoFocus = false;
+
+    this.dialog.open(RegisterConfirmationComponent, dialogConfig);
   }
 
 }

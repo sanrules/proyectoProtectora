@@ -45,11 +45,10 @@ import { FormularioAnimalBreedUpdateModal } from './components/admin/animal-bree
 import { FormularioAnimalTypeUpdateModal } from './components/admin/animal-type/animal-type-management/animal-type-update-modal/animal-type-update-modal.component';
 
 // Componentes Shared
-import { UserFormComponent } from './components/shared/forms/user/user-form.component';
-import { AnimalFormComponent } from './components/shared/forms/animal/animal-form.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { FormularioAnimalModal } from './components/admin/animals/animal-management/formulario-animal-modal/formulario-animal-modal.component';
+import { AutofocusDirective } from './_directives/autofocus.directive';
 
 
 @NgModule({
@@ -62,8 +61,6 @@ import { FormularioAnimalModal } from './components/admin/animals/animal-managem
     AdministratorNavbarComponent,
     AdminUserRegisterComponent,
     UserManagementComponent,
-    AnimalFormComponent,
-    UserFormComponent,
     UserUpdateModalComponent,
     AnimalListComponent,
     AnimalComponent,
@@ -77,7 +74,8 @@ import { FormularioAnimalModal } from './components/admin/animals/animal-managem
     AnimalBreedManagementComponent,
     FormularioAnimalBreedUpdateModal,
     FormularioAnimalTypeUpdateModal,
-    FormularioAnimalModal
+    FormularioAnimalModal,
+    AutofocusDirective
   ],
   imports: [
     BrowserModule,
