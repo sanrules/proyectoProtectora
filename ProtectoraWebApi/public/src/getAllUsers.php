@@ -1,5 +1,6 @@
 <?php
 require_once 'User.php';
+require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -15,7 +16,7 @@ try {
     $logger->error($error);
 }
 
-if ($error == '') {
+if ($users != '') {
     $reply = array(
         'status'   => 'Getted',
         'response' => $users,

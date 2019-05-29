@@ -33,7 +33,7 @@ export class UserManagementComponent implements OnInit {
   ngOnInit() {
     // Se recuperan los datos de todos los usuarios para enviarlos a la tabla
     this.users = this.userService.getUsers().subscribe(data => {
-      this.dataSource.data = data as User[];
+      this.dataSource.data = data.response as User[];
       console.log('datasource: ', this.dataSource.data);
       },
       error => {
