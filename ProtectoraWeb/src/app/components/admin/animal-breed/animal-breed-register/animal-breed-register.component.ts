@@ -1,4 +1,4 @@
-import { OnInit, Component, ViewChild } from '@angular/core';
+import { OnInit, Component, ViewChild, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Type } from '../../../../_models/type.model';
@@ -9,30 +9,39 @@ import { Breed } from 'src/app/_models/breed.model';
 
 
 @Component({
-    selector: 'app-admin/animal-breed/register',
+    selector: 'app-admin-animal-breed-register',
     templateUrl: './animal-breed-register.component.html',
     styleUrls: ['./animal-breed-register.component.css']
   })
 
   export class AnimalBreedRegisterComponent implements OnInit {
+
+    @Input() public tipo: string;
+    @Input() public breedData: Breed;
+
     registerForm: FormGroup;
     public breed: Breed;
     public types: any [];
     constructor(private formBuilder: FormBuilder,
                 private animalBreedService: AnimalBreedService,
-                private animalTypeService: AnimalTypeService){}
+                private animalTypeService: AnimalTypeService) {}
 
     ngOnInit() {
+
     this.animalTypeService.getAnimalTypes().subscribe(e => {
       this.types = e;
       console.log(e);
-    });
+      });
 
     this.registerForm = this.formBuilder.group({
       idBreed: ['', []],
       idType: ['', [Validators.required]],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     });
+    if (this.tipo == 'breedUpdate'){
+      console.log("breed: ", this.breedData);
+     this.setDatosUpdate(this.breedData);
+    }
   }
 
   public setDatosUpdate(data) {
@@ -72,6 +81,17 @@ dataPrepare() {
         console.warn('Error: ', error);
     });
   }
+
+  guardar(){
+
+    console.log("formulario: ", this.dataPrepare());
+
+  }
+  borrar(){
+
+    console.log("borrar: ");
+  }
+
 
 
 }
