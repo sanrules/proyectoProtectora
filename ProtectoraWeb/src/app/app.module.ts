@@ -49,6 +49,9 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { FormularioAnimalModal } from './components/admin/animals/animal-management/formulario-animal-modal/formulario-animal-modal.component';
 import { AutofocusDirective } from './_directives/autofocus.directive';
+import { NewsManagementComponent } from './components/admin/news/news-mangement/news-management.component';
+import { NewsRegisterComponent } from './components/admin/news/news-register/news-register.component';
+import { NewsUpdateModal } from './components/admin/news/news-mangement/news-modal/news-modal.component';
 
 
 @NgModule({
@@ -75,7 +78,10 @@ import { AutofocusDirective } from './_directives/autofocus.directive';
     FormularioAnimalBreedUpdateModal,
     FormularioAnimalTypeUpdateModal,
     FormularioAnimalModal,
-    AutofocusDirective
+    AutofocusDirective,
+    NewsManagementComponent,
+    NewsRegisterComponent,
+    NewsUpdateModal
   ],
   imports: [
     BrowserModule,
