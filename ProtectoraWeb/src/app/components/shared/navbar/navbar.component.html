@@ -15,12 +15,12 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="animals/list">Lista de animales</a>
       </li>
-      <li *ngIf="isAdmin" class="nav-item" routerLinkActive="active">
+      <li *ngIf="connectAdmin()" class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="admin/user/register">Administrador</a>
       </li>
     </ul>
-    <button *ngIf="!isLogged" mat-raised-button color="primary" (click)="openDialog()">Acceder</button>
-    <button *ngIf="isLogged" mat-raised-button color="primary" (click)="logOut()">Salir</button>
+    <button *ngIf="!isLogOut()" mat-raised-button color="primary" (click)="openDialog()">Acceder</button>
+    <button *ngIf="isLogOut()" mat-raised-button color="primary" (click)="logOut()">Salir</button>
 
   </div>
 </nav>

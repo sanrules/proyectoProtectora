@@ -81,7 +81,6 @@ export class AuthService {
     if (token !== null) {
       logged = true;
     }
-    console.log('logged: ', logged);
     return logged;
   }
 
