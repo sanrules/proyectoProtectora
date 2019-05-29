@@ -21,12 +21,18 @@ export class AdminUserRegisterComponent {
   // Variables del componente
   registerForm: FormGroup;
   confirmMessage: string;
+  user: User;
+  regError: boolean;
+  tiposUsuario: any[] = [
+    {value: 'admin', desc: 'Administrador'},
+    {value: 'voluntario', desc: 'Voluntario'},
+    {value: 'user', desc: 'Usuario'}
+  ];
 
   // Depende de la página que accede al formulario podrá ser:
   // userUpdate, userAdmin o userRegister
-  @Input() public tipo: string;
+  @Input() public type: string;
   @Input() public userData: User;
-  user: User;
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -39,7 +45,7 @@ export class AdminUserRegisterComponent {
       idUser: ['', []],
       userName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{4,16}$/)]],
       password: ['', [Validators.required,
-                      Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,16}$/)
+                      Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/)
                      ]],
       email: ['', [Validators.required, Validators.email]],
       name: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
@@ -51,8 +57,13 @@ export class AdminUserRegisterComponent {
       portal: ['', []],
       floor: ['', []],
       door: ['', []],
-      userType: ['user', []]
+      userType: ['user', [Validators.required]]
     });
+
+    if (this.type === 'userUpdate') {
+      this.setUpdateData(this.userData);
+      console.log('user: ', this.userData);
+    }
   }
 
   dateToTimestamp(date) {
@@ -65,6 +76,31 @@ export class AdminUserRegisterComponent {
 
     return date;
   }
+
+  public parseFormDate(date) {
+    const arrayHourAndDate = date.split(' ');
+    const arrayDate = arrayHourAndDate[0].split('-');
+    date = new Date(arrayDate[0],(arrayDate[1] - 1 ), arrayDate[2]);
+    return date;
+  }
+
+  setUpdateData(userUpdate) {
+    this.registerForm.get('userName').setValue(userUpdate.username);
+    this.registerForm.get('password').setValue(userUpdate.password);
+    this.registerForm.get('email').setValue(userUpdate.email);
+    this.registerForm.get('name').setValue(userUpdate.name);
+    this.registerForm.get('surname').setValue(userUpdate.surname);
+    this.registerForm.get('phone').setValue(userUpdate.phone);
+    this.registerForm.get('birthDate').setValue(this.parseFormDate(userUpdate.birth_date));
+    this.registerForm.get('street').setValue(userUpdate.street);
+    this.registerForm.get('number').setValue(userUpdate.number);
+    this.registerForm.get('portal').setValue(userUpdate.portal);
+    this.registerForm.get('floor').setValue(userUpdate.floor);
+    this.registerForm.get('door').setValue(userUpdate.door);
+    this.registerForm.get('userType').setValue(userUpdate.user_type);
+
+  }
+
 
   // Prepara los datos del formulario para enviarlos en el formato correcto a la API
   dataPrepare() {
@@ -103,9 +139,11 @@ export class AdminUserRegisterComponent {
     // Se envían los datos mediante post a la API
     this.userService.registerUser(userJSON).subscribe(data => {
       console.log('repuesta registerUser(data): ', data);
+      this.regError = false;
       this.openDialog();
       },
       error => {
+        this.regError = true;
         console.log('Error: ', error);
       }
     );
@@ -113,12 +151,16 @@ export class AdminUserRegisterComponent {
 
   openDialog() {
 
-    this.confirmMessage = 'Usuario registrado correctamente';
+    if (this.regError) {
+      this.confirmMessage = 'Ha habido un error en el registro';
+    } else {
+        this.confirmMessage = 'Usuario registrado correctamente';
+    }
 
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
+    // Enviar un mensaje con el estado para poner una imagen si ha ido bien o mal.
     dialogConfig.data = this.confirmMessage;
     dialogConfig.autoFocus = false;
 

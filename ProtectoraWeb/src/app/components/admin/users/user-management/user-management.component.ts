@@ -26,8 +26,8 @@ export class UserManagementComponent implements OnInit {
   dataSource = new MatTableDataSource(this.users);
 
   constructor(
-                private userService: UserService,
-                private dialog: MatDialog
+              private userService: UserService,
+              private dialog: MatDialog
              ) { }
 
   ngOnInit() {
@@ -58,6 +58,7 @@ export class UserManagementComponent implements OnInit {
     dialogConfig.height = '80%';
     dialogConfig.width = '80%';
     dialogConfig.data = users;
+    dialogConfig.autoFocus = false;
     this.dialog.open(UserUpdateModalComponent, dialogConfig);
   }
 

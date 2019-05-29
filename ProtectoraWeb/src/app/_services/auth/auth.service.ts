@@ -25,6 +25,8 @@ export class AuthService {
   }
 
   public get currentUserValue() {
+    this.logged.emit(this.isLogged());
+    this.admin.emit(this.isAdmin());
     return this.currentUserSubject.value;
   }
 
@@ -79,7 +81,7 @@ export class AuthService {
     if (token !== null) {
       logged = true;
     }
-
+    console.log('logged: ', logged);
     return logged;
   }
 
