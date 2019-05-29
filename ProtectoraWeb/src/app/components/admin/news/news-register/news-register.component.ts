@@ -5,9 +5,9 @@ import { Type } from '../../../../_models/type.model';
 
 
 @Component({
-    selector: 'app-admin-animal-type-register',
-    templateUrl: './animal-type-register.component.html',
-    styleUrls: ['./animal-type-register.component.css']
+    selector: 'app-news-register',
+    templateUrl: './news-register.component.html',
+    styleUrls: ['./news-register.component.css']
   })
 
   export class NewsRegisterComponent implements OnInit {

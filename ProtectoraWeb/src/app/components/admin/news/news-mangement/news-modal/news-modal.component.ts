@@ -9,7 +9,7 @@ import { Type } from 'src/app/_models/type.model';
 
 @Component({
     selector: 'app-formulario-animal-type-modal',
-    templateUrl: './animal-type-update-modal.component.html',
+    templateUrl: './news-modal.component.html',
   })
   export class NewsUpdateModal implements OnInit {
     

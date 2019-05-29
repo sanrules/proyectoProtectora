@@ -10,8 +10,8 @@ import { NewsUpdateModal } from './news-modal/news-modal.component';
 
 @Component({
     selector: 'app-admin/animal-type/management',
-    templateUrl: './animal-type-management.component.html',
-    styleUrls: ['./animal-type-management.component.css']
+    templateUrl: './news-management.component.html',
+    styleUrls: ['./news-management.component.css']
   })
   export class NewsManagementComponent implements OnInit {
 
