@@ -16,7 +16,8 @@ import {
   MatCardModule,
   MatGridListModule,
   MatToolbarModule,
-  MatSelectModule
+  MatSelectModule,
+  MatStepperModule
 
 } from '@angular/material';
 
@@ -34,7 +35,8 @@ import {
     MatIconModule,
     MatDialogModule,
     MatToolbarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule
   ],
   exports: [
     MatFormFieldModule,
@@ -51,7 +53,8 @@ import {
     MatCardModule,
     MatGridListModule,
     MatToolbarModule,
-    MatSelectModule
+    MatSelectModule,
+    MatStepperModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},

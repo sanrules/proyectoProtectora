@@ -11,6 +11,7 @@ $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 try {
     $user  = new User();
     $users = $user->retrieveUserAll();
+    $error = '';
 } catch (Exception $e) {
     $error = 'No se han podido obtener todos los usuarios';
     $logger->error($error);
