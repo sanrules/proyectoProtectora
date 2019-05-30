@@ -40,7 +40,7 @@ export class UserRegisterComponent  {
           userType: ['user', []],
           userName: ['Usuario', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{4,16}$/)]],
           password: ['#23ASwe', [Validators.required,
-                          Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,16}$/)
+                          Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/)
                     ]],
           email: ['correo@usuario.es', [Validators.required, Validators.email]],
         }),

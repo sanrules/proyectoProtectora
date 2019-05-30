@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 // Component import
 import { UserUpdateModalComponent } from './user-update-modal/user-update-modal.component';
 // Interface import
-import { User } from 'src/app/_models/user.model';
+import { User } from '../../../../_models/user.model';
 // Service import
 import { UserService } from 'src/app/_services/user/user-service';
 // Angular Material import
@@ -26,18 +26,20 @@ export class UserManagementComponent implements OnInit {
   dataSource = new MatTableDataSource(this.users);
 
   constructor(
-                private userService: UserService,
-                private dialog: MatDialog
+              private userService: UserService,
+              private dialog: MatDialog
              ) { }
 
   ngOnInit() {
     // Se recuperan los datos de todos los usuarios para enviarlos a la tabla
     this.users = this.userService.getUsers().subscribe(data => {
       this.dataSource.data = data.response as User[];
-    },
-    error => {
-      console.error('Error: ', error);
-    });
+      console.log('datasource: ', this.dataSource.data);
+      },
+      error => {
+        console.error('Error: ', error);
+      }
+    );
     this.dataSource.sort = this.sort;
   }
 
@@ -47,8 +49,8 @@ export class UserManagementComponent implements OnInit {
   }
 
   public doFilter = (value: string) => {
-    this.dataSource.filter = value.trim().toLocaleLowerCase();
-  }
+      this.dataSource.filter = value.trim().toLocaleLowerCase();
+    }
 
   // Abre el modal de modificar usuario
   openModal(users) {

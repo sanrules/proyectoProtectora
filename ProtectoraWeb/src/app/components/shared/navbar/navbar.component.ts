@@ -10,32 +10,41 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  isAdmin: boolean;
+  /* isAdmin: boolean;
   isLogged: boolean;
+  currentUser: JwtResponse; */
 
   constructor(private dialog: MatDialog,
               private authService: AuthService,
               private router: Router) {
+    // this.authService.currentUser.subscribe(user => this.currentUser = user);
   }
 
   ngOnInit() {
 
-    this.authService.admin.subscribe(data => {
+/*     this.authService.admin.subscribe(data => {
       this.isAdmin = data;
-      console.log('Es admin: ', this.isAdmin);
     });
 
     this.authService.logged.subscribe(log => {
       this.isLogged = log;
-      console.log('Is logged: ', this.isLogged);
-    });
+    }); */
 
   }
 
   logOut() {
     this.authService.logOut();
     this.router.navigate(['/']);
+  }
 
+  isLogOut() {
+    /* console.log('logState: ', this.authService.isLogged()) */;
+    return this.authService.isLogged();
+  }
+
+  connectAdmin() {
+  /*   console.log('adminState: ', this.authService.isAdmin()); */
+    return this.authService.isAdmin();
   }
 
   openDialog() {

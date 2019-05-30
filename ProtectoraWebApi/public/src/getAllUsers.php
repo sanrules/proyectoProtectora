@@ -17,7 +17,7 @@ try {
     $logger->error($error);
 }
 
-if ($error == '') {
+if ($users != '') {
     $reply = array(
         'status'   => 'Getted',
         'response' => $users,
