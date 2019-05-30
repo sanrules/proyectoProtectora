@@ -20,6 +20,7 @@ import {
   MatStepperModule
 
 } from '@angular/material';
+import { MatFileUploadModule } from 'angular-material-fileupload';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import {
     MatDialogModule,
     MatToolbarModule,
     MatSelectModule,
-    MatStepperModule
+    MatStepperModule,
+    MatFileUploadModule
   ],
   exports: [
     MatFormFieldModule,
@@ -54,7 +56,9 @@ import {
     MatGridListModule,
     MatToolbarModule,
     MatSelectModule,
-    MatStepperModule
+    MatStepperModule,
+    MatFileUploadModule
+    
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},

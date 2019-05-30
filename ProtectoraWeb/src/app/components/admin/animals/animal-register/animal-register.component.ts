@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { AnimalService } from 'src/app/_services/animal/animal-service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Animal } from 'src/app/_models/animal.model';
+import { awsUploadService } from 'src/app/_services/awsFiles/awsUpload-service';
 
 @Component({
   selector: 'app-admin-animal-register',
@@ -16,6 +17,7 @@ export class AnimalRegisterComponent implements OnInit {
   @Input() public tipo: string;
   @Input() public animalData: Animal;
 
+  selectedFiles: FileList;
   registerForm: FormGroup;
   private animal: Animal;
   public generos: any = [{
@@ -27,7 +29,8 @@ export class AnimalRegisterComponent implements OnInit {
     }];
   public es: string;
   constructor(private formBuilder: FormBuilder,
-              private animalService: AnimalService) { }
+              private animalService: AnimalService,
+              private uploadService: awsUploadService) { }
 
   ngOnInit() {
 
@@ -135,5 +138,13 @@ dataPrepare() {
    /*  this.formBuilder.resetForm(); */
   }
 
+  upload() {
+    const file = this.selectedFiles.item(0);
+    this.uploadService.uploadFile(file);
+    }
+    
+    selectFile(event) {
+    this.selectedFiles = event.target.files;
+    }
 
 }
