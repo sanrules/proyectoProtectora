@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
   HttpClient,
-  HttpHeaders,
-  HttpErrorResponse
+  HttpHeaders
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/_models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +33,7 @@ export class UserService {
   }
 
   // Modifica un usuario
-  updateUser() {}
+  updateUser(data): Observable<any> {
+    return this.http.post(`${this.baseURL}/updateUser.php`, data, this.httpOptions);
+  }
 }

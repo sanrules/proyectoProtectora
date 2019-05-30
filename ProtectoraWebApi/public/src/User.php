@@ -1,5 +1,7 @@
 <?php
 require 'lib/RedBean/rb.php';
+require_once 'User.php';
+include 'lib/ChromePhp.php';
 
 // ! configuración para mamp
 // R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -116,12 +118,37 @@ class User
      * @param int $id ID del usuario
      * @param User $updated_user usuario con los datos actualizados
      */
-    public function updateUser($id, $updated_user)
+    public function updateUser($id, $username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType)
     {
-        $old_user = R::load('user', $id);
-        $old_user = $updated_user;
+        ChromePhp::log('entra en updateUser');
+        $ok = false;
+        $user_exist = R::findOne('user', 'id=?', [$id]);
+        ChromePhp::log('user_exist', $user_exist);
+        $user_error = R::findOne('user', 'email=? and id<>?', [$email, $id]);
+        ChromePhp::log('user_error', $user_error);
+		// $ok = ($user_exist != null && $user_error == null);
 
-        R::store($old_user);
+		/* if($ok) {
+            $user = R::load('user', $id);
+
+            $user->_username  = $username;
+            $user->_password  = $password;
+            $user->_email     = $email;
+            $user->_name      = $name;
+            $user->_surname   = $surname;
+            $user->_phone     = $phone;
+            $user->_birthDate = $birthDate;
+            $user->_street    = $street;
+            $user->_number    = $number;
+            $user->_portal    = $portal;
+            $user->_floor     = $floor;
+            $user->_door      = $door;
+            $user->_userType  = $userType;
+
+            ChromePhp::log('user', $user);
+            // R::store($user);
+        } */
+
     }
 
     /**

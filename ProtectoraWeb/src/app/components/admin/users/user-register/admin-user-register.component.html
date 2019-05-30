@@ -113,7 +113,12 @@
       </div>
       <div class="row">
         <div class="form-group col-md-12">
-          <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Usuario</button>
+          <button *ngIf="formType !== 'userUpdate'" mat-raised-button color="primary" [disabled]="!registerForm.valid">
+            Registrar Usuario
+          </button>
+          <button *ngIf="formType === 'userUpdate'" mat-raised-button color="primary" [disabled]="!registerForm.valid">
+            Modificar Usuario
+          </button>
         </div>
       </div>
     <input type="hidden" formControlName="idUser" id="idUser">

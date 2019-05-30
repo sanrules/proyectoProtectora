@@ -62,7 +62,7 @@ export class AdminUserRegisterComponent {
 
     if (this.formType === 'userUpdate') {
       this.setUpdateData(this.userData);
-      console.log('user: ', this.userData);
+      console.log('userData', this.userData);
     }
   }
 
@@ -80,22 +80,23 @@ export class AdminUserRegisterComponent {
   public parseFormDate(date) {
     const arrayHourAndDate = date.split(' ');
     const arrayDate = arrayHourAndDate[0].split('-');
-    date = new Date(arrayDate[0],(arrayDate[1] - 1 ), arrayDate[2]);
+    date = new Date(arrayDate[0], (arrayDate[1] - 1 ), arrayDate[2]);
     return date;
   }
 
   setUpdateData(userUpdate) {
+    this.registerForm.get('idUser').setValue(parseInt(userUpdate.id));
     this.registerForm.get('userName').setValue(userUpdate.username);
     this.registerForm.get('password').setValue(userUpdate.password);
     this.registerForm.get('email').setValue(userUpdate.email);
     this.registerForm.get('name').setValue(userUpdate.name);
     this.registerForm.get('surname').setValue(userUpdate.surname);
-    this.registerForm.get('phone').setValue(userUpdate.phone);
+    this.registerForm.get('phone').setValue(parseInt(userUpdate.phone));
     this.registerForm.get('birthDate').setValue(this.parseFormDate(userUpdate.birth_date));
     this.registerForm.get('street').setValue(userUpdate.street);
-    this.registerForm.get('number').setValue(userUpdate.number);
+    this.registerForm.get('number').setValue(parseInt(userUpdate.number));
     this.registerForm.get('portal').setValue(userUpdate.portal);
-    this.registerForm.get('floor').setValue(userUpdate.floor);
+    this.registerForm.get('floor').setValue(parseInt(userUpdate.floor));
     this.registerForm.get('door').setValue(userUpdate.door);
     this.registerForm.get('userType').setValue(userUpdate.user_type);
 
@@ -125,36 +126,51 @@ export class AdminUserRegisterComponent {
   }
 
   registerSubmit() {
-    // Se guardan los datos del formulario en un objeto usuario
-    this.user = this.dataPrepare();
-    console.log('this.user: ', this.user);
+    if (this.formType !== 'userUpdate') {
+      // Se guardan los datos del formulario en un objeto usuario
+      this.user = this.dataPrepare();
+      // Se borra el campo de idUser para que no se envíe al back y se autogenere.
+      delete this.user.idUser;
+      // Se convierte el objeto user a JSON para enviarlo a la API
+      const userJSON = JSON.stringify(this.user);
+      console.log('Send JSON: ', userJSON);
+      // Se envían los datos mediante post a la API
+      this.userService.registerUser(userJSON).subscribe(data => {
+        console.log('repuesta registerUser(data): ', data);
+        this.regError = false;
+        this.openDialog();
+        },
+        error => {
+          this.regError = true;
+          console.log('Error: ', error);
+        }
+      );
+    } else {
+        this.user = this.dataPrepare();
+        console.log('dataToSend: ', this.user);
+        const userJSON = JSON.stringify(this.user);
+        console.log('Send JSON: ', userJSON);
 
-    // Se borra el campo de idUser para que no se envíe al back y se autogenere.
-    delete this.user.idUser;
-
-    // Se convierte el objeto user a JSON para enviarlo a la API
-    const userJSON = JSON.stringify(this.user);
-    console.log('Conversión JSON: ', userJSON);
-
-    // Se envían los datos mediante post a la API
-    this.userService.registerUser(userJSON).subscribe(data => {
-      console.log('repuesta registerUser(data): ', data);
-      this.regError = false;
-      this.openDialog();
-      },
-      error => {
-        this.regError = true;
-        console.log('Error: ', error);
-      }
-    );
+        this.userService.updateUser(userJSON).subscribe(data => {
+          this.regError = false;
+          this.openDialog();
+        },
+        error => {
+          this.regError = true;
+          console.log('Error: ', error);
+        });
+    }
   }
 
   openDialog() {
-
     if (this.regError) {
-      this.confirmMessage = 'Ha habido un error en el registro';
+      this.confirmMessage = 'Ha habido un error';
     } else {
-        this.confirmMessage = 'Usuario registrado correctamente';
+      if (this.formType === 'userUpdate') {
+        this.confirmMessage = 'Usuario actualizado correctamente';
+      } else {
+          this.confirmMessage = 'Usuario registrado correctamente';
+      }
     }
 
     const dialogConfig = new MatDialogConfig();
