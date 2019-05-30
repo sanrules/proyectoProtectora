@@ -29,7 +29,7 @@ import { Breed } from 'src/app/_models/breed.model';
     ngOnInit() {
 
     this.animalTypeService.getAnimalTypes().subscribe(e => {
-      this.types = e;
+      this.types = e.response;
       console.log(e);
       });
 

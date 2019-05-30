@@ -9,7 +9,7 @@ import { NewsUpdateModal } from './news-modal/news-modal.component';
 
 
 @Component({
-    selector: 'app-admin/animal-type/management',
+    selector: 'app-admin-news-management',
     templateUrl: './news-management.component.html',
     styleUrls: ['./news-management.component.css']
   })

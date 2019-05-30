@@ -14,6 +14,8 @@ import { AnimalTypeManagementComponent } from './components/admin/animal-type/an
 import { AnimalTypeRegisterComponent } from './components/admin/animal-type/animal-type-register/animal-type-register.component';
 import { AnimalBreedManagementComponent } from './components/admin/animal-breed/animal-breed-management/animal-breed-management.component';
 import { AnimalBreedRegisterComponent } from './components/admin/animal-breed/animal-breed-register/animal-breed-register.component';
+import { NewsRegisterComponent } from './components/admin/news/news-register/news-register.component';
+import { NewsManagementComponent } from './components/admin/news/news-mangement/news-management.component';
 
 
 const routes: Routes = [
@@ -27,6 +29,8 @@ const routes: Routes = [
   {path: 'admin/animal-type/register', component: AnimalTypeRegisterComponent},
   {path: 'admin/animal-breed/management', component: AnimalBreedManagementComponent},
   {path: 'admin/animal-breed/register', component: AnimalBreedRegisterComponent},
+  {path: 'admin/news/register', component: NewsRegisterComponent},
+  {path: 'admin/news/management', component: NewsManagementComponent},
   {path: 'animals/list', component: AnimalListComponent},
   {path: 'animals/animal/:id', component: AnimalComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'home'}

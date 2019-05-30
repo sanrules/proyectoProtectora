@@ -6,13 +6,19 @@
 
       <!-- ID -->
       <ng-container matColumnDef="id" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID noticia </th>
         <td mat-cell *matCellDef="let types"> {{types.id}} </td>
       </ng-container>
 
       <!-- Nombre de Usuario -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre de tipo de animal </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre noticia </th>
+        <td mat-cell *matCellDef="let types"> {{types.name}} </td>
+      </ng-container>
+
+      <!-- Nombre de Usuario -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha noticia </th>
         <td mat-cell *matCellDef="let types"> {{types.name}} </td>
       </ng-container>
 

@@ -1,4 +1,4 @@
-<app-administrator-navbar></app-administrator-navbar>
+<app-administrator-navbar *ngIf="formType != 'userUpdate'"></app-administrator-navbar>
 
 <div class="container">
   <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">

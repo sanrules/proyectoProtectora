@@ -10,7 +10,7 @@ import { User } from 'src/app/_models/user.model';
 })
 export class UserUpdateModalComponent implements OnInit {
 
-  public type = 'userUpdate';
+  public formType = 'userUpdate';
   public userData: User;
 
   constructor( public dialogRef: MatDialogRef<UserUpdateModalComponent>,

@@ -38,12 +38,12 @@ export class NavbarComponent implements OnInit {
   }
 
   isLogOut() {
-    console.log('logState: ', this.authService.isLogged());
+    /* console.log('logState: ', this.authService.isLogged()) */;
     return this.authService.isLogged();
   }
 
   connectAdmin() {
-    console.log('adminState: ', this.authService.isAdmin());
+  /*   console.log('adminState: ', this.authService.isAdmin()); */
     return this.authService.isAdmin();
   }
 

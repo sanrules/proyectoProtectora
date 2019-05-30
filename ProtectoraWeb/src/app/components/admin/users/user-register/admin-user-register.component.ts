@@ -31,7 +31,7 @@ export class AdminUserRegisterComponent {
 
   // Depende de la página que accede al formulario podrá ser:
   // userUpdate, userAdmin o userRegister
-  @Input() public type: string;
+  @Input() public formType: string;
   @Input() public userData: User;
 
   constructor(private formBuilder: FormBuilder,
@@ -60,7 +60,7 @@ export class AdminUserRegisterComponent {
       userType: ['user', [Validators.required]]
     });
 
-    if (this.type === 'userUpdate') {
+    if (this.formType === 'userUpdate') {
       this.setUpdateData(this.userData);
       console.log('user: ', this.userData);
     }
