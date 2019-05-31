@@ -37,18 +37,20 @@ try {
             $password = password_hash($password, PASSWORD_BCRYPT);
 
             $updated_user = new User();
-            $updated_user = R::findOne('user', 'id=?', [$id]);
+            $updated_user->createUser($username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType);
+            $updated_user->set_idUser($id);
 
-            if ($updated_user != null) {
-              ChromePhp::log('entra en if null');
-                $ok = $updated_user->updateUser($id, $username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType);
+            $user_exists = R::findOne('user', 'id=?', [$updated_user->get_idUser()]);
 
-                if ($ok) {;
-                  $error = '';
+            if ($user_exists != null) {
+                $user_error = R::findOne('user', 'email=? and id<>?', [$email, $id]);
+                if($user_error == null) {
+                    $updated_user->updateUser($id, $username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType);
+                    $error='';
                 } else {
-                  $error = 'Error al modificar el usuario';
+                    $error = 'El usuario que intentas modificar no coincide con el de la BBDD';
+                    $logger->error($error);
                 }
-
             } else {
                 $error = 'El usuario no existe en la base de datos';
                 $logger->error($error);

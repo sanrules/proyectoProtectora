@@ -1,6 +1,5 @@
 <?php
 
-include 'lib/ChromePhp.php';
 require_once 'User.php';
 require_once '../../vendor/autoload.php';
 include_once 'lib/jwt_config.php';
