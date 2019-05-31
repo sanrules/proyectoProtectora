@@ -8,6 +8,8 @@ use Monolog\Logger;
 $logger = new Logger('getAllAnimals');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
+$error = array();
+
 try {
     $animal  = new Animal();
     $animals = $animal->retrieveAnimalAll();
