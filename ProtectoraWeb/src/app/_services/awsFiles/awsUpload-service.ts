@@ -1,5 +1,5 @@
-import * as AWS from 'aws-sdk/global';
-import * as S3 from 'aws-sdk/clients/s3';
+/* import * as AWS from 'aws-sdk/global';
+import * as S3 from 'aws-sdk/clients/s3'; */
 import { Injectable } from '@angular/core';
 
 
@@ -10,7 +10,7 @@ export class AwsUploadService {
 
      public uploadFile(file) {
 
-        const contentType = file.type;
+       /*  const contentType = file.type;
         const bucket = new S3(
             {
                 accessKeyId: 'AKIA34PGUYKSP2ZQJT7W',
@@ -32,11 +32,11 @@ export class AwsUploadService {
             }
             console.log('Successfully uploaded file.', data);
             return true;
-        });
+        }); */
        
     
     //for upload progress   
-        bucket.upload(params).on('httpUploadProgress', function (evt) {
+        /* bucket.upload(params).on('httpUploadProgress', function (evt) {
                 console.log(evt.loaded + ' of ' + evt.total + ' Bytes');
             }).send(function (err, data) {
                 if (err) {
@@ -45,7 +45,7 @@ export class AwsUploadService {
                 }
                 console.log('Successfully uploaded file.', data);
                 return true;
-            });
+            }); */
     }
 }
 

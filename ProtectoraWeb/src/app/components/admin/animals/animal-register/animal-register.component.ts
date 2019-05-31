@@ -29,8 +29,8 @@ export class AnimalRegisterComponent implements OnInit {
     }];
   public es: string;
   constructor(private formBuilder: FormBuilder,
-              private animalService: AnimalService,
-              private uploadService: AwsUploadService) { }
+              private animalService: AnimalService
+              /* private uploadService: AwsUploadService */) { }
 
   ngOnInit() {
 
@@ -137,7 +137,7 @@ dataPrepare() {
     this.registerForm.reset();
    /*  this.formBuilder.resetForm(); */
   }
-
+/* 
   upload() {
     const file = this.selectedFiles.item(0);
     this.uploadService.uploadFile(file);
@@ -146,5 +146,5 @@ dataPrepare() {
     selectFile(event) {
     this.selectedFiles = event.target.files;
     }
-
+ */
 }
