@@ -1,13 +1,12 @@
 <?php
-require_once '../../class/User.php';
+require_once 'User.php';
 
+$postdata = file_get_contents("php://input");
+$userData = json_decode($postdata, true);
+$response = "$userData";
 $error    = array();
-$response = '';
 
-if ($_REQUEST['createuser']) {
-    $jsonData = $_REQUEST['createuser'];
-    $userData = json_decode($data);
-
+if ($userData) {
     // Sanitize & validate
     isset($userData->username) ? $username   = $userData->username : $error['username']   = 'not set';
     isset($userData->email) ? $email         = $userData->email : $error['email']         = 'not set';
@@ -26,14 +25,17 @@ if ($_REQUEST['createuser']) {
         $user = new User();
         $user->createUser($username, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $door, $userType);
 
-        $user->insertUser();
-
-        $response = 'usuario insertado correctamente';
+        try {
+            $user->insertUser();
+            $response = "usuario insertado correctamente";
+        } catch (Exception $e) {
+            $response = "Error al insertar";
+        }
     } else {
-        $response = $error;
+        $response = "Ha habido un error";
+        //$error;
     }
-
-    echo json_encode($response, JSON_UNESCAPED_UNICODE);
-    header('Content-Type: application/json');
-
 }
+
+echo json_encode($response, JSON_UNESCAPED_UNICODE);
+header('Content-Type: application/json');
