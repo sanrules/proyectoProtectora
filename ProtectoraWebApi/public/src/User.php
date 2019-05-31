@@ -1,19 +1,19 @@
 <?php
 require 'lib/RedBean/rb.php';
+require_once 'User.php';
 
 // ! configuración para mamp
-R::setup('mysql:host=localhost;dbname=proyecto',
-    'root', '');
+// R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
 
 // ! configuración para xampp
-// R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
+R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
 class User
 {
     private $_idUser    = ''; //  idUser
     private $_username  = ''; //  userName
-    private $_email     = ''; //  email
     private $_password  = ''; //  password
+    private $_email     = ''; //  email
     private $_name      = ''; // name
     private $_surname   = ''; // surname
     private $_phone     = ''; // phone
@@ -24,16 +24,17 @@ class User
     private $_floor     = ''; // floor
     private $_door      = ''; // door
     private $_userType  = ''; // userType
-    private $_token     = '';
+    private $_token     = ''; // token
 
     public function __construct()
     {
 
     }
 
-    public function createUser($_idUser, $_username, $_email, $_password, $_name, $_surname, $_phone, $_birthDate, $_street, $_number, $_portal, $_floor, $_door, $_userType)
+    public function createUser($_username, $_password, $_email, $_name, $_surname, $_phone, $_birthDate, $_street, $_number, $_portal, $_floor, $_door, $_userType)
     {
         $this->_username  = $_username;
+        $this->_password  = $_password;
         $this->_email     = $_email;
         $this->_name      = $_name;
         $this->_surname   = $_surname;
@@ -42,6 +43,7 @@ class User
         $this->_street    = $_street;
         $this->_number    = $_number;
         $this->_portal    = $_portal;
+        $this->_floor     = $_floor;
         $this->_door      = $_door;
         $this->_userType  = $_userType;
     }
@@ -54,6 +56,7 @@ class User
         $bbddUser = R::dispense('user');
 
         $bbddUser->username  = $this->_username;
+        $bbddUser->password  = $this->_password;
         $bbddUser->email     = $this->_email;
         $bbddUser->name      = $this->_name;
         $bbddUser->surname   = $this->_surname;
@@ -62,6 +65,7 @@ class User
         $bbddUser->street    = $this->_street;
         $bbddUser->number    = $this->_number;
         $bbddUser->portal    = $this->_portal;
+        $bbddUser->floor     = $this->_floor;
         $bbddUser->door      = $this->_door;
         $bbddUser->userType  = $this->_userType;
 
@@ -70,6 +74,19 @@ class User
         $this->_id = $id;
 
         // TODO ALMACENAR PASSWORD SEGURA
+
+    }
+
+    /**
+     * Obtiene un usuario de la base de datos en base a su email
+     * @param int $email MAIL del usuario
+     * @return User $user usuario recogido de la base de datos
+     */
+    public function retrieveUserEmail($email)
+    {
+        $user = R::findOne('user', 'email=?', [$email]);
+
+        return $user;
 
     }
 
@@ -100,12 +117,26 @@ class User
      * @param int $id ID del usuario
      * @param User $updated_user usuario con los datos actualizados
      */
-    public function updateUser($id, $updated_user)
+    public function updateUser($id, $username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType)
     {
-        $old_user = R::load('user', $id);
-        $old_user = $updated_user;
 
-        R::store($old_user);
+        $user = R::load('user', $id);
+
+        $user->username  = $username;
+        $user->password  = $password;
+        $user->email     = $email;
+        $user->name      = $name;
+        $user->surname   = $surname;
+        $user->phone     = $phone;
+        $user->birth_date = $birthDate;
+        $user->street    = $street;
+        $user->number    = $number;
+        $user->portal    = $portal;
+        $user->floor     = $floor;
+        $user->door      = $door;
+        $user->user_type  = $userType;
+
+        R::store($user);
     }
 
     /**

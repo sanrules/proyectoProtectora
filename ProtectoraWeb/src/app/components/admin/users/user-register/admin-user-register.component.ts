@@ -1,34 +1,55 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 // Formularios
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../../../../services/user/user-service';
-import { User } from 'src/app/models/user.model';
+// Servicios
+import { UserService } from 'src/app/_services/user/user-service';
+// Interfaces
+import { User } from 'src/app/_models/user.model';
+// Components
+import { RegisterConfirmationComponent } from 'src/app/components/web/auth/register/register-confirmation/register-confirmation.component';
+// Material
+import { MatDialogConfig, MatDialog } from '@angular/material';
+
 
 @Component({
-  selector: 'app-registro',
+  selector: 'app-admin-user-registro',
   templateUrl: './admin-user-register.component.html',
   styleUrls: ['./admin-user-register.component.css']
 })
-export class AdminUserRegisterComponent implements OnInit {
+export class AdminUserRegisterComponent {
 
   // Variables del componente
   registerForm: FormGroup;
-  private user: User;
+  confirmMessage: string;
+  user: User;
+  regError: boolean;
+  tiposUsuario: any[] = [
+    {value: 'admin', desc: 'Administrador'},
+    {value: 'voluntario', desc: 'Voluntario'},
+    {value: 'user', desc: 'Usuario'}
+  ];
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {}
+  // Depende de la página que accede al formulario podrá ser:
+  // userUpdate, userAdmin o userRegister
+  @Input() public formType: string;
+  @Input() public userData: User;
 
-  // Carga los datos una vez haya cargado lo del constructor
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
+              private dialog: MatDialog) {}
+
   ngOnInit() {
-    // Crea el formulario y le agrega a un formGroup, para poder tener las validaciones y los métodos de los formularios reactivos de Angular
+    // Crea el formulario y le agrega a un formGroup:
+    // Así se tienen las validaciones y los métodos de los formularios reactivos de Angular
     this.registerForm = this.formBuilder.group({
       idUser: ['', []],
       userName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{4,16}$/)]],
       password: ['', [Validators.required,
-                      Validators.pattern(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{6,16}$/)
+                      Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/)
                      ]],
       email: ['', [Validators.required, Validators.email]],
-      name: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚ]{1}[a-záéíúóç]+[ -]?){1,2}$/)]],
-      surname: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚ]{1}[a-záéíúóç]+[ -]?){1,2}$/)]],
+      name: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
+      surname: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-záéíúóñç]+[ -]?){1,2}$/)]],
       phone: ['', [Validators.required, Validators.pattern(/^[6789]{1}[0-9]{8}$/)]],
       birthDate: ['', [ Validators.required]],
       street: ['', [Validators.required]],
@@ -36,12 +57,16 @@ export class AdminUserRegisterComponent implements OnInit {
       portal: ['', []],
       floor: ['', []],
       door: ['', []],
-      userType: ['user', []]
+      userType: ['user', [Validators.required]]
     });
+
+    if (this.formType === 'userUpdate') {
+      this.setUpdateData(this.userData);
+      console.log('userData', this.userData);
+    }
   }
 
   dateToTimestamp(date) {
-
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();
@@ -51,9 +76,35 @@ export class AdminUserRegisterComponent implements OnInit {
 
     return date;
   }
+
+  public parseFormDate(date) {
+    const arrayHourAndDate = date.split(' ');
+    const arrayDate = arrayHourAndDate[0].split('-');
+    date = new Date(arrayDate[0], (arrayDate[1] - 1 ), arrayDate[2]);
+    return date;
+  }
+
+  setUpdateData(userUpdate) {
+    this.registerForm.get('idUser').setValue(parseInt(userUpdate.id));
+    this.registerForm.get('userName').setValue(userUpdate.username);
+    this.registerForm.get('password').setValue(userUpdate.password);
+    this.registerForm.get('email').setValue(userUpdate.email);
+    this.registerForm.get('name').setValue(userUpdate.name);
+    this.registerForm.get('surname').setValue(userUpdate.surname);
+    this.registerForm.get('phone').setValue(parseInt(userUpdate.phone));
+    this.registerForm.get('birthDate').setValue(this.parseFormDate(userUpdate.birth_date));
+    this.registerForm.get('street').setValue(userUpdate.street);
+    this.registerForm.get('number').setValue(parseInt(userUpdate.number));
+    this.registerForm.get('portal').setValue(userUpdate.portal);
+    this.registerForm.get('floor').setValue(parseInt(userUpdate.floor));
+    this.registerForm.get('door').setValue(userUpdate.door);
+    this.registerForm.get('userType').setValue(userUpdate.user_type);
+
+  }
+
+
   // Prepara los datos del formulario para enviarlos en el formato correcto a la API
   dataPrepare() {
-
     const formData = {
       "idUser": this.registerForm.get('idUser').value,
       "userName": this.registerForm.get('userName').value.trim(),
@@ -75,28 +126,61 @@ export class AdminUserRegisterComponent implements OnInit {
   }
 
   registerSubmit() {
-    console.log('Entra en registerSubmit()');
+    if (this.formType !== 'userUpdate') {
+      // Se guardan los datos del formulario en un objeto usuario
+      this.user = this.dataPrepare();
+      // Se borra el campo de idUser para que no se envíe al back y se autogenere.
+      delete this.user.idUser;
+      // Se convierte el objeto user a JSON para enviarlo a la API
+      const userJSON = JSON.stringify(this.user);
+      console.log('Send JSON: ', userJSON);
+      // Se envían los datos mediante post a la API
+      this.userService.registerUser(userJSON).subscribe(data => {
+        console.log('repuesta registerUser(data): ', data);
+        this.regError = false;
+        this.openDialog();
+        },
+        error => {
+          this.regError = true;
+          console.log('Error: ', error);
+        }
+      );
+    } else {
+        this.user = this.dataPrepare();
+        console.log('dataToSend: ', this.user);
+        const userJSON = JSON.stringify(this.user);
+        console.log('Send JSON: ', userJSON);
 
-    // Se guardan los datos del formulario en un objeto usuario
-    // this.user = new User(this.dataPrepare());
-    this.user = this.dataPrepare();
-    console.log('this.user: ', this.user);
+        this.userService.updateUser(userJSON).subscribe(data => {
+          this.regError = false;
+          this.openDialog();
+        },
+        error => {
+          this.regError = true;
+          console.log('Error: ', error);
+        });
+    }
+  }
 
-    // Se borra el campo de idUser para que no se envíe al back y se autogenere.
-    delete this.user.idUser;
-
-    // Se convierte el objeto user a JSON para enviarlo a la API
-    const userJSON = JSON.stringify(this.user);
-    console.log('Conversión JSON: ', userJSON);
-
-    // Se envían los datos mediante post a la API
-    this.userService.registerUser(userJSON).subscribe(data => {
-      console.log('repuesta registerUser(data): ', data);
-      },
-      error => {
-        console.log('Error: ', error);
+  openDialog() {
+    if (this.regError) {
+      this.confirmMessage = 'Ha habido un error';
+    } else {
+      if (this.formType === 'userUpdate') {
+        this.confirmMessage = 'Usuario actualizado correctamente';
+      } else {
+          this.confirmMessage = 'Usuario registrado correctamente';
       }
-    );
+    }
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    // Enviar un mensaje con el estado para poner una imagen si ha ido bien o mal.
+    dialogConfig.data = this.confirmMessage;
+    dialogConfig.autoFocus = false;
+
+    this.dialog.open(RegisterConfirmationComponent, dialogConfig);
   }
 
 }

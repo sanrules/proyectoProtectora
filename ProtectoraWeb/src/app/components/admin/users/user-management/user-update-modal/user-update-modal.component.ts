@@ -1,7 +1,7 @@
 // Core
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/_models/user.model';
 
 @Component({
   selector: 'app-user-update-modal',
@@ -10,7 +10,7 @@ import { User } from 'src/app/models/user.model';
 })
 export class UserUpdateModalComponent implements OnInit {
 
-  public tipo = 'userUpdate';
+  public formType = 'userUpdate';
   public userData: User;
 
   constructor( public dialogRef: MatDialogRef<UserUpdateModalComponent>,
@@ -18,7 +18,6 @@ export class UserUpdateModalComponent implements OnInit {
 
   ngOnInit() {
     this.userData = this.data;
-    console.log('userData1: ', this.userData);
   }
 
 }

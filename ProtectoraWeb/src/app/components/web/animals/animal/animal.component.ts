@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AnimalService } from 'src/app/services/animal/animal-service';
-import { Animal } from 'src/app/models/animal.model';
+
+import { Animal } from 'src/app/_models/animal.model';
+import { AnimalService } from 'src/app/_services/animal/animal-service';
 
 
 @Component({

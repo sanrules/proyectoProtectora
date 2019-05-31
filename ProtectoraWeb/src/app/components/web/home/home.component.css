@@ -1,0 +1,30 @@
+.masthead {
+  height: 90vh;
+  min-height: 500px;
+  background: linear-gradient(rgba(0,0,0,.8), rgba(255,255,255,0.1));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  z-index: 1;
+  overflow: hidden;
+}
+
+img {
+  height: 95vh;
+  width: 99vw;
+  z-index: -1;
+  position: absolute;
+}
+
+
+h1 {
+  font-weight: bolder;
+  font-size: 4rem;
+}
+
+.content {
+  margin-top: 5%;
+}
+
+

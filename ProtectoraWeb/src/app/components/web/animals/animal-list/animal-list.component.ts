@@ -1,5 +1,5 @@
 import { OnInit, Component } from '@angular/core';
-import { AnimalService } from '../../../../services/animal/animal-service';
+import { AnimalService } from '../../../../_services/animal/animal-service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,8 +15,8 @@ import { Observable } from 'rxjs';
     }
 
     ngOnInit() {
-        this.animalService.getAnimals().subscribe( e =>{
-          this.animales = e;
+        this.animalService.getAnimals().subscribe(animals => {
+          this.animales = animals.response;
         });
     }
 

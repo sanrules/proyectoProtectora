@@ -14,9 +14,13 @@ import {
   MatIconModule,
   MatDialogModule,
   MatCardModule,
-  MatGridListModule
+  MatGridListModule,
+  MatToolbarModule,
+  MatSelectModule,
+  MatStepperModule
 
 } from '@angular/material';
+import { MatFileUploadModule } from 'angular-material-fileupload';
 
 @NgModule({
   imports: [
@@ -30,7 +34,11 @@ import {
     MatSortModule,
     MatRadioModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatStepperModule,
+    MatFileUploadModule
   ],
   exports: [
     MatFormFieldModule,
@@ -45,7 +53,12 @@ import {
     MatIconModule,
     MatDialogModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatStepperModule,
+    MatFileUploadModule
+    
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
