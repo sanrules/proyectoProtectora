@@ -22,8 +22,6 @@ if ($request) {
 
     $user = $user = R::findOne('user', 'email=?', [$email]);
 
-    ChromePhp::log('user: ', $user->id);
-
     if ($user && password_verify($password, $user->password)) {
         $token = array(
             "aud"  => $aud,

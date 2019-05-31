@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { AnimalService } from 'src/app/_services/animal/animal-service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Animal } from 'src/app/_models/animal.model';
-import { awsUploadService } from 'src/app/_services/awsFiles/awsUpload-service';
+import { AwsUploadService } from 'src/app/_services/awsFiles/awsUpload-service';
 
 @Component({
   selector: 'app-admin-animal-register',
@@ -30,7 +30,7 @@ export class AnimalRegisterComponent implements OnInit {
   public es: string;
   constructor(private formBuilder: FormBuilder,
               private animalService: AnimalService,
-              private uploadService: awsUploadService) { }
+              private uploadService: AwsUploadService) { }
 
   ngOnInit() {
 
