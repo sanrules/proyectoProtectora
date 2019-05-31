@@ -108,7 +108,7 @@
           <div [fileUploadInputFor]="fileUploadQueue" class="upload-drop-zone">
             Just drag and drop files here
           </div>
-         
+        
          
         <div style="width: 500px">
             <mat-file-upload-queue #fileUploadQueue
@@ -120,13 +120,13 @@
         </div>
         </div>
 
-        <div class="form-group col-md-12">
+        <!-- <div class="form-group col-md-12">
         <label class="btn btn-default">
           <input type="file" (change)="selectFile($event)">
         </label>
         
         <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
-        </div>
+        </div> -->
 
         <div class="row" *ngIf="tipo != 'animalUpdate'">
           <div class="col-md-12">

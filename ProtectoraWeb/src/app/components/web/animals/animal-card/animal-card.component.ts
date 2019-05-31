@@ -18,6 +18,8 @@ import { Observable } from 'rxjs';
 
     ngOnInit() {
         this.animales = this.animalService.getAnimals();
+
+      console.log(this.animales)
     }
 
   }
