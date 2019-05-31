@@ -10,19 +10,19 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
 class Animal
 {
-    public $_id     = '';
-    public $_name   = '';
-    public $_type   = '';
-    public $_breed  = ''; // Raza
-    public $_gender = '';
+    private $_id     = '';
+    private $_name   = '';
+    private $_type   = '';
+    private $_breed  = ''; // Raza
+    private $_gender = '';
 
-    public $_birth_date    = '';
-    public $_entrance_date = '';
-    public $_adoption_date = ''; // Permite nulos
+    private $_birth_date    = '';
+    private $_entrance_date = '';
+    private $_adoption_date = ''; // Permite nulos
 
-    public $_status      = ''; // Adoptado, sin adoptar
-    public $_description = '';
-    public $_pictures    = '';
+    private $_status      = ''; // Adoptado, sin adoptar
+    private $_description = '';
+    private $_pictures    = '';
 
     public function __construct()
     {

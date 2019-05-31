@@ -122,18 +122,18 @@ class User
 
         $user = R::load('user', $id);
 
-        $user->username  = $username;
-        $user->password  = $password;
-        $user->email     = $email;
-        $user->name      = $name;
-        $user->surname   = $surname;
-        $user->phone     = $phone;
+        $user->username   = $username;
+        $user->password   = $password;
+        $user->email      = $email;
+        $user->name       = $name;
+        $user->surname    = $surname;
+        $user->phone      = $phone;
         $user->birth_date = $birthDate;
-        $user->street    = $street;
-        $user->number    = $number;
-        $user->portal    = $portal;
-        $user->floor     = $floor;
-        $user->door      = $door;
+        $user->street     = $street;
+        $user->number     = $number;
+        $user->portal     = $portal;
+        $user->floor      = $floor;
+        $user->door       = $door;
         $user->user_type  = $userType;
 
         R::store($user);

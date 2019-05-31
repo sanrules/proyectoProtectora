@@ -10,9 +10,9 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
 class AnimalBreed
 {
-    public $_id     = '';
-    public $_idtype = '';
-    public $_name   = '';
+    private $_id     = '';
+    private $_idtype = '';
+    private $_name   = '';
 
     public function __construct()
     {
