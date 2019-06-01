@@ -52,7 +52,9 @@ import { AutofocusDirective } from './_directives/autofocus.directive';
 import { NewsManagementComponent } from './components/admin/news/news-mangement/news-management.component';
 import { NewsRegisterComponent } from './components/admin/news/news-register/news-register.component';
 import { NewsUpdateModal } from './components/admin/news/news-mangement/news-modal/news-modal.component';
-
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -81,7 +83,8 @@ import { NewsUpdateModal } from './components/admin/news/news-mangement/news-mod
     AutofocusDirective,
     NewsManagementComponent,
     NewsRegisterComponent,
-    NewsUpdateModal
+    NewsUpdateModal,
+    
   ],
   imports: [
     BrowserModule,
@@ -90,7 +93,9 @@ import { NewsUpdateModal } from './components/admin/news/news-mangement/news-mod
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

@@ -104,7 +104,7 @@
         </div>
 
         <!-- Subir imagenes 1-->
-        <div class="form-group col-md-12">
+        <!-- <div class="form-group col-md-12">
           <div [fileUploadInputFor]="fileUploadQueue" class="upload-drop-zone">
             Just drag and drop files here
           </div>
@@ -118,7 +118,8 @@
             </mat-file-upload-queue>
           </div>
         </div>
-
+ -->
+        
         <!-- Subir imagenes2 -->
         <!-- <div class="form-group col-md-12">
         <label class="btn btn-default">
@@ -128,6 +129,16 @@
         <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
         </div>
  -->
+
+        <!-- Subir imagenes3 -->
+        <!-- <div class="btn" id="upload_image">Upload image</div> -->
+
+        <!-- Subir imagenes 4 -->
+        <div class="form-group col-mad-12">
+          <h5>Seleccionar imagen</h5>
+          <input type="file" accept=".png, .jpg" (change)="onUpload($event)">
+          <input type="hidden" formControlName="pictures" id="pictures" [value]="urlImage | async">
+        </div>
 
 
         <div class="row" *ngIf="tipo != 'animalUpdate'">
