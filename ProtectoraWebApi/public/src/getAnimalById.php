@@ -1,15 +1,20 @@
 <?php
 require_once 'Animal.php';
+require_once '../../vendor/autoload.php';
+
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 $logger = new Logger('getAnimalById');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
+$error = array();
 
 try {
     $postdata = file_get_contents("php://input");
-    $request  = json_decode($postdata, true);
+    var_dump($postdata);
 
+    $request = json_decode($postdata, true);
+    var_dump($request);
     if ($request) {
         $animal    = new Animal();
         $animalGet = $animal->retrieveAnimal($request);
@@ -32,7 +37,9 @@ if ($error == '') {
         'error'  => $error,
     );
     http_response_code(503); // 503 Service Unavailable
-    $logger->info("Error: $error");
+    foreach ($error as $err) {
+        $logger->info("Error: $err");
+    }
 }
 
 header('Content-type:application/json;charset=utf-8');

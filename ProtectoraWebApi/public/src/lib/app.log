@@ -12,3 +12,6 @@
 [2019-05-31 09:02:46] updatetUser.INFO: Error: ok [] []
 [2019-05-31 09:04:53] updatetUser.INFO: Error: ok [] []
 [2019-05-31 09:05:30] updatetUser.INFO: Error: ok [] []
+[2019-05-31 18:30:51] getAllAnimals.ERROR: Error al recoger todos los animales [] []
+[2019-05-31 18:30:51] getAllAnimals.INFO: Error:  [] []
+[2019-05-31 19:28:27] getAnimalById.INFO: Error: Array [] []
