@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ɵConsole } from '@angular/core';
 // Formularios
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 // Servicios
@@ -43,6 +43,9 @@ export class UserRegisterComponent  {
                           Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/)
                     ]],
           email: ['correo@usuario.es', [Validators.required, Validators.email]],
+          showImg: ['', []],
+          imgUrl: ['', []],
+          imgUpload: ['', []]
         }),
         this.formBuilder.group({
           name: ['Nombre', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
@@ -59,6 +62,13 @@ export class UserRegisterComponent  {
         })
       ])
     });
+  }
+  openInput() {
+    document.getElementById('imgUpload').click();
+  }
+
+  onUpload(event) {
+    console.log('SUBIR, ', event.target.files[0]);
   }
 
   dateToTimestamp(date) {

@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { AnimalService } from 'src/app/_services/animal/animal-service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Animal } from 'src/app/_models/animal.model';
-import { AwsUploadService } from 'src/app/_services/awsFiles/awsUpload-service';
 
 @Component({
   selector: 'app-admin-animal-register',
