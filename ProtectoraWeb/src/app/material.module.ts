@@ -17,7 +17,8 @@ import {
   MatGridListModule,
   MatToolbarModule,
   MatSelectModule,
-  MatStepperModule
+  MatStepperModule,
+  MatProgressBarModule
 
 } from '@angular/material';
 import { MatFileUploadModule } from 'angular-material-fileupload';
@@ -38,7 +39,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatToolbarModule,
     MatSelectModule,
     MatStepperModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    MatProgressBarModule
   ],
   exports: [
     MatFormFieldModule,
@@ -57,7 +59,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatToolbarModule,
     MatSelectModule,
     MatStepperModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    MatProgressBarModule
     
   ],
   providers: [

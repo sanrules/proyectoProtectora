@@ -1,6 +1,8 @@
 <?php
 require_once '../../vendor/autoload.php';
 require_once 'User.php';
+include 'lib/ChromePhp.php';
+
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -14,49 +16,55 @@ try {
     $request  = json_decode($postdata, true);
 
     if ($request) {
-        $username  = filter_var($request['userName'], FILTER_SANITIZE_STRING);
-        $password  = filter_var($request['password'], FILTER_SANITIZE_STRING);
-        $email     = filter_var($request['email'], FILTER_SANITIZE_STRING);
-        $name      = filter_var($request['name'], FILTER_SANITIZE_STRING);
-        $surname   = filter_var($request['surname'], FILTER_SANITIZE_STRING);
-        $phone     = filter_var($request['phone'], FILTER_SANITIZE_NUMBER_INT);
-        $birthDate = filter_var($request['birthDate'], FILTER_SANITIZE_NUMBER_INT) / 1000;
-        $street    = filter_var($request['street'], FILTER_SANITIZE_STRING);
-        $number    = filter_var($request['number'], FILTER_SANITIZE_NUMBER_INT);
-        $portal    = filter_var($request['portal'], FILTER_SANITIZE_STRING);
-        $floor     = filter_var($request['floor'], FILTER_SANITIZE_NUMBER_INT);
-        $door      = filter_var($request['door'], FILTER_SANITIZE_STRING); // String provisionalmente
-        $userType  = filter_var($request['userType'], FILTER_SANITIZE_STRING); // String provisionalmente
-        $city = filter_var($request['city'], FILTER_SANITIZE_STRING);
-        $postalCode = $request['postalCode'];
+        $username   = filter_var($request['userName'], FILTER_SANITIZE_STRING);
+        $password   = filter_var($request['password'], FILTER_SANITIZE_STRING);
+        $email      = filter_var($request['email'], FILTER_SANITIZE_STRING);
+        $name       = filter_var($request['name'], FILTER_SANITIZE_STRING);
+        $surname    = filter_var($request['surname'], FILTER_SANITIZE_STRING);
+        $dni        = filter_var($request['dni'], FILTER_SANITIZE_STRING);
+        $phone      = filter_var($request['phone'], FILTER_SANITIZE_NUMBER_INT);
+        $birthDate  = filter_var($request['birthDate'], FILTER_SANITIZE_NUMBER_INT) / 1000;
+        $street     = filter_var($request['street'], FILTER_SANITIZE_STRING);
+        $number     = filter_var($request['number'], FILTER_SANITIZE_NUMBER_INT);
+        $portal     = filter_var($request['portal'], FILTER_SANITIZE_STRING);
+        $floor      = filter_var($request['floor'], FILTER_SANITIZE_NUMBER_INT);
+        $door       = filter_var($request['door'], FILTER_SANITIZE_STRING); // String provisionalmente
+        $province   = filter_var($request['city'], FILTER_SANITIZE_STRING);
+        $city       = filter_var($request['city'], FILTER_SANITIZE_STRING);
+        $postalCode = filter_var($request['postalCode'], FILTER_SANITIZE_NUMBER_INT);
+        $userType   = filter_var($request['userType'], FILTER_SANITIZE_STRING); // String provisionalmente
         $avatar = $request['avatar'];
-        $dni = $request['dni'];
 
         // TODO VALIDACIÓN DE LOS ÚLTIMOS CAMPOS
 
-        if ($username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $userType != '') {
+        if ($username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $dni != '' ||$phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $province != '' || $city != '' || $postalCode != '' ||$userType != '') {
 
             $birthDate = new DateTime("@$birthDate");
             $birthDate->format("Y-m-d H:i:s");
+
             $password = password_hash($password, PASSWORD_BCRYPT);
 
             $user = new User();
             $user->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
 
-            // Validamos que el email no exista
-            if (($user->getSpecificUser(array('key' => 'email', 'value' => $email)) == null) && ($user->getSpecificUser(array('key' => 'username', 'value' => $username)) == null)) {
+            
+            // Validamos que el email, nombre de usuario o dni no existan
+            $email_exists = R::findOne('user', 'email=?', [$user->getEmail()]);
+            $username_exists = R::findOne('user', 'username=?', [$user->getUsername()]);
+            $dni_exists = R::findOne('user', 'dni=?', [$user->getDni()]);
+            
+            if ($email_exists == null && $username_exists == null && $dni_exists == null) {
                 $user->insertUser();
                 $error = '';
             } else {
-                $error = 'El email o el usuario ya existen en la base de datos';
+                $error = 'Email, nombre de usuario o dni ya dados de alta en la BBDD';
                 $logger->error($error);
-                // throw new Exception();
             }
 
             if ($error == '') {
                 $reply = array(
                     'status'   => 'OK',
-                    'response' => $user,
+                    'response' => $user->getIdUser(),
                 );
                 http_response_code(200); // 200 OK
             } else {

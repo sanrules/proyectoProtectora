@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ɵConsole } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 // Formularios
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 // Servicios
@@ -9,13 +9,18 @@ import { User } from 'src/app/_models/user.model';
 import { RegisterConfirmationComponent } from 'src/app/components/web/auth/register/register-confirmation/register-confirmation.component';
 // Material
 import { MatDialogConfig, MatDialog } from '@angular/material';
+// FireStorage
+import { AngularFireStorage } from '@angular/fire/storage';
+// Rxjs
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-registro',
   templateUrl: './user-register.component.html',
   styleUrls: ['./user-register.component.css']
 })
-export class UserRegisterComponent  {
+export class UserRegisterComponent  implements OnInit {
 
   // Variables del componente
   registerForm: FormGroup;
@@ -23,12 +28,17 @@ export class UserRegisterComponent  {
   confirmMessage: string;
   user: User;
 
+  fileUpload: any;
+  uploadPercent: Observable<number>;
+  urlImage: Observable<string>;
+
   /** Returns a FormArray with the name 'formArray'. */
   get formArray(): AbstractControl | null { return this.registerForm.get('formArray'); }
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
-              private dialog: MatDialog) {}
+              private dialog: MatDialog,
+              private storage: AngularFireStorage) {}
 
   ngOnInit() {
     // Crea el formulario y le agrega a un formGroup:
@@ -39,17 +49,15 @@ export class UserRegisterComponent  {
           idUser: ['', []],
           userType: ['user', []],
           userName: ['Usuario', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{4,16}$/)]],
-          password: ['#23ASwe', [Validators.required,
+          password: ['ASDqw12', [Validators.required,
                           Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/)
                     ]],
           email: ['correo@usuario.es', [Validators.required, Validators.email]],
-          showImg: ['', []],
-          imgUrl: ['', []],
-          imgUpload: ['', []]
         }),
         this.formBuilder.group({
           name: ['Nombre', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
           surname: ['Apellidos', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-záéíúóñç]+[ -]?){1,2}$/)]],
+          dni: ['12345678S', []],
           phone: [987654321, [Validators.required, Validators.pattern(/^[6789]{1}[0-9]{8}$/)]],
           birthDate: ['26/13/2016', [ Validators.required]],
         }),
@@ -58,27 +66,45 @@ export class UserRegisterComponent  {
           number: ['1', [Validators.required]],
           portal: ['2', []],
           floor: ['3', []],
-          door: ['4', []]
+          door: ['4', []],
+          province: ['Madrid', []],
+          city: ['Rivas Vaciamadrid', []],
+          postalCode: ['28521', []]
+        }),
+        this.formBuilder.group({
+          imgUrl: ['', []]
         })
       ])
     });
   }
-  openInput() {
+
+  openInput(event) {
     document.getElementById('imgUpload').click();
   }
 
-  onUpload(event) {
-    console.log('SUBIR, ', event.target.files[0]);
+  selectImage(event) {
+    const file = event.target.files[0];
+    this.fileUpload = file;
+  }
+
+  onUpload(file, folder) {
+    const filePath = `/profileavatars/${folder}/avatar.png`;
+    const ref = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+
+    this.uploadPercent = task.percentageChanges();
+    ref.getDownloadURL().subscribe((URL) => {
+      this.urlImage = URL;
+      this.formArray.get([3]).get('imgUrl').setValue(URL);
+    });
   }
 
   dateToTimestamp(date) {
-    console.log('date: ', date);
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();
 
     date = Date.UTC(year, month, day, 0, 0, 0);
-    console.log('date: ', date);
 
     return date;
   }
@@ -93,6 +119,7 @@ export class UserRegisterComponent  {
       "email": this.formArray.get([0]).get('email').value.trim(),
       "name": this.formArray.get([1]).get('name').value.trim(),
       "surname": this.formArray.get([1]).get('surname').value.trim(),
+      "dni": this.formArray.get([1]).get('dni').value.trim(),
       "phone": this.formArray.get([1]).get('phone').value,
       "birthDate": this.dateToTimestamp(this.formArray.get([1]).get('birthDate').value),
       "street": this.formArray.get([2]).get('street').value.trim(),
@@ -100,6 +127,10 @@ export class UserRegisterComponent  {
       "portal": this.formArray.get([2]).get('portal').value.trim(),
       "floor":  this.formArray.get([2]).get('floor').value,
       "door":  this.formArray.get([2]).get('door').value.trim(),
+      "province":  this.formArray.get([2]).get('province').value.trim(),
+      "city":  this.formArray.get([2]).get('city').value.trim(),
+      "postalCode":  this.formArray.get([2]).get('postalCode').value.trim(),
+      "avatar": ''
     };
 
     return formData;
@@ -108,7 +139,6 @@ export class UserRegisterComponent  {
   registerSubmit() {
     // Se guardan los datos del formulario en un objeto usuario
     this.user = this.dataPrepare();
-    console.log('this.user: ', this.user);
 
     // Se borra el campo de idUser para que no se envíe al back y se autogenere.
     delete this.user.idUser;
@@ -120,6 +150,16 @@ export class UserRegisterComponent  {
     // Se envían los datos mediante post a la API
     this.userService.registerUser(userJSON).subscribe(data => {
       console.log('repuesta registerUser(data): ', data);
+      console.log('avatar: ', this.formArray.get([3]).get('imgUrl').value);
+      console.log('fileRegister: ', this.fileUpload);
+
+      this.onUpload(this.fileUpload, data.response);
+      this.userService.setAvatar(data.response, this.formArray.get([3]).get('imgUrl').value).subscribe(() => {
+        console.log('subida avatar OK');
+      }, error => {
+          console.log('Error: ', error);
+      });
+
       this.openDialog();
       },
       error => {

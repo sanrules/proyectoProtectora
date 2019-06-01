@@ -35,4 +35,8 @@ export class UserService {
   updateUser(data): Observable<any> {
     return this.http.post(`${this.baseURL}/updateUser.php`, data, this.httpOptions);
   }
+
+  setAvatar(id: number, avatar: string): Observable<any> {
+    return this.http.post(`${this.baseURL}/userUploadAvatar.php`, {id, avatar}, this.httpOptions);
+  }
 }

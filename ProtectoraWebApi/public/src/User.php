@@ -66,28 +66,28 @@ class User
     {
         $bbddUser = R::dispense('user');
 
-        $bbddUser->username  = $this->getUsername();
-        $bbddUser->password  = $this->getPassword();
-        $bbddUser->email     = $this->getEmail();
-        $bbddUser->name      = $this->getName();
-        $bbddUser->surname   = $this->getSurname();
-        $bbddUser->dni = $this->getDni();
-        $bbddUser->phone     = $this->getPhone();
-        $bbddUser->birthDate = $this->getBirthDate();
-        $bbddUser->street    = $this->getStreet();
-        $bbddUser->number    = $this->getNumber();
-        $bbddUser->portal    = $this->getPortal();
-        $bbddUser->floor     = $this->getFloor();
-        $bbddUser->door      = $this->getDoor();
-        $bbddUser->userType  = $this->getUserType();
-        $bbddUser->province = $this->getProvince();
-        $bbddUser->city = $this->getCity();
+        $bbddUser->username   = $this->getUsername();
+        $bbddUser->password   = $this->getPassword();
+        $bbddUser->email      = $this->getEmail();
+        $bbddUser->name       = $this->getName();
+        $bbddUser->surname    = $this->getSurname();
+        $bbddUser->dni        = $this->getDni();
+        $bbddUser->phone      = $this->getPhone();
+        $bbddUser->birthDate  = $this->getBirthDate();
+        $bbddUser->street     = $this->getStreet();
+        $bbddUser->number     = $this->getNumber();
+        $bbddUser->portal     = $this->getPortal();
+        $bbddUser->floor      = $this->getFloor();
+        $bbddUser->door       = $this->getDoor();
+        $bbddUser->userType   = $this->getUserType();
+        $bbddUser->province   = $this->getProvince();
+        $bbddUser->city       = $this->getCity();
         $bbddUser->postalCode = $this->getPostalCode();
-        $bbddUser->avatar = $this->getAvatar();
+        $bbddUser->avatar     = $this->getAvatar();
 
         $id = R::store($bbddUser);
 
-        $this->setId($id);
+        $this->setIdUser($id);
 
         // TODO ALMACENAR PASSWORD SEGURA
     }
@@ -153,6 +153,15 @@ class User
         R::store($user);
     }
 
+    public function uploadUserAvatar($id, $avatar)
+    {
+        $user = R::load('user', $id);
+
+        $user->setAvatar($avatar);
+        
+        R::store($user);
+    }
+
     /**
      * Borra un usuario de la base de datos
      * @param User $user usuario a borrar
@@ -174,7 +183,7 @@ class User
      */
     public function getSpecificUser($params)
     {
-        $users = R::find('user', $params['key'] . '= ?', $params['value']);
+        $users = R::findOne('user', $params['key'], [$params['value']]);
 
         return $users;
     }

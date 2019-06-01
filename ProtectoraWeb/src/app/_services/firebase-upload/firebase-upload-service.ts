@@ -10,12 +10,12 @@ export class FirebaseStorageService {
     private storage: AngularFireStorage
   ) { }
 
-  //Tarea para subir archivo
+  // Tarea para subir archivo
   public upload(nombreArchivo: string, datos: any) {
     return this.storage.upload(nombreArchivo, datos);
   }
 
-  //Referencia del archivo
+  // Referencia del archivo
   public ref(nombreArchivo: string) {
     return this.storage.ref(nombreArchivo);
   }
