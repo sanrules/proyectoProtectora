@@ -3,12 +3,17 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from '../environments/environment';
 
 // Formulario
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Material
 import { MaterialModule } from './material.module';
+
+// Firebase
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireModule } from '@angular/fire';
 
 // Componentes Core
 import { AppComponent } from './app.component';
@@ -85,7 +90,8 @@ import { AutofocusDirective } from './_directives/autofocus.directive';
     AutofocusDirective,
     NewsManagementComponent,
     NewsRegisterComponent,
-    NewsUpdateModal
+    NewsUpdateModal,
+    
   ],
   imports: [
     BrowserModule,
@@ -94,7 +100,9 @@ import { AutofocusDirective } from './_directives/autofocus.directive';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

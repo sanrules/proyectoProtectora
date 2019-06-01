@@ -1,9 +1,12 @@
 
-import { Component, OnInit ,  Inject, Input} from '@angular/core';
+import { Component, OnInit , Input} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AnimalService } from 'src/app/_services/animal/animal-service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Animal } from 'src/app/_models/animal.model';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { FirebaseStorageService } from '../../../../_services/firebase-upload/firebase-upload-service';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-animal-register',
@@ -16,6 +19,11 @@ export class AnimalRegisterComponent implements OnInit {
   @Input() public tipo: string;
   @Input() public animalData: Animal;
 
+  bucketName = 'animalimg';
+
+  uploadpercent: Observable<number>;
+  urlImage: Observable<string>;
+  uploader: any;
   selectedFiles: FileList;
   registerForm: FormGroup;
   private animal: Animal;
@@ -28,7 +36,8 @@ export class AnimalRegisterComponent implements OnInit {
     }];
   public es: string;
   constructor(private formBuilder: FormBuilder,
-              private animalService: AnimalService
+              private animalService: AnimalService,
+              private firestorage: FirebaseStorageService
               /* private uploadService: AwsUploadService */) { }
 
   ngOnInit() {
@@ -53,6 +62,25 @@ export class AnimalRegisterComponent implements OnInit {
      this.setDatosUpdate(this.animalData);
     }
   }
+
+  onUpload(e){
+    console.log("imagen",e);
+
+    const imgId = Math.random().toString(36).substring(2);
+    const file = e.target.files[0];
+    const filePath = `animales/img_${imgId}`;
+    const ref = this.firestorage.ref(filePath);
+    const task = this.firestorage.upload(filePath, file);
+
+    this.uploadpercent = task.percentageChanges();
+    
+    task.snapshotChanges().pipe(finalize(() =>  this.urlImage = ref.getDownloadURL())).subscribe();
+
+
+
+  }
+
+
 
   public spararFechaYHora(fecha) {
     let arrayFechaYHora = fecha.split(" ");
@@ -136,6 +164,65 @@ dataPrepare() {
     this.registerForm.reset();
    /*  this.formBuilder.resetForm(); */
   }
+
+
+
+
+  /* ngAfterViewInit() { 
+
+    let instance = this; 
+    this.uploader = new s3.FineUploaderBasic({
+      button: document.getElementById('upload_image'),
+      debug: false,
+      autoUpload: true,
+      multiple: true,
+      validation: {
+        allowedExtensions: ['jpeg', 'jpg', 'png', 'gif', 'svg'],
+        sizeLimit: 5120000 // 50 kB = 50 * 1024 bytes
+      },
+      region: 'UE(París)',
+      request: {
+        endpoint: 'https://' + instance.bucketName  + '.s3.amazonaws.com/',
+        accessKey: 'AKIAIC2ZN6GDUX2PP5OQ',
+        params: { 'Cache-Control': 'private, max-age=31536000, must-revalidate' }
+      },
+      signature: {
+        endpoint: 'http://localhost:8000/api/v1/fine_uploader/s3_signature/',
+      },
+      iframeSupport: {
+        localBlankPagePath: '/somepage.html'
+      },
+      cors: {
+        expected: true,
+        sendCredentials: true
+      },
+      objectProperties: {
+        acl: 'public-read',       
+      },     
+      callbacks: {
+        onSubmit: function (id, fileName) {
+          console.log('selected file:', fileName);
+        },
+        // onSubmitted: function(id, name) { alert('onSubmitted');},
+        onComplete: function (id, name, responseJSON, maybeXhr) {
+          if(responseJSON.success) {
+            console.log('upload complete', name);
+            console.log('uploaded image url', 'https://' + instance.bucketName + '.s3.amazonaws.com/' + this.getKey(id));
+          }
+        },
+        // onAllComplete: function (successful, failed) { console.log(failed); },
+        // onCancel: function (id, name) {},
+        // onUpload: function(id, name) { alert('onUpload');},
+        // onUploadChunk: function(id, name, chunkData) { alert('onUploadChunk');},
+        // onUploadChunkSuccess: function(id, chunkData, responseJSON, xhr) { alert('onUploadChunkSuccess');},
+        // onResume: function(id, fileName, chunkData) { alert('onResume');},
+        // onProgress: function (id, name, loaded, total) {},
+        // onTotalProgress: function(loaded, total) { alert('onTotalProgress');},
+        // onError: function (id, name, reason, maybeXhrOrXdr) {  },      
+        // onSessionRequestComplete: function (response, success, xhrOrXdr) { }
+      }
+    });
+  } */
 /* 
   upload() {
     const file = this.selectedFiles.item(0);
