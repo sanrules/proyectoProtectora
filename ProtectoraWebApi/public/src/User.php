@@ -17,7 +17,11 @@ class User
     private $_name      = ''; // name
     private $_surname   = ''; // surname
     private $_phone     = ''; // phone
+    private $_dni = '';
     private $_birthDate = ''; // birthDate
+    private $_province = '';
+    private $_city = '';
+    private $_postalCode = '';
     private $_street    = ''; // street
     private $_number    = ''; // number
     private $_portal    = ''; // portal
@@ -25,11 +29,10 @@ class User
     private $_door      = ''; // door
     private $_userType  = ''; // userType
     private $_token     = ''; // token
+    private $_avatar = ''; // avatar
 
     public function __construct()
-    {
-
-    }
+    { }
 
     public function createUser($_username, $_password, $_email, $_name, $_surname, $_phone, $_birthDate, $_street, $_number, $_portal, $_floor, $_door, $_userType)
     {
@@ -74,7 +77,6 @@ class User
         $this->_id = $id;
 
         // TODO ALMACENAR PASSWORD SEGURA
-
     }
 
     /**
@@ -87,7 +89,6 @@ class User
         $user = R::findOne('user', 'email=?', [$email]);
 
         return $user;
-
     }
 
     /**
@@ -145,19 +146,24 @@ class User
      */
     public function deleteUser($user)
     {
-        R::setup('mysql:host=localhost;dbname=proyecto',
-            'root', '');
+        R::setup(
+            'mysql:host=localhost;dbname=proyecto',
+            'root',
+            ''
+        );
         R::trash($user);
     }
 
     /**
      * Obtiene todos los usuarios de la base de datos en función a unos parámetros.
-     * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+     * @param array $params array formato 'key' => nombreDelCampo, 'value' => 'filtro'
      * @return array $users array de user obtenido de la bbdd
      */
     public function getSpecificUser($params)
     {
+        $users = R::find('user', $params['key'] . '= ?', $params['value']);
 
+        return $users;
     }
 
     /*
@@ -167,7 +173,7 @@ class User
     /**
      * Get the value of _idUser
      */
-    public function get_idUser()
+    public function getIdUser()
     {
         return $this->_idUser;
     }
@@ -177,7 +183,7 @@ class User
      *
      * @return  self
      */
-    public function set_idUser($_idUser)
+    public function setIdUser($_idUser)
     {
         $this->_idUser = $_idUser;
 
@@ -187,7 +193,7 @@ class User
     /**
      * Get the value of _username
      */
-    public function get_username()
+    public function getUsername()
     {
         return $this->_username;
     }
@@ -197,7 +203,7 @@ class User
      *
      * @return  self
      */
-    public function set_username($_username)
+    public function setUsername($_username)
     {
         $this->_username = $_username;
 
@@ -207,7 +213,7 @@ class User
     /**
      * Get the value of _email
      */
-    public function get_email()
+    public function getEmail()
     {
         return $this->_email;
     }
@@ -217,7 +223,7 @@ class User
      *
      * @return  self
      */
-    public function set_email($_email)
+    public function setEmail($_email)
     {
         $this->_email = $_email;
 
@@ -227,7 +233,7 @@ class User
     /**
      * Get the value of _password
      */
-    public function get_password()
+    public function getPassword()
     {
         return $this->_password;
     }
@@ -237,7 +243,7 @@ class User
      *
      * @return  self
      */
-    public function set_password($_password)
+    public function setPassword($_password)
     {
         $this->_password = $_password;
 
@@ -247,7 +253,7 @@ class User
     /**
      * Get the value of _name
      */
-    public function get_name()
+    public function getName()
     {
         return $this->_name;
     }
@@ -257,7 +263,7 @@ class User
      *
      * @return  self
      */
-    public function set_name($_name)
+    public function setName($_name)
     {
         $this->_name = $_name;
 
@@ -267,7 +273,7 @@ class User
     /**
      * Get the value of _surname
      */
-    public function get_surname()
+    public function getSurname()
     {
         return $this->_surname;
     }
@@ -277,7 +283,7 @@ class User
      *
      * @return  self
      */
-    public function set_surname($_surname)
+    public function setSurname($_surname)
     {
         $this->_surname = $_surname;
 
@@ -287,7 +293,7 @@ class User
     /**
      * Get the value of _phone
      */
-    public function get_phone()
+    public function getPhone()
     {
         return $this->_phone;
     }
@@ -297,7 +303,7 @@ class User
      *
      * @return  self
      */
-    public function set_phone($_phone)
+    public function setPhone($_phone)
     {
         $this->_phone = $_phone;
 
@@ -307,7 +313,7 @@ class User
     /**
      * Get the value of _birthDate
      */
-    public function get_birthDate()
+    public function getBirthDate()
     {
         return $this->_birthDate;
     }
@@ -317,7 +323,7 @@ class User
      *
      * @return  self
      */
-    public function set_birthDate($_birthDate)
+    public function setBirthDate($_birthDate)
     {
         $this->_birthDate = $_birthDate;
 
@@ -327,7 +333,7 @@ class User
     /**
      * Get the value of _street
      */
-    public function get_street()
+    public function getStreet()
     {
         return $this->_street;
     }
@@ -337,7 +343,7 @@ class User
      *
      * @return  self
      */
-    public function set_street($_street)
+    public function setStreet($_street)
     {
         $this->_street = $_street;
 
@@ -347,7 +353,7 @@ class User
     /**
      * Get the value of _number
      */
-    public function get_number()
+    public function getNumber()
     {
         return $this->_number;
     }
@@ -357,7 +363,7 @@ class User
      *
      * @return  self
      */
-    public function set_number($_number)
+    public function setNumber($_number)
     {
         $this->_number = $_number;
 
@@ -367,7 +373,7 @@ class User
     /**
      * Get the value of _portal
      */
-    public function get_portal()
+    public function getPortal()
     {
         return $this->_portal;
     }
@@ -377,7 +383,7 @@ class User
      *
      * @return  self
      */
-    public function set_portal($_portal)
+    public function setPortal($_portal)
     {
         $this->_portal = $_portal;
 
@@ -387,7 +393,7 @@ class User
     /**
      * Get the value of _floor
      */
-    public function get_floor()
+    public function getFloor()
     {
         return $this->_floor;
     }
@@ -397,7 +403,7 @@ class User
      *
      * @return  self
      */
-    public function set_floor($_floor)
+    public function setFloor($_floor)
     {
         $this->_floor = $_floor;
 
@@ -407,7 +413,7 @@ class User
     /**
      * Get the value of _door
      */
-    public function get_door()
+    public function getDoor()
     {
         return $this->_door;
     }
@@ -417,7 +423,7 @@ class User
      *
      * @return  self
      */
-    public function set_door($_door)
+    public function setDoor($_door)
     {
         $this->_door = $_door;
 
@@ -427,7 +433,7 @@ class User
     /**
      * Get the value of _userType
      */
-    public function get_userType()
+    public function getUserType()
     {
         return $this->_userType;
     }
@@ -437,7 +443,7 @@ class User
      *
      * @return  self
      */
-    public function set_userType($_userType)
+    public function setUserType($_userType)
     {
         $this->_userType = $_userType;
 
@@ -447,7 +453,7 @@ class User
     /**
      * Get the value of _token
      */
-    public function get_token()
+    public function getToken()
     {
         return $this->_token;
     }
@@ -457,7 +463,7 @@ class User
      *
      * @return  self
      */
-    public function set_token($_token)
+    public function setToken($_token)
     {
         $this->_token = $_token;
 

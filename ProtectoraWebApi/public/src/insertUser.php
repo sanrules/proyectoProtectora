@@ -28,6 +28,8 @@ try {
         $door      = filter_var($request['door'], FILTER_SANITIZE_STRING); // String provisionalmente
         $userType  = filter_var($request['userType'], FILTER_SANITIZE_STRING); // String provisionalmente
 
+        // Validamos que el username no exista
+
         if ($username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $userType != '') {
 
             $birthDate = new DateTime("@$birthDate");
@@ -36,12 +38,13 @@ try {
 
             $user = new User();
             $user->createUser($username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType);
-            $emailBBDD = $user->retrieveUserEmail($email);
-            if ($emailBBDD == null) {
+
+            // Validamos que el email no exista
+            if (($user->getSpecificUser(array('key' => 'email', 'value' => $email)) == null) && ($user->getSpecificUser(array('key' => 'username', 'value' => $username)) == null)) {
                 $user->insertUser();
                 $error = '';
             } else {
-                $error = 'El email ya existe en la base de datos';
+                $error = 'El email o el usuario ya existen en la base de datos';
                 $logger->error($error);
                 // throw new Exception();
             }
@@ -65,7 +68,6 @@ try {
             echo json_encode($reply, JSON_UNESCAPED_UNICODE);
         }
     }
-
 } catch (Exception $e) {
     // echo 'Error al registrar el usuario: ' . $e->getMessage();
     $error = 'Error al registrar el usuario';
