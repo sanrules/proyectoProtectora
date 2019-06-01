@@ -34,21 +34,29 @@ class User
     public function __construct()
     { }
 
-    public function createUser($_username, $_password, $_email, $_name, $_surname, $_phone, $_birthDate, $_street, $_number, $_portal, $_floor, $_door, $_userType)
+    /**
+     * Establece todos los valores de un usuario
+     */
+    public function createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar)
     {
-        $this->_username  = $_username;
-        $this->_password  = $_password;
-        $this->_email     = $_email;
-        $this->_name      = $_name;
-        $this->_surname   = $_surname;
-        $this->_phone     = $_phone;
-        $this->_birthDate = $_birthDate;
-        $this->_street    = $_street;
-        $this->_number    = $_number;
-        $this->_portal    = $_portal;
-        $this->_floor     = $_floor;
-        $this->_door      = $_door;
-        $this->_userType  = $_userType;
+        $this->setUsername($username);
+        $this->setPassword($password);
+        $this->setEmail($email);
+        $this->setName($name);
+        $this->setSurname($surname);
+        $this->setPhone($phone);
+        $this->setBirthDate($birthDate);
+        $this->setStreet($street);
+        $this->setNumber($number);
+        $this->setPortal($portal);
+        $this->setFloor($floor);
+        $this->setDoor($door);
+        $this->setUserType($userType);
+        $this->setProvince($province);
+        $this->setCity($city);
+        $this->setPostalCode($postalCode);
+        $this->setAvatar($avatar);
+        $this->setDni($dni);
     }
 
     /**
@@ -58,23 +66,28 @@ class User
     {
         $bbddUser = R::dispense('user');
 
-        $bbddUser->username  = $this->_username;
-        $bbddUser->password  = $this->_password;
-        $bbddUser->email     = $this->_email;
-        $bbddUser->name      = $this->_name;
-        $bbddUser->surname   = $this->_surname;
-        $bbddUser->phone     = $this->_phone;
-        $bbddUser->birthDate = $this->_birthDate;
-        $bbddUser->street    = $this->_street;
-        $bbddUser->number    = $this->_number;
-        $bbddUser->portal    = $this->_portal;
-        $bbddUser->floor     = $this->_floor;
-        $bbddUser->door      = $this->_door;
-        $bbddUser->userType  = $this->_userType;
+        $bbddUser->username  = $this->getUsername();
+        $bbddUser->password  = $this->getPassword();
+        $bbddUser->email     = $this->getEmail();
+        $bbddUser->name      = $this->getName();
+        $bbddUser->surname   = $this->getSurname();
+        $bbddUser->dni = $this->getDni();
+        $bbddUser->phone     = $this->getPhone();
+        $bbddUser->birthDate = $this->getBirthDate();
+        $bbddUser->street    = $this->getStreet();
+        $bbddUser->number    = $this->getNumber();
+        $bbddUser->portal    = $this->getPortal();
+        $bbddUser->floor     = $this->getFloor();
+        $bbddUser->door      = $this->getDoor();
+        $bbddUser->userType  = $this->getUserType();
+        $bbddUser->province = $this->getProvince();
+        $bbddUser->city = $this->getCity();
+        $bbddUser->postalCode = $this->getPostalCode();
+        $bbddUser->avatar = $this->getAvatar();
 
         $id = R::store($bbddUser);
 
-        $this->_id = $id;
+        $this->setId($id);
 
         // TODO ALMACENAR PASSWORD SEGURA
     }
@@ -466,6 +479,106 @@ class User
     public function setToken($_token)
     {
         $this->_token = $_token;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _dni
+     */
+    public function getDni()
+    {
+        return $this->_dni;
+    }
+
+    /**
+     * Set the value of _dni
+     *
+     * @return  self
+     */
+    public function setDni($_dni)
+    {
+        $this->_dni = $_dni;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _province
+     */
+    public function getProvince()
+    {
+        return $this->_province;
+    }
+
+    /**
+     * Set the value of _province
+     *
+     * @return  self
+     */
+    public function setProvince($_province)
+    {
+        $this->_province = $_province;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _city
+     */
+    public function getCity()
+    {
+        return $this->_city;
+    }
+
+    /**
+     * Set the value of _city
+     *
+     * @return  self
+     */
+    public function setCity($_city)
+    {
+        $this->_city = $_city;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _postalCode
+     */
+    public function getPostalCode()
+    {
+        return $this->_postalCode;
+    }
+
+    /**
+     * Set the value of _postalCode
+     *
+     * @return  self
+     */
+    public function setPostalCode($_postalCode)
+    {
+        $this->_postalCode = $_postalCode;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _avatar
+     */
+    public function getAvatar()
+    {
+        return $this->_avatar;
+    }
+
+    /**
+     * Set the value of _avatar
+     *
+     * @return  self
+     */
+    public function setAvatar($_avatar)
+    {
+        $this->_avatar = $_avatar;
 
         return $this;
     }

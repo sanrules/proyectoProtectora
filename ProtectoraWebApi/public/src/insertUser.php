@@ -27,8 +27,12 @@ try {
         $floor     = filter_var($request['floor'], FILTER_SANITIZE_NUMBER_INT);
         $door      = filter_var($request['door'], FILTER_SANITIZE_STRING); // String provisionalmente
         $userType  = filter_var($request['userType'], FILTER_SANITIZE_STRING); // String provisionalmente
+        $city = filter_var($request['city'], FILTER_SANITIZE_STRING);
+        $postalCode = $request['postalCode'];
+        $avatar = $request['avatar'];
+        $dni = $request['dni'];
 
-        // Validamos que el username no exista
+        // TODO VALIDACIÓN DE LOS ÚLTIMOS CAMPOS
 
         if ($username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $userType != '') {
 
@@ -37,7 +41,7 @@ try {
             $password = password_hash($password, PASSWORD_BCRYPT);
 
             $user = new User();
-            $user->createUser($username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType);
+            $user->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
 
             // Validamos que el email no exista
             if (($user->getSpecificUser(array('key' => 'email', 'value' => $email)) == null) && ($user->getSpecificUser(array('key' => 'username', 'value' => $username)) == null)) {

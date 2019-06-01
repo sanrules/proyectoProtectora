@@ -28,6 +28,10 @@ try {
         $floor     = filter_var($request['floor'], FILTER_SANITIZE_NUMBER_INT);
         $door      = filter_var($request['door'], FILTER_SANITIZE_STRING);
         $userType  = filter_var($request['userType'], FILTER_SANITIZE_STRING);
+        $city = filter_var($request['city'], FILTER_SANITIZE_STRING);
+        $postalCode = $request['postalCode'];
+        $avatar = $request['avatar'];
+        $dni = $request['dni'];
 
         if ($id != '' || $username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $userType != '') {
 
@@ -37,16 +41,16 @@ try {
             $password = password_hash($password, PASSWORD_BCRYPT);
 
             $updated_user = new User();
-            $updated_user->createUser($username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType);
+            $updated_user->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
             $updated_user->set_idUser($id);
 
             $user_exists = R::findOne('user', 'id=?', [$updated_user->get_idUser()]);
 
             if ($user_exists != null) {
                 $user_error = R::findOne('user', 'email=? and id<>?', [$email, $id]);
-                if($user_error == null) {
+                if ($user_error == null) {
                     $updated_user->updateUser($id, $username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType);
-                    $error='';
+                    $error = '';
                 } else {
                     $error = 'El usuario que intentas modificar no coincide con el de la BBDD';
                     $logger->error($error);
@@ -76,7 +80,6 @@ try {
             echo json_encode($reply, JSON_UNESCAPED_UNICODE);
         }
     }
-
 } catch (Exception $e) {
     // echo 'Error al registrar el usuario: ' . $e->getMessage();
     $error = 'Error al registrar el usuario';
