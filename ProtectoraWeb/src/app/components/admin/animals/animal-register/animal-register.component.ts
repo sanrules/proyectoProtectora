@@ -1,5 +1,5 @@
 
-import { Component, OnInit , Input} from '@angular/core';
+import { Component, OnInit , Input , ElementRef, ViewChild} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AnimalService } from 'src/app/_services/animal/animal-service';
 import { Animal } from 'src/app/_models/animal.model';
@@ -16,14 +16,14 @@ import { finalize } from 'rxjs/operators';
 
 export class AnimalRegisterComponent implements OnInit {
 
+  @ViewChild('animalImg') animalImg: ElementRef;
   @Input() public tipo: string;
   @Input() public animalData: Animal;
 
   bucketName = 'animalimg';
 
   uploadpercent: Observable<number>;
-  urlImage: Observable<string>;
-  uploader: any;
+  urlImage: string;
   selectedFiles: FileList;
   registerForm: FormGroup;
   private animal: Animal;
@@ -33,7 +33,7 @@ export class AnimalRegisterComponent implements OnInit {
     {
     id: 'Hembra',
     name: 'Hembra'
-    }];
+  }];
   public es: string;
   constructor(private formBuilder: FormBuilder,
               private animalService: AnimalService,
@@ -57,14 +57,15 @@ export class AnimalRegisterComponent implements OnInit {
       description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
       pictures: ['', []]
     });
+
     if (this.tipo == 'animalUpdate'){
       console.log("animal: ", this.animalData);
      this.setDatosUpdate(this.animalData);
     }
   }
 
-  onUpload(e){
-    console.log("imagen",e);
+  onUpload(e) {
+    console.log("imagen", e);
 
     const imgId = Math.random().toString(36).substring(2);
     const file = e.target.files[0];
@@ -73,11 +74,10 @@ export class AnimalRegisterComponent implements OnInit {
     const task = this.firestorage.upload(filePath, file);
 
     this.uploadpercent = task.percentageChanges();
-    
-    task.snapshotChanges().pipe(finalize(() =>  this.urlImage = ref.getDownloadURL())).subscribe();
 
-
-
+    ref.getDownloadURL().subscribe((URL) => {
+      this.urlImage = URL;
+    });
   }
 
 
@@ -132,7 +132,7 @@ dataPrepare() {
     "adoptionDate": this.dateToTimestamp(entranceDate) ,
     "status": this.registerForm.get('status').value,
     "description": this.registerForm.get('description').value.trim(),
-    "pictures":  this.registerForm.get('pictures').value,
+    "pictures": this.urlImage,
   };
 
   return formData;
@@ -140,7 +140,9 @@ dataPrepare() {
 }
 
   registerSubmit() {
+
     console.log('Entra en registerSubmit()');
+    console.log('imagen url', this.animalImg);
 
     this.animal = this.dataPrepare();
     console.log(this.animal);

@@ -134,19 +134,11 @@
         <!-- <div class="btn" id="upload_image">Upload image</div> -->
 
         <!-- Subir imagenes 4 -->
-        <div class="form-group col-mad-12">
+        <div class="form-group col-mad-12" >
           <h5>Seleccionar imagen</h5>
           <input type="file" accept=".png, .jpg" (change)="onUpload($event)">
-          <input type="hidden" formControlName="pictures" id="pictures" [value]="urlImage | async">
         </div>
-
-
-        <div class="row" *ngIf="tipo != 'animalUpdate'">
-          <div class="col-md-12">
-            <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Animal</button>
-          </div>
-        </div>
-
+        
         <input *ngIf="tipo == 'animalUpdate'" type="hidden" formControlName="idAnimal" value="">
 
         <div *ngIf="tipo != 'animalUpdate'">
@@ -154,6 +146,13 @@
           <input type="hidden" formControlName="adoptionDate" id="adoptionDate" value="">
           <input type="hidden" formControlName="status" id="status" value="sin adoptar">
         </div>
+
+        <div class="row" *ngIf="tipo != 'animalUpdate'">
+          <div class="col-md-12">
+            <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Animal</button>
+          </div>
+        </div>
+
 
         <div *ngIf="tipo == 'animalUpdate'">
           <div class="col-md-12">
