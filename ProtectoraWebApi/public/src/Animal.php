@@ -15,9 +15,9 @@ class Animal
     private $_breed  = ''; // Raza
     private $_gender = '';
 
-    private $_birth_date    = '';
-    private $_entrance_date = '';
-    private $_adoption_date = ''; // Permite nulos
+    private $_birthDate    = '';
+    private $_entranceDate = '';
+    private $_adoptionDate = ''; // Permite nulos
 
     private $_status      = ''; // Adoptado, sin adoptar
     private $_description = '';
@@ -26,15 +26,15 @@ class Animal
     public function __construct()
     { }
 
-    public function createAnimal($name, $type, $breed, $gender, $birth_date, $entrance_date, $adoption_date = null, $status, $description, $pictures)
+    public function createAnimal($name, $type, $breed, $gender, $birthDate, $entranceDate, $adoptionDate = null, $status, $description, $pictures)
     {
         $this->_name          = $name;
         $this->_type          = $type;
         $this->_breed         = $breed;
         $this->_gender        = $gender;
-        $this->_birth_date    = $birth_date;
-        $this->_entrance_date = $entrance_date;
-        $this->_adoption_date = $adoption_date;
+        $this->_birthDate    = $birthDate;
+        $this->_entranceDate = $entranceDate;
+        $this->_adoptionDate = $adoptionDate;
         $this->_status        = $status;
         $this->_description   = $description;
         $this->_pictures      = $pictures;
@@ -48,9 +48,9 @@ class Animal
         $animal->type          = $this->_type;
         $animal->breed         = $this->_breed;
         $animal->gender        = $this->_gender;
-        $animal->birth_date    = $this->_birth_date;
-        $animal->entrance_date = $this->_entrance_date;
-        $animal->adoption_date = $this->_adoption_date;
+        $animal->birth_date    = $this->_birthDate;
+        $animal->entrance_date = $this->_entranceDate;
+        $animal->adoption_date = $this->_adoptionDate;
         $animal->status        = $this->_status;
         $animal->description   = $this->_description;
         $animal->pictures      = $this->_pictures;
@@ -109,10 +109,10 @@ class Animal
      * @param int $id ID del animal
      * @param Animal $updated_animal animal con los datos actualizados
      */
-    public function updateAnimal($id, $updated_animal)
+    public function updateAnimal($id, $updatedAnimal)
     {
         $old_animal = R::load('animal', $id);
-        $old_animal = $updated_animal;
+        $old_animal = $updatedAnimal;
 
         R::store($old_animal);
     }
@@ -151,9 +151,9 @@ class Animal
      *
      * @return  self
      */
-    public function setId($_id)
+    public function setId($id)
     {
-        $this->_id = $_id;
+        $this->_id = $id;
 
         return $this;
     }
@@ -171,9 +171,9 @@ class Animal
      *
      * @return  self
      */
-    public function setName($_name)
+    public function setName($name)
     {
-        $this->_name = $_name;
+        $this->_name = $name;
 
         return $this;
     }
@@ -191,9 +191,9 @@ class Animal
      *
      * @return  self
      */
-    public function setType($_type)
+    public function setType($type)
     {
-        $this->_type = $_type;
+        $this->_type = $type;
 
         return $this;
     }
@@ -211,9 +211,9 @@ class Animal
      *
      * @return  self
      */
-    public function setBreed($_breed)
+    public function setBreed($breed)
     {
-        $this->_breed = $_breed;
+        $this->_breed = $breed;
 
         return $this;
     }
@@ -231,69 +231,69 @@ class Animal
      *
      * @return  self
      */
-    public function setGender($_gender)
+    public function setGender($gender)
     {
-        $this->_gender = $_gender;
+        $this->_gender = $gender;
 
         return $this;
     }
 
     /**
-     * Get the value of _birth_date
+     * Get the value of _birthDate
      */
     public function getBirthDate()
     {
-        return $this->_birth_date;
+        return $this->_birthDate;
     }
 
     /**
-     * Set the value of _birth_date
+     * Set the value of _birthDate
      *
      * @return  self
      */
-    public function setBirthDate($_birth_date)
+    public function setBirthDate($birthDate)
     {
-        $this->_birth_date = $_birth_date;
+        $this->_birthDate = $birthDate;
 
         return $this;
     }
 
     /**
-     * Get the value of _entrance_date
+     * Get the value of _entranceDate
      */
     public function getEntranceDate()
     {
-        return $this->_entrance_date;
+        return $this->_entranceDate;
     }
 
     /**
-     * Set the value of _entrance_date
+     * Set the value of _entranceDate
      *
      * @return  self
      */
-    public function setEntranceDate($_entrance_date)
+    public function setEntranceDate($entranceDate)
     {
-        $this->_entrance_date = $_entrance_date;
+        $this->_entranceDate = $entranceDate;
 
         return $this;
     }
 
     /**
-     * Get the value of _adoption_date
+     * Get the value of _adoptionDate
      */
     public function getAdoptionDate()
     {
-        return $this->_adoption_date;
+        return $this->_adoptionDate;
     }
 
     /**
-     * Set the value of _adoption_date
+     * Set the value of _adoptionDate
      *
      * @return  self
      */
-    public function setAdoptionDate($_adoption_date)
+    public function setAdoptionDate($adoptionDate)
     {
-        $this->_adoption_date = $_adoption_date;
+        $this->_adoptionDate = $adoptionDate;
 
         return $this;
     }
@@ -311,9 +311,9 @@ class Animal
      *
      * @return  self
      */
-    public function setStatus($_status)
+    public function setStatus($status)
     {
-        $this->_status = $_status;
+        $this->_status = $status;
 
         return $this;
     }
@@ -331,9 +331,9 @@ class Animal
      *
      * @return  self
      */
-    public function setDescription($_description)
+    public function setDescription($description)
     {
-        $this->_description = $_description;
+        $this->_description = $description;
 
         return $this;
     }
@@ -351,9 +351,9 @@ class Animal
      *
      * @return  self
      */
-    public function setPictures($_pictures)
+    public function setPictures($pictures)
     {
-        $this->_pictures = $_pictures;
+        $this->_pictures = $pictures;
 
         return $this;
     }
