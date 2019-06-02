@@ -12,5 +12,9 @@
 }
 
 .avatarBtn{
-	height: 70%;
+	width: 100%;
+}
+
+.btnRegister {
+	width: 100%;
 }

@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyBsr_gsOJpN1T4Nmbl3GX5rwScdWdCfjtk",
-    authDomain: "animalimagenes.firebaseapp.com",
-    databaseURL: "https://animalimagenes.firebaseio.com",
-    projectId: "animalimagenes",
-    storageBucket: "animalimagenes.appspot.com",
-    messagingSenderId: "946220514727",
-    appId: "1:946220514727:web:8cfbe0219eae84aa"
+    apiKey: 'AIzaSyCs4SmUotQgfFqTdy_OW2TlW3kFYfN4gmA',
+    authDomain: 'protectoraweb-4cb74.firebaseapp.com',
+    databaseURL: 'https://protectoraweb-4cb74.firebaseio.com',
+    projectId: 'protectoraweb-4cb74',
+    storageBucket: 'protectoraweb-4cb74.appspot.com',
+    messagingSenderId: '181170156834',
+    appId: '1:181170156834:web:25110f51e5654e94'
   }
 };
 

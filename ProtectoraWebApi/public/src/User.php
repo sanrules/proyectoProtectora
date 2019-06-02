@@ -17,7 +17,11 @@ class User
     private $_name      = ''; // name
     private $_surname   = ''; // surname
     private $_phone     = ''; // phone
+    private $_dni = '';
     private $_birthDate = ''; // birthDate
+    private $_province = '';
+    private $_city = '';
+    private $_postalCode = '';
     private $_street    = ''; // street
     private $_number    = ''; // number
     private $_portal    = ''; // portal
@@ -25,27 +29,34 @@ class User
     private $_door      = ''; // door
     private $_userType  = ''; // userType
     private $_token     = ''; // token
+    private $_avatar = ''; // avatar
 
     public function __construct()
-    {
+    { }
 
-    }
-
-    public function createUser($_username, $_password, $_email, $_name, $_surname, $_phone, $_birthDate, $_street, $_number, $_portal, $_floor, $_door, $_userType)
+    /**
+     * Establece todos los valores de un usuario
+     */
+    public function createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar)
     {
-        $this->_username  = $_username;
-        $this->_password  = $_password;
-        $this->_email     = $_email;
-        $this->_name      = $_name;
-        $this->_surname   = $_surname;
-        $this->_phone     = $_phone;
-        $this->_birthDate = $_birthDate;
-        $this->_street    = $_street;
-        $this->_number    = $_number;
-        $this->_portal    = $_portal;
-        $this->_floor     = $_floor;
-        $this->_door      = $_door;
-        $this->_userType  = $_userType;
+        $this->setUsername($username);
+        $this->setPassword($password);
+        $this->setEmail($email);
+        $this->setName($name);
+        $this->setSurname($surname);
+        $this->setPhone($phone);
+        $this->setBirthDate($birthDate);
+        $this->setStreet($street);
+        $this->setNumber($number);
+        $this->setPortal($portal);
+        $this->setFloor($floor);
+        $this->setDoor($door);
+        $this->setUserType($userType);
+        $this->setProvince($province);
+        $this->setCity($city);
+        $this->setPostalCode($postalCode);
+        $this->setAvatar($avatar);
+        $this->setDni($dni);
     }
 
     /**
@@ -55,26 +66,30 @@ class User
     {
         $bbddUser = R::dispense('user');
 
-        $bbddUser->username  = $this->_username;
-        $bbddUser->password  = $this->_password;
-        $bbddUser->email     = $this->_email;
-        $bbddUser->name      = $this->_name;
-        $bbddUser->surname   = $this->_surname;
-        $bbddUser->phone     = $this->_phone;
-        $bbddUser->birthDate = $this->_birthDate;
-        $bbddUser->street    = $this->_street;
-        $bbddUser->number    = $this->_number;
-        $bbddUser->portal    = $this->_portal;
-        $bbddUser->floor     = $this->_floor;
-        $bbddUser->door      = $this->_door;
-        $bbddUser->userType  = $this->_userType;
+        $bbddUser->username   = $this->getUsername();
+        $bbddUser->password   = $this->getPassword();
+        $bbddUser->email      = $this->getEmail();
+        $bbddUser->name       = $this->getName();
+        $bbddUser->surname    = $this->getSurname();
+        $bbddUser->dni        = $this->getDni();
+        $bbddUser->phone      = $this->getPhone();
+        $bbddUser->birthDate  = $this->getBirthDate();
+        $bbddUser->street     = $this->getStreet();
+        $bbddUser->number     = $this->getNumber();
+        $bbddUser->portal     = $this->getPortal();
+        $bbddUser->floor      = $this->getFloor();
+        $bbddUser->door       = $this->getDoor();
+        $bbddUser->userType   = $this->getUserType();
+        $bbddUser->province   = $this->getProvince();
+        $bbddUser->city       = $this->getCity();
+        $bbddUser->postalCode = $this->getPostalCode();
+        $bbddUser->avatar     = $this->getAvatar();
 
         $id = R::store($bbddUser);
 
-        $this->_id = $id;
+        $this->setIdUser($id);
 
         // TODO ALMACENAR PASSWORD SEGURA
-
     }
 
     /**
@@ -87,7 +102,6 @@ class User
         $user = R::findOne('user', 'email=?', [$email]);
 
         return $user;
-
     }
 
     /**
@@ -139,25 +153,39 @@ class User
         R::store($user);
     }
 
+    public function uploadUserAvatar($id, $avatar)
+    {
+        $user = R::load('user', $id);
+
+        $user->setAvatar($avatar);
+        
+        R::store($user);
+    }
+
     /**
      * Borra un usuario de la base de datos
      * @param User $user usuario a borrar
      */
     public function deleteUser($user)
     {
-        R::setup('mysql:host=localhost;dbname=proyecto',
-            'root', '');
+        R::setup(
+            'mysql:host=localhost;dbname=proyecto',
+            'root',
+            ''
+        );
         R::trash($user);
     }
 
     /**
      * Obtiene todos los usuarios de la base de datos en función a unos parámetros.
-     * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+     * @param array $params array formato 'key' => nombreDelCampo, 'value' => 'filtro'
      * @return array $users array de user obtenido de la bbdd
      */
     public function getSpecificUser($params)
     {
+        $users = R::findOne('user', $params['key'], [$params['value']]);
 
+        return $users;
     }
 
     /*
@@ -167,7 +195,7 @@ class User
     /**
      * Get the value of _idUser
      */
-    public function get_idUser()
+    public function getIdUser()
     {
         return $this->_idUser;
     }
@@ -177,7 +205,7 @@ class User
      *
      * @return  self
      */
-    public function set_idUser($_idUser)
+    public function setIdUser($_idUser)
     {
         $this->_idUser = $_idUser;
 
@@ -187,7 +215,7 @@ class User
     /**
      * Get the value of _username
      */
-    public function get_username()
+    public function getUsername()
     {
         return $this->_username;
     }
@@ -197,7 +225,7 @@ class User
      *
      * @return  self
      */
-    public function set_username($_username)
+    public function setUsername($_username)
     {
         $this->_username = $_username;
 
@@ -207,7 +235,7 @@ class User
     /**
      * Get the value of _email
      */
-    public function get_email()
+    public function getEmail()
     {
         return $this->_email;
     }
@@ -217,7 +245,7 @@ class User
      *
      * @return  self
      */
-    public function set_email($_email)
+    public function setEmail($_email)
     {
         $this->_email = $_email;
 
@@ -227,7 +255,7 @@ class User
     /**
      * Get the value of _password
      */
-    public function get_password()
+    public function getPassword()
     {
         return $this->_password;
     }
@@ -237,7 +265,7 @@ class User
      *
      * @return  self
      */
-    public function set_password($_password)
+    public function setPassword($_password)
     {
         $this->_password = $_password;
 
@@ -247,7 +275,7 @@ class User
     /**
      * Get the value of _name
      */
-    public function get_name()
+    public function getName()
     {
         return $this->_name;
     }
@@ -257,7 +285,7 @@ class User
      *
      * @return  self
      */
-    public function set_name($_name)
+    public function setName($_name)
     {
         $this->_name = $_name;
 
@@ -267,7 +295,7 @@ class User
     /**
      * Get the value of _surname
      */
-    public function get_surname()
+    public function getSurname()
     {
         return $this->_surname;
     }
@@ -277,7 +305,7 @@ class User
      *
      * @return  self
      */
-    public function set_surname($_surname)
+    public function setSurname($_surname)
     {
         $this->_surname = $_surname;
 
@@ -287,7 +315,7 @@ class User
     /**
      * Get the value of _phone
      */
-    public function get_phone()
+    public function getPhone()
     {
         return $this->_phone;
     }
@@ -297,7 +325,7 @@ class User
      *
      * @return  self
      */
-    public function set_phone($_phone)
+    public function setPhone($_phone)
     {
         $this->_phone = $_phone;
 
@@ -307,7 +335,7 @@ class User
     /**
      * Get the value of _birthDate
      */
-    public function get_birthDate()
+    public function getBirthDate()
     {
         return $this->_birthDate;
     }
@@ -317,7 +345,7 @@ class User
      *
      * @return  self
      */
-    public function set_birthDate($_birthDate)
+    public function setBirthDate($_birthDate)
     {
         $this->_birthDate = $_birthDate;
 
@@ -327,7 +355,7 @@ class User
     /**
      * Get the value of _street
      */
-    public function get_street()
+    public function getStreet()
     {
         return $this->_street;
     }
@@ -337,7 +365,7 @@ class User
      *
      * @return  self
      */
-    public function set_street($_street)
+    public function setStreet($_street)
     {
         $this->_street = $_street;
 
@@ -347,7 +375,7 @@ class User
     /**
      * Get the value of _number
      */
-    public function get_number()
+    public function getNumber()
     {
         return $this->_number;
     }
@@ -357,7 +385,7 @@ class User
      *
      * @return  self
      */
-    public function set_number($_number)
+    public function setNumber($_number)
     {
         $this->_number = $_number;
 
@@ -367,7 +395,7 @@ class User
     /**
      * Get the value of _portal
      */
-    public function get_portal()
+    public function getPortal()
     {
         return $this->_portal;
     }
@@ -377,7 +405,7 @@ class User
      *
      * @return  self
      */
-    public function set_portal($_portal)
+    public function setPortal($_portal)
     {
         $this->_portal = $_portal;
 
@@ -387,7 +415,7 @@ class User
     /**
      * Get the value of _floor
      */
-    public function get_floor()
+    public function getFloor()
     {
         return $this->_floor;
     }
@@ -397,7 +425,7 @@ class User
      *
      * @return  self
      */
-    public function set_floor($_floor)
+    public function setFloor($_floor)
     {
         $this->_floor = $_floor;
 
@@ -407,7 +435,7 @@ class User
     /**
      * Get the value of _door
      */
-    public function get_door()
+    public function getDoor()
     {
         return $this->_door;
     }
@@ -417,7 +445,7 @@ class User
      *
      * @return  self
      */
-    public function set_door($_door)
+    public function setDoor($_door)
     {
         $this->_door = $_door;
 
@@ -427,7 +455,7 @@ class User
     /**
      * Get the value of _userType
      */
-    public function get_userType()
+    public function getUserType()
     {
         return $this->_userType;
     }
@@ -437,7 +465,7 @@ class User
      *
      * @return  self
      */
-    public function set_userType($_userType)
+    public function setUserType($_userType)
     {
         $this->_userType = $_userType;
 
@@ -447,7 +475,7 @@ class User
     /**
      * Get the value of _token
      */
-    public function get_token()
+    public function getToken()
     {
         return $this->_token;
     }
@@ -457,9 +485,109 @@ class User
      *
      * @return  self
      */
-    public function set_token($_token)
+    public function setToken($_token)
     {
         $this->_token = $_token;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _dni
+     */
+    public function getDni()
+    {
+        return $this->_dni;
+    }
+
+    /**
+     * Set the value of _dni
+     *
+     * @return  self
+     */
+    public function setDni($_dni)
+    {
+        $this->_dni = $_dni;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _province
+     */
+    public function getProvince()
+    {
+        return $this->_province;
+    }
+
+    /**
+     * Set the value of _province
+     *
+     * @return  self
+     */
+    public function setProvince($_province)
+    {
+        $this->_province = $_province;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _city
+     */
+    public function getCity()
+    {
+        return $this->_city;
+    }
+
+    /**
+     * Set the value of _city
+     *
+     * @return  self
+     */
+    public function setCity($_city)
+    {
+        $this->_city = $_city;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _postalCode
+     */
+    public function getPostalCode()
+    {
+        return $this->_postalCode;
+    }
+
+    /**
+     * Set the value of _postalCode
+     *
+     * @return  self
+     */
+    public function setPostalCode($_postalCode)
+    {
+        $this->_postalCode = $_postalCode;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _avatar
+     */
+    public function getAvatar()
+    {
+        return $this->_avatar;
+    }
+
+    /**
+     * Set the value of _avatar
+     *
+     * @return  self
+     */
+    public function setAvatar($_avatar)
+    {
+        $this->_avatar = $_avatar;
 
         return $this;
     }
