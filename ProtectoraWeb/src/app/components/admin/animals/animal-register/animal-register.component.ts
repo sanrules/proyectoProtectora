@@ -1,6 +1,6 @@
 
 import { Component, OnInit , Input , ElementRef, ViewChild} from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { AnimalService } from 'src/app/_services/animal/animal-service';
 import { Animal } from 'src/app/_models/animal.model';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -17,13 +17,15 @@ import { finalize } from 'rxjs/operators';
 export class AnimalRegisterComponent implements OnInit {
 
   @ViewChild('animalImg') animalImg: ElementRef;
-  @Input() public tipo: string;
+  @Input() public formType: string;
   @Input() public animalData: Animal;
 
   bucketName = 'animalimg';
 
+  files: any[];
   uploadpercent: Observable<number>;
-  urlImage: string;
+  urlImage: Observable<string>;
+  urlImageStr: string;
   selectedFiles: FileList;
   registerForm: FormGroup;
   private animal: Animal;
@@ -35,6 +37,8 @@ export class AnimalRegisterComponent implements OnInit {
     name: 'Hembra'
   }];
   public es: string;
+  get formArray(): AbstractControl | null { return this.registerForm.get('formArray'); }
+
   constructor(private formBuilder: FormBuilder,
               private animalService: AnimalService,
               private firestorage: FirebaseStorageService
@@ -55,30 +59,51 @@ export class AnimalRegisterComponent implements OnInit {
       entranceDate: ['', []],
       status: ['en adopción', []],
       description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
-      pictures: ['', []]
+      animalImgs: ['', []]
     });
 
-    if (this.tipo == 'animalUpdate'){
+    if (this.formType == 'animalUpdate'){
       console.log("animal: ", this.animalData);
      this.setDatosUpdate(this.animalData);
     }
   }
 
-  onUpload(e) {
+  /* onUpload(e) {
     console.log("imagen", e);
 
     const imgId = Math.random().toString(36).substring(2);
     const file = e.target.files[0];
-    const filePath = `animales/img_${imgId}`;
+    const filePath = `animalspictures/img_${imgId}`;
     const ref = this.firestorage.ref(filePath);
     const task = this.firestorage.upload(filePath, file);
 
     this.uploadpercent = task.percentageChanges();
+    task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
+    
+  } */
 
+  openInput(event) {
+    document.getElementById('imgUpload').click();
+  }
+
+  selectImage(event) {
+    const file = event.target.files;
+    this.files = file;
+  }
+
+  onUpload(image) {
+    const imgId = Math.random().toString(36).substring(2);
+    const filePath = `animalspictures/img_${imgId}`;
+    const ref = this.firestorage.ref(filePath);
+    const task = this.firestorage.upload(filePath, image);
+    this.uploadpercent = task.percentageChanges();
+    console.log('ref ', ref);
     ref.getDownloadURL().subscribe((URL) => {
+      this.urlImageStr += URL + ',';
       this.urlImage = URL;
     });
   }
+  /* this.formArray.get([3]).get('animalImgs').setValue(URL); */
 
 
 
@@ -101,7 +126,7 @@ export class AnimalRegisterComponent implements OnInit {
     this.registerForm.get('entranceDate').setValue(this.spararFechaYHora(data.entrance_date));
     this.registerForm.get('status').setValue(data.status);
     this.registerForm.get('description').setValue(data.description);
-    this.registerForm.get('pictures').setValue(data.pictures);
+    this.registerForm.get('animalImgs').setValue(data.pictures);
 
 }
 
@@ -112,7 +137,6 @@ dateToTimestamp(date) {
   const day = date.getDate();
 
   date = Date.UTC(year, month, day, 0, 0, 0);
-  console.log('date: ', date);
 
   return date;
 }
@@ -132,7 +156,7 @@ dataPrepare() {
     "adoptionDate": this.dateToTimestamp(entranceDate) ,
     "status": this.registerForm.get('status').value,
     "description": this.registerForm.get('description').value.trim(),
-    "pictures": this.urlImage,
+    "pictures": this.registerForm.get('animalImgs').value.trim(),
   };
 
   return formData;
@@ -151,9 +175,9 @@ dataPrepare() {
     console.log('Conversión JSON: ', animalJSON);
 
     this.animalService.registerAnimal(animalJSON).subscribe(data => {
-        // this.datosResultado = this.datosCliente.getClientes();
-        //this.formCliente.reset();
-        //this.toastr.success('Cliente dado de alta');
+
+        /* this.onUpload(this.fileUpload, data.response); */
+        
         this.limpiarForm();
         console.log('respuesta registerAnimal(data): ', data);
     }, error => {
@@ -162,77 +186,8 @@ dataPrepare() {
   }
 
   public limpiarForm() {
-    this.registerForm.markAsUntouched();
-    this.registerForm.reset();
+    /* this.registerForm.markAsUntouched();
+    this.registerForm.reset(); */
    /*  this.formBuilder.resetForm(); */
   }
-
-
-
-
-  /* ngAfterViewInit() { 
-
-    let instance = this; 
-    this.uploader = new s3.FineUploaderBasic({
-      button: document.getElementById('upload_image'),
-      debug: false,
-      autoUpload: true,
-      multiple: true,
-      validation: {
-        allowedExtensions: ['jpeg', 'jpg', 'png', 'gif', 'svg'],
-        sizeLimit: 5120000 // 50 kB = 50 * 1024 bytes
-      },
-      region: 'UE(París)',
-      request: {
-        endpoint: 'https://' + instance.bucketName  + '.s3.amazonaws.com/',
-        accessKey: 'AKIAIC2ZN6GDUX2PP5OQ',
-        params: { 'Cache-Control': 'private, max-age=31536000, must-revalidate' }
-      },
-      signature: {
-        endpoint: 'http://localhost:8000/api/v1/fine_uploader/s3_signature/',
-      },
-      iframeSupport: {
-        localBlankPagePath: '/somepage.html'
-      },
-      cors: {
-        expected: true,
-        sendCredentials: true
-      },
-      objectProperties: {
-        acl: 'public-read',       
-      },     
-      callbacks: {
-        onSubmit: function (id, fileName) {
-          console.log('selected file:', fileName);
-        },
-        // onSubmitted: function(id, name) { alert('onSubmitted');},
-        onComplete: function (id, name, responseJSON, maybeXhr) {
-          if(responseJSON.success) {
-            console.log('upload complete', name);
-            console.log('uploaded image url', 'https://' + instance.bucketName + '.s3.amazonaws.com/' + this.getKey(id));
-          }
-        },
-        // onAllComplete: function (successful, failed) { console.log(failed); },
-        // onCancel: function (id, name) {},
-        // onUpload: function(id, name) { alert('onUpload');},
-        // onUploadChunk: function(id, name, chunkData) { alert('onUploadChunk');},
-        // onUploadChunkSuccess: function(id, chunkData, responseJSON, xhr) { alert('onUploadChunkSuccess');},
-        // onResume: function(id, fileName, chunkData) { alert('onResume');},
-        // onProgress: function (id, name, loaded, total) {},
-        // onTotalProgress: function(loaded, total) { alert('onTotalProgress');},
-        // onError: function (id, name, reason, maybeXhrOrXdr) {  },      
-        // onSessionRequestComplete: function (response, success, xhrOrXdr) { }
-      }
-    });
-  } */
-/* 
-  upload() {
-    const file = this.selectedFiles.item(0);
-    this.uploadService.uploadFile(file);
-    }
-    
-    selectFile(event) {
-    this.selectedFiles = event.target.files;
-    }
- */
 }
