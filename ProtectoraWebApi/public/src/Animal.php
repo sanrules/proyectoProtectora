@@ -90,7 +90,7 @@ class Animal
      */
     public function retrieveAnimalParams($params)
     {
-        $num = $count($paramS);
+        $num = count($params);
         $sql = "SELECT * FROM animal WHERE ";
 
         foreach ($params as $field->$value) {

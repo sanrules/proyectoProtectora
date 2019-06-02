@@ -71,6 +71,29 @@ class Comment
     }
 
     /**
+     * Actualiza el texto de un comentario de la base de datos
+     * @param int $id ID del comentario
+     * @param string $text con el nuevo texto
+     */
+    public function updateComment($id, $text)
+    {
+        $comment = R::load('animal', $id);
+        $comment->text = $text;
+
+        R::store($comment);
+    }
+
+    /**
+     * Borra un comentario de la base de datos
+     * @param int $id id del comentario a borrar
+     */
+    public function deleteComment($id)
+    {
+        $comment = R::load('comment', $id);
+        R::trash($comment);
+    }
+
+    /**
      * Get the value of _text
      */
     public function getComment()

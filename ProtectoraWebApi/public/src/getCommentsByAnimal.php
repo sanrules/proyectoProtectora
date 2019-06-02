@@ -6,7 +6,7 @@ require_once 'Comment.php';
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-$logger = new Logger('getAnimalById');
+$logger = new Logger('getCommentsByAnimal');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 $error = array();
 
