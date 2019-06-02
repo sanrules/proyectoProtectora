@@ -1,6 +1,7 @@
 <?php
-require_once 'Animal.php';
 require_once '../../vendor/autoload.php';
+require_once 'Comment.php';
+
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -14,19 +15,21 @@ try {
     $request = json_decode($postdata, true);
 
     if ($request) {
-        $animal    = new Animal();
-        $animalGet = $animal->retrieveAnimal($request);
-        // echo json_encode($animalGet, JSON_UNESCAPED_UNICODE);
+        $comment = new Comment();
+        $comments = $comment->retrieveCommentAnimal($idAnimal);
+    } else {
+        $error['request'] = 'No se han recibido datos';
+        $logger->error($error);
     }
 } catch (Exception $e) {
-    $error = 'No se puede obtener el animal';
+    $error['comment'] = 'No se han podido obtener los comentarios';
     $logger->error($error);
 }
 
-if ($error == '') {
+if (count($error) == 0) {
     $reply = array(
         'status'   => 'OK',
-        'response' => $animal,
+        'response' => $comments,
     );
     http_response_code(200); // 200 OK
 } else {
@@ -39,8 +42,3 @@ if ($error == '') {
         $logger->info("Error: $err");
     }
 }
-
-header('Content-type:application/json;charset=utf-8');
-echo json_encode($reply, JSON_UNESCAPED_UNICODE);
-
-// echo json_encode($animals);

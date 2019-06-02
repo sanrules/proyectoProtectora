@@ -25,9 +25,7 @@ class Animal
     private $_pictures    = '';
 
     public function __construct()
-    {
-
-    }
+    { }
 
     public function createAnimal($name, $type, $breed, $gender, $birth_date, $entrance_date, $adoption_date = null, $status, $description, $pictures)
     {
@@ -63,11 +61,11 @@ class Animal
         $this->_id = $id;
     }
 
-/**
- * Obtiene un animal de la base de datos en base a su id
- * @param int $id ID del animal
- * @return Animal $animal animal recogido de la base de datos
- */
+    /**
+     * Obtiene un animal de la base de datos en base a su id
+     * @param int $id ID del animal
+     * @return Animal $animal animal recogido de la base de datos
+     */
     public function retrieveAnimal($id)
     {
         $animal = R::load('animal', $id);
@@ -75,10 +73,10 @@ class Animal
         return $animal;
     }
 
-/**
- * Obtiene todos los animales de la base de datos
- * @return Array $animals array de Animal multidimensional recogido de la base de datos
- */
+    /**
+     * Obtiene todos los animales de la base de datos
+     * @return array $animals array de Animal multidimensional recogido de la base de datos
+     */
     public function retrieveAnimalAll()
     {
         $animals = R::getAll('select * from animal');
@@ -86,11 +84,11 @@ class Animal
         return $animals;
     }
 
-/**
- * Obtiene todos los animales de la base de datos en función a los parámetros pasados
- * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
- * @return Array $animals array de Animal multidimensional recogido de la base de datos
- */
+    /**
+     * Obtiene todos los animales de la base de datos en función a los parámetros pasados
+     * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+     * @return Array $animals array de Animal multidimensional recogido de la base de datos
+     */
     public function retrieveAnimalParams($params)
     {
         $num = $count($paramS);
@@ -107,11 +105,11 @@ class Animal
         return $animals;
     }
 
-/**
- * Actualiza un animal de la base de datos
- * @param int $id ID del animal
- * @param Animal $updated_animal animal con los datos actualizados
- */
+    /**
+     * Actualiza un animal de la base de datos
+     * @param int $id ID del animal
+     * @param Animal $updated_animal animal con los datos actualizados
+     */
     public function updateAnimal($id, $updated_animal)
     {
         $old_animal = R::load('animal', $id);
@@ -120,10 +118,10 @@ class Animal
         R::store($old_animal);
     }
 
-/**
- * Borra un animal de la base de datos
- * @param Animal $animal animal a borrar
- */
+    /**
+     * Borra un animal de la base de datos
+     * @param Animal $animal animal a borrar
+     */
     public function deleteAnimal($animal)
     {
         R::trash($animal);
@@ -135,9 +133,7 @@ class Animal
      * @return array $users array de user obtenido de la bbdd
      */
     public function getSpecificAnimal($params)
-    {
-
-    }
+    { }
 
     /*
      *** GETTERS Y SETTERS
@@ -362,5 +358,4 @@ class Animal
 
         return $this;
     }
-
 }
