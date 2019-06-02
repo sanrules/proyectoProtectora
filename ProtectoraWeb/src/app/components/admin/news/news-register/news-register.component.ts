@@ -18,8 +18,7 @@ import { News } from 'src/app/_models/news.model';
 
     registerForm: FormGroup;
     public news: News;
-    constructor(private formBuilder: FormBuilder,
-                ){}
+    constructor(private formBuilder: FormBuilder) {}
 
     ngOnInit() {
 
@@ -28,28 +27,28 @@ import { News } from 'src/app/_models/news.model';
       idnews: ['', []],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
       content: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
-      publicationDate: ['',[]],
+      publicationDate: ['', []],
     });
 
-    if (this.typeForm == 'newsUpdate') {
-      console.log("animal: ", this.NewsData);
-     this.setDatosUpdate(this.NewsData);
+    if (this.typeForm === 'newsUpdate') {
+      console.log('animal: ', this.NewsData);
+      this.setUpdateData(this.NewsData);
     }
   }
 
-  public spararFechaYHora(fecha) {
-    let arrayFechaYHora = fecha.split(" ");
-    let arrayfecha = arrayFechaYHora[0].split("-");
-    fecha = new Date(arrayfecha[0],(arrayfecha[1]-1),arrayfecha[2]);
+  public parseDate(fecha) {
+    let arrayFechaYHora = fecha.split(' ');
+    let arrayfecha = arrayFechaYHora[0].split('-');
+    fecha = new Date(arrayfecha[0], (arrayfecha[1] - 1), arrayfecha[2]);
     return fecha;
   }
 
-  public setDatosUpdate(data) {
+  public setUpdateData(data) {
 
     this.registerForm.get('idnews').setValue(data.id);
     this.registerForm.get('name').setValue(data.name);
     this.registerForm.get('content').setValue(data.content);
-    this.registerForm.get('publicationDate').setValue(this.spararFechaYHora(data.publicationDate));
+    this.registerForm.get('publicationDate').setValue(this.parseDate(data.publicationDate));
 }
 
 dateToTimestamp(date) {
@@ -67,12 +66,12 @@ dateToTimestamp(date) {
 dataPrepare() {
 
   const todayDate = new Date();
- 
+
   let formData = {
-    "id": this.registerForm.get('idnews').value,
-    "name": this.registerForm.get('name').value.trim(),
-    "content": this.registerForm.get('content').value.trim(),
-    "publicationDate": this.dateToTimestamp(todayDate),
+    'id': this.registerForm.get('idnews').value,
+    'name': this.registerForm.get('name').value.trim(),
+    'content': this.registerForm.get('content').value.trim(),
+    'publicationDate': this.dateToTimestamp(todayDate),
 
   };
 

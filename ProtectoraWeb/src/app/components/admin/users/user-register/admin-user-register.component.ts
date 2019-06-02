@@ -9,6 +9,9 @@ import { User } from 'src/app/_models/user.model';
 import { RegisterConfirmationComponent } from 'src/app/components/web/auth/register/register-confirmation/register-confirmation.component';
 // Material
 import { MatDialogConfig, MatDialog } from '@angular/material';
+import { Observable } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 
 @Component({
@@ -21,13 +24,21 @@ export class AdminUserRegisterComponent {
   // Variables del componente
   registerForm: FormGroup;
   confirmMessage: string;
-  user: User;
   regError: boolean;
+
+  user: User;
+
   tiposUsuario: any[] = [
     {value: 'admin', desc: 'Administrador'},
     {value: 'voluntario', desc: 'Voluntario'},
     {value: 'user', desc: 'Usuario'}
   ];
+
+  fileUpload: any;
+  uploadPercent: Observable<number>;
+  urlImage: Observable<string>;
+
+  step = 0;
 
   // Depende de la página que accede al formulario podrá ser:
   // userUpdate, userAdmin o userRegister
@@ -36,7 +47,8 @@ export class AdminUserRegisterComponent {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
-              private dialog: MatDialog) {}
+              private dialog: MatDialog,
+              private storage: AngularFireStorage) {}
 
   ngOnInit() {
     // Crea el formulario y le agrega a un formGroup:
@@ -50,6 +62,7 @@ export class AdminUserRegisterComponent {
       email: ['', [Validators.required, Validators.email]],
       name: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
       surname: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-záéíúóñç]+[ -]?){1,2}$/)]],
+      dni: ['', []],
       phone: ['', [Validators.required, Validators.pattern(/^[6789]{1}[0-9]{8}$/)]],
       birthDate: ['', [ Validators.required]],
       street: ['', [Validators.required]],
@@ -57,13 +70,57 @@ export class AdminUserRegisterComponent {
       portal: ['', []],
       floor: ['', []],
       door: ['', []],
-      userType: ['user', [Validators.required]]
+      province: ['', []],
+      city: ['', []],
+      postalCode: ['', []],
+      userType: ['user', [Validators.required]],
+      imgUrl: ['', []]
     });
 
     if (this.formType === 'userUpdate') {
       this.setUpdateData(this.userData);
       console.log('userData', this.userData);
     }
+  }
+
+  openInput(event) {
+    document.getElementById('imgUpload').click();
+  }
+
+  selectImage(event) {
+    const file = event.target.files[0];
+    this.fileUpload = file;
+  }
+
+  onUpload(file, folder, id) {
+    const extension = file.name.slice(-4);
+    const filePath = `/profileavatars/${folder}/avatar${extension}`;
+    const ref = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+
+    this.uploadPercent = task.percentageChanges();
+    /* ref.getDownloadURL().subscribe((URL) => {
+      this.urlImage = URL;
+      this.formArray.get([3]).get('imgUrl').setValue(URL);
+    }); */
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        ref.getDownloadURL().subscribe(url => {
+          console.log(url); // <-- do what ever you want with the url..
+          this.urlImage = url;
+          this.registerForm.get('imgUrl').setValue(url);
+          this.sendAvatarToBBDD(id);
+        });
+      })
+    ).subscribe();
+  }
+
+  sendAvatarToBBDD(id: number) {
+    this.userService.setAvatar(id, this.registerForm.get('imgUrl').value).subscribe(() => {
+      this.openDialog();
+    }, error => {
+        console.log('Error: ', error);
+    });
   }
 
   dateToTimestamp(date) {
@@ -181,6 +238,18 @@ export class AdminUserRegisterComponent {
     dialogConfig.autoFocus = false;
 
     this.dialog.open(RegisterConfirmationComponent, dialogConfig);
+  }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
   }
 
 }

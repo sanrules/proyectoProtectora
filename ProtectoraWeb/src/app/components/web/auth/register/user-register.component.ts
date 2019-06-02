@@ -87,15 +87,34 @@ export class UserRegisterComponent  implements OnInit {
     this.fileUpload = file;
   }
 
-  onUpload(file, folder) {
-    const filePath = `/profileavatars/${folder}/avatar.png`;
+  onUpload(file, folder, id) {
+    const extension = file.name.slice(-4);
+    const filePath = `/profileavatars/${folder}/avatar${extension}`;
     const ref = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
 
     this.uploadPercent = task.percentageChanges();
-    ref.getDownloadURL().subscribe((URL) => {
+    /* ref.getDownloadURL().subscribe((URL) => {
       this.urlImage = URL;
       this.formArray.get([3]).get('imgUrl').setValue(URL);
+    }); */
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        ref.getDownloadURL().subscribe(url => {
+          console.log(url); // <-- do what ever you want with the url..
+          this.urlImage = url;
+          this.formArray.get([3]).get('imgUrl').setValue(url);
+          this.sendAvatarToBBDD(id);
+        });
+      })
+    ).subscribe();
+  }
+
+  sendAvatarToBBDD(id: number) {
+    this.userService.setAvatar(id, this.formArray.get([3]).get('imgUrl').value).subscribe(() => {
+      this.openDialog();
+    }, error => {
+        console.log('Error: ', error);
     });
   }
 
@@ -150,22 +169,11 @@ export class UserRegisterComponent  implements OnInit {
     // Se envían los datos mediante post a la API
     this.userService.registerUser(userJSON).subscribe(data => {
       console.log('repuesta registerUser(data): ', data);
-      console.log('avatar: ', this.formArray.get([3]).get('imgUrl').value);
-      console.log('fileRegister: ', this.fileUpload);
-
-      this.onUpload(this.fileUpload, data.response);
-      this.userService.setAvatar(data.response, this.formArray.get([3]).get('imgUrl').value).subscribe(() => {
-        console.log('subida avatar OK');
-      }, error => {
-          console.log('Error: ', error);
-      });
-
-      this.openDialog();
-      },
-      error => {
-        console.log('Error: ', error);
-      }
-    );
+      this.onUpload(this.fileUpload, data.response, data.response);
+    },
+    error => {
+      console.log('Error: ', error);
+    });
   }
 
   openDialog() {

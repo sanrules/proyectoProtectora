@@ -18,7 +18,8 @@ import {
   MatToolbarModule,
   MatSelectModule,
   MatStepperModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatExpansionModule
 
 } from '@angular/material';
 import { MatFileUploadModule } from 'angular-material-fileupload';
@@ -40,7 +41,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatSelectModule,
     MatStepperModule,
     MatFileUploadModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatExpansionModule
   ],
   exports: [
     MatFormFieldModule,
@@ -60,8 +62,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatSelectModule,
     MatStepperModule,
     MatFileUploadModule,
-    MatProgressBarModule
-    
+    MatProgressBarModule,
+    MatExpansionModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
