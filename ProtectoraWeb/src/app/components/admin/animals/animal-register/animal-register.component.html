@@ -1,4 +1,4 @@
-<app-administrator-navbar *ngIf="tipo != 'animalUpdate'"></app-administrator-navbar>
+<app-administrator-navbar *ngIf="formType != 'animalUpdate'"></app-administrator-navbar>
 <div class="container">
     <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
     <div class="row">
@@ -56,7 +56,7 @@
             </mat-form-field>
         </div>
 
-        <div *ngIf="tipo == 'animalUpdate'">
+        <div *ngIf="formType == 'animalUpdate'">
             <div class="form-group col-md-12">
                 <mat-form-field>
                     <input matInput [matDatepicker]="entranceDate" placeholder="Fecha de Entrada" formControlName="entranceDate">
@@ -134,28 +134,48 @@
         <!-- <div class="btn" id="upload_image">Upload image</div> -->
 
         <!-- Subir imagenes 4 -->
-        <div class="form-group col-mad-12">
-          <h5>Seleccionar imagen</h5>
-          <input type="file" accept=".png, .jpg" (change)="onUpload($event)">
-          <input type="hidden" formControlName="pictures" id="pictures" [value]="urlImage | async">
-        </div>
+        <!-- <div *ngIf="formType != 'animalUpdate'"> 
+          <div class="form-group col-mad-12" >
+            <h5>Seleccionar imagen</h5>
+            <input type="file" accept=".png, .jpg" (change)="onUpload($event)">
+          </div>
+          <input #imageAnimal type="text" formControlName="pictures" [value]="urlImage | async">
+          <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+          [style.width]="(uploadpercent | async) + '%'"></div>
+        </div> -->
 
-
-        <div class="row" *ngIf="tipo != 'animalUpdate'">
+        <!-- -------------------------------------------------------------------------------------------------- -->
+        <div class="row" *ngIf="formType != 'animalUpdate'">
           <div class="col-md-12">
-            <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Animal</button>
+            <!-- <button mat-raised-button color="primary" class="avatarBtn" type="button" (click)="onUpload(files)">Subir</button> -->
+            <input type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg" multiple>
+            <input formControlName="animalImgs" id="animalImgs" [value]="urlImageStr">
+          </div>
+            <div class="row col-md-12" *ngFor="let file of files;let i = index">Nombre: {{file.name}} {{i}}  
+            <button mat-raised-button color="primary" class="avatarBtn" type="button" (click)="onUpload(file)">Subir</button></div>
+
+          <div class="col-md-12 mt-3">
+            <mat-progress-bar mode="determinate" [value]="uploadpercent | async"></mat-progress-bar>
           </div>
         </div>
 
-        <input *ngIf="tipo == 'animalUpdate'" type="hidden" formControlName="idAnimal" value="">
+        <input *ngIf="formType == 'animalUpdate'" type="hidden" formControlName="idAnimal" value="">
 
-        <div *ngIf="tipo != 'animalUpdate'">
+        <div *ngIf="formType != 'animalUpdate'">
           <input type="hidden" formControlName="entranceDate" id="entranceDate" value="">
           <input type="hidden" formControlName="adoptionDate" id="adoptionDate" value="">
           <input type="hidden" formControlName="status" id="status" value="sin adoptar">
         </div>
 
-        <div *ngIf="tipo == 'animalUpdate'">
+        <hr>
+        <div *ngIf="formType != 'animalUpdate'">
+          <div class="col-md-12">
+            <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Animal</button>
+          </div>
+        </div>
+
+
+        <div class="row" *ngIf="formType == 'animalUpdate'">
           <div class="col-md-12">
             <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Guardar</button>
             <button mat-raised-button color="danger" >Borrar</button>

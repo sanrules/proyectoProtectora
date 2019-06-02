@@ -1,8 +1,6 @@
 <?php
 require_once '../../vendor/autoload.php';
 require_once 'User.php';
-include 'lib/ChromePhp.php';
-
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -65,6 +63,7 @@ try {
                 $reply = array(
                     'status'   => 'OK',
                     'response' => $user->getIdUser(),
+                    // 'response' => 6
                 );
                 http_response_code(200); // 200 OK
             } else {

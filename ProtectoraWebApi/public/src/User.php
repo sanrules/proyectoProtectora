@@ -1,12 +1,11 @@
 <?php
 require 'lib/RedBean/rb.php';
-require_once 'User.php';
 
 // ! configuración para mamp
-// R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
+R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
 
 // ! configuración para xampp
-R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
+//R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
 class User
 {
@@ -153,12 +152,14 @@ class User
         R::store($user);
     }
 
-    public function uploadUserAvatar($id, $avatar)
-    {
-        $user = R::load('user', $id);
-
-        $user->setAvatar($avatar);
-        
+    /**
+     * Actualiza el avatar del usuario para guardarlo en la base de datos
+     * @param User $user usuario a actualizar avatar
+     * @param string $avatar URL de la imagen del avatar
+     */
+    public function updateAvatar($id, $avatar) {
+        $user = R::findOne('user', 'id=?', [$id]);
+        $user->avatar = $avatar;
         R::store($user);
     }
 

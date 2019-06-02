@@ -11,7 +11,7 @@ import { Animal } from 'src/app/_models/animal.model';
   })
   export class FormularioAnimalModal implements OnInit {
 
-    public tipo = 'animalUpdate';
+    public formType = 'animalUpdate';
     public animalData: Animal;
     constructor(public dialogRef: MatDialogRef<FormularioAnimalModal>,
                 @Inject(MAT_DIALOG_DATA) public data: Animal ) {}

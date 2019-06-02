@@ -1,6 +1,7 @@
 import { OnInit, Component, ViewChild, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Type } from '../../../../_models/type.model';
+import { News } from 'src/app/_models/news.model';
 
 
 
@@ -12,43 +13,65 @@ import { Type } from '../../../../_models/type.model';
 
   export class NewsRegisterComponent implements OnInit {
 
-    @Input() public tipo: string;
-    @Input() public typeData: Type;
+    @Input() public typeForm: string;
+    @Input() public NewsData: News;
 
     registerForm: FormGroup;
-    public type: Type;
-    constructor(private formBuilder: FormBuilder,
-                ){}
+    public news: News;
+    constructor(private formBuilder: FormBuilder) {}
 
     ngOnInit() {
 
 
     this.registerForm = this.formBuilder.group({
-      idType: ['', []],
+      idnews: ['', []],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+      content: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
+      publicationDate: ['', []],
     });
 
-    if (this.tipo == 'typeUpdate'){
-      console.log("animal: ", this.typeData);
-     this.setDatosUpdate(this.typeData);
+    if (this.typeForm === 'newsUpdate') {
+      console.log('animal: ', this.NewsData);
+      this.setUpdateData(this.NewsData);
     }
   }
 
+  public parseDate(fecha) {
+    let arrayFechaYHora = fecha.split(' ');
+    let arrayfecha = arrayFechaYHora[0].split('-');
+    fecha = new Date(arrayfecha[0], (arrayfecha[1] - 1), arrayfecha[2]);
+    return fecha;
+  }
 
+  public setUpdateData(data) {
 
-  public setDatosUpdate(data) {
-
-    this.registerForm.get('idType').setValue(data.id);
+    this.registerForm.get('idnews').setValue(data.id);
     this.registerForm.get('name').setValue(data.name);
+    this.registerForm.get('content').setValue(data.content);
+    this.registerForm.get('publicationDate').setValue(this.parseDate(data.publicationDate));
 }
+
+dateToTimestamp(date) {
+
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+
+  date = Date.UTC(year, month, day, 0, 0, 0);
+
+  return date;
+}
+
 
 dataPrepare() {
 
-  const entranceDate = new Date();
- 
+  const todayDate = new Date();
+
   let formData = {
-    "id": this.registerForm.get('idType').value,
-    "name": this.registerForm.get('name').value.trim(),
+    'id': this.registerForm.get('idnews').value,
+    'name': this.registerForm.get('name').value.trim(),
+    'content': this.registerForm.get('content').value.trim(),
+    'publicationDate': this.dateToTimestamp(todayDate),
 
   };
 
@@ -59,10 +82,10 @@ dataPrepare() {
   registerSubmit() {
     console.log('Entra en registerSubmit()');
 
-    this.type = this.dataPrepare();
-    console.log(this.type);
-    delete this.type.id;
-    let animalJSON = JSON.stringify(this.type);
+    this.news = this.dataPrepare();
+    console.log(this.news);
+    delete this.news.id;
+    let animalJSON = JSON.stringify(this.news);
     console.log('Conversión JSON: ', animalJSON);
 
     /* this.animalTypeService.registerAnimalType(animalJSON).subscribe(data => {
