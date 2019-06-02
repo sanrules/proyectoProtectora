@@ -93,7 +93,7 @@ class Animal
         $num = count($params);
         $sql = "SELECT * FROM animal WHERE ";
 
-        foreach ($params as $field->$value) {
+        foreach ($params as $field => $value) {
             --$num;
             $sql .= " $field = $value ";
             $sql .= $num != 0 ? ' AND ' : ' ;';
