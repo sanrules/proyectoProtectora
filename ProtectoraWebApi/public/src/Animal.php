@@ -118,7 +118,16 @@ class Animal
     public function updateAnimal($id, $updatedAnimal)
     {
         $old_animal = R::load('animal', $id);
-        $old_animal = $updatedAnimal;
+        $old_animal->name          = $updatedAnimal->getName();
+        $old_animal->type          = $updatedAnimal->getType();
+        $old_animal->breed         = $updatedAnimal->getBreed();
+        $old_animal->gender        = $updatedAnimal->getGender();
+        $old_animal->birth_date    = $updatedAnimal->getBirthDate();
+        $old_animal->entrance_date = $updatedAnimal->getEntranceDate();
+        $old_animal->adoption_date = $updatedAnimal->getAdoptionDate();
+        $old_animal->status        = $updatedAnimal->getStatus();
+        $old_animal->description   = $updatedAnimal->getDescription();
+        $old_animal->pictures      = $updatedAnimal->getPictures();
 
         R::store($old_animal);
     }
