@@ -54,6 +54,7 @@ export class AnimalRegisterComponent implements OnInit {
       type: ['', [Validators.required]],
       breed: ['', [Validators.required]],
       gender: ['' , [Validators.required]],
+      size: ['' , [Validators.required]],
       birthDate: ['', [Validators.required]],
       adoptionDate: ['', []],
       entranceDate: ['', []],
@@ -128,6 +129,7 @@ export class AnimalRegisterComponent implements OnInit {
     this.registerForm.get('type').setValue(data.type);
     this.registerForm.get('breed').setValue(data.breed);
     this.registerForm.get('gender').setValue(data.gender);
+    this.registerForm.get('size').setValue(data.size);
     this.registerForm.get('birthDate').setValue(this.spararFechaYHora(data.birth_date));
     this.registerForm.get('adoptionDate').setValue(data.adoption_date);
     this.registerForm.get('entranceDate').setValue(this.spararFechaYHora(data.entrance_date));
@@ -158,6 +160,7 @@ dataPrepare() {
     "type": this.registerForm.get('type').value.trim(),
     "breed": this.registerForm.get('breed').value.trim(),
     "gender": this.registerForm.get('gender').value.trim(),
+    "size": this.registerForm.get('size').value.trim(),
     "birthDate": this.dateToTimestamp(this.registerForm.get('birthDate').value),
     "entranceDate": this.dateToTimestamp(entranceDate),
     "adoptionDate": this.dateToTimestamp(entranceDate) ,

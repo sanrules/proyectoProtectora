@@ -4,6 +4,7 @@ export class Animal {
   public type: string;
   public breed: string;
   public gender: string;
+  public size: string;
   public birthDate: Date;
   public entranceDate: Date;
   public adoptionDate: Date;
