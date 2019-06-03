@@ -57,9 +57,9 @@ class Animal
         $animal->status        = $this->_status;
         $animal->description   = $this->_description;
         $animal->pictures      = $this->_pictures;
-        $vase = R::dispense( 'product' );
+        $vase = R::dispense('product');
         $vase->price = 25;
-        $shop->ownProductList[] = $vase
+        $shop->ownProductList[] = $vase;
 
         $id = R::store($animal);
 
@@ -115,22 +115,22 @@ class Animal
      * @param int $id ID del animal
      * @param Animal $updated_animal animal con los datos actualizados
      */
-    public function updateAnimal($updatedAnimal)
+    public function updateAnimal()
     {
-        $old_animal = R::load('animal', $updatedAnimal->getId());
+        $oldAnimal = R::load('animal', $this->getId());
 
-        $old_animal->name          = $updatedAnimal->getName();
-        $old_animal->type          = $updatedAnimal->getType();
-        $old_animal->breed         = $updatedAnimal->getBreed();
-        $old_animal->gender        = $updatedAnimal->getGender();
-        $old_animal->birth_date    = $updatedAnimal->getBirthDate();
-        $old_animal->entrance_date = $updatedAnimal->getEntranceDate();
-        $old_animal->adoption_date = $updatedAnimal->getAdoptionDate();
-        $old_animal->status        = $updatedAnimal->getStatus();
-        $old_animal->description   = $updatedAnimal->getDescription();
-        $old_animal->pictures      = $updatedAnimal->getPictures();
+        $oldAnimal->name          = $this->getName();
+        $oldAnimal->type          = $this->getType();
+        $oldAnimal->breed         = $this->getBreed();
+        $oldAnimal->gender        = $this->getGender();
+        $oldAnimal->birth_date    = $this->getBirthDate();
+        $oldAnimal->entrance_date = $this->getEntranceDate();
+        $oldAnimal->adoption_date = $this->getAdoptionDate();
+        $oldAnimal->status        = $this->getStatus();
+        $oldAnimal->description   = $this->getDescription();
+        $oldAnimal->pictures      = $this->getPictures();
 
-        R::store($old_animal);
+        R::store($oldAnimal);
     }
 
     /**
