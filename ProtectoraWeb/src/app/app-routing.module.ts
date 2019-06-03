@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 // Componentes
 import { HomeComponent } from './components/web/home/home.component';
 import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
+import { UserProfileComponent } from './components/web/users/user-profile/user-profile.component';
+
 import { AdminUserRegisterComponent } from './components/admin/users/user-register/admin-user-register.component';
 import { UserManagementComponent } from './components/admin/users/user-management/user-management.component';
 import { AnimalRegisterComponent } from './components/admin/animals/animal-register/animal-register.component';
@@ -20,15 +22,16 @@ import { NewsManagementComponent } from './components/admin/news/news-mangement/
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
-  {path: 'registro', component: UserRegisterComponent},
+  {path: 'user/register', component: UserRegisterComponent},
+  {path: 'user/profile/:id', component: UserProfileComponent},
   {path: 'admin/user/register', component: AdminUserRegisterComponent},
   {path: 'admin/user/management', component: UserManagementComponent},
-  {path: 'admin/animal/register', component: AnimalRegisterComponent},
-  {path: 'admin/animal/management', component: AnimalManagementComponent},
-  {path: 'admin/animal-type/management', component: AnimalTypeManagementComponent},
-  {path: 'admin/animal-type/register', component: AnimalTypeRegisterComponent},
-  {path: 'admin/animal-breed/management', component: AnimalBreedManagementComponent},
-  {path: 'admin/animal-breed/register', component: AnimalBreedRegisterComponent},
+  {path: 'admin/animals/register', component: AnimalRegisterComponent},
+  {path: 'admin/animals/management', component: AnimalManagementComponent},
+  {path: 'admin/animals/type/management', component: AnimalTypeManagementComponent},
+  {path: 'admin/animals/type/register', component: AnimalTypeRegisterComponent},
+  {path: 'admin/animals/breed/management', component: AnimalBreedManagementComponent},
+  {path: 'admin/animals/breed/register', component: AnimalBreedRegisterComponent},
   {path: 'admin/news/register', component: NewsRegisterComponent},
   {path: 'admin/news/management', component: NewsManagementComponent},
   {path: 'animals/list', component: AnimalListComponent},

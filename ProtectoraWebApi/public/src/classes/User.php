@@ -131,14 +131,14 @@ class User
      */
     public function updateUser()
     {
-        $oldUser = R::load('user', $this->getId());
+        $oldUser = R::load('user', $this->getIdUser());
 
         $oldUser->username    = $this->getUsername();
         $oldUser->password    = $this->getPassword();
         $oldUser->email       = $this->getEmail();
         $oldUser->name        = $this->getName();
         $oldUser->surname     = $this->getSurname();
-        //$oldUser->dni         = $this->getDni();
+        $oldUser->dni         = $this->getDni();
         $oldUser->phone       = $this->getPhone();
         $oldUser->birth_date  = $this->getBirthDate();
         $oldUser->street      = $this->getStreet();
@@ -146,11 +146,11 @@ class User
         $oldUser->portal      = $this->getPortal();
         $oldUser->floor       = $this->getFloor();
         $oldUser->door        = $this->getDoor();
-        //$oldUser->province    = $this->getProvince();
-        //$oldUser->city        = $this->getCity();
-        ///$oldUser->postal_code = $this->getPostalCode();
+        $oldUser->province    = $this->getProvince();
+        $oldUser->city        = $this->getCity();
+        $oldUser->postal_code = $this->getPostalCode();
         $oldUser->user_type   = $this->getUserType();
-        // $oldUser->avatar      = $this->getAvatar();
+        $oldUser->avatar      = $this->getAvatar();
 
         R::store($oldUser);
     }

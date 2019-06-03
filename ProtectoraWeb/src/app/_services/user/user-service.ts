@@ -24,7 +24,9 @@ export class UserService {
   }
 
   // Solicita a la API el usuario que se le manda por parámetro
-  getuserById() {}
+  getuserById(id) {
+    return this.http.post(`${this.baseURL}/userGetById.php`, id, this.httpOptions);
+  }
 
   // Da de alta un nuevo usuario
   registerUser(data): Observable<any> {
