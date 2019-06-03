@@ -1,6 +1,6 @@
 <?php
 
-require_once 'AnimalType.php';
+require_once 'classes/AnimalType.php';
 require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
@@ -23,7 +23,7 @@ try {
 
         /*    $pictures      = filter_var($request['pictures'], FILTER_REQUIRE_ARRAY) ? $request['pictures'] : ''; // Las imágenes tendrán que venir en un array */
 
-// Comprobamos que todo viene con datos. Si no, se devolverá al formulario
+        // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($name != '') {
 
             $animalType = new AnimalType();
@@ -32,10 +32,8 @@ try {
             $animalType->insertAnimalType();
 
             echo json_encode(array("status" => "ok", "data" => $animalType), JSON_FORCE_OBJECT);
-
         }
     }
-
 } catch (Exception $e) {
     echo 'Error al registrar animalType: ' . $e->getMessage();
 }

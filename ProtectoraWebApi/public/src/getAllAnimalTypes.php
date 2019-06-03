@@ -1,6 +1,6 @@
 <?php
 
-require_once 'AnimalType.php';
+require_once 'classes/AnimalType.php';
 require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;

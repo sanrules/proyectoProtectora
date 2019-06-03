@@ -1,6 +1,6 @@
 <?php
 require_once '../../vendor/autoload.php';
-require_once 'User.php';
+require_once 'classes/User.php';
 
 use PHPMailer\PHPMailer\Exception;
 use Monolog\Handler\StreamHandler;

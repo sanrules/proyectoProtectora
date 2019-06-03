@@ -1,6 +1,6 @@
 <?php
 require_once '../../vendor/autoload.php';
-require_once 'Comment.php';
+require_once 'classes/Comments.php';
 
 
 use Monolog\Handler\StreamHandler;

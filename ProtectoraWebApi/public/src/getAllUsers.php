@@ -1,5 +1,5 @@
 <?php
-require_once 'User.php';
+require_once 'classes/User.php';
 require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;

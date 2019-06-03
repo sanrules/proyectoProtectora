@@ -1,6 +1,6 @@
 <?php
 require_once '../../vendor/autoload.php';
-require_once 'User.php';
+require_once 'classes/User.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -35,7 +35,7 @@ try {
 
         // TODO VALIDACIÓN DE LOS ÚLTIMOS CAMPOS
 
-        if ($username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $dni != '' ||$phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $province != '' || $city != '' || $postalCode != '' ||$userType != '') {
+        if ($username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $dni != '' || $phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $province != '' || $city != '' || $postalCode != '' || $userType != '') {
 
             $birthDate = new DateTime("@$birthDate");
             $birthDate->format("Y-m-d H:i:s");
@@ -45,12 +45,12 @@ try {
             $user = new User();
             $user->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
 
-            
+
             // Validamos que el email, nombre de usuario o dni no existan
             $email_exists = R::findOne('user', 'email=?', [$user->getEmail()]);
             $username_exists = R::findOne('user', 'username=?', [$user->getUsername()]);
             $dni_exists = R::findOne('user', 'dni=?', [$user->getDni()]);
-            
+
             if ($email_exists == null && $username_exists == null && $dni_exists == null) {
                 $user->insertUser();
                 $error = '';

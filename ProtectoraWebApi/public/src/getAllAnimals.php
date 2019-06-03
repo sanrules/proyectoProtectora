@@ -1,5 +1,5 @@
 <?php
-require_once 'Animal.php';
+require_once 'classes/Animal.php';
 require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
@@ -13,7 +13,6 @@ try {
     $animal  = new Animal();
     $animals = $animal->retrieveAnimalAll();
     $error = '';
-    
 } catch (Exception $e) {
     $error = 'No se han podido obtener todos los animales';
     $logger->error($error);

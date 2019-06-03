@@ -1,6 +1,6 @@
 <?php
 require_once '../../vendor/autoload.php';
-require_once 'User.php';
+require_once 'classes/User.php';
 
 
 use PHPMailer\PHPMailer\Exception;
@@ -17,14 +17,14 @@ try {
     if ($request) {
         $id        = filter_var($request['id'], FILTER_SANITIZE_NUMBER_INT);
         $avatar    = filter_var($request['avatar'], FILTER_SANITIZE_STRING);
-        
+
 
         if ($id != '' || $avatar != '') {
 
             $user = new User();
             $user->updateAvatar($id, $avatar);
-            
-            
+
+
             $reply = array(
                 'status'   => 'OK',
                 'response' => $avatar,
