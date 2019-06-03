@@ -41,16 +41,16 @@ try {
 
             $password = password_hash($password, PASSWORD_BCRYPT);
 
-            $updated_user = new User();
-            $updated_user->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
-            $updated_user->setIdUser($id);
+            $updatedUser = new User();
+            $updatedUser->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
+            $updatedUser->setIdUser($id);
 
-            $user_exists = R::findOne('user', 'id=?', [$updated_user->getIdUser()]);
+            $user_exists = R::findOne('user', 'id=?', [$updatedUser->getIdUser()]);
 
             if ($user_exists != null) {
                 $user_error = R::findOne('user', 'email=? and id<>?', [$email, $id]);
                 if ($user_error == null) {
-                    $updated_user->updateUser($id, $username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType);
+                    $updatedUser->updateUser();
                     $error = '';
                 } else {
                     $error = 'El usuario que intentas modificar no coincide con el de la BBDD';
@@ -65,7 +65,7 @@ try {
             if ($error == '') {
                 $reply = array(
                     'status'   => 'OK',
-                    'response' => $updated_user,
+                    'response' => $updatedUser,
                 );
                 http_response_code(200); // 200 OK
             } else {

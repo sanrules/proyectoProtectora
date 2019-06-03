@@ -109,9 +109,10 @@ class Animal
      * @param int $id ID del animal
      * @param Animal $updated_animal animal con los datos actualizados
      */
-    public function updateAnimal($id, $updatedAnimal)
+    public function updateAnimal($updatedAnimal)
     {
-        $old_animal = R::load('animal', $id);
+        $old_animal = R::load('animal', $updatedAnimal->getId());
+
         $old_animal->name          = $updatedAnimal->getName();
         $old_animal->type          = $updatedAnimal->getType();
         $old_animal->breed         = $updatedAnimal->getBreed();

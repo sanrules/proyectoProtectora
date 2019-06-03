@@ -127,34 +127,32 @@ class User
 
     /**
      * Actualiza un usuario de la base de datos
-     * @param int $id ID del usuario
      * @param User $updated_user usuario con los datos actualizados
      */
-    public function updateUser($id, $username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar)
+    public function updateUser()
     {
+        $oldUser = R::load('user', $this->getId());
 
-        $user = R::load('user', $id);
+        $oldUser->username    = $this->getUsername();
+        $oldUser->password    = $this->getPassword();
+        $oldUser->email       = $this->getEmail();
+        $oldUser->name        = $this->getName();
+        $oldUser->surname     = $this->getSurname();
+        //$oldUser->dni         = $this->getDni();
+        $oldUser->phone       = $this->getPhone();
+        $oldUser->birth_date  = $this->getBirthDate();
+        $oldUser->street      = $this->getStreet();
+        $oldUser->number      = $this->getNumber();
+        $oldUser->portal      = $this->getPortal();
+        $oldUser->floor       = $this->getFloor();
+        $oldUser->door        = $this->getDoor();
+        //$oldUser->province    = $this->getProvince();
+        //$oldUser->city        = $this->getCity();
+        ///$oldUser->postal_code = $this->getPostalCode();
+        $oldUser->user_type   = $this->getUserType();
+        // $oldUser->avatar      = $this->getAvatar();
 
-        $user->username    = $username;
-        $user->password    = $password;
-        $user->email       = $email;
-        $user->name        = $name;
-        $user->surname     = $surname;
-        //$user->dni         = $dni
-        $user->phone       = $phone;
-        $user->birth_date  = $birthDate;
-        $user->street      = $street;
-        $user->number      = $number;
-        $user->portal      = $portal;
-        $user->floor       = $floor;
-        $user->door        = $door;
-        //$user->province    = $province;
-        //$user->city        = $city;
-        ///$user->postal_code = $postalCode;
-        $user->user_type   = $userType;
-        // $user->avatar      = $avatar
-
-        R::store($user);
+        R::store($oldUser);
     }
 
     /**
@@ -162,7 +160,8 @@ class User
      * @param User $user usuario a actualizar avatar
      * @param string $avatar URL de la imagen del avatar
      */
-    public function updateAvatar($id, $avatar) {
+    public function updateAvatar($id, $avatar)
+    {
         $user = R::findOne('user', 'id=?', [$id]);
         $user->avatar = $avatar;
         R::store($user);
