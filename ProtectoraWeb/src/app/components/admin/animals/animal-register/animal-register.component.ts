@@ -25,7 +25,7 @@ export class AnimalRegisterComponent implements OnInit {
   files: any[];
   uploadpercent: Observable<number>;
   urlImage: Observable<string>;
-  urlImageStr: any;
+  urlImageAr: any[]=[];
   selectedFiles: FileList;
   registerForm: FormGroup;
   private animal: Animal;
@@ -59,8 +59,8 @@ export class AnimalRegisterComponent implements OnInit {
       adoptionDate: ['', []],
       entranceDate: ['', []],
       status: ['en adopción', []],
-      description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
-      animalImgs: ['', []]
+      description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]]
+
     });
 
     if (this.formType == 'animalUpdate'){
@@ -104,9 +104,11 @@ export class AnimalRegisterComponent implements OnInit {
       finalize(() => {
         ref.getDownloadURL().subscribe(url => {
           console.log(url); // <-- do what ever you want with the url..
-          this.urlImageStr += ',' + url;
-          console.log('urls', this.urlImageStr);
-          this.formArray.get([3]).get('animalImgs').setValue(this.urlImageStr);
+          this.urlImageAr.push(url);
+          console.log('urls', this.urlImageAr);
+          if (i === images.length - 1)  {
+          this.urlImageAr = this.animal.pictures;
+          }
         });
       })).subscribe();
     }
@@ -166,7 +168,7 @@ dataPrepare() {
     "adoptionDate": this.dateToTimestamp(entranceDate) ,
     "status": this.registerForm.get('status').value,
     "description": this.registerForm.get('description').value.trim(),
-    "pictures": this.registerForm.get('animalImgs').value.trim(),
+    "pictures": "",
   };
 
   return formData;
@@ -186,7 +188,7 @@ dataPrepare() {
 
     this.animalService.registerAnimal(animalJSON).subscribe(data => {
 
-        /* this.onUpload(this.fileUpload, data.response); */
+        this.onUpload(this.urlImageAr);
         
         this.limpiarForm();
         console.log('respuesta registerAnimal(data): ', data);
