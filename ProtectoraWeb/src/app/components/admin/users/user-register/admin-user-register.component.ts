@@ -184,7 +184,7 @@ export class AdminUserRegisterComponent {
       "door":  this.registerForm.get('door').value.trim(),
       "province": this.registerForm.get('province').value.trim(),
       "city": this.registerForm.get('city').value.trim(),
-      "postalCode": this.registerForm.get('postalCode').value.trim(),
+      "postalCode": this.registerForm.get('postalCode').value,
       "userType":  this.registerForm.get('userType').value.trim(),
       "avatar":  this.registerForm.get('imgUrl').value.trim(),
     };
@@ -204,8 +204,8 @@ export class AdminUserRegisterComponent {
       // Se envían los datos mediante post a la API
       this.userService.registerUser(userJSON).subscribe(data => {
         console.log('repuesta registerUser(data): ', data);
+        this.onUpload(this.fileUpload, data.response);
         this.regError = false;
-        this.openDialog();
         },
         error => {
           this.regError = true;
@@ -218,7 +218,7 @@ export class AdminUserRegisterComponent {
         console.log('datos a enviar: ', userJSON);
         this.userService.updateUser(userJSON).subscribe(data => {
           console.log('repuesta registerUser(data): ', data);
-          this.onUpload(this.fileUpload, this.user.idUser);
+          this.onUpload(this.fileUpload, data.response);
         },
         error => {
           console.log('Error: ', error);

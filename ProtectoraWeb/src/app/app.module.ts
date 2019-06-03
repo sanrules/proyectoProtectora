@@ -4,6 +4,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
+// Componentes Core
+import { AppComponent } from './app.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 // Formulario
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,9 +18,8 @@ import { MaterialModule } from './material.module';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire';
 
-// Componentes Core
-import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/shared/navbar/navbar.component';
+// Avatar
+import { AvatarModule } from 'ngx-avatar';
 
 // Componentes Web
 // Auth
@@ -26,6 +28,7 @@ import { LoginComponent } from './components/web/auth/login/login.component';
 // User
 import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
 import { RegisterConfirmationComponent } from './components/web/auth/register/register-confirmation/register-confirmation.component';
+import { UserProfileComponent } from './components/web/users/user-profile/user-profile.component';
 // Animal
 import { AnimalListComponent } from './components/web/animals/animal-list/animal-list.component';
 import { AnimalComponent } from './components/web/animals/animal/animal.component';
@@ -64,6 +67,7 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { AutofocusDirective } from './_directives/autofocus.directive';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,7 +96,7 @@ import { AutofocusDirective } from './_directives/autofocus.directive';
     NewsManagementComponent,
     NewsRegisterComponent,
     NewsUpdateModal,
-    
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,7 +107,8 @@ import { AutofocusDirective } from './_directives/autofocus.directive';
     MaterialModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AvatarModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

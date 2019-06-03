@@ -13,7 +13,8 @@ export class NavbarComponent implements OnInit {
   /* isAdmin: boolean;
   isLogged: boolean;
   currentUser: JwtResponse; */
-
+  perfil: number;
+  user: any;
   constructor(private dialog: MatDialog,
               private authService: AuthService,
               private router: Router) {
@@ -21,6 +22,11 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.authService.currentUser.subscribe(userProfile => {
+      this.user = this.authService.decodeJWT(userProfile.jwt);
+      this.user = this.user.data.id;
+    });
 
 /*     this.authService.admin.subscribe(data => {
       this.isAdmin = data;

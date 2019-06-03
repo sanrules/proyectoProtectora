@@ -65,7 +65,7 @@ try {
             if ($error == '') {
                 $reply = array(
                     'status'   => 'OK',
-                    'response' => $updatedUser,
+                    'response' => $updatedUser->getIdUser(),
                 );
                 http_response_code(200); // 200 OK
             } else {
