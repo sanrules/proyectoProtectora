@@ -14,26 +14,27 @@ try {
     $request  = json_decode($postdata, true);
 
     if ($request) {
-        $id        = filter_var($request['idUser'], FILTER_SANITIZE_NUMBER_INT);
-        $username  = filter_var($request['userName'], FILTER_SANITIZE_STRING);
-        $password  = filter_var($request['password'], FILTER_SANITIZE_STRING);
-        $email     = filter_var($request['email'], FILTER_SANITIZE_STRING);
-        $name      = filter_var($request['name'], FILTER_SANITIZE_STRING);
-        $surname   = filter_var($request['surname'], FILTER_SANITIZE_STRING);
-        $phone     = filter_var($request['phone'], FILTER_SANITIZE_NUMBER_INT);
-        $birthDate = filter_var($request['birthDate'], FILTER_SANITIZE_NUMBER_INT) / 1000;
-        $street    = filter_var($request['street'], FILTER_SANITIZE_STRING);
-        $number    = filter_var($request['number'], FILTER_SANITIZE_NUMBER_INT);
-        $portal    = filter_var($request['portal'], FILTER_SANITIZE_STRING);
-        $floor     = filter_var($request['floor'], FILTER_SANITIZE_NUMBER_INT);
-        $door      = filter_var($request['door'], FILTER_SANITIZE_STRING);
-        $userType  = filter_var($request['userType'], FILTER_SANITIZE_STRING);
-        $city = filter_var($request['city'], FILTER_SANITIZE_STRING);
-        $postalCode = $request['postalCode'];
-        $avatar = $request['avatar'];
-        $dni = $request['dni'];
+        $id         = filter_var($request['idUser'], FILTER_SANITIZE_NUMBER_INT);
+        $username   = filter_var($request['userName'], FILTER_SANITIZE_STRING);
+        $password   = filter_var($request['password'], FILTER_SANITIZE_STRING);
+        $email      = filter_var($request['email'], FILTER_SANITIZE_STRING);
+        $name       = filter_var($request['name'], FILTER_SANITIZE_STRING);
+        $surname    = filter_var($request['surname'], FILTER_SANITIZE_STRING);
+        $dni        = filter_var($request['dni'], FILTER_SANITIZE_STRING);
+        $phone      = filter_var($request['phone'], FILTER_SANITIZE_NUMBER_INT);
+        $birthDate  = filter_var($request['birthDate'], FILTER_SANITIZE_NUMBER_INT) / 1000;
+        $street     = filter_var($request['street'], FILTER_SANITIZE_STRING);
+        $number     = filter_var($request['number'], FILTER_SANITIZE_NUMBER_INT);
+        $portal     = filter_var($request['portal'], FILTER_SANITIZE_STRING);
+        $floor      = filter_var($request['floor'], FILTER_SANITIZE_NUMBER_INT);
+        $door       = filter_var($request['door'], FILTER_SANITIZE_STRING);
+        $province   = filter_var($request['province'], FILTER_SANITIZE_STRING);
+        $city       = filter_var($request['city'], FILTER_SANITIZE_STRING);
+        $postalCode = filter_var($request['postalCode'], FILTER_SANITIZE_NUMBER_INT);
+        $userType   = filter_var($request['userType'], FILTER_SANITIZE_STRING);
+        $avatar     = filter_var($request['avatar'], FILTER_SANITIZE_STRING);
 
-        if ($id != '' || $username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $userType != '') {
+        if ($id != '' || $username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $dni != '' || $phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $province != '' || $city != '' || $postalCode != '' || $userType != '') {
 
             $birthDate = new DateTime("@$birthDate");
             $birthDate->format("Y-m-d H:i:s");
@@ -42,9 +43,9 @@ try {
 
             $updated_user = new User();
             $updated_user->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
-            $updated_user->set_idUser($id);
+            $updated_user->setIdUser($id);
 
-            $user_exists = R::findOne('user', 'id=?', [$updated_user->get_idUser()]);
+            $user_exists = R::findOne('user', 'id=?', [$updated_user->getIdUser()]);
 
             if ($user_exists != null) {
                 $user_error = R::findOne('user', 'email=? and id<>?', [$email, $id]);

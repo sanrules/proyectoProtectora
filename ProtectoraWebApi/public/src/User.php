@@ -130,24 +130,29 @@ class User
      * @param int $id ID del usuario
      * @param User $updated_user usuario con los datos actualizados
      */
-    public function updateUser($id, $username, $password, $email, $name, $surname, $phone, $birthDate, $street, $number, $portal, $floor, $door, $userType)
+    public function updateUser($id, $username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar)
     {
 
         $user = R::load('user', $id);
 
-        $user->username   = $username;
-        $user->password   = $password;
-        $user->email      = $email;
-        $user->name       = $name;
-        $user->surname    = $surname;
-        $user->phone      = $phone;
-        $user->birth_date = $birthDate;
-        $user->street     = $street;
-        $user->number     = $number;
-        $user->portal     = $portal;
-        $user->floor      = $floor;
-        $user->door       = $door;
-        $user->user_type  = $userType;
+        $user->username    = $username;
+        $user->password    = $password;
+        $user->email       = $email;
+        $user->name        = $name;
+        $user->surname     = $surname;
+        //$user->dni         = $dni
+        $user->phone       = $phone;
+        $user->birth_date  = $birthDate;
+        $user->street      = $street;
+        $user->number      = $number;
+        $user->portal      = $portal;
+        $user->floor       = $floor;
+        $user->door        = $door;
+        //$user->province    = $province;
+        //$user->city        = $city;
+        ///$user->postal_code = $postalCode;
+        $user->user_type   = $userType;
+        // $user->avatar      = $avatar
 
         R::store($user);
     }
