@@ -55,24 +55,24 @@ export class AdminUserRegisterComponent {
     // Así se tienen las validaciones y los métodos de los formularios reactivos de Angular
     this.registerForm = this.formBuilder.group({
       idUser: ['', []],
-      userName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{4,16}$/)]],
-      password: ['', [Validators.required,
+      userName: ['Usuario', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{4,16}$/)]],
+      password: ['QWas12', [Validators.required,
                       Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/)
                      ]],
-      email: ['', [Validators.required, Validators.email]],
-      name: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
-      surname: ['', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-záéíúóñç]+[ -]?){1,2}$/)]],
-      dni: ['', []],
-      phone: ['', [Validators.required, Validators.pattern(/^[6789]{1}[0-9]{8}$/)]],
+      email: ['usuario@correo.es', [Validators.required, Validators.email]],
+      name: ['Nombre', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
+      surname: ['Apellidos', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-záéíúóñç]+[ -]?){1,2}$/)]],
+      dni: ['12345678A', []],
+      phone: ['987654321', [Validators.required, Validators.pattern(/^[6789]{1}[0-9]{8}$/)]],
       birthDate: ['', [ Validators.required]],
-      street: ['', [Validators.required]],
-      number: ['', [Validators.required]],
-      portal: ['', []],
-      floor: ['', []],
-      door: ['', []],
-      province: ['', []],
-      city: ['', []],
-      postalCode: ['', []],
+      street: ['Calle', [Validators.required]],
+      number: ['1', [Validators.required]],
+      portal: ['2', []],
+      floor: ['3', []],
+      door: ['4', []],
+      province: ['Madrid', []],
+      city: ['Rivas', []],
+      postalCode: ['28521', []],
       userType: ['user', [Validators.required]],
       imgUrl: ['', []]
     });
@@ -92,9 +92,9 @@ export class AdminUserRegisterComponent {
     this.fileUpload = file;
   }
 
-  onUpload(file, folder, id) {
+  onUpload(file, id) {
     const extension = file.name.slice(-4);
-    const filePath = `/profileavatars/${folder}/avatar${extension}`;
+    const filePath = `/profileavatars/${id}/avatar${extension}`;
     const ref = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
 
@@ -116,7 +116,9 @@ export class AdminUserRegisterComponent {
   }
 
   sendAvatarToBBDD(id: number) {
-    this.userService.setAvatar(id, this.registerForm.get('imgUrl').value).subscribe(() => {
+    console.log('entra en sendAvatar');
+    this.userService.setAvatar(id, this.registerForm.get('imgUrl').value).subscribe(resp => {
+      console.log('respAvatar: ', resp);
       this.openDialog();
     }, error => {
         console.log('Error: ', error);
@@ -148,6 +150,7 @@ export class AdminUserRegisterComponent {
     this.registerForm.get('email').setValue(userUpdate.email);
     this.registerForm.get('name').setValue(userUpdate.name);
     this.registerForm.get('surname').setValue(userUpdate.surname);
+    this.registerForm.get('dni').setValue(userUpdate.dni);
     this.registerForm.get('phone').setValue(parseInt(userUpdate.phone));
     this.registerForm.get('birthDate').setValue(this.parseFormDate(userUpdate.birth_date));
     this.registerForm.get('street').setValue(userUpdate.street);
@@ -155,10 +158,12 @@ export class AdminUserRegisterComponent {
     this.registerForm.get('portal').setValue(userUpdate.portal);
     this.registerForm.get('floor').setValue(parseInt(userUpdate.floor));
     this.registerForm.get('door').setValue(userUpdate.door);
+    this.registerForm.get('province').setValue(userUpdate.province);
+    this.registerForm.get('city').setValue(userUpdate.city);
+    this.registerForm.get('postalCode').setValue(parseInt(userUpdate.postalCode));
     this.registerForm.get('userType').setValue(userUpdate.user_type);
-
+    this.registerForm.get('imgUrl').setValue(userUpdate.avatar);
   }
-
 
   // Prepara los datos del formulario para enviarlos en el formato correcto a la API
   dataPrepare() {
@@ -169,6 +174,7 @@ export class AdminUserRegisterComponent {
       "email": this.registerForm.get('email').value.trim(),
       "name": this.registerForm.get('name').value.trim(),
       "surname": this.registerForm.get('surname').value.trim(),
+      "dni": this.registerForm.get('dni').value.trim(),
       "phone": this.registerForm.get('phone').value,
       "birthDate": this.dateToTimestamp(this.registerForm.get('birthDate').value),
       "street": this.registerForm.get('street').value.trim(),
@@ -176,7 +182,11 @@ export class AdminUserRegisterComponent {
       "portal": this.registerForm.get('portal').value.trim(),
       "floor":  this.registerForm.get('floor').value,
       "door":  this.registerForm.get('door').value.trim(),
+      "province": this.registerForm.get('province').value.trim(),
+      "city": this.registerForm.get('city').value.trim(),
+      "postalCode": this.registerForm.get('postalCode').value.trim(),
       "userType":  this.registerForm.get('userType').value.trim(),
+      "avatar":  this.registerForm.get('imgUrl').value.trim(),
     };
 
     return formData;
@@ -204,16 +214,13 @@ export class AdminUserRegisterComponent {
       );
     } else {
         this.user = this.dataPrepare();
-        console.log('dataToSend: ', this.user);
         const userJSON = JSON.stringify(this.user);
-        console.log('Send JSON: ', userJSON);
-
+        console.log('datos a enviar: ', userJSON);
         this.userService.updateUser(userJSON).subscribe(data => {
-          this.regError = false;
-          this.openDialog();
+          console.log('repuesta registerUser(data): ', data);
+          this.onUpload(this.fileUpload, this.user.idUser);
         },
         error => {
-          this.regError = true;
           console.log('Error: ', error);
         });
     }

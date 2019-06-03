@@ -31,6 +31,7 @@ import { AnimalListComponent } from './components/web/animals/animal-list/animal
 import { AnimalComponent } from './components/web/animals/animal/animal.component';
 import { AnimalCardComponent } from './components/web/animals/animal-card/animal-card.component';
 
+
 // Componentes Admin
 import { AdministratorNavbarComponent } from './components/admin/navbar/administrator-navbar.component';
 // User
