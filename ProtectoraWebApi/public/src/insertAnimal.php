@@ -22,7 +22,8 @@ try {
         $name          = filter_var($request['name'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
         $type          = filter_var($request['type'], FILTER_SANITIZE_STRING); // Se aceptarán perro, gato, otros
         $breed         = filter_var($request['breed'], FILTER_SANITIZE_STRING); // Raza.
-        $gender        = filter_var($request['gender'], FILTER_SANITIZE_STRING); // Se aceptarán M y H (macho / hembra)
+        $gender        = filter_var($request['gender'], FILTER_SANITIZE_STRING);
+        $size        = filter_var($request['size'], FILTER_SANITIZE_STRING);// Se aceptarán M y H (macho / hembra)
         $birth_date    = filter_var($request['birthDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
         $entrance_date = filter_var($request['entranceDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
         $adoption_date = filter_var($request['adoptionDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Si no existe, será 1/1/1970
@@ -32,7 +33,7 @@ try {
         /*    $pictures      = filter_var($request['pictures'], FILTER_REQUIRE_ARRAY) ? $request['pictures'] : ''; // Las imágenes tendrán que venir en un array */
 
         // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
-        if ($name != '' || $type != '' || $breed != '' || $gender != '' || $birth_date != '' || $entrance_date != '' || $adoption_date != '' || $status != '' || $description != '' || $pictures != '') {
+        if ($name != '' || $type != '' || $breed != '' || $gender != ''|| $size != ''|| $birth_date != '' || $entrance_date != '' || $adoption_date != '' || $status != '' || $description != '' || $pictures != '') {
 
             $birth_date    = new DateTime("@$birth_date");
             $birth_date    = $birth_date->format("Y-m-d H:i:s");
@@ -40,7 +41,7 @@ try {
             $entrance_date = $entrance_date->format("Y-m-d H:i:s");
 
             $animal = new Animal();
-            $animal->createAnimal($name, $type, $breed, $gender, $birth_date, $entrance_date, $adoption_date, $status, $description, $pictures);
+            $animal->createAnimal($name, $type, $breed, $gender, $size, $birth_date, $entrance_date, $adoption_date, $status, $description, $pictures);
 
             $animal->insertAnimal();
         }

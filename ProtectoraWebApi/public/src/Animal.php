@@ -14,6 +14,7 @@ class Animal
     private $_type   = '';
     private $_breed  = ''; // Raza
     private $_gender = '';
+    private $_size = '';
 
     private $_birthDate    = '';
     private $_entranceDate = '';
@@ -26,12 +27,13 @@ class Animal
     public function __construct()
     { }
 
-    public function createAnimal($name, $type, $breed, $gender, $birthDate, $entranceDate, $adoptionDate = null, $status, $description, $pictures)
+    public function createAnimal($name, $type, $breed, $gender, $size, $birthDate, $entranceDate, $adoptionDate = null, $status, $description, $pictures)
     {
         $this->_name          = $name;
         $this->_type          = $type;
         $this->_breed         = $breed;
         $this->_gender        = $gender;
+        $this->_size        = $size;
         $this->_birthDate    = $birthDate;
         $this->_entranceDate = $entranceDate;
         $this->_adoptionDate = $adoptionDate;
@@ -48,12 +50,16 @@ class Animal
         $animal->type          = $this->_type;
         $animal->breed         = $this->_breed;
         $animal->gender        = $this->_gender;
+        $animal->size        = $this->_size;
         $animal->birth_date    = $this->_birthDate;
         $animal->entrance_date = $this->_entranceDate;
         $animal->adoption_date = $this->_adoptionDate;
         $animal->status        = $this->_status;
         $animal->description   = $this->_description;
         $animal->pictures      = $this->_pictures;
+        $vase = R::dispense( 'product' );
+        $vase->price = 25;
+        $shop->ownProductList[] = $vase
 
         $id = R::store($animal);
 
