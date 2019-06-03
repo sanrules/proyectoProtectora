@@ -2,10 +2,10 @@
 require 'lib/RedBean/rb.php';
 
 // ! configuración para mamp
-R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
+//R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
 
 // ! configuración para xampp
-//R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
+R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
 class User
 {

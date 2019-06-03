@@ -25,7 +25,7 @@ export class AnimalRegisterComponent implements OnInit {
   files: any[];
   uploadpercent: Observable<number>;
   urlImage: Observable<string>;
-  urlImageStr: string;
+  urlImageStr: any;
   selectedFiles: FileList;
   registerForm: FormGroup;
   private animal: Animal;
@@ -91,17 +91,24 @@ export class AnimalRegisterComponent implements OnInit {
     this.files = file;
   }
 
-  onUpload(image) {
+  onUpload(images) {
+    for(let i = 0; i < images.length; i++){
     const imgId = Math.random().toString(36).substring(2);
     const filePath = `animalspictures/img_${imgId}`;
     const ref = this.firestorage.ref(filePath);
-    const task = this.firestorage.upload(filePath, image);
+    const task = this.firestorage.upload(filePath, images[i]);
     this.uploadpercent = task.percentageChanges();
     console.log('ref ', ref);
-    ref.getDownloadURL().subscribe((URL) => {
-      this.urlImageStr += URL + ',';
-      this.urlImage = URL;
-    });
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        ref.getDownloadURL().subscribe(url => {
+          console.log(url); // <-- do what ever you want with the url..
+          this.urlImageStr += ',' + url;
+          console.log('urls', this.urlImageStr);
+          this.formArray.get([3]).get('animalImgs').setValue(this.urlImageStr);
+        });
+      })).subscribe();
+    }
   }
   /* this.formArray.get([3]).get('animalImgs').setValue(URL); */
 
