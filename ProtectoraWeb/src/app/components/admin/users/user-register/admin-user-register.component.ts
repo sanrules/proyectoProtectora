@@ -77,9 +77,10 @@ export class AdminUserRegisterComponent {
       imgUrl: ['', []]
     });
 
-    if (this.formType === 'userUpdate') {
+    if (this.formType === 'userUpdate' || this.formType === 'userProfileUpdate') {
       this.setUpdateData(this.userData);
       console.log('userData', this.userData);
+      console.log('formType', this.formType);
     }
   }
 
@@ -193,37 +194,37 @@ export class AdminUserRegisterComponent {
   }
 
   registerSubmit() {
-    if (this.formType !== 'userUpdate') {
-      // Se guardan los datos del formulario en un objeto usuario
+    if (this.formType === 'userUpdate' || this.formType === 'userProfileUpdate') {
       this.user = this.dataPrepare();
-      // Se borra el campo de idUser para que no se envíe al back y se autogenere.
-      delete this.user.idUser;
-      // Se convierte el objeto user a JSON para enviarlo a la API
       const userJSON = JSON.stringify(this.user);
-      console.log('Send JSON: ', userJSON);
-      // Se envían los datos mediante post a la API
-      this.userService.registerUser(userJSON).subscribe(data => {
-        console.log('repuesta registerUser(data): ', data);
-        this.onUpload(this.fileUpload, data.response);
-        this.regError = false;
-        },
-        error => {
-          this.regError = true;
-          console.log('Error: ', error);
-        }
-      );
-    } else {
-        this.user = this.dataPrepare();
-        const userJSON = JSON.stringify(this.user);
-        console.log('datos a enviar: ', userJSON);
-        this.userService.updateUser(userJSON).subscribe(data => {
+      console.log('datos a enviar: ', userJSON);
+      this.userService.updateUser(userJSON).subscribe(data => {
           console.log('repuesta registerUser(data): ', data);
           this.onUpload(this.fileUpload, data.response);
         },
         error => {
           console.log('Error: ', error);
         });
-    }
+    } else {
+        // Se guardan los datos del formulario en un objeto usuario
+        this.user = this.dataPrepare();
+        // Se borra el campo de idUser para que no se envíe al back y se autogenere.
+        delete this.user.idUser;
+        // Se convierte el objeto user a JSON para enviarlo a la API
+        const userJSON = JSON.stringify(this.user);
+        console.log('Send JSON: ', userJSON);
+        // Se envían los datos mediante post a la API
+        this.userService.registerUser(userJSON).subscribe(data => {
+          console.log('repuesta registerUser(data): ', data);
+          this.onUpload(this.fileUpload, data.response);
+          this.regError = false;
+          },
+          error => {
+            this.regError = true;
+            console.log('Error: ', error);
+          }
+        );
+      }
   }
 
   openDialog() {

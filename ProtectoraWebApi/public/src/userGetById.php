@@ -16,8 +16,9 @@ try {
         $user    = new User();
         $userGet = $user->retrieveUser($request);
         $error = '';
+        // echo json_encode($animalGet, JSON_UNESCAPED_UNICODE);
     }
-} catch (Exception $error) {
+} catch (Exception $e) {
     $error = 'No se puede obtener el usuario';
     $logger->error($error);
 }
@@ -41,3 +42,5 @@ if ($error == '') {
 
 header('Content-type:application/json;charset=utf-8');
 echo json_encode($reply, JSON_UNESCAPED_UNICODE);
+
+// echo json_encode($animals);

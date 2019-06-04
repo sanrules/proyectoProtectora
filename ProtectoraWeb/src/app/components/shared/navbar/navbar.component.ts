@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
   currentUser: JwtResponse; */
   perfil: number;
   user: any;
+  userId: number;
   constructor(private dialog: MatDialog,
               private authService: AuthService,
               private router: Router) {
@@ -25,7 +26,9 @@ export class NavbarComponent implements OnInit {
 
     this.authService.currentUser.subscribe(userProfile => {
       this.user = this.authService.decodeJWT(userProfile.jwt);
-      this.user = this.user.data.id;
+      console.log('jwt: ', this.user);
+      this.userId = this.user.data.id;
+      console.log('jwt: ', this.userId);
     });
 
 /*     this.authService.admin.subscribe(data => {

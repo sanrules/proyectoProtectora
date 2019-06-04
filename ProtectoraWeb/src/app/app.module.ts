@@ -65,6 +65,8 @@ import { NewsUpdateModal } from './components/admin/news/news-mangement/news-mod
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { AutofocusDirective } from './_directives/autofocus.directive';
+import { UserUpdateComponent } from './components/web/users/user-profile/user-update/user-update.component';
+import { AdoptedAnimalsComponent } from './components/web/users/user-profile/adopted-animals/adopted-animals.component';
 
 
 
@@ -97,6 +99,8 @@ import { AutofocusDirective } from './_directives/autofocus.directive';
     NewsRegisterComponent,
     NewsUpdateModal,
     UserProfileComponent,
+    UserUpdateComponent,
+    AdoptedAnimalsComponent,
   ],
   imports: [
     BrowserModule,
