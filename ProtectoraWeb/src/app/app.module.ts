@@ -129,7 +129,8 @@ import { RegisterConfirmationComponent } from './components/shared/register-conf
     LoginComponent,
     UserUpdateModalComponent,
     FormularioAnimalTypeUpdateModal,
-    FormularioAnimalBreedUpdateModal
+    FormularioAnimalBreedUpdateModal,
+    NewsUpdateModal
   ]
 })
 export class AppModule {}

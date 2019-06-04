@@ -1,4 +1,4 @@
-<app-administrator-navbar *ngIf="typeForm != 'typeUpdate'"></app-administrator-navbar>
+<app-administrator-navbar *ngIf="typeForm != 'newsUpdate'"></app-administrator-navbar>
 <div class="container">
     <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
     <div class="row">
@@ -18,7 +18,8 @@
               </mat-error>
           </mat-form-field>
       </div>
-      <div class="form-group col-md-12" *ngIf="typeForm != 'typeUpdate'">
+
+      <div class="form-group col-md-12" *ngIf="typeForm == 'newsUpdate'">
           <mat-form-field>
               <input matInput [matDatepicker]="publicationDate" placeholder="Fecha de Entrada" formControlName="publicationDate">
               <mat-datepicker-toggle matSuffix [for]="publicationDate"></mat-datepicker-toggle>
@@ -28,13 +29,16 @@
               </mat-error>
             </mat-form-field>
         </div>
-      <input *ngIf="typeForm == 'typeUpdate'" type="hidden" formControlName="idType" value="">
-      <input *ngIf="typeForm == 'typeUpdate'" type="hidden" formControlName="publicationDate" value="">
+
+        <input *ngIf="typeForm != 'newsUpdate'" type="hidden" formControlName="publicationDate" id="publicationDate" value="">
+
+      <input *ngIf="typeForm == 'newsUpdate'" type="hidden" formControlName="idnews" value="">
+      <input *ngIf="typeForm == 'newsUpdate'" type="hidden" formControlName="publicationDate" value="">
         <div class="row">
-          <div class="col-md-12" *ngIf="typeForm != 'typeUpdate'">
+          <div class="col-md-12" *ngIf="typeForm != 'newsUpdate'">
             <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Noticia</button>
           </div>
-          <div class="col-md-12" *ngIf="typeForm == 'typeUpdate'">
+          <div class="col-md-12" *ngIf="typeForm == 'newsUpdate'">
             <button mat-raised-button color="primary" [disabled]="!registerForm.valid" (click)="guardar()">Guardar</button>
             <button mat-raised-button color="warn" (click)="borrar()">Borrar</button>
           </div>

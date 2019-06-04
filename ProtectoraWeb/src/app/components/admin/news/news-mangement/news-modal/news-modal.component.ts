@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Type } from 'src/app/_models/type.model';
+import { News } from 'src/app/_models/news.model';
 
 
 
@@ -11,15 +12,15 @@ import { Type } from 'src/app/_models/type.model';
   })
   export class NewsUpdateModal implements OnInit {
 
-    public typeForm = 'typeUpdate';
-    public typeData: Type;
+    public typeForm = 'newsUpdate';
+    public newData: News;
 
     constructor(
       public dialogRef: MatDialogRef<NewsUpdateModal>,
-      @Inject(MAT_DIALOG_DATA) public data: Type) {}
+      @Inject(MAT_DIALOG_DATA) public data: News) {}
 
     ngOnInit() {
-      this.typeData = this.data;
+      this.newData = this.data;
 
     }
 
