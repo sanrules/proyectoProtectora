@@ -27,7 +27,7 @@ import { HomeComponent } from './components/web/home/home.component';
 import { LoginComponent } from './components/web/auth/login/login.component';
 // User
 import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
-import { RegisterConfirmationComponent } from './components/web/auth/register/register-confirmation/register-confirmation.component';
+
 import { UserProfileComponent } from './components/web/users/user-profile/user-profile.component';
 import { UserUpdateComponent } from './components/web/users/user-profile/user-update/user-update.component';
 import { AdoptedAnimalsComponent } from './components/web/users/user-profile/adopted-animals/adopted-animals.component';
@@ -68,7 +68,7 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { AutofocusDirective } from './_directives/autofocus.directive';
 
-import { RegisterConfirmationAnimalComponent } from './components/admin/animals/animal-register/register-confirmation-animal/register-confirmation-animal.component';
+import { RegisterConfirmationComponent } from './components/shared/register-confirmation/register-confirmation.component';
 
 
 
@@ -102,8 +102,7 @@ import { RegisterConfirmationAnimalComponent } from './components/admin/animals/
     NewsUpdateModal,
     UserProfileComponent,
     UserUpdateComponent,
-    AdoptedAnimalsComponent,
-    RegisterConfirmationAnimalComponent
+    AdoptedAnimalsComponent
 
   ],
   imports: [
@@ -130,8 +129,7 @@ import { RegisterConfirmationAnimalComponent } from './components/admin/animals/
     LoginComponent,
     UserUpdateModalComponent,
     FormularioAnimalTypeUpdateModal,
-    FormularioAnimalBreedUpdateModal,
-    RegisterConfirmationAnimalComponent
+    FormularioAnimalBreedUpdateModal
   ]
 })
 export class AppModule {}

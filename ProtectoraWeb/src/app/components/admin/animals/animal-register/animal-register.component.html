@@ -173,8 +173,8 @@
         <!-- -------------------------------------------------------------------------------------------------- -->
         <div class="row" *ngIf="formType != 'animalUpdate'">
           <div class="col-md-12">
-            <button mat-raised-button color="primary" class="avatarBtn" type="button" (click)="openInput()">Subir</button>
-            <input type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg" multiple>
+            <button mat-raised-button color="primary" class="avatarBtn" type="button" (click)="openInput()">Subir imagenes</button>
+            <input hidden type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg" multiple>
             <!-- <input formControlName="animalImgs" id="animalImgs" [value]=""> -->
           </div>
             <div class="row col-md-12" *ngFor="let file of files;let i = index">Nombre: {{file.name}} {{i}} </div>

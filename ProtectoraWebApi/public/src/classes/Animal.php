@@ -144,12 +144,14 @@ class Animal
         $oldAnimal->type          = $this->getType();
         $oldAnimal->breed         = $this->getBreed();
         $oldAnimal->gender        = $this->getGender();
+        $oldAnimal->size          = $this->getSize();
         $oldAnimal->birth_date    = $this->getBirthDate();
         $oldAnimal->entrance_date = $this->getEntranceDate();
         $oldAnimal->adoption_date = $this->getAdoptionDate();
         $oldAnimal->status        = $this->getStatus();
         $oldAnimal->description   = $this->getDescription();
-        $oldAnimal->pictures      = $this->getPictures();
+        
+        
 
         R::store($oldAnimal);
     }
@@ -284,6 +286,26 @@ class Animal
     public function setGender($gender)
     {
         $this->_gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _gender
+     */
+    public function getSize()
+    {
+        return $this->_size;
+    }
+
+    /**
+     * Set the value of _gender
+     *
+     * @return  self
+     */
+    public function setSize($size)
+    {
+        $this->_size = $size;
 
         return $this;
     }
