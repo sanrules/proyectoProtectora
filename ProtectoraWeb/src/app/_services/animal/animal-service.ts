@@ -37,4 +37,9 @@ export class AnimalService {
     return this.http.post(`${this.baseURL}/updateAnimal.php`, data, this.httpOptions);
   }
 
+  // Modifica un animal
+  uploadImages(id:number, images:any[]): Observable<any> {
+    return this.http.post(`${this.baseURL}/animalUploadImages.php`, {id, images}, this.httpOptions);
+  }
+
 }

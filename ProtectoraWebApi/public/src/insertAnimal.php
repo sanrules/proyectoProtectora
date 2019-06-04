@@ -13,7 +13,7 @@ $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 try {
     $postdata = file_get_contents("php://input");
     $request  = json_decode($postdata, true);
-
+    ChromePhp::log('request: ', $request);
     if ($request) {
         $vStatus = ['adoptado', 'pre-adoptado', 'en adopción'];
         /* $picturesArray = explode(",",$request['pictures']); */
@@ -44,6 +44,24 @@ try {
             $animal->createAnimal($name, $type, $breed, $gender, $size, $birth_date, $entrance_date, $adoption_date, $status, $description, $pictures);
 
             $animal->insertAnimal();
+
+            if ($animal != '') {
+                $reply = array(
+                    'status'   => 'Created',
+                    'response' => $animal=>getId(),
+                );
+                http_response_code(200); // 200 OK
+            } else {
+                $reply = array(
+                    'status' => 'Error',
+                    'error'  => $error,
+                );
+                http_response_code(503); // 503 Service Unavailable
+                $logger->info("Error: $error");
+            }
+            
+            header('Content-type:application/json;charset=utf-8');
+            echo json_encode($reply, JSON_UNESCAPED_UNICODE);
         }
     }
 } catch (Exception $e) {
@@ -51,20 +69,4 @@ try {
     $logger->error("No se ha podido insertar el animal");
 }
 
-if ($animal != '') {
-    $reply = array(
-        'status'   => 'Created',
-        'response' => $animal,
-    );
-    http_response_code(200); // 200 OK
-} else {
-    $reply = array(
-        'status' => 'Error',
-        'error'  => $error,
-    );
-    http_response_code(503); // 503 Service Unavailable
-    $logger->info("Error: $error");
-}
 
-header('Content-type:application/json;charset=utf-8');
-echo json_encode($reply, JSON_UNESCAPED_UNICODE);

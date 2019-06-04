@@ -1,5 +1,6 @@
 <?php
 require_once 'lib/RedBean/rb.php';
+include 'lib/ChromePhp.php';
 
 // ! configuración para mamp
 //R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -33,10 +34,10 @@ class Animal
         $this->_type          = $type;
         $this->_breed         = $breed;
         $this->_gender        = $gender;
-        $this->_size        = $size;
-        $this->_birthDate    = $birthDate;
-        $this->_entranceDate = $entranceDate;
-        $this->_adoptionDate = $adoptionDate;
+        $this->_size          = $size;
+        $this->_birthDate     = $birthDate;
+        $this->_entranceDate  = $entranceDate;
+        $this->_adoptionDate  = $adoptionDate;
         $this->_status        = $status;
         $this->_description   = $description;
         $this->_pictures      = $pictures;
@@ -50,19 +51,19 @@ class Animal
         $animal->type          = $this->_type;
         $animal->breed         = $this->_breed;
         $animal->gender        = $this->_gender;
-        $animal->size        = $this->_size;
+        $animal->size          = $this->_size;
         $animal->birth_date    = $this->_birthDate;
         $animal->entrance_date = $this->_entranceDate;
         $animal->adoption_date = $this->_adoptionDate;
         $animal->status        = $this->_status;
         $animal->description   = $this->_description;
-        $images = R::dispense('images'); */
+        $images = R::dispense('images');
         $images->pictures      = $this->_pictures;
         $animal->picturesArray[] = $images;
 
         $id = R::store($animal);
 
-        $this->_id = $id;
+        $this->setId($id);
     }
 
     /**
@@ -130,6 +131,16 @@ class Animal
         $oldAnimal->pictures      = $this->getPictures();
 
         R::store($oldAnimal);
+    }
+
+    public function updateImages($id, $Images)
+    {
+        
+        $animal = R::findOne('animal', 'id=?', [$id]);
+        $images = R::dispense('images');
+        $images->pictures      = $Images;
+        $animal->picturesArray[] = $images;
+        R::store($animal);
     }
 
     /**
