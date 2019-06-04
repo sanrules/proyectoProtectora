@@ -25,7 +25,7 @@ export class AnimalRegisterComponent implements OnInit {
   files: any[];
   uploadpercent: Observable<number>;
   urlImage: Observable<string>;
-  urlImageAr: any[]=[];
+  urlImageAr: any[] = [];
   selectedFiles: FileList;
   registerForm: FormGroup;
   private animal: Animal;
@@ -59,13 +59,13 @@ export class AnimalRegisterComponent implements OnInit {
       adoptionDate: ['', []],
       entranceDate: ['', []],
       status: ['en adopción', []],
-      description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]]
-
+      description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
+      // animalImgs: ['', []]
     });
 
-    if (this.formType == 'animalUpdate'){
-      console.log("animal: ", this.animalData);
-     this.setDatosUpdate(this.animalData);
+    if (this.formType == 'animalUpdate') {
+      console.log('animal: ', this.animalData);
+      this.setDatosUpdate(this.animalData);
     }
   }
 
@@ -80,7 +80,6 @@ export class AnimalRegisterComponent implements OnInit {
 
     this.uploadpercent = task.percentageChanges();
     task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
-    
   } */
 
   openInput(event) {
@@ -93,21 +92,23 @@ export class AnimalRegisterComponent implements OnInit {
   }
 
   onUpload(images) {
-    for(let i = 0; i < images.length; i++){
-    const imgId = Math.random().toString(36).substring(2);
-    const filePath = `animalspictures/img_${imgId}`;
-    const ref = this.firestorage.ref(filePath);
-    const task = this.firestorage.upload(filePath, images[i]);
-    this.uploadpercent = task.percentageChanges();
-    console.log('ref ', ref);
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        ref.getDownloadURL().subscribe(url => {
-          console.log(url); // <-- do what ever you want with the url..
-          this.urlImageAr.push(url);
-          console.log('urls', this.urlImageAr);
-          if (i === images.length - 1)  {
-          this.urlImageAr = this.animal.pictures;
+    for (let i = 0; i < images.length; i++) {
+
+      const imgId = Math.random().toString(36).substring(2);
+      const filePath = `animalspictures/img_${imgId}`;
+      const ref = this.firestorage.ref(filePath);
+      const task = this.firestorage.upload(filePath, images[i]);
+
+      this.uploadpercent = task.percentageChanges();
+
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          ref.getDownloadURL().subscribe(url => {
+            console.log(url); // <-- do what ever you want with the url..
+            this.urlImageAr.push(url);
+            console.log('urls', this.urlImageAr);
+            if (i === images.length - 1)  {
+              this.animal.pictures = this.urlImageAr;
           }
         });
       })).subscribe();
@@ -118,9 +119,9 @@ export class AnimalRegisterComponent implements OnInit {
 
 
   public spararFechaYHora(fecha) {
-    let arrayFechaYHora = fecha.split(" ");
-    let arrayfecha = arrayFechaYHora[0].split("-");
-    fecha = new Date(arrayfecha[0],(arrayfecha[1]-1),arrayfecha[2]);
+    let arrayFechaYHora = fecha.split(' ');
+    let arrayfecha = arrayFechaYHora[0].split('-');
+    fecha = new Date(arrayfecha[0], (arrayfecha[1] - 1), arrayfecha[2]);
     return fecha;
   }
 
@@ -168,7 +169,7 @@ dataPrepare() {
     "adoptionDate": this.dateToTimestamp(entranceDate) ,
     "status": this.registerForm.get('status').value,
     "description": this.registerForm.get('description').value.trim(),
-    "pictures": "",
+    "pictures": '',
   };
 
   return formData;
@@ -188,8 +189,8 @@ dataPrepare() {
 
     this.animalService.registerAnimal(animalJSON).subscribe(data => {
 
-        this.onUpload(this.urlImageAr);
-        
+        this.onUpload(this.files);
+
         this.limpiarForm();
         console.log('respuesta registerAnimal(data): ', data);
     }, error => {
