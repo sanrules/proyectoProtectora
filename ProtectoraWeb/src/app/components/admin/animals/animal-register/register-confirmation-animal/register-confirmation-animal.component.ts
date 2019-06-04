@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AdminUserRegisterComponent } from 'src/app/components/admin/users/user-register/admin-user-register.component';
+import { AnimalRegisterComponent } from '../animal-register.component';
 
 @Component({
   selector: 'app-register-confirmation-animal',
@@ -10,7 +11,7 @@ import { AdminUserRegisterComponent } from 'src/app/components/admin/users/user-
 export class RegisterConfirmationAnimalComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<AdminUserRegisterComponent>,
+    public dialogRef: MatDialogRef<AnimalRegisterComponent>,
     @Inject(MAT_DIALOG_DATA) public message: string) { }
 
   ngOnInit() {

@@ -57,9 +57,6 @@ class Animal
         $animal->adoption_date = $this->_adoptionDate;
         $animal->status        = $this->_status;
         $animal->description   = $this->_description;
-        $images = R::dispense('images');
-        $images->pictures      = $this->_pictures;
-        $animal->picturesArray[] = $images;
 
         $id = R::store($animal);
 

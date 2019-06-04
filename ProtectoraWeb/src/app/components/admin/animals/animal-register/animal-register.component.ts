@@ -99,7 +99,7 @@ export class AnimalRegisterComponent implements OnInit {
   onUpload(images, id) {
     for(let i = 0; i < images.length; i++){
     const imgId = Math.random().toString(36).substring(2);
-    const filePath = `animalspictures/img_${imgId}`;
+    const filePath = `animalspictures/${id}/img_${imgId}`;
     const ref = this.firestorage.ref(filePath);
     const task = this.firestorage.upload(filePath, images[i]);
     this.uploadpercent = task.percentageChanges();
@@ -110,7 +110,7 @@ export class AnimalRegisterComponent implements OnInit {
           console.log(url); // <-- do what ever you want with the url..
           this.urlImageAr.push(url);
           console.log('urls', this.urlImageAr);
-          if (i === images.length - 1)  {
+          if (i == (images.length - 1))  {
           this.subirImagenes(id, this.urlImageAr);
           }
         });
@@ -196,7 +196,7 @@ dataPrepare() {
 
     this.animalService.registerAnimal(animalJSON).subscribe(data => {
 
-        //this.onUpload(this.urlImageAr);
+      this.onUpload(this.files, data.response);
 
 
         console.log('respuesta registerAnimal(data): ', data);

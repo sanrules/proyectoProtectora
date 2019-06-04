@@ -99,6 +99,7 @@ import { RegisterConfirmationAnimalComponent } from './components/admin/animals/
     NewsUpdateModal,
     UserProfileComponent,
     RegisterConfirmationAnimalComponent
+
   ],
   imports: [
     BrowserModule,
@@ -124,7 +125,8 @@ import { RegisterConfirmationAnimalComponent } from './components/admin/animals/
     LoginComponent,
     UserUpdateModalComponent,
     FormularioAnimalTypeUpdateModal,
-    FormularioAnimalBreedUpdateModal
+    FormularioAnimalBreedUpdateModal,
+    RegisterConfirmationAnimalComponent
   ]
 })
 export class AppModule {}
