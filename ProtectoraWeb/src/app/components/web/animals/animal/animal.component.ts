@@ -18,9 +18,10 @@ export class AnimalComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(parametros => {
-
+      console.log('parametros, ', parametros);
       this.animalService.getAnimalById(parametros.id).subscribe(anim => {
-        this.animal = anim;
+        console.log('anim: ', anim);
+        this.animal = anim['response'];
         console.log('animal: ', this.animal);
       });
 

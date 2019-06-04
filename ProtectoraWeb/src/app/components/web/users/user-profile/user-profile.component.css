@@ -1,0 +1,28 @@
+ngx-avatar{
+  display:inline-block;
+}
+
+.container-fluid {
+  margin: 0;
+  padding: 0;
+}
+
+.lateral {
+  height: 94vh;
+  margin-left: 0%;
+/*   background-color: #93d1fdbd;
+  opacity: 0.8; */
+}
+
+.avatar {
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+  color: gray;
+}
+
+.button {
+  width: 100%;
+}

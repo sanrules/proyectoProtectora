@@ -1,3 +1,20 @@
 .mat-form-field {
 	width: 100%;
 }
+
+.imageAside {
+	background-image: url('../../../../../assets/regformimg/profile.svg');
+	background-repeat: no-repeat;
+	overflow:hidden;
+	object-fit: contain;
+	-webkit-align-content: center;
+  align-content: center;
+}
+
+.avatarBtn{
+	width: 100%;
+}
+
+.btnRegister {
+	width: 100%;
+}

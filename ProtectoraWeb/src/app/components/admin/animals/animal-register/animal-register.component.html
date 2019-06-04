@@ -1,10 +1,10 @@
-<app-administrator-navbar></app-administrator-navbar>
+<app-administrator-navbar *ngIf="formType != 'animalUpdate'"></app-administrator-navbar>
 <div class="container">
     <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
     <div class="row">
       <div class="form-group col-md-12">
         <mat-form-field>
-          <input matInput placeholder="Nombre de Animal" type="text" formControlName="name" id="name" >
+          <input matInput placeholder="Nombre de Animal" type="text" formControlName="name" id="name" cdkFocusInitial>
           <mat-error *ngIf="registerForm.controls['name'].errors">
             Nombre de Animal requerido: min 4 caracteres.
             Mayúsculas, minúsculas, -
@@ -23,6 +23,7 @@
               Tipo de Animal requerido
             </mat-error>
         </div>
+
         <div class="form-group col-md-12">
           <mat-form-field>
             <input matInput placeholder="Raza" type="text" formControlName="breed" id="breed" >
@@ -31,8 +32,9 @@
             </mat-error>
           </mat-form-field>
         </div>
+
         <div class="form-group col-md-12">
-          
+
             <mat-radio-group aria-label="Selecciona un genero" formControlName="gender">
               <mat-radio-button value="Macho" ngDefaultControl> Macho </mat-radio-button>
               <br>
@@ -41,8 +43,34 @@
             <mat-error *ngIf="registerForm.controls['gender'].errors">
               Genero requerido
             </mat-error>
-          
+
         </div>
+
+        <div class="form-group col-md-12" *ngIf="formType != 'animalUpdate'">
+          <mat-form-field>
+            <mat-label>Tamaño de animal</mat-label>
+            <mat-select formControlName="size" >
+              <mat-option>--</mat-option>
+              <mat-option value="Pequeño">Pequeño</mat-option>
+              <mat-option value="Mediano">Mediano</mat-option>
+              <mat-option value="Grande">Grande</mat-option>
+            </mat-select>
+            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group col-md-12" *ngIf="formType == 'animalUpdate'">
+          <mat-form-field>
+            <mat-label>Tamaño de animal</mat-label>
+            <mat-select formControlName="size" >
+              <mat-option value="Pequeño">Pequeño</mat-option>
+              <mat-option value="Mediano">Mediano</mat-option>
+              <mat-option value="Grande">Grande</mat-option>
+            </mat-select>
+            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
+          </mat-form-field>
+          </div>
+
         <div class="form-group col-md-12">
           <mat-form-field>
               <input matInput [matDatepicker]="birthDate" placeholder="Fecha de Nacimiento" formControlName="birthDate">
@@ -54,7 +82,7 @@
             </mat-form-field>
         </div>
 
-        <!-- <div *ngIf="esGuardar()">
+        <div *ngIf="formType == 'animalUpdate'">
             <div class="form-group col-md-12">
                 <mat-form-field>
                     <input matInput [matDatepicker]="entranceDate" placeholder="Fecha de Entrada" formControlName="entranceDate">
@@ -65,7 +93,7 @@
                     </mat-error>
                   </mat-form-field>
               </div>
-    
+
               <div class="form-group col-md-12">
                 <mat-form-field>
                     <input matInput [matDatepicker]="adoptionDate" placeholder="Fecha de Nacimiento" formControlName="adoptionDate">
@@ -76,7 +104,7 @@
                     </mat-error>
                   </mat-form-field>
               </div>
-    
+
               <div class="form-group col-md-12">
                 <mat-radio-group aria-label="Selecciona un Estado" formControlName="status">
                   <mat-radio-button value="en adopción" ngDefaultControl> En adopción </mat-radio-button>
@@ -90,7 +118,7 @@
                 </mat-error>
             </div>
 
-        </div> -->
+        </div>
 
         <div class="form-group col-md-12">
             <mat-form-field>
@@ -100,25 +128,84 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div class="form-group col-md-12">
-                <mat-form-field>
-                  <input matInput placeholder="Imagenes" type="text" formControlName="pictures" id="pictures" >
-                  <mat-error *ngIf="registerForm.controls['pictures'].errors">
-                    Archivo tipo imagenes
-                  </mat-error>
-                </mat-form-field>
-              </div>
+
+        <!-- Subir imagenes 1-->
+        <!-- <div class="form-group col-md-12">
+          <div [fileUploadInputFor]="fileUploadQueue" class="upload-drop-zone">
+            Just drag and drop files here
+          </div>
+        
+         
+          <div style="width:100%">
+            <mat-file-upload-queue #fileUploadQueue
+              [fileAlias]="'file'"
+              [httpUrl]="'http://animalimg.s3-website.eu-west-3.amazonaws.com'" multiple>
+              <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
+            </mat-file-upload-queue>
+          </div>
         </div>
-        <div class="row">
+ -->
+        
+        <!-- Subir imagenes2 -->
+        <!-- <div class="form-group col-md-12">
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)">
+        </label>
+        
+        <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+        </div>
+ -->
+
+        <!-- Subir imagenes3 -->
+        <!-- <div class="btn" id="upload_image">Upload image</div> -->
+
+        <!-- Subir imagenes 4 -->
+        <!-- <div *ngIf="formType != 'animalUpdate'"> 
+          <div class="form-group col-mad-12" >
+            <h5>Seleccionar imagen</h5>
+            <input type="file" accept=".png, .jpg" (change)="onUpload($event)">
+          </div>
+          <input #imageAnimal type="text" formControlName="pictures" [value]="urlImage | async">
+          <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+          [style.width]="(uploadpercent | async) + '%'"></div>
+        </div> -->
+
+        <!-- -------------------------------------------------------------------------------------------------- -->
+        <div class="row" *ngIf="formType != 'animalUpdate'">
+          <div class="col-md-12">
+            <button mat-raised-button color="primary" class="avatarBtn" type="button" (click)="openInput()">Subir</button>
+            <input type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg" multiple>
+            <input formControlName="animalImgs" id="animalImgs" [value]="">
+          </div>
+            <div class="row col-md-12" *ngFor="let file of files;let i = index">Nombre: {{file.name}} {{i}} </div>
+
+          <div class="col-md-12 mt-3">
+            <mat-progress-bar mode="determinate" [value]="uploadpercent | async"></mat-progress-bar>
+          </div>
+        </div>
+
+        <input *ngIf="formType == 'animalUpdate'" type="hidden" formControlName="idAnimal" value="">
+
+        <div *ngIf="formType != 'animalUpdate'">
+          <input type="hidden" formControlName="entranceDate" id="entranceDate" value="">
+          <input type="hidden" formControlName="adoptionDate" id="adoptionDate" value="">
+          <input type="hidden" formControlName="status" id="status" value="sin adoptar">
+        </div>
+
+        <hr>
+        <div *ngIf="formType != 'animalUpdate'">
           <div class="col-md-12">
             <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Animal</button>
           </div>
         </div>
-        <!-- <input type="hidden" formControlName="idAnimal" value=""> -->
-        <div > <!-- *ngIf="esCrear()" -->
-          <input type="hidden" formControlName="entranceDate" id="entranceDate" value="">
-          <input type="hidden" formControlName="adoptionDate" id="adoptionDate" value="">
-          <input type="hidden" formControlName="status" id="status" value="sin adoptar">
+
+
+        <div class="row" *ngIf="formType == 'animalUpdate'">
+          <div class="col-md-12">
+            <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Guardar</button>
+            <button mat-raised-button color="danger" >Borrar</button>
+          </div>
+        </div>
         </div>
       </form>
   </div>

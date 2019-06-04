@@ -1,16 +1,20 @@
-import { OnInit, Component, ViewChild } from '@angular/core';
+import { OnInit, Component, ViewChild, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Type } from '../../../../_models/type.model';
 import { AnimalTypeService } from '../../../../_services/tipo-animal/animal-type-service';
 
 
 @Component({
-    selector: 'app-admin/animal-type/register',
+    selector: 'app-admin-animal-type-register',
     templateUrl: './animal-type-register.component.html',
     styleUrls: ['./animal-type-register.component.css']
   })
 
   export class AnimalTypeRegisterComponent implements OnInit {
+
+    @Input() public tipo: string;
+    @Input() public typeData: Type;
+
     registerForm: FormGroup;
     public type: Type;
     constructor(private formBuilder: FormBuilder,
@@ -23,6 +27,11 @@ import { AnimalTypeService } from '../../../../_services/tipo-animal/animal-type
       idType: ['', []],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     });
+
+    if (this.tipo == 'typeUpdate'){
+      console.log("animal: ", this.typeData);
+     this.setDatosUpdate(this.typeData);
+    }
   }
 
 
@@ -36,7 +45,7 @@ import { AnimalTypeService } from '../../../../_services/tipo-animal/animal-type
 dataPrepare() {
 
   const entranceDate = new Date();
- /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
+ 
   let formData = {
     "id": this.registerForm.get('idType').value,
     "name": this.registerForm.get('name').value.trim(),
@@ -61,6 +70,16 @@ dataPrepare() {
     }, error => {
         console.warn('Error: ', error);
     });
+  }
+
+  guardar() {
+
+    console.log('formulario: ', this.dataPrepare());
+
+  }
+  borrar() {
+
+    console.log('borrar: ');
   }
 
 

@@ -2,12 +2,15 @@
 /**
  * Obtiene todos los tipos de animales que hay en la bbdd
  */
-require_once 'AnimalType.php';
+
+require_once 'classes/AnimalType.php';
+require_once '../../vendor/autoload.php';
+
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 $logger = new Logger('getAllAnimalTypes');
-$logger->pushHandler(new StreamHandler($CFG->logFile, Logger::DEBUG));
+$logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {
     $animaltype  = new AnimalType();
@@ -32,7 +35,7 @@ if ($animaltypes != '') {
     $logger->info("Error: $error");
 }
 
-header('Content-type:application/json;charset=utf-8');
+/* header('Content-type:application/json;charset=utf-8'); */
 echo json_encode($reply, JSON_UNESCAPED_UNICODE);
 
 // LO antiguo

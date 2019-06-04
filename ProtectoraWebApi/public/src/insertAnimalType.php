@@ -2,10 +2,12 @@
 /**
  * Inserta un tipo de animal
  */
-require_once 'AnimalType.php';
+require_once 'classes/AnimalType.php';
+require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use PHPMailer\PHPMailer\Exception;
 
 $logger = new Logger('insertAnimalType');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
@@ -32,10 +34,8 @@ try {
             $animalType->insertAnimalType();
 
             echo json_encode(array("status" => "ok", "data" => $animalType), JSON_FORCE_OBJECT);
-
         }
     }
-
 } catch (Exception $e) {
     echo 'Error al registrar animalType: ' . $e->getMessage();
 }

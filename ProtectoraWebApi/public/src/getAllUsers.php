@@ -1,5 +1,6 @@
 <?php
-require_once 'User.php';
+require_once 'classes/User.php';
+require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -10,12 +11,13 @@ $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 try {
     $user  = new User();
     $users = $user->retrieveUserAll();
+    $error = '';
 } catch (Exception $e) {
     $error = 'No se han podido obtener todos los usuarios';
     $logger->error($error);
 }
 
-if ($error == '') {
+if ($users != '') {
     $reply = array(
         'status'   => 'Getted',
         'response' => $users,

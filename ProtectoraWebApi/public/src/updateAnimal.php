@@ -1,5 +1,5 @@
 <?php
-require_once 'Animal.php';
+require_once 'classes/Animal.php';
 require_once 'lib/RedBean/rb.php';
 
 use Monolog\Handler\StreamHandler;
@@ -43,7 +43,6 @@ try {
 
     $animal  = new Animal();
     $animals = $animal->retrieveAnimalAll();
-
 } catch (Exception $e) {
     $logger->error('Error al recoger todos los animales');
 }

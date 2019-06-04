@@ -1,9 +1,12 @@
 
-import { Component, OnInit ,  Inject, Input} from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit , Input , ElementRef, ViewChild} from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { AnimalService } from 'src/app/_services/animal/animal-service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Animal } from 'src/app/_models/animal.model';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { FirebaseStorageService } from '../../../../_services/firebase-upload/firebase-upload-service';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-admin-animal-register',
@@ -13,8 +16,17 @@ import { Animal } from 'src/app/_models/animal.model';
 
 export class AnimalRegisterComponent implements OnInit {
 
-  @Input() public tipo: string;
-  @Input() public userData: Animal;
+  @ViewChild('animalImg') animalImg: ElementRef;
+  @Input() public formType: string;
+  @Input() public animalData: Animal;
+
+  bucketName = 'animalimg';
+
+  files: any[];
+  uploadpercent: Observable<number>;
+  urlImage: Observable<string>;
+  urlImageAr: any[]=[];
+  selectedFiles: FileList;
   registerForm: FormGroup;
   private animal: Animal;
   public generos: any = [{
@@ -23,10 +35,14 @@ export class AnimalRegisterComponent implements OnInit {
     {
     id: 'Hembra',
     name: 'Hembra'
-    }];
+  }];
   public es: string;
+  get formArray(): AbstractControl | null { return this.registerForm.get('formArray'); }
+
   constructor(private formBuilder: FormBuilder,
-              private animalService: AnimalService) { }
+              private animalService: AnimalService,
+              private firestorage: FirebaseStorageService
+              /* private uploadService: AwsUploadService */) { }
 
   ngOnInit() {
 
@@ -38,19 +54,68 @@ export class AnimalRegisterComponent implements OnInit {
       type: ['', [Validators.required]],
       breed: ['', [Validators.required]],
       gender: ['' , [Validators.required]],
+      size: ['' , [Validators.required]],
       birthDate: ['', [Validators.required]],
       adoptionDate: ['', []],
       entranceDate: ['', []],
       status: ['en adopción', []],
-      description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
-      pictures: ['', []]
+      description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]]
+
     });
-    /* if (this.data != null ){
-      this.es = "crear";
-      console.log("animal: ", this.data);
-     this.setDatosUpdate(this.data);
-    }*/
+
+    if (this.formType == 'animalUpdate'){
+      console.log("animal: ", this.animalData);
+     this.setDatosUpdate(this.animalData);
+    }
   }
+
+  /* onUpload(e) {
+    console.log("imagen", e);
+
+    const imgId = Math.random().toString(36).substring(2);
+    const file = e.target.files[0];
+    const filePath = `animalspictures/img_${imgId}`;
+    const ref = this.firestorage.ref(filePath);
+    const task = this.firestorage.upload(filePath, file);
+
+    this.uploadpercent = task.percentageChanges();
+    task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
+    
+  } */
+
+  openInput(event) {
+    document.getElementById('imgUpload').click();
+  }
+
+  selectImage(event) {
+    const file = event.target.files;
+    this.files = file;
+  }
+
+  onUpload(images) {
+    for(let i = 0; i < images.length; i++){
+    const imgId = Math.random().toString(36).substring(2);
+    const filePath = `animalspictures/img_${imgId}`;
+    const ref = this.firestorage.ref(filePath);
+    const task = this.firestorage.upload(filePath, images[i]);
+    this.uploadpercent = task.percentageChanges();
+    console.log('ref ', ref);
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        ref.getDownloadURL().subscribe(url => {
+          console.log(url); // <-- do what ever you want with the url..
+          this.urlImageAr.push(url);
+          console.log('urls', this.urlImageAr);
+          if (i === images.length - 1)  {
+          this.urlImageAr = this.animal.pictures;
+          }
+        });
+      })).subscribe();
+    }
+  }
+  /* this.formArray.get([3]).get('animalImgs').setValue(URL); */
+
+
 
   public spararFechaYHora(fecha) {
     let arrayFechaYHora = fecha.split(" ");
@@ -66,12 +131,13 @@ export class AnimalRegisterComponent implements OnInit {
     this.registerForm.get('type').setValue(data.type);
     this.registerForm.get('breed').setValue(data.breed);
     this.registerForm.get('gender').setValue(data.gender);
+    this.registerForm.get('size').setValue(data.size);
     this.registerForm.get('birthDate').setValue(this.spararFechaYHora(data.birth_date));
     this.registerForm.get('adoptionDate').setValue(data.adoption_date);
     this.registerForm.get('entranceDate').setValue(this.spararFechaYHora(data.entrance_date));
     this.registerForm.get('status').setValue(data.status);
     this.registerForm.get('description').setValue(data.description);
-    this.registerForm.get('pictures').setValue(data.pictures);
+    this.registerForm.get('animalImgs').setValue(data.pictures);
 
 }
 
@@ -82,7 +148,6 @@ dateToTimestamp(date) {
   const day = date.getDate();
 
   date = Date.UTC(year, month, day, 0, 0, 0);
-  console.log('date: ', date);
 
   return date;
 }
@@ -97,12 +162,13 @@ dataPrepare() {
     "type": this.registerForm.get('type').value.trim(),
     "breed": this.registerForm.get('breed').value.trim(),
     "gender": this.registerForm.get('gender').value.trim(),
+    "size": this.registerForm.get('size').value.trim(),
     "birthDate": this.dateToTimestamp(this.registerForm.get('birthDate').value),
     "entranceDate": this.dateToTimestamp(entranceDate),
     "adoptionDate": this.dateToTimestamp(entranceDate) ,
     "status": this.registerForm.get('status').value,
     "description": this.registerForm.get('description').value.trim(),
-    "pictures":  this.registerForm.get('pictures').value,
+    "pictures": "",
   };
 
   return formData;
@@ -110,7 +176,9 @@ dataPrepare() {
 }
 
   registerSubmit() {
+
     console.log('Entra en registerSubmit()');
+    console.log('imagen url', this.animalImg);
 
     this.animal = this.dataPrepare();
     console.log(this.animal);
@@ -119,9 +187,9 @@ dataPrepare() {
     console.log('Conversión JSON: ', animalJSON);
 
     this.animalService.registerAnimal(animalJSON).subscribe(data => {
-        // this.datosResultado = this.datosCliente.getClientes();
-        //this.formCliente.reset();
-        //this.toastr.success('Cliente dado de alta');
+
+        this.onUpload(this.urlImageAr);
+        
         this.limpiarForm();
         console.log('respuesta registerAnimal(data): ', data);
     }, error => {
@@ -130,10 +198,8 @@ dataPrepare() {
   }
 
   public limpiarForm() {
-    this.registerForm.markAsUntouched();
-    this.registerForm.reset();
+    /* this.registerForm.markAsUntouched();
+    this.registerForm.reset(); */
    /*  this.formBuilder.resetForm(); */
   }
-
-
 }

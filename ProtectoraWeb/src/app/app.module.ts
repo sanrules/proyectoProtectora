@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from '../environments/environment';
+// Componentes Core
+import { AppComponent } from './app.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 // Formulario
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,9 +14,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Material
 import { MaterialModule } from './material.module';
 
-// Componentes Core
-import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/shared/navbar/navbar.component';
+// Firebase
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireModule } from '@angular/fire';
+
+// Avatar
+import { AvatarModule } from 'ngx-avatar';
 
 // Componentes Web
 // Auth
@@ -21,35 +28,44 @@ import { LoginComponent } from './components/web/auth/login/login.component';
 // User
 import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
 import { RegisterConfirmationComponent } from './components/web/auth/register/register-confirmation/register-confirmation.component';
+import { UserProfileComponent } from './components/web/users/user-profile/user-profile.component';
 // Animal
 import { AnimalListComponent } from './components/web/animals/animal-list/animal-list.component';
 import { AnimalComponent } from './components/web/animals/animal/animal.component';
 import { AnimalCardComponent } from './components/web/animals/animal-card/animal-card.component';
 
+
 // Componentes Admin
 import { AdministratorNavbarComponent } from './components/admin/navbar/administrator-navbar.component';
 // User
-import { UserManagementComponent } from './components/admin/users/user-management/user-management.component';
 import { AdminUserRegisterComponent } from './components/admin/users/user-register/admin-user-register.component';
+import { UserManagementComponent } from './components/admin/users/user-management/user-management.component';
 import { UserUpdateModalComponent } from './components/admin/users/user-management/user-update-modal/user-update-modal.component';
 // Animals
-import { AnimalManagementComponent } from './components/admin/animals/animal-management/animal-management.component';
 import { AnimalRegisterComponent } from './components/admin/animals/animal-register/animal-register.component';
-import { AnimalTypeManagementComponent } from './components/admin/animal-type/animal-type-management/animal-type-management.component';
+import { AnimalManagementComponent } from './components/admin/animals/animal-management/animal-management.component';
+// tslint:disable-next-line: max-line-length
+import { FormularioAnimalModal } from './components/admin/animals/animal-management/formulario-animal-modal/formulario-animal-modal.component';
+// Tipo de animal
 import { AnimalTypeRegisterComponent } from './components/admin/animal-type/animal-type-register/animal-type-register.component';
+import { AnimalTypeManagementComponent } from './components/admin/animal-type/animal-type-management/animal-type-management.component';
+// tslint:disable-next-line: max-line-length
+import { FormularioAnimalTypeUpdateModal } from './components/admin/animal-type/animal-type-management/animal-type-update-modal/animal-type-update-modal.component';
+// Raza
 import { AnimalBreedRegisterComponent } from './components/admin/animal-breed/animal-breed-register/animal-breed-register.component';
 import { AnimalBreedManagementComponent } from './components/admin/animal-breed/animal-breed-management/animal-breed-management.component';
 // tslint:disable-next-line: max-line-length
 import { FormularioAnimalBreedUpdateModal } from './components/admin/animal-breed/animal-breed-management/animal-breed-update-modal/animal-breed-update-modal.component';
-// tslint:disable-next-line: max-line-length
-import { FormularioAnimalTypeUpdateModal } from './components/admin/animal-type/animal-type-management/animal-type-update-modal/animal-type-update-modal.component';
+// Noticias
+import { NewsManagementComponent } from './components/admin/news/news-mangement/news-management.component';
+import { NewsRegisterComponent } from './components/admin/news/news-register/news-register.component';
+import { NewsUpdateModal } from './components/admin/news/news-mangement/news-modal/news-modal.component';
 
 // Componentes Shared
-import { UserFormComponent } from './components/shared/forms/user/user-form.component';
-import { AnimalFormComponent } from './components/shared/forms/animal/animal-form.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
-import { FormularioAnimalModal } from './components/admin/animals/animal-management/formulario-animal-modal/formulario-animal-modal.component';
+import { AutofocusDirective } from './_directives/autofocus.directive';
+
 
 
 @NgModule({
@@ -62,8 +78,6 @@ import { FormularioAnimalModal } from './components/admin/animals/animal-managem
     AdministratorNavbarComponent,
     AdminUserRegisterComponent,
     UserManagementComponent,
-    AnimalFormComponent,
-    UserFormComponent,
     UserUpdateModalComponent,
     AnimalListComponent,
     AnimalComponent,
@@ -77,7 +91,12 @@ import { FormularioAnimalModal } from './components/admin/animals/animal-managem
     AnimalBreedManagementComponent,
     FormularioAnimalBreedUpdateModal,
     FormularioAnimalTypeUpdateModal,
-    FormularioAnimalModal
+    FormularioAnimalModal,
+    AutofocusDirective,
+    NewsManagementComponent,
+    NewsRegisterComponent,
+    NewsUpdateModal,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +105,10 @@ import { FormularioAnimalModal } from './components/admin/animals/animal-managem
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
+    AvatarModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

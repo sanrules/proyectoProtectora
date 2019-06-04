@@ -10,16 +10,24 @@
         <a class="nav-link" routerLink="home">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="registro">Registro Usuarios</a>
+        <a class="nav-link" routerLink="user/register">Registro Usuarios <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="animals/list">Lista de animales</a>
+        <a class="nav-link" routerLink="animals/list">Lista de animales <span class="sr-only">(current)</span></a>
       </li>
-      <li *ngIf="isAdmin" class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="admin/user/register">Administrador</a>
+      <li *ngIf="connectAdmin()" class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="admin/user/register">Administrador <span class="sr-only">(current)</span></a>
       </li>
     </ul>
-    <button *ngIf="!currentUser" mat-raised-button color="primary" (click)="openDialog()">Acceder</button>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active" *ngIf="isLogOut()">
+        <a class="nav-link" [routerLink]="['user/profile', user]">Perfil <span class="sr-only">(current)</span></a>
+      </li>
+      <li>
+        <button *ngIf="!isLogOut()" mat-raised-button color="primary" (click)="openDialog()">Acceder</button>
+        <button *ngIf="isLogOut()" mat-raised-button color="primary" (click)="logOut()">Salir</button>
+      </li>
+    </ul>
 
   </div>
 </nav>

@@ -8,30 +8,31 @@ include 'lib/ChromePhp.php';
 // ! configuración para xampp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
-class AnimalType
+class AnimalBreed
 {
-    public $_id   = '';
-    public $_name = '';
+    private $_id     = '';
+    private $_idtype = '';
+    private $_name   = '';
 
     public function __construct()
     {
 
     }
 
-    public function createAnimalType($_name)
+    public function createAnimalBreed($_name, $_idtype)
     {
-        $this->_name = $_name;
-
+        $this->_name   = $_name;
+        $this->_idtype = $_idtype;
     }
 
-    public function insertAnimalType()
+    public function insertAnimalBreed()
     {
-        $animalType = R::dispense('animaltype');
+        $animalBreed = R::dispense('animalbreed');
 
-        $animalType->name = $this->_name;
+        $animalBreed->name   = $this->_name;
+        $animalBreed->idtype = $this->_idtype;
 
-        $id = R::store($animalType);
-
+        $id        = R::store($animalBreed);
         $this->_id = $id;
     }
 
@@ -40,22 +41,22 @@ class AnimalType
  * @param int $id ID del animal
  * @return Animal $animal animal recogido de la base de datos
  */
-    public function retrieveAnimalType($id)
+    public function retrieveAnimalBreed($id)
     {
-        $animalType = R::load('animaltype', $id);
+        $animalBreed = R::load('animalbreed', $id);
 
-        return $animalType;
+        return $animalBreed;
     }
 
 /**
  * Obtiene todos los animales de la base de datos
  * @return Array $animals array de Animal multidimensional recogido de la base de datos
  */
-    public function retrieveAnimalTypesAll()
+    public function retrieveAnimalBreedsAll()
     {
-        $animalTypes = R::getAll('select * from animaltype');
+        $animalBreeds = R::getAll('select * from animalbreed');
 
-        return $animalTypes;
+        return $animalBreeds;
     }
 
 /**
@@ -84,21 +85,21 @@ class AnimalType
  * @param int $id ID del animal
  * @param Animal $updated_animal animal con los datos actualizados
  */
-    public function updateAnimalType($id, $updated_animalType)
+    public function updateAnimalBreed($id, $updated_animalBreed)
     {
-        $old_animalType = R::load('animaltype', $id);
-        $old_animalType = $updated_animalType;
+        $old_animalBreed = R::load('animalbreed', $id);
+        $old_animalBreed = $updated_animalBreed;
 
-        R::store($old_animalType);
+        R::store($old_animalBreed);
     }
 
 /**
  * Borra un animal de la base de datos
  * @param Animal $animal animal a borrar
  */
-    public function deleteAnimalType($animalType)
+    public function deleteAnimalBreed($animalBreed)
     {
-        R::trash($animalType);
+        R::trash($animalBreed);
     }
 
     /**
@@ -128,9 +129,29 @@ class AnimalType
      *
      * @return  self
      */
-    public function set_id($_id)
+    public function set_id($_idtype)
     {
-        $this->_id = $_id;
+        $this->_idtype = $_idtype;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _idUser
+     */
+    public function get_idType()
+    {
+        return $this->_idtype;
+    }
+
+    /**
+     * Set the value of _id
+     *
+     * @return  self
+     */
+    public function set_idType($_idtype)
+    {
+        $this->_idtype = $_idtype;
 
         return $this;
     }

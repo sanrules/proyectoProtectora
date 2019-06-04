@@ -1,7 +1,5 @@
 <?php
-
-include 'lib/ChromePhp.php';
-require_once 'User.php';
+require_once 'classes/User.php';
 require_once '../../vendor/autoload.php';
 include_once 'lib/jwt_config.php';
 use Monolog\Handler\StreamHandler;
@@ -22,8 +20,6 @@ if ($request) {
     $user = new User();
 
     $user = $user = R::findOne('user', 'email=?', [$email]);
-
-    ChromePhp::log('user: ', $user->id);
 
     if ($user && password_verify($password, $user->password)) {
         $token = array(
@@ -54,5 +50,4 @@ if ($request) {
         // tell the user login failed
         echo json_encode(array("message" => "Usuario o contraseña inválidos."));
     }
-
 }

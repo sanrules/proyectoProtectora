@@ -26,14 +26,14 @@ export class UserManagementComponent implements OnInit {
   dataSource = new MatTableDataSource(this.users);
 
   constructor(
-                private userService: UserService,
-                private dialog: MatDialog
+              private userService: UserService,
+              private dialog: MatDialog
              ) { }
 
   ngOnInit() {
     // Se recuperan los datos de todos los usuarios para enviarlos a la tabla
     this.users = this.userService.getUsers().subscribe(data => {
-      this.dataSource.data = data as User[];
+      this.dataSource.data = data.response as User[];
       console.log('datasource: ', this.dataSource.data);
       },
       error => {
@@ -58,6 +58,7 @@ export class UserManagementComponent implements OnInit {
     dialogConfig.height = '80%';
     dialogConfig.width = '80%';
     dialogConfig.data = users;
+    dialogConfig.autoFocus = false;
     this.dialog.open(UserUpdateModalComponent, dialogConfig);
   }
 

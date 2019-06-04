@@ -1,5 +1,5 @@
 <?php
-require_once 'Animal.php';
+require_once 'classes/Animal.php';
 require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
@@ -9,11 +9,13 @@ $logger = new Logger('getAllAnimals');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {
+
     $animal  = new Animal();
     $animals = $animal->retrieveAnimalAll();
-
+    $error = '';
 } catch (Exception $e) {
-    $logger->error('Error al recoger todos los animales');
+    $error = 'No se han podido obtener todos los animales';
+    $logger->error($error);
 }
 
 if ($animals != '') {
@@ -31,10 +33,5 @@ if ($animals != '') {
     $logger->info("Error: $error");
 }
 
-// header('Content-type:application/json;charset=utf-8');
 echo json_encode($reply, JSON_UNESCAPED_UNICODE);
-
-// Lo antiguo
-// echo json_encode($animals, JSON_UNESCAPED_UNICODE);
-// // echo json_encode($animals);
-// // header('Content-Type: application/json');
+// header('Content-Type: application/json');
