@@ -10,23 +10,30 @@ import { User } from 'src/app/_models/user.model';
 })
 export class UserProfileComponent implements OnInit {
 
-  user: User;
+  public user: User;
+  public userData: User;
+  page: string;
 
   constructor(private route: ActivatedRoute,
               private userService: UserService) { }
 
   ngOnInit() {
 
-    this.route.params.subscribe(userId => {
-      console.log('parametros, ', userId);
-      this.userService.getuserById(userId).subscribe(user => {
-        console.log('user: ', user);
-        this.user = user['response'];
-        console.log('animal: ', this.user);
+    this.route.params.subscribe(param => {
+      console.log('param: ', param);
+      this.userService.getuserById(param.id).subscribe(userGet => {
+        console.log('resp: ', userGet);
+        this.user = userGet['response'];
+        this.userData = this.user;
+        console.log('user: ', this.user);
+        console.log('userDataProfile: ', this.userData);
       });
-
     });
 
+  }
+
+  loadPage(pageParam: string) {
+    this.page = pageParam;
   }
 
 }

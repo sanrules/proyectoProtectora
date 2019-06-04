@@ -29,6 +29,8 @@ import { LoginComponent } from './components/web/auth/login/login.component';
 import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
 import { RegisterConfirmationComponent } from './components/web/auth/register/register-confirmation/register-confirmation.component';
 import { UserProfileComponent } from './components/web/users/user-profile/user-profile.component';
+import { UserUpdateComponent } from './components/web/users/user-profile/user-update/user-update.component';
+import { AdoptedAnimalsComponent } from './components/web/users/user-profile/adopted-animals/adopted-animals.component';
 // Animal
 import { AnimalListComponent } from './components/web/animals/animal-list/animal-list.component';
 import { AnimalComponent } from './components/web/animals/animal/animal.component';
@@ -65,6 +67,7 @@ import { NewsUpdateModal } from './components/admin/news/news-mangement/news-mod
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { AutofocusDirective } from './_directives/autofocus.directive';
+
 import { RegisterConfirmationAnimalComponent } from './components/admin/animals/animal-register/register-confirmation-animal/register-confirmation-animal.component';
 
 
@@ -98,6 +101,8 @@ import { RegisterConfirmationAnimalComponent } from './components/admin/animals/
     NewsRegisterComponent,
     NewsUpdateModal,
     UserProfileComponent,
+    UserUpdateComponent,
+    AdoptedAnimalsComponent,
     RegisterConfirmationAnimalComponent
 
   ],

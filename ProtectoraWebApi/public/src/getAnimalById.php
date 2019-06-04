@@ -1,4 +1,7 @@
 <?php
+/**
+ * Obtiene un animal por su id
+ */
 require_once 'classes/Animal.php';
 require_once '../../vendor/autoload.php';
 
@@ -8,14 +11,13 @@ use Monolog\Logger;
 $logger = new Logger('getAnimalById');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
-
 try {
     $postdata = file_get_contents("php://input");
-    $request = json_decode($postdata, true);
+    $request  = json_decode($postdata, true);
     if ($request) {
         $animal    = new Animal();
         $animalGet = $animal->retrieveAnimal($request);
-        $error = '';
+        $error     = '';
         // echo json_encode($animalGet, JSON_UNESCAPED_UNICODE);
     }
 } catch (Exception $e) {

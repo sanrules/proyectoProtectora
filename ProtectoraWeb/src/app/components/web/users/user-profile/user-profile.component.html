@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2 lateral">
+    <div class="col-md-3 mr-0 pr-0 lateral">
       <div class="row mt-5">
         <div class="col-md-12 avatar">
           <ngx-avatar 
@@ -17,17 +17,20 @@
       </div>
       <div class="row ml-1 mr-1 mb-2">
         <div class="col-md-12">
-          <button mat-raised-button color="primary" class="button">Modificar Datos</button>
+          <button mat-raised-button color="primary" class="button" (click)="loadPage('userUpdate')">Modificar Datos</button>
         </div>
       </div>
       <div class="row ml-1 mr-1">
         <div class="col-md-12">
-          <button mat-raised-button color="warn" class="button">Tus animales</button>
+          <button mat-raised-button color="warn" class="button" (click)="loadPage('myAnimals')">Tus animales</button>
         </div>
       </div>
     </div>
-    <div class="col-md-10 w-100 mt-5">
-       
+    <div class="col-md-9 w-100 mt-5" *ngIf="page === 'userUpdate'; else myAnimals">
+      <app-user-update [userData]="user"></app-user-update>
     </div>
+    <ng-template #myAnimals>
+      Please friend, login.
+    </ng-template>
   </div>  
 </div>
