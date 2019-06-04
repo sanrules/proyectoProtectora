@@ -1,4 +1,7 @@
 <?php
+/**
+ * Obtiene un animal por su id
+ */
 require_once 'Animal.php';
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;

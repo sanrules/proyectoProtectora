@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Inserta un tipo de animal
+ */
 require_once 'AnimalType.php';
 
 use Monolog\Handler\StreamHandler;
@@ -21,7 +23,7 @@ try {
 
         /*    $pictures      = filter_var($request['pictures'], FILTER_REQUIRE_ARRAY) ? $request['pictures'] : ''; // Las imágenes tendrán que venir en un array */
 
-// Comprobamos que todo viene con datos. Si no, se devolverá al formulario
+        // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($name != '') {
 
             $animalType = new AnimalType();
