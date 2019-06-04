@@ -130,13 +130,16 @@ class Animal
         R::store($oldAnimal);
     }
 
-    public function updateImages($id, $Images)
+    public function updateImages($id, $animalImage)
     {
-        
-        $animal = R::findOne('animal', 'id=?', [$id]);
+        $animal = R::load('animal', $id);
+
         $images = R::dispense('images');
-        $images->pictures      = $Images;
-        $animal->picturesArray[] = $images;
+        $images->image = $animalImage;
+        
+        $animal->ownImagesList[] = $images;
+        
+
         R::store($animal);
     }
 

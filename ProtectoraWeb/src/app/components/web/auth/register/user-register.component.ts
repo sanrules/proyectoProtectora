@@ -177,6 +177,9 @@ export class UserRegisterComponent  implements OnInit {
   }
 
   openDialog() {
+
+
+    
     this.confirmMessage =
       'Su registro se ha completado correctamente, en breves momentos recibirá un correo electrónico para completarlo.';
 

@@ -13,21 +13,22 @@ $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 try {
     $postdata = file_get_contents("php://input");
     $request  = json_decode($postdata, true);
-    ChromePhp::log("imagenes",$postdata);
+    ChromePhp::log("request",$request);
     if ($request) {
+        
         $id        = filter_var($request['id'], FILTER_SANITIZE_NUMBER_INT);
-        $Images    = filter_var($request['images']);
-
+        $images    = $request['images'];
 
         if ($id != '' ) {
 
             $animal = new Animal();
-            $animal->updateImages($id, $Images);
-
+            foreach ($images as $image) {
+                $animal->updateImages($id, $image);
+            }
 
             $reply = array(
                 'status'   => 'OK',
-                'response' => $Images,
+                'response' => $images,
             );
             http_response_code(200); // 200 OK
 

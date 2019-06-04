@@ -97,24 +97,25 @@ export class AnimalRegisterComponent implements OnInit {
   }
 
   onUpload(images, id) {
-    for(let i = 0; i < images.length; i++){
-    const imgId = Math.random().toString(36).substring(2);
-    const filePath = `animalspictures/${id}/img_${imgId}`;
-    const ref = this.firestorage.ref(filePath);
-    const task = this.firestorage.upload(filePath, images[i]);
-    this.uploadpercent = task.percentageChanges();
-    console.log('ref ', ref);
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        ref.getDownloadURL().subscribe(url => {
-          console.log(url); // <-- do what ever you want with the url..
-          this.urlImageAr.push(url);
-          console.log('urls', this.urlImageAr);
-          if (i == (images.length - 1))  {
-          this.subirImagenes(id, this.urlImageAr);
-          }
-        });
-      })).subscribe();
+    this.urlImageAr = [];
+    for (let i = 0; i < images.length; i++){
+      const imgId = Math.random().toString(36).substring(2);
+      const filePath = `animalspictures/${id}/img_${imgId}`;
+      const ref = this.firestorage.ref(filePath);
+      const task = this.firestorage.upload(filePath, images[i]);
+      this.uploadpercent = task.percentageChanges();
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          ref.getDownloadURL().subscribe(url => {
+
+            this.urlImageAr.push(url);
+            console.log('urls', this.urlImageAr);
+            if (i == (images.length - 1 ))  {
+              console.log('entra en el subir imagenes')
+              this.subirImagenes(id, this.urlImageAr);
+            }
+          });
+        })).subscribe();
     }
   }
   /* this.formArray.get([3]).get('animalImgs').setValue(URL); */
@@ -206,9 +207,14 @@ dataPrepare() {
   }
 
   openDialog() {
+
+    if (this.formType === 'animalUpdate') {
+      this.confirmMessage =
+      'La actualización se ha completado correctamente.';
+    } else {
     this.confirmMessage =
       'El registro de animal se ha completado correctamente.';
-
+    }
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = false;
