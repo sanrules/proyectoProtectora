@@ -4,7 +4,6 @@ import {
   HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/_models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +23,7 @@ export class UserService {
   }
 
   // Solicita a la API el usuario que se le manda por parámetro
-  getuserById(id) {
+  getuserById(id): Observable<any> {
     return this.http.post(`${this.baseURL}/userGetById.php`, id, this.httpOptions);
   }
 

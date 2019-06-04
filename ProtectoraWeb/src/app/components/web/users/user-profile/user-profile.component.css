@@ -3,12 +3,16 @@ ngx-avatar{
 }
 
 .container-fluid {
-  margin: 0;
-  padding: 0;
+  margin: 0%;
+  padding: 0%;
+}
+
+.principal {
+  width: 95%;
 }
 
 .lateral {
-  height: 94vh;
+  height: 90vh;
   margin-left: 0%;
 /*   background-color: #93d1fdbd;
   opacity: 0.8; */
@@ -24,5 +28,5 @@ ngx-avatar{
 }
 
 .button {
-  width: 100%;
+  width: 80%;
 }

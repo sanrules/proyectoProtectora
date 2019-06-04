@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../_services/user/user-service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/_models/user.model';
@@ -20,13 +20,9 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
 
     this.route.params.subscribe(param => {
-      console.log('param: ', param);
       this.userService.getuserById(param.id).subscribe(userGet => {
-        console.log('resp: ', userGet);
         this.user = userGet['response'];
         this.userData = this.user;
-        console.log('user: ', this.user);
-        console.log('userDataProfile: ', this.userData);
       });
     });
 

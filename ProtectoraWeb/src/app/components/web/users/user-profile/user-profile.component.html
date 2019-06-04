@@ -1,10 +1,10 @@
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid padding-blank margin-blank" *ngIf="user">
+  <div class="row principal">
     <div class="col-md-3 mr-0 pr-0 lateral">
-      <div class="row mt-5">
-        <div class="col-md-12 avatar">
+      <div class="row mt-3">
+        <div class="col-md-12 avatar pr-0">
           <ngx-avatar 
-            src="https://firebasestorage.googleapis.com/v0/b/protectoraweb-4cb74.appspot.com/o/profileavatars%2F1%2Favatar.svg?alt=media&token=53d8ed1c-be39-467a-b4df-85181dd6c90b" 
+            [src]="user.avatar" 
             size="100" 
             [round]="true" borderColor="#000">
           </ngx-avatar>
@@ -12,25 +12,25 @@
       </div>
       <div class="row">
         <div class="col-md-12 title">
-          <h3>Administrador</h3>
+          <h3>{{user.username}}</h3>
         </div>
       </div>
-      <div class="row ml-1 mr-1 mb-2">
-        <div class="col-md-12">
+      <div class="row mx1 mb-2">
+        <div class="col-md-12 text-center mx-0">
           <button mat-raised-button color="primary" class="button" (click)="loadPage('userUpdate')">Modificar Datos</button>
         </div>
       </div>
-      <div class="row ml-1 mr-1">
-        <div class="col-md-12">
+      <div class="row mx1">
+        <div class="col-md-12 text-center">
           <button mat-raised-button color="warn" class="button" (click)="loadPage('myAnimals')">Tus animales</button>
         </div>
       </div>
     </div>
-    <div class="col-md-9 w-100 mt-5" *ngIf="page === 'userUpdate'; else myAnimals">
+    <div class="col-md-8 mx-0 px-0 w-70" *ngIf="page === 'userUpdate'; else myAnimals">
       <app-user-update [userData]="user"></app-user-update>
     </div>
     <ng-template #myAnimals>
-      Please friend, login.
+        <app-adopted-animals></app-adopted-animals>
     </ng-template>
   </div>  
 </div>

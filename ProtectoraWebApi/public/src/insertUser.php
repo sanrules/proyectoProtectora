@@ -14,23 +14,23 @@ try {
     $request  = json_decode($postdata, true);
 
     if ($request) {
-        $username   = filter_var($request['userName'], FILTER_SANITIZE_STRING);
+        $username   = filter_var($request['username'], FILTER_SANITIZE_STRING);
         $password   = filter_var($request['password'], FILTER_SANITIZE_STRING);
         $email      = filter_var($request['email'], FILTER_SANITIZE_STRING);
         $name       = filter_var($request['name'], FILTER_SANITIZE_STRING);
         $surname    = filter_var($request['surname'], FILTER_SANITIZE_STRING);
         $dni        = filter_var($request['dni'], FILTER_SANITIZE_STRING);
         $phone      = filter_var($request['phone'], FILTER_SANITIZE_NUMBER_INT);
-        $birthDate  = filter_var($request['birthDate'], FILTER_SANITIZE_NUMBER_INT) / 1000;
+        $birthDate  = filter_var($request['birth_date'], FILTER_SANITIZE_NUMBER_INT) / 1000;
         $street     = filter_var($request['street'], FILTER_SANITIZE_STRING);
         $number     = filter_var($request['number'], FILTER_SANITIZE_NUMBER_INT);
         $portal     = filter_var($request['portal'], FILTER_SANITIZE_STRING);
         $floor      = filter_var($request['floor'], FILTER_SANITIZE_NUMBER_INT);
         $door       = filter_var($request['door'], FILTER_SANITIZE_STRING); // String provisionalmente
-        $province   = filter_var($request['city'], FILTER_SANITIZE_STRING);
+        $province   = filter_var($request['province'], FILTER_SANITIZE_STRING);
         $city       = filter_var($request['city'], FILTER_SANITIZE_STRING);
-        $postalCode = filter_var($request['postalCode'], FILTER_SANITIZE_NUMBER_INT);
-        $userType   = filter_var($request['userType'], FILTER_SANITIZE_STRING); // String provisionalmente
+        $postalCode = filter_var($request['postal_code'], FILTER_SANITIZE_NUMBER_INT);
+        $userType   = filter_var($request['user_type'], FILTER_SANITIZE_STRING); // String provisionalmente
         $avatar = $request['avatar'];
 
         // TODO VALIDACIÓN DE LOS ÚLTIMOS CAMPOS
