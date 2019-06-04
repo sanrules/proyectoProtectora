@@ -188,9 +188,9 @@ dataPrepare() {
 
     this.animalService.registerAnimal(animalJSON).subscribe(data => {
 
-        this.onUpload(this.urlImageAr);
-        
-        this.limpiarForm();
+        //this.onUpload(this.urlImageAr);
+
+
         console.log('respuesta registerAnimal(data): ', data);
     }, error => {
         console.warn('Error: ', error);
