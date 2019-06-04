@@ -186,6 +186,21 @@ class Animal
     public function getSpecificAnimal($params)
     {}
 
+    /**
+     * Marca un animal como adoptado y le asigna un usuario.
+     *
+     * @param User $user usuario adoptante
+     */
+    public function adoptAnimal($user)
+    {
+        $animal         = R::findOne('animal', 'id=?', $this->getId());
+        $animal->idUser = $user->getId();
+        $animal->status = 'adopted';
+
+        R:store($animal);
+    }
+    // TODO
+
     /*
      *** GETTERS Y SETTERS
      */
