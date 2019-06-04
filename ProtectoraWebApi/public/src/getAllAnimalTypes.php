@@ -1,4 +1,7 @@
 <?php
+/**
+ * Obtiene todos los tipos de animales que hay en la bbdd
+ */
 
 require_once 'classes/AnimalType.php';
 require_once '../../vendor/autoload.php';

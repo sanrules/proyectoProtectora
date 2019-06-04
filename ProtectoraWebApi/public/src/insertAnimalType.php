@@ -1,11 +1,13 @@
 <?php
-
+/**
+ * Inserta un tipo de animal
+ */
 require_once 'classes/AnimalType.php';
 require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
-use PHPMailer\PHPMailer\Exception;
 use Monolog\Logger;
+use PHPMailer\PHPMailer\Exception;
 
 $logger = new Logger('insertAnimalType');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));

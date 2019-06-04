@@ -48,7 +48,7 @@ try {
             if ($animal != '') {
                 $reply = array(
                     'status'   => 'Created',
-                    'response' => $animal,
+                    'response' => $animal=>getId(),
                 );
                 http_response_code(200); // 200 OK
             } else {

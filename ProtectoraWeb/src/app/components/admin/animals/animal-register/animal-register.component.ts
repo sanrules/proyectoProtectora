@@ -7,6 +7,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FirebaseStorageService } from '../../../../_services/firebase-upload/firebase-upload-service';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { RegisterConfirmationAnimalComponent } from './register-confirmation-animal/register-confirmation-animal.component';
 
 @Component({
   selector: 'app-admin-animal-register',
@@ -24,8 +26,9 @@ export class AnimalRegisterComponent implements OnInit {
 
   files: any[];
   uploadpercent: Observable<number>;
+  confirmMessage: string;
   urlImage: Observable<string>;
-  urlImageAr: any[] = [];
+  urlImageAr: any[]=[];
   selectedFiles: FileList;
   registerForm: FormGroup;
   private animal: Animal;
@@ -41,7 +44,8 @@ export class AnimalRegisterComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private animalService: AnimalService,
-              private firestorage: FirebaseStorageService
+              private firestorage: FirebaseStorageService,
+              private dialog: MatDialog
               /* private uploadService: AwsUploadService */) { }
 
   ngOnInit() {
@@ -59,13 +63,13 @@ export class AnimalRegisterComponent implements OnInit {
       adoptionDate: ['', []],
       entranceDate: ['', []],
       status: ['en adopción', []],
-      description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
-      // animalImgs: ['', []]
+      description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]]
+
     });
 
-    if (this.formType == 'animalUpdate') {
-      console.log('animal: ', this.animalData);
-      this.setDatosUpdate(this.animalData);
+    if (this.formType == 'animalUpdate'){
+      console.log("animal: ", this.animalData);
+     this.setDatosUpdate(this.animalData);
     }
   }
 
@@ -80,6 +84,7 @@ export class AnimalRegisterComponent implements OnInit {
 
     this.uploadpercent = task.percentageChanges();
     task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
+
   } */
 
   openInput(event) {
@@ -91,37 +96,41 @@ export class AnimalRegisterComponent implements OnInit {
     this.files = file;
   }
 
-  onUpload(images) {
-    for (let i = 0; i < images.length; i++) {
-
-      const imgId = Math.random().toString(36).substring(2);
-      const filePath = `animalspictures/img_${imgId}`;
-      const ref = this.firestorage.ref(filePath);
-      const task = this.firestorage.upload(filePath, images[i]);
-
-      this.uploadpercent = task.percentageChanges();
-
-      task.snapshotChanges().pipe(
-        finalize(() => {
-          ref.getDownloadURL().subscribe(url => {
-            console.log(url); // <-- do what ever you want with the url..
-            this.urlImageAr.push(url);
-            console.log('urls', this.urlImageAr);
-            if (i === images.length - 1)  {
-              this.animal.pictures = this.urlImageAr;
+  onUpload(images, id) {
+    for(let i = 0; i < images.length; i++){
+    const imgId = Math.random().toString(36).substring(2);
+    const filePath = `animalspictures/img_${imgId}`;
+    const ref = this.firestorage.ref(filePath);
+    const task = this.firestorage.upload(filePath, images[i]);
+    this.uploadpercent = task.percentageChanges();
+    console.log('ref ', ref);
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        ref.getDownloadURL().subscribe(url => {
+          console.log(url); // <-- do what ever you want with the url..
+          this.urlImageAr.push(url);
+          console.log('urls', this.urlImageAr);
+          if (i === images.length - 1)  {
+          this.subirImagenes(id, this.urlImageAr);
           }
         });
       })).subscribe();
     }
   }
   /* this.formArray.get([3]).get('animalImgs').setValue(URL); */
-
+  public subirImagenes(id: number, arrayImages) {
+    this.animalService.uploadImages(id, arrayImages ).subscribe(() => {
+      this.openDialog();
+    }, error => {
+        console.log('Error: ', error);
+    });
+  }
 
 
   public spararFechaYHora(fecha) {
-    let arrayFechaYHora = fecha.split(' ');
-    let arrayfecha = arrayFechaYHora[0].split('-');
-    fecha = new Date(arrayfecha[0], (arrayfecha[1] - 1), arrayfecha[2]);
+    let arrayFechaYHora = fecha.split(" ");
+    let arrayfecha = arrayFechaYHora[0].split("-");
+    fecha = new Date(arrayfecha[0],(arrayfecha[1]-1),arrayfecha[2]);
     return fecha;
   }
 
@@ -169,7 +178,7 @@ dataPrepare() {
     "adoptionDate": this.dateToTimestamp(entranceDate) ,
     "status": this.registerForm.get('status').value,
     "description": this.registerForm.get('description').value.trim(),
-    "pictures": '',
+    "pictures": "",
   };
 
   return formData;
@@ -179,8 +188,6 @@ dataPrepare() {
   registerSubmit() {
 
     console.log('Entra en registerSubmit()');
-    console.log('imagen url', this.animalImg);
-
     this.animal = this.dataPrepare();
     console.log(this.animal);
     delete this.animal.idAnimal;
@@ -189,18 +196,25 @@ dataPrepare() {
 
     this.animalService.registerAnimal(animalJSON).subscribe(data => {
 
-        this.onUpload(this.files);
+        //this.onUpload(this.urlImageAr);
 
-        this.limpiarForm();
+
         console.log('respuesta registerAnimal(data): ', data);
     }, error => {
         console.warn('Error: ', error);
     });
   }
 
-  public limpiarForm() {
-    /* this.registerForm.markAsUntouched();
-    this.registerForm.reset(); */
-   /*  this.formBuilder.resetForm(); */
+  openDialog() {
+    this.confirmMessage =
+      'El registro de animal se ha completado correctamente.';
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = this.confirmMessage;
+
+    this.dialog.open(RegisterConfirmationAnimalComponent, dialogConfig);
   }
 }

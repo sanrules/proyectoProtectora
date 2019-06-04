@@ -63,7 +63,7 @@ class Animal
 
         $id = R::store($animal);
 
-        $this->_id = $id;
+        $this->setId($id);
     }
 
     /**
@@ -131,6 +131,16 @@ class Animal
         $oldAnimal->pictures      = $this->getPictures();
 
         R::store($oldAnimal);
+    }
+
+    public function updateImages($id, $Images)
+    {
+        
+        $animal = R::findOne('animal', 'id=?', [$id]);
+        $images = R::dispense('images');
+        $images->pictures      = $Images;
+        $animal->picturesArray[] = $images;
+        R::store($animal);
     }
 
     /**
