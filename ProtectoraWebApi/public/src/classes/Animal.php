@@ -10,12 +10,12 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
 class Animal
 {
-    private $_id     = '';
+    private $_id     = 0;
     private $_name   = '';
     private $_type   = '';
     private $_breed  = ''; // Raza
     private $_gender = '';
-    private $_size = '';
+    private $_size   = '';
 
     private $_birthDate    = '';
     private $_entranceDate = '';
@@ -26,23 +26,44 @@ class Animal
     private $_pictures    = '';
 
     public function __construct()
-    { }
+    {}
+
+    /**
+     * Crea todas las propiedades de un animal y les da valores.
+     *
+     * @param string $name
+     * @param AnimalType $type
+     * @param AnimalBreed $breed
+     * @param string $gender
+     * @param string $size
+     * @param date $birthDate
+     * @param date $entranceDate
+     * @param date $adoptionDate
+     * @param bool $status
+     * @param string $description
+     * @param string $pictures
+     * @return void
+     */
 
     public function createAnimal($name, $type, $breed, $gender, $size, $birthDate, $entranceDate, $adoptionDate = null, $status, $description, $pictures)
     {
-        $this->_name          = $name;
-        $this->_type          = $type;
-        $this->_breed         = $breed;
-        $this->_gender        = $gender;
-        $this->_size          = $size;
-        $this->_birthDate     = $birthDate;
-        $this->_entranceDate  = $entranceDate;
-        $this->_adoptionDate  = $adoptionDate;
-        $this->_status        = $status;
-        $this->_description   = $description;
-        $this->_pictures      = $pictures;
+        $this->_name         = $name;
+        $this->_type         = $type;
+        $this->_breed        = $breed;
+        $this->_gender       = $gender;
+        $this->_size         = $size;
+        $this->_birthDate    = $birthDate;
+        $this->_entranceDate = $entranceDate;
+        $this->_adoptionDate = $adoptionDate;
+        $this->_status       = $status;
+        $this->_description  = $description;
+        $this->_pictures     = $pictures;
     }
 
+    /**
+     * Inserta un animal en la base de datos.
+     *
+     */
     public function insertAnimal()
     {
         $animal = R::dispense('animal');
@@ -64,19 +85,20 @@ class Animal
     }
 
     /**
-     * Obtiene un animal de la base de datos en base a su id
-     * @param int $id ID del animal
+     * Obtiene un animal de la base de datos en base a su id.
+     *
      * @return Animal $animal animal recogido de la base de datos
      */
-    public function retrieveAnimal($id)
+    public function retrieveAnimal()
     {
-        $animal = R::load('animal', $id);
+        $animal = R::load('animal', $this->getId());
 
         return $animal;
     }
 
     /**
-     * Obtiene todos los animales de la base de datos
+     * Obtiene todos los animales de la base de datos.
+     *
      * @return array $animals array de Animal multidimensional recogido de la base de datos
      */
     public function retrieveAnimalAll()
@@ -87,9 +109,10 @@ class Animal
     }
 
     /**
-     * Obtiene todos los animales de la base de datos en función a los parámetros pasados
+     * Obtiene todos los animales de la base de datos en función a los parámetros pasados.
+     *
      * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
-     * @return Array $animals array de Animal multidimensional recogido de la base de datos
+     * @return array $animals array de Animal multidimensional recogido de la base de datos
      */
     public function retrieveAnimalParams($params)
     {
@@ -108,7 +131,8 @@ class Animal
     }
 
     /**
-     * Actualiza un animal de la base de datos
+     * Actualiza un animal de la base de datos.
+     *
      * @param int $id ID del animal
      * @param Animal $updated_animal animal con los datos actualizados
      */
@@ -134,31 +158,31 @@ class Animal
     {
         $animal = R::load('animal', $id);
 
-        $images = R::dispense('images');
+        $images        = R::dispense('images');
         $images->image = $animalImage;
-        
+
         $animal->ownImagesList[] = $images;
-        
 
         R::store($animal);
     }
 
     /**
-     * Borra un animal de la base de datos
-     * @param Animal $animal animal a borrar
+     * Borra un animal de la base de datos.
+     *
      */
-    public function deleteAnimal($animal)
+    public function deleteAnimal()
     {
-        R::trash($animal);
+        R::trash($this);
     }
 
     /**
      * Obtiene todos los animales de la base de datos en función a unos parámetros.
+     *
      * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
      * @return array $users array de user obtenido de la bbdd
      */
     public function getSpecificAnimal($params)
-    { }
+    {}
 
     /*
      *** GETTERS Y SETTERS

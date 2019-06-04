@@ -15,8 +15,9 @@ try {
     $postdata = file_get_contents("php://input");
     $request  = json_decode($postdata, true);
     if ($request) {
-        $animal    = new Animal();
-        $animalGet = $animal->retrieveAnimal($request);
+        $animal = new Animal();
+        $animal->setId($request);
+        $animalGet = $animal->retrieveAnimal();
         $error     = '';
         // echo json_encode($animalGet, JSON_UNESCAPED_UNICODE);
     }
