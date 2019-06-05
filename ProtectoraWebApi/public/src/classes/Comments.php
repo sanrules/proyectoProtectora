@@ -1,6 +1,5 @@
 <?php
 require_once 'lib/RedBean/rb.php';
-include 'lib/ChromePhp.php';
 
 // ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -35,10 +34,10 @@ class Comments
 
     public function insertComment()
     {
-        $comment = R::dispense('comment');
+        $comment = R::dispense('comments');
 
-        $comment->animalId = R::load('animal', $this->getAnimalId());
-        $comment->userId      = R::load('user', $this->getUserId());
+        $comment->animal    = R::load('animal', $this->getAnimalId());
+        $comment->user      = R::load('user', $this->getUserId());
         $comment->date       = $this->getDate();
         $comment->text       = $this->getText();
 
@@ -53,8 +52,8 @@ class Comments
      * @return array $comments todos los comentarios para un usuario en concreto
      */
     public function retrieveUserComments($userId) {
-        $comments = R::getAll("select * from comment where userId = $userId");
-
+        $comments = R::getAll("select * from comments where user_id = $userId");
+        
         return $comments;
     }
 
@@ -64,8 +63,7 @@ class Comments
      * @return array $comments todos los comentarios para un animal en concreto
      */
     public function retrieveAnimalComments($animalId) {
-        $comments = R::getAll("select * from comment where animalId = $animalId");
-
+        $comments = R::getAll("select * from comments where animal_id = $animalId");
         return $comments;
     }
 

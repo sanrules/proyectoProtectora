@@ -27,6 +27,7 @@ export class CommentsComponent implements OnInit {
   jwt: any;
   idUser: number;
   confirmMessage: string;
+  errorMessage: boolean;
 
   @Input() animalId: number;
 
@@ -38,12 +39,12 @@ export class CommentsComponent implements OnInit {
 
   ngOnInit() {
     this.commentService.getCommentsByAnimal(this.animalId).subscribe(commentGet => {
-      this.comments = commentGet;
+      this.comments = commentGet.response;
+      console.log('comments: ', this.comments);
     });
 
     this.authService.currentUser.subscribe(userGet => {
       this.jwt = this.authService.decodeJWT(userGet.jwt);
-      console.log('jwt: ', this.jwt);
       this.idUser = this.jwt.data.id;
 
       this.userService.getuserById(this.idUser).subscribe(user => {
@@ -60,8 +61,6 @@ export class CommentsComponent implements OnInit {
       date: ['', []],
       text: ['', [Validators.required]]
     });
-
-    console.log('form: ', this.commentForm);
   }
 
   dateToTimestamp(date) {
@@ -81,8 +80,8 @@ export class CommentsComponent implements OnInit {
    /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
     const formData: Comment = {
       "id": this.commentForm.get('id').value,
-      "animalId": this.commentForm.get('animalId').value,
-      "userId": this.commentForm.get('userId').value,
+      "animalId": this.animalId,
+      "userId": this.user.id,
       "date": this.dateToTimestamp(date),
       "text": this.commentForm.get('text').value.trim(),
     };
@@ -102,17 +101,22 @@ export class CommentsComponent implements OnInit {
 
     // Se envían los datos mediante post a la API
     this.commentService.postComment(commentJSON).subscribe(data => {
-      console.log('repuesta postComment(data): ', data);
+      this.errorMessage = false;
+      this.openDialog();
     },
     error => {
-      console.log('Error: ', error);
+      this.errorMessage = true;
+      this.openDialog();
     });
 
   }
 
   openDialog() {
-    this.confirmMessage =
-      'Comentario enviado con éxito';
+    if (this.errorMessage) {
+      this.confirmMessage = 'No se ha podido enviar el comentario.';
+    } else {
+        this.confirmMessage = 'Comentario enviado con éxito';
+    }
 
     const dialogConfig = new MatDialogConfig();
 

@@ -1,6 +1,21 @@
-<div class="row" *ngIf="user && comments">
+<div class="row" *ngIf="user">
   <div class="col-md-12" *ngFor="let comment of comments">
-    {{comment}}
+    <div class="row">
+      <div class="col-md-12 d-inline-block">
+        <ngx-avatar 
+          [src]="user.avatar" 
+          size="20" 
+          [round]="true" borderColor="#000">
+        </ngx-avatar>
+      </div> 
+      <hr>
+      <div class="col-md-11">
+        {{user.username}} | {{comment.date | date}}
+      </div>    
+    </div>
+    <div class="row mt-1 mb-2">
+      {{comment.text}}
+    </div>
   </div>
 </div>
 <div class="row">
@@ -17,8 +32,8 @@
       <button mat-raised-button color="primary" [disabled]="!commentForm.valid" class="btnRegister">Comentar</button>
     </div>
     <input type="hidden" formControlName="id" id="id">
-    <input type="hidden" formControlName="animalId" id="animalId">
-    <input type="hidden" formControlName="userId" id="userId" >
+    <input type="hidden" formControlName="animalId" id="animalId" [value]="animalId">
+    <input type="hidden" formControlName="userId" id="userId">
     <input type="hidden" formControlName="date" id="date">
   </form>
 </div>

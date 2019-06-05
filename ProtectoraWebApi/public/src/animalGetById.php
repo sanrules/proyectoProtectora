@@ -14,6 +14,7 @@ $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 try {
     $postdata = file_get_contents("php://input");
     $request  = json_decode($postdata, true);
+    
     if ($request) {
         $animal = new Animal();
         $animal->setId($request);

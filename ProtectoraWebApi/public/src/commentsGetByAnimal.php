@@ -1,33 +1,32 @@
 <?php
-require_once '../../vendor/autoload.php';
+/**
+ * Obtiene la lista de comentarios de un animal
+ */
 require_once 'classes/Comments.php';
-
+require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 $logger = new Logger('commentsGetByAnimal');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
-$error = array();
 
 try {
     $postdata = file_get_contents("php://input");
-    $request = json_decode($postdata, true);
-    ChromePhp::log('request: ', $request);
-
+    $request  = json_decode($postdata, true);
+    
     if ($request) {
         $comment = new Comments();
-        $comments = $comment->retrieveAnimalComments($request);
-    } else {
-        $error['request'] = 'No se han recibido datos';
-        $logger->error($error);
+        $comment->setId($request);
+        $comments = $comment->retrieveAnimalComments($comment->getId());
+        $error     = '';
     }
 } catch (Exception $e) {
-    $error['comment'] = 'No se han podido obtener los comentarios';
+    $error = 'No se pueden obtener los comentarios';
     $logger->error($error);
 }
 
-if (count($error) == 0) {
+if ($error == '') {
     $reply = array(
         'status'   => 'OK',
         'response' => $comments,
@@ -43,3 +42,6 @@ if (count($error) == 0) {
         $logger->info("Error: $err");
     }
 }
+
+header('Content-type:application/json;charset=utf-8');
+echo json_encode($reply, JSON_UNESCAPED_UNICODE);
