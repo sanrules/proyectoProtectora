@@ -10,6 +10,7 @@ import { finalize } from 'rxjs/operators';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 
 import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-animal-register',
@@ -51,8 +52,8 @@ export class AnimalRegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private animalService: AnimalService,
               private firestorage: FirebaseStorageService,
-              private dialog: MatDialog
-              /* private uploadService: AwsUploadService */) { }
+              private dialog: MatDialog,
+              private router: Router) { }
 
   ngOnInit() {
 
@@ -128,6 +129,7 @@ export class AnimalRegisterComponent implements OnInit {
   public subirImagenes(id: number, arrayImages) {
     this.animalService.uploadImages(id, arrayImages ).subscribe(() => {
       this.openDialog();
+      this.router.navigateByUrl('/admin/animals/management');
     }, error => {
         console.log('Error: ', error);
     });
@@ -200,6 +202,7 @@ dataPrepare() {
     this.animalService.updateAnimal(userJSON).subscribe(data => {
         console.log('repuesta registerAnimal(data): ', data);
         this.openDialog();
+        this.router.navigateByUrl('/admin/animals/management');
       },
       error => {
         console.log('Error: ', error);
@@ -213,11 +216,19 @@ dataPrepare() {
     delete this.animal.idAnimal;
     let animalJSON = JSON.stringify(this.animal);
     console.log('Conversión JSON: ', animalJSON);
-
     this.animalService.registerAnimal(animalJSON).subscribe(data => {
 
-      this.onUpload(this.files, data.response);
+   
+      if ( this.files === undefined ) {
 
+      this.router.navigateByUrl('/admin/animals/management');
+      this.openDialog();
+      } else {
+        
+        this.onUpload(this.files, data.response);
+
+
+      }
 
         console.log('respuesta registerAnimal(data): ', data);
     }, error => {

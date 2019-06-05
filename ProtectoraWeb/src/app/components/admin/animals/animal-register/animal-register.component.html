@@ -73,7 +73,7 @@
 
         <div class="form-group col-md-12">
           <mat-form-field>
-              <input matInput [matDatepicker]="birthDate" placeholder="Fecha de Nacimiento" formControlName="birthDate">
+              <input matInput [matDatepicker]="birthDate" placeholder="Fecha de Nacimiento" formControlName="birthDate" (click)="birthDate.open()">
               <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
               <mat-datepicker #birthDate></mat-datepicker>
               <mat-error *ngIf="registerForm.controls['birthDate'].errors">
@@ -82,10 +82,10 @@
             </mat-form-field>
         </div>
 
-        <div *ngIf="formType == 'animalUpdate'">
-            <div class="form-group col-md-12">
+        <div *ngIf="formType == 'animalUpdate'" class="form-group col-md-12">
+            <div>
                 <mat-form-field>
-                    <input matInput [matDatepicker]="entranceDate" placeholder="Fecha de Entrada" formControlName="entranceDate">
+                    <input matInput [matDatepicker]="entranceDate" placeholder="Fecha de Entrada" formControlName="entranceDate" (click)="entranceDate.open()">
                     <mat-datepicker-toggle matSuffix [for]="entranceDate"></mat-datepicker-toggle>
                     <mat-datepicker #entranceDate></mat-datepicker>
                     <mat-error *ngIf="registerForm.controls['entranceDate'].errors">
@@ -94,9 +94,9 @@
                   </mat-form-field>
               </div>
 
-              <div class="form-group col-md-12">
+              <div>
                 <mat-form-field>
-                    <input matInput [matDatepicker]="adoptionDate" placeholder="Fecha de Nacimiento" formControlName="adoptionDate">
+                    <input matInput [matDatepicker]="adoptionDate" placeholder="Fecha de Adopcion" formControlName="adoptionDate" (click)="adoptionDate.open()">
                     <mat-datepicker-toggle matSuffix [for]="adoptionDate"></mat-datepicker-toggle>
                     <mat-datepicker #adoptionDate></mat-datepicker>
                     <mat-error *ngIf="registerForm.controls['adoptionDate'].errors">
@@ -105,7 +105,7 @@
                   </mat-form-field>
               </div>
 
-              <div class="form-group col-md-12">
+              <div>
                 <mat-radio-group aria-label="Selecciona un Estado" formControlName="status">
                   <mat-radio-button value="en adopción" ngDefaultControl> En adopción </mat-radio-button>
                   <br>
