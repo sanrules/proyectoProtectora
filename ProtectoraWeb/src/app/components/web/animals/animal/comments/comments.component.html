@@ -1,0 +1,24 @@
+<div class="row" *ngIf="user && comments">
+  <div class="col-md-12" *ngFor="let comment of comments">
+    {{comment}}
+  </div>
+</div>
+<div class="row">
+  <form [formGroup]="commentForm" (ngSubmit)="commentSubmit()">
+    <div class="col-md-12">
+      <mat-form-field>
+        <textarea matInput placeholder="Escribir comentario" formControlName="text" id="text"></textarea>
+        <mat-error>
+          Campo obligatorio para enviar un comentario.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row col md-12 text-center mt-3">
+      <button mat-raised-button color="primary" [disabled]="!commentForm.valid" class="btnRegister">Comentar</button>
+    </div>
+    <input type="hidden" formControlName="id" id="id">
+    <input type="hidden" formControlName="animalId" id="animalId">
+    <input type="hidden" formControlName="userId" id="userId" >
+    <input type="hidden" formControlName="date" id="date">
+  </form>
+</div>

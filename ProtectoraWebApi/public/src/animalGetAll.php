@@ -1,26 +1,27 @@
 <?php
-require_once 'classes/User.php';
+require_once 'classes/Animal.php';
 require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-$logger = new Logger('getAllUsers');
+$logger = new Logger('animalGetAll');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {
-    $user  = new User();
-    $users = $user->retrieveUserAll();
+
+    $animal  = new Animal();
+    $animals = $animal->retrieveAnimalAll();
     $error = '';
 } catch (Exception $e) {
-    $error = 'No se han podido obtener todos los usuarios';
+    $error = 'No se han podido obtener todos los animales';
     $logger->error($error);
 }
 
-if ($users != '') {
+if ($animals != '') {
     $reply = array(
         'status'   => 'Getted',
-        'response' => $users,
+        'response' => $animals,
     );
     http_response_code(200); // 200 OK
 } else {

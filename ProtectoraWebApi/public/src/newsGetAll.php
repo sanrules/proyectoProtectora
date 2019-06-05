@@ -5,7 +5,7 @@ require_once '../../vendor/autoload.php';
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-$logger = new Logger('getAllNews');
+$logger = new Logger('newsGetAll');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {

@@ -1,35 +1,36 @@
 <?php
-/**
- * Obtiene un animal por su id
- */
-require_once 'classes/Animal.php';
 require_once '../../vendor/autoload.php';
+require_once 'classes/Comments.php';
+
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-$logger = new Logger('getAnimalById');
+$logger = new Logger('commentsGetByAnimal');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
+$error = array();
 
 try {
     $postdata = file_get_contents("php://input");
-    $request  = json_decode($postdata, true);
+    $request = json_decode($postdata, true);
+    ChromePhp::log('request: ', $request);
+
     if ($request) {
-        $animal = new Animal();
-        $animal->setId($request);
-        $animalGet = $animal->retrieveAnimal();
-        $error     = '';
-        // echo json_encode($animalGet, JSON_UNESCAPED_UNICODE);
+        $comment = new Comments();
+        $comments = $comment->retrieveAnimalComments($request);
+    } else {
+        $error['request'] = 'No se han recibido datos';
+        $logger->error($error);
     }
 } catch (Exception $e) {
-    $error = 'No se puede obtener el animal';
+    $error['comment'] = 'No se han podido obtener los comentarios';
     $logger->error($error);
 }
 
-if ($error == '') {
+if (count($error) == 0) {
     $reply = array(
         'status'   => 'OK',
-        'response' => $animalGet,
+        'response' => $comments,
     );
     http_response_code(200); // 200 OK
 } else {
@@ -42,8 +43,3 @@ if ($error == '') {
         $logger->info("Error: $err");
     }
 }
-
-header('Content-type:application/json;charset=utf-8');
-echo json_encode($reply, JSON_UNESCAPED_UNICODE);
-
-// echo json_encode($animals);

@@ -2,11 +2,10 @@
 require_once '../../vendor/autoload.php';
 require_once 'classes/Comments.php';
 
-
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-$logger = new Logger('getCommentsByAnimal');
+$logger = new Logger('commentsGetByUser');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 $error = array();
 
@@ -15,8 +14,8 @@ try {
     $request = json_decode($postdata, true);
 
     if ($request) {
-        $comment = new Comment();
-        $comments = $comment->retrieveCommentAnimal($idAnimal);
+        $comment = new Comments();
+        $comments = $comment->retrieveUserComments($idUser);
     } else {
         $error['request'] = 'No se han recibido datos';
         $logger->error($error);

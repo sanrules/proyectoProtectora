@@ -3,7 +3,7 @@ import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} 
 
 
 
-import { AnimalTypeService } from 'src/app/_services/tipo-animal/animal-type-service';
+import { AnimalTypeService } from 'src/app/_services/animals/tipo-animal/animal-type-service';
 import { Type } from 'src/app/_models/type.model';
 import { NewsUpdateModal } from './news-modal/news-modal.component';
 import { NewsService } from '../../../../_services/news/news-service';

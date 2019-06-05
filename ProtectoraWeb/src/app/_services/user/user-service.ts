@@ -19,22 +19,22 @@ export class UserService {
 
   // Solicita a la API una lista con todos los usuarios.
   getUsers(): Observable<any> {
-    return this.http.get(`${this.baseURL}/getAllUsers.php`);
+    return this.http.get(`${this.baseURL}/userGetAll.php`);
   }
 
   // Solicita a la API el usuario que se le manda por parámetro
-  getuserById(id): Observable<any> {
-    return this.http.post(`${this.baseURL}/userGetById.php`, id, this.httpOptions);
+  getuserById(id: number): Observable<any> {
+    return this.http.post(`${this.baseURL}/userGetById.php`, id);
   }
 
   // Da de alta un nuevo usuario
   registerUser(data): Observable<any> {
-    return this.http.post(`${this.baseURL}/insertUser.php`, data, this.httpOptions);
+    return this.http.post(`${this.baseURL}/userInsert.php`, data, this.httpOptions);
   }
 
   // Modifica un usuario
   updateUser(data): Observable<any> {
-    return this.http.post(`${this.baseURL}/updateUser.php`, data, this.httpOptions);
+    return this.http.post(`${this.baseURL}/userUpdate.php`, data, this.httpOptions);
   }
 
   setAvatar(id: number, avatar: string): Observable<any> {

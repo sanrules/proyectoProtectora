@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<JwtResponse> {
-    return this.http.post<JwtResponse>(`${this.baseURL}/login.php`, {email, password})
+    return this.http.post<JwtResponse>(`${this.baseURL}/userLogin.php`, {email, password})
       .pipe(map(jwtResponse => {
         const token = this.saveTokenLocalStorage(jwtResponse);
         return token;

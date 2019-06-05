@@ -2,7 +2,7 @@ import { OnInit, Component, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} from '@angular/material';
 import { Breed } from 'src/app/_models/breed.model';
 import { FormularioAnimalBreedUpdateModal } from './animal-breed-update-modal/animal-breed-update-modal.component';
-import { AnimalBreedService } from 'src/app/_services/raza-animal/animal-raza-service';
+import { AnimalBreedService } from 'src/app/_services/animals/raza-animal/animal-raza-service';
 
 @Component({
     selector: 'app-admin/animal-breed/management',
