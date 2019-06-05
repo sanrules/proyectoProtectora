@@ -2,6 +2,7 @@ import { OnInit, Component, ViewChild, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Type } from '../../../../_models/type.model';
 import { News } from 'src/app/_models/news.model';
+import { NewsService } from '../../../../_services/news/news-service';
 
 
 
@@ -18,7 +19,8 @@ import { News } from 'src/app/_models/news.model';
 
     registerForm: FormGroup;
     public news: News;
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(private formBuilder: FormBuilder,
+                private newsService: NewsService) {}
 
     ngOnInit() {
 
@@ -31,7 +33,7 @@ import { News } from 'src/app/_models/news.model';
     });
 
     if (this.typeForm === 'newsUpdate') {
-      console.log('animal: ', this.NewsData);
+      console.log('noticia: ', this.NewsData);
       this.setUpdateData(this.NewsData);
     }
   }
@@ -48,7 +50,7 @@ import { News } from 'src/app/_models/news.model';
     this.registerForm.get('idnews').setValue(data.id);
     this.registerForm.get('name').setValue(data.name);
     this.registerForm.get('content').setValue(data.content);
-    this.registerForm.get('publicationDate').setValue(this.parseDate(data.publicationDate));
+    this.registerForm.get('publicationDate').setValue(this.parseDate(data.date));
 }
 
 dateToTimestamp(date) {
@@ -87,12 +89,11 @@ dataPrepare() {
     delete this.news.id;
     let animalJSON = JSON.stringify(this.news);
     console.log('Conversión JSON: ', animalJSON);
-
-    /* this.animalTypeService.registerAnimalType(animalJSON).subscribe(data => {
+    this.newsService.registerNews(animalJSON).subscribe(data => {
         console.log('respuesta registerAnimal(data): ', data);
     }, error => {
         console.warn('Error: ', error);
-    }); */
+    });
   }
 
   guardar() {

@@ -1,9 +1,9 @@
-<app-administrator-navbar *ngIf="tipo != 'breedUpdate'"></app-administrator-navbar>
+<app-administrator-navbar *ngIf="formType != 'breedUpdate'"></app-administrator-navbar>
 <div class="container">
     <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
     <div class="row">
       <div class="form-group col-md-12">
-        <div class="form-group col-md-12" *ngIf="tipo != 'breedUpdate'">
+        <div class="form-group col-md-12" *ngIf="formType != 'breedUpdate'">
         <mat-form-field>
           <mat-label>Favorite animal</mat-label>
           <mat-select formControlName="idType" >
@@ -16,7 +16,7 @@
         </mat-form-field>
         </div>
         
-        <div class="form-group col-md-12" *ngIf="tipo == 'breedUpdate'">
+        <div class="form-group col-md-12" *ngIf="formType == 'breedUpdate'">
         <mat-form-field>
           <mat-label>Favorite animal</mat-label>
           <mat-select formControlName="idType" [value]="breedData.idtipo">
@@ -38,15 +38,15 @@
         </div>
       </div>
       
-      <input type="hidden" *ngIf="tipo == 'breedUpdate'" formControlName="idBreed" id="idBreed" value="">
+      <input type="hidden" *ngIf="formType == 'breedUpdate'" formControlName="idBreed" id="idBreed" value="">
       
         <div class="row">
-          <div class="col-md-12" *ngIf="tipo != 'breedUpdate'" >
+          <div class="col-md-12" *ngIf="formType != 'breedUpdate'" >
             <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Animal</button>
           </div>
         
         
-          <div class="col-md-12" *ngIf="tipo == 'breedUpdate'">
+          <div class="col-md-12" *ngIf="formType == 'breedUpdate'">
               <button mat-raised-button color="primary" [disabled]="!registerForm.valid" (click)="guardar()">Guardar</button>
               <button mat-raised-button color="warn" (click)="borrar()">Borrar</button>
           </div>

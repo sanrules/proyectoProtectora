@@ -8,7 +8,8 @@ import { FirebaseStorageService } from '../../../../_services/firebase-upload/fi
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { MatDialogConfig, MatDialog } from '@angular/material';
-import { RegisterConfirmationAnimalComponent } from './register-confirmation-animal/register-confirmation-animal.component';
+
+import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 
 @Component({
   selector: 'app-admin-animal-register',
@@ -148,7 +149,7 @@ export class AnimalRegisterComponent implements OnInit {
     this.registerForm.get('entranceDate').setValue(this.spararFechaYHora(data.entrance_date));
     this.registerForm.get('status').setValue(data.status);
     this.registerForm.get('description').setValue(data.description);
-    this.registerForm.get('animalImgs').setValue(data.pictures);
+   
 
 }
 
@@ -187,6 +188,20 @@ dataPrepare() {
 }
 
   registerSubmit() {
+  if (this.formType === 'animalUpdate') {
+
+    this.animal = this.dataPrepare();
+    const userJSON = JSON.stringify(this.animal);
+    console.log('datos a enviar: ', userJSON);
+    this.animalService.updateAnimal(userJSON).subscribe(data => {
+        console.log('repuesta registerAnimal(data): ', data);
+        this.openDialog();
+      },
+      error => {
+        console.log('Error: ', error);
+      });
+
+  } else {
 
     console.log('Entra en registerSubmit()');
     this.animal = this.dataPrepare();
@@ -205,9 +220,9 @@ dataPrepare() {
         console.warn('Error: ', error);
     });
   }
+  }
 
   openDialog() {
-
     if (this.formType === 'animalUpdate') {
       this.confirmMessage =
       'La actualización se ha completado correctamente.';
@@ -221,6 +236,6 @@ dataPrepare() {
     dialogConfig.autoFocus = false;
     dialogConfig.data = this.confirmMessage;
 
-    this.dialog.open(RegisterConfirmationAnimalComponent, dialogConfig);
+    this.dialog.open(RegisterConfirmationComponent, dialogConfig);
   }
 }

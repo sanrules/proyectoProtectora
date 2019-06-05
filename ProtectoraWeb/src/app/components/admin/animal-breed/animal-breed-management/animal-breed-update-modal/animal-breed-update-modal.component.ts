@@ -12,7 +12,7 @@ import { AnimalTypeService } from 'src/app/_services/tipo-animal/animal-type-ser
   })
   export class FormularioAnimalBreedUpdateModal implements OnInit {
 
-    public tipo = 'breedUpdate';
+    public formType = 'breedUpdate';
     public breedData: Breed;
 
     constructor(

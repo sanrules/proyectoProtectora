@@ -6,7 +6,7 @@ import { UserService } from 'src/app/_services/user/user-service';
 // Interfaces
 import { User } from 'src/app/_models/user.model';
 // Components
-import { RegisterConfirmationComponent } from 'src/app/components/web/auth/register/register-confirmation/register-confirmation.component';
+
 // Material
 import { MatDialogConfig, MatDialog } from '@angular/material';
 // FireStorage
@@ -14,6 +14,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 // Rxjs
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 
 @Component({
   selector: 'app-registro',
