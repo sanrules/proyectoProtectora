@@ -3,8 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Animal } from 'src/app/_models/animal.model';
 import { AnimalService } from 'src/app/_services/animal/animal-service';
-
-
+import { NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-animal',
   templateUrl: './animal.component.html',
