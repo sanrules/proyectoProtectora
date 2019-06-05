@@ -9,7 +9,7 @@ use \Firebase\JWT\JWT;
 $postdata = file_get_contents("php://input");
 $request  = json_decode($postdata, true);
 
-$logger = new Logger('Login');
+$logger = new Logger('userLogin');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 if ($request) {

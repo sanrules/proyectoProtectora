@@ -1,7 +1,7 @@
 
 import { Component, OnInit , Input , ElementRef, ViewChild} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { AnimalService } from 'src/app/_services/animal/animal-service';
+import { AnimalService } from 'src/app/_services/animals/animal/animal-service';
 import { Animal } from 'src/app/_models/animal.model';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FirebaseStorageService } from '../../../../_services/firebase-upload/firebase-upload-service';
@@ -26,13 +26,16 @@ export class AnimalRegisterComponent implements OnInit {
   bucketName = 'animalimg';
 
   files: any[];
-  uploadpercent: Observable<number>;
-  confirmMessage: string;
-  urlImage: Observable<string>;
-  urlImageAr: any[]=[];
   selectedFiles: FileList;
+  uploadpercent: Observable<number>;
+  urlImage: Observable<string>;
+  urlImageAr: any[] = [];
+
   registerForm: FormGroup;
+  confirmMessage: string;
+
   private animal: Animal;
+
   public generos: any = [{
     id: 'Macho',
     name: 'Macho'},
@@ -40,7 +43,9 @@ export class AnimalRegisterComponent implements OnInit {
     id: 'Hembra',
     name: 'Hembra'
   }];
+
   public es: string;
+
   get formArray(): AbstractControl | null { return this.registerForm.get('formArray'); }
 
   constructor(private formBuilder: FormBuilder,
@@ -130,9 +135,9 @@ export class AnimalRegisterComponent implements OnInit {
 
 
   public spararFechaYHora(fecha) {
-    let arrayFechaYHora = fecha.split(" ");
-    let arrayfecha = arrayFechaYHora[0].split("-");
-    fecha = new Date(arrayfecha[0],(arrayfecha[1]-1),arrayfecha[2]);
+    let arrayFechaYHora = fecha.split(' ');
+    let arrayfecha = arrayFechaYHora[0].split('-');
+    fecha = new Date(arrayfecha[0], (arrayfecha[1] - 1), arrayfecha[2]);
     return fecha;
   }
 
@@ -149,7 +154,6 @@ export class AnimalRegisterComponent implements OnInit {
     this.registerForm.get('entranceDate').setValue(this.spararFechaYHora(data.entrance_date));
     this.registerForm.get('status').setValue(data.status);
     this.registerForm.get('description').setValue(data.description);
-   
 
 }
 
@@ -180,7 +184,7 @@ dataPrepare() {
     "adoptionDate": this.dateToTimestamp(entranceDate) ,
     "status": this.registerForm.get('status').value,
     "description": this.registerForm.get('description').value.trim(),
-    "pictures": "",
+    "pictures": '',
   };
 
   return formData;

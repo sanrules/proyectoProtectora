@@ -38,6 +38,8 @@ import { AnimalListComponent } from './components/web/animals/animal-list/animal
 import { AnimalComponent } from './components/web/animals/animal/animal.component';
 import { AnimalCardComponent } from './components/web/animals/animal-card/animal-card.component';
 import { AnimalImagesComponent } from './components/web/animals/animal/animal-images/animal-images.component';
+import { CommentsComponent } from './components/web/animals/animal/comments/comments.component';
+
 
 
 // Componentes Admin
@@ -107,7 +109,8 @@ import { RegisterConfirmationComponent } from './components/shared/register-conf
     UserProfileComponent,
     UserUpdateComponent,
     AdoptedAnimalsComponent,
-    AnimalImagesComponent
+    AnimalImagesComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,

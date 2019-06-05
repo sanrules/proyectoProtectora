@@ -6,7 +6,7 @@ import { Observable, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AnimalTypeService {
+export class AnimalBreedService {
 
   // TODO: poner las variables de animal en el fichero enviroment.ts (mirar en el trabajo cómo se hace)
   baseURL = 'http://localhost/ProtectoraWebApi/public/src';
@@ -16,23 +16,22 @@ export class AnimalTypeService {
   constructor(private http: HttpClient) {}
 
   // Solicita a la API una lista con todos los usuarios.
-  getAnimalTypes(): Observable<any> {
-    console.log('Respuesta backEnd => get_animalTypes_all()');
-    return this.http.get(`${this.baseURL}/getAllAnimalTypes.php`);
+  getAnimalBreeds(): Observable<any> {
+    console.log('Respuesta backEnd => get_animalBreeds_all()');
+    return this.http.get(`${this.baseURL}/animalBreedGetAll.php`);
   }
 
   // Solicita a la API el animal que se le manda por parámetro
-  getAnimalTypeById(id) {
-    return this.http.post(`${this.baseURL}/getAnimalTypeById.php`, id, this.httpOptions);
+  getAnimalBreedById(id) {
+    return this.http.post(`${this.baseURL}/animalBreedGetById.php`, id, this.httpOptions);
   }
 
   // Da de alta un nuevo animal
-  registerAnimalType(data): Observable<any> {
-    //return this.http.get(`${this.baseURL}/user/insert_user.php?createuser=${data}`);
-    return this.http.post(`${this.baseURL}/insertAnimalType.php`, data, this.httpOptions);
+  registerAnimalBreed(data): Observable<any> {
+    return this.http.post(`${this.baseURL}/animalBreedInsert.php`, data, this.httpOptions);
   }
 
   // Modifica un animal
-  updateAnimalType() {}
+  updateAnimalBreed() {}
 
 }

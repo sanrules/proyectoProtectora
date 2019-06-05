@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-$logger = new Logger('updateAnimal');
+$logger = new Logger('animalUpdate');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {

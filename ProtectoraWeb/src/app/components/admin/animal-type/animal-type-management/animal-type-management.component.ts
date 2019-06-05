@@ -6,7 +6,7 @@ import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} 
 // import { Observable } from 'rxjs';
 // import { FormularioAnimalModal } from '../../../shared/formulario-animal-modal/formulario-animal-modal.component'; */
 import { FormularioAnimalTypeUpdateModal } from './animal-type-update-modal/animal-type-update-modal.component';
-import { AnimalTypeService } from 'src/app/_services/tipo-animal/animal-type-service';
+import { AnimalTypeService } from 'src/app/_services/animals/tipo-animal/animal-type-service';
 import { Type } from 'src/app/_models/type.model';
 
 

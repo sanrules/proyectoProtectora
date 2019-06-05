@@ -6,7 +6,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use PHPMailer\PHPMailer\Exception;
 
-$logger = new Logger('updatetUser');
+$logger = new Logger('userUploadAvatar');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {

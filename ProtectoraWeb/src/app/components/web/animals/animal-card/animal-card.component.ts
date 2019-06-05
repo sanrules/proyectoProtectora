@@ -1,5 +1,5 @@
 import { OnInit, Component, Input } from '@angular/core';
-import { AnimalService } from '../../../../_services/animal/animal-service';
+import { AnimalService } from '../../../../_services/animals/animal/animal-service';
 import { Observable } from 'rxjs';
 
 @Component({

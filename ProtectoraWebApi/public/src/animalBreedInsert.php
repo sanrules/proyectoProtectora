@@ -10,7 +10,7 @@ use Monolog\Handler\StreamHandler;
 use PHPMailer\PHPMailer\Exception;
 use Monolog\Logger;
 
-$logger = new Logger('insertUser');
+$logger = new Logger('animalBreedInsert');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {

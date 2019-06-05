@@ -6,7 +6,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use PHPMailer\PHPMailer\Exception;
 
-$logger = new Logger('insertUser');
+$logger = new Logger('userInsert');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {
@@ -51,7 +51,7 @@ try {
             $username_exists = R::findOne('user', 'username=?', [$user->getUsername()]);
             $dni_exists = R::findOne('user', 'dni=?', [$user->getDni()]);
 
-            if ($email_exists == null && $username_exists == null && $dni_exists == null) {
+            if ($email_exists == null || $username_exists == null || $dni_exists == null) {
                 $user->insertUser();
                 $error = '';
             } else {

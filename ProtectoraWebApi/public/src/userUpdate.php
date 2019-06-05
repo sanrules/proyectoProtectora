@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\Exception;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-$logger = new Logger('updatetUser');
+$logger = new Logger('userUpdate');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {

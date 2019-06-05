@@ -1,29 +1,25 @@
 <?php
-/**
- * Obtiene todos los tipos de animales que hay en la bbdd
- */
-
-require_once 'classes/AnimalType.php';
+require_once 'classes/AnimalBreed.php';
 require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-$logger = new Logger('getAllAnimalTypes');
+$logger = new Logger('animalBreedGetAll');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 try {
-    $animaltype  = new AnimalType();
-    $animaltypes = $animaltype->retrieveAnimalTypesAll();
+    $animalbreed = new AnimalBreed();
+    $animalbreed = $animalbreed->retrieveAnimalBreedsAll();
 } catch (Exception $e) {
-    $error = 'Error al recoger los tipos de animales';
+    $error = 'Error al recoger las razas de los animales';
     $logger->error($error);
 }
 
-if ($animaltypes != '') {
+if ($animalbreed != '') {
     $reply = array(
         'status'   => 'Getted',
-        'response' => $animaltypes,
+        'response' => $animalbreed,
     );
     http_response_code(200); // 200 OK
 } else {
@@ -35,10 +31,10 @@ if ($animaltypes != '') {
     $logger->info("Error: $error");
 }
 
-/* header('Content-type:application/json;charset=utf-8'); */
+header('Content-type:application/json;charset=utf-8');
 echo json_encode($reply, JSON_UNESCAPED_UNICODE);
 
-// LO antiguo
-// echo json_encode($animaltypes, JSON_UNESCAPED_UNICODE);
+// Lo antiguo
+// echo json_encode($animalbreed, JSON_UNESCAPED_UNICODE);
 // echo json_encode($animals);
 // header('Content-Type: application/json');

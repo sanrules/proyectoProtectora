@@ -1,7 +1,7 @@
 import { OnInit, Component, ViewChild, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Type } from '../../../../_models/type.model';
-import { AnimalTypeService } from '../../../../_services/tipo-animal/animal-type-service';
+import { AnimalTypeService } from '../../../../_services/animals/tipo-animal/animal-type-service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 

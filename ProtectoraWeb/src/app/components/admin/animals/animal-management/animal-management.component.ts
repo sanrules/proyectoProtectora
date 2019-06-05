@@ -1,5 +1,5 @@
 import { OnInit, Component, ViewChild } from '@angular/core';
-import { AnimalService } from '../../../../_services/animal/animal-service';
+import { AnimalService } from '../../../../_services/animals/animal/animal-service';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} from '@angular/material';
 import { Animal } from 'src/app/_models/animal.model';
 import { Observable } from 'rxjs';
