@@ -19,12 +19,24 @@ class AnimalBreed
 
     }
 
+    /**
+     * Crea una raza de animal.
+     *
+     * @param mixed $_name
+     * @param mixed $_idtype
+     * @return void
+     */
     public function createAnimalBreed($_name, $_idtype)
     {
         $this->_name   = $_name;
         $this->_idtype = $_idtype;
     }
 
+    /**
+     * Inserta en base de datos una raza de animal.
+     *
+     * @return void
+     */
     public function insertAnimalBreed()
     {
         $animalBreed = R::dispense('animalbreed');
@@ -37,7 +49,8 @@ class AnimalBreed
     }
 
 /**
- * Obtiene un animal de la base de datos en base a su id
+ * Obtiene una raza de la base de datos en base a su id.
+ *
  * @param int $id ID del animal
  * @return Animal $animal animal recogido de la base de datos
  */
@@ -49,7 +62,8 @@ class AnimalBreed
     }
 
 /**
- * Obtiene todos los animales de la base de datos
+ * Obtiene todas las razas de la base de datos.
+ *
  * @return Array $animals array de Animal multidimensional recogido de la base de datos
  */
     public function retrieveAnimalBreedsAll()
@@ -60,7 +74,8 @@ class AnimalBreed
     }
 
 /**
- * Obtiene todos los animales de la base de datos en función a los parámetros pasados
+ * Obtiene todos las razas de la base de datos en función a los parámetros pasados.
+ *
  * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
  * @return Array $animals array de Animal multidimensional recogido de la base de datos
  */

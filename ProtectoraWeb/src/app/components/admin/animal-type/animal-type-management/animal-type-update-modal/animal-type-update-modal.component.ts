@@ -13,7 +13,7 @@ import { Type } from 'src/app/_models/type.model';
   })
   export class FormularioAnimalTypeUpdateModal implements OnInit {
     
-    public tipo = 'typeUpdate';
+    public formType = 'typeUpdate';
     public typeData: Type;
     
     constructor(

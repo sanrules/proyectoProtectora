@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="animal">
   <div class="row">
     <div class="jumbotron jumbotron-fluid col-md-12 mt-3">
       <div class="container">
@@ -10,8 +10,8 @@
   <div class="row">
     <div class="card mb-3 w-100">
       <div class="row no-gutters">
-        <div class="col-md-4">
-          <img src="https://images.pexels.com/photos/259803/pexels-photo-259803.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="card-img" alt="...">
+        <div class="col-md-4" *ngIf="images">
+          <img [src]="images[0].image" class="card-img" alt="...">
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -69,13 +69,30 @@
     </div>
   </div>
 
-  <div class="row">
-      <a class="alert alert-primary w-100 text-center col-md-12" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        <h3>Descripción</h3>
-      </a>
-      <div class="collapse col-md-12 card card-body" id="collapseExample">
-        {{animal.description}}
-      </div>
+  <div class="row w-100">
+    <ngb-tabset class="w-100">
+      <ngb-tab title="Descripción">
+        <ng-template ngbTabContent>
+          <div class="col-md-12 mt-2">
+            <p>{{animal.description}}</p>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Imágenes">
+        <ng-template ngbTabContent>
+          <div class="col-md-12 my-5 text-center">
+            <app-animal-images [animalId]="animalId"></app-animal-images>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Comentarios">
+        <ng-template ngbTabContent>
+          <div class="col-md-12 mt-2">
+           <app-comments [animalId]="animalId"></app-comments>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>  
   </div>
 
 </div>

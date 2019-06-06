@@ -6,7 +6,7 @@ import { UserService } from 'src/app/_services/user/user-service';
 // Interfaces
 import { User } from 'src/app/_models/user.model';
 // Components
-import { RegisterConfirmationComponent } from 'src/app/components/web/auth/register/register-confirmation/register-confirmation.component';
+
 // Material
 import { MatDialogConfig, MatDialog } from '@angular/material';
 // FireStorage
@@ -14,6 +14,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 // Rxjs
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 
 @Component({
   selector: 'app-registro',
@@ -131,16 +132,16 @@ export class UserRegisterComponent  implements OnInit {
   // Prepara los datos del formulario para enviarlos en el formato correcto a la API
   dataPrepare() {
     const formData = {
-      "idUser": this.formArray.get([0]).get('idUser').value,
-      "userType":  this.formArray.get([0]).get('userType').value.trim(),
-      "userName": this.formArray.get([0]).get('userName').value.trim(),
+      "id": this.formArray.get([0]).get('idUser').value,
+      "user_type":  this.formArray.get([0]).get('userType').value.trim(),
+      "username": this.formArray.get([0]).get('userName').value.trim(),
       "password": this.formArray.get([0]).get('password').value.trim(),
       "email": this.formArray.get([0]).get('email').value.trim(),
       "name": this.formArray.get([1]).get('name').value.trim(),
       "surname": this.formArray.get([1]).get('surname').value.trim(),
       "dni": this.formArray.get([1]).get('dni').value.trim(),
       "phone": this.formArray.get([1]).get('phone').value,
-      "birthDate": this.dateToTimestamp(this.formArray.get([1]).get('birthDate').value),
+      "birth_date": this.dateToTimestamp(this.formArray.get([1]).get('birthDate').value),
       "street": this.formArray.get([2]).get('street').value.trim(),
       "number": this.formArray.get([2]).get('number').value,
       "portal": this.formArray.get([2]).get('portal').value.trim(),
@@ -148,7 +149,7 @@ export class UserRegisterComponent  implements OnInit {
       "door":  this.formArray.get([2]).get('door').value.trim(),
       "province":  this.formArray.get([2]).get('province').value.trim(),
       "city":  this.formArray.get([2]).get('city').value.trim(),
-      "postalCode":  this.formArray.get([2]).get('postalCode').value.trim(),
+      "postal_code":  this.formArray.get([2]).get('postalCode').value.trim(),
       "avatar": ''
     };
 
@@ -160,7 +161,7 @@ export class UserRegisterComponent  implements OnInit {
     this.user = this.dataPrepare();
 
     // Se borra el campo de idUser para que no se envíe al back y se autogenere.
-    delete this.user.idUser;
+    delete this.user.id;
 
     // Se convierte el objeto user a JSON para enviarlo a la API
     const userJSON = JSON.stringify(this.user);
@@ -177,9 +178,6 @@ export class UserRegisterComponent  implements OnInit {
   }
 
   openDialog() {
-
-
-    
     this.confirmMessage =
       'Su registro se ha completado correctamente, en breves momentos recibirá un correo electrónico para completarlo.';
 

@@ -1,6 +1,6 @@
-<app-administrator-navbar *ngIf="formType != 'userUpdate' && formType != 'userProfileUpdate'"></app-administrator-navbar>
+<app-administrator-navbar *ngIf="!formType"></app-administrator-navbar>
 
-<div class="container mt-5">
+<div class="container mt-2">
   <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
     <div class="row">
 
@@ -36,7 +36,7 @@
               Email requerido: Formato: ejemplo@email.com
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="mt-2">
+          <mat-form-field class="mt-2" *ngIf="!formType || formType === 'userUpdate'">
             <mat-label>Tipo de Usuario</mat-label>
             <mat-select formControlName="userType" id="userType">
               <mat-option *ngFor="let usuario of tiposUsuario" [value]="usuario.value">
@@ -194,10 +194,10 @@
     </div>
 
     <div class="row mt-5">
-      <button *ngIf="(formType !== 'userUpdate') || (formType !== 'userProfileUpdate')" mat-raised-button color="primary" class="submitBtn" [disabled]="!registerForm.valid">
+      <button *ngIf="(!formType)" mat-raised-button color="primary" class="submitBtn" [disabled]="!registerForm.valid">
         Registrar Usuario
       </button>
-      <button *ngIf="(formType === 'userUpdate') || (formType === 'userProfileUpdate')" mat-raised-button color="primary" class="submitBtn" [disabled]="!registerForm.valid">
+      <button *ngIf="(formType)" mat-raised-button color="primary" class="submitBtn" [disabled]="!registerForm.valid">
         Modificar Usuario
       </button>
     </div>

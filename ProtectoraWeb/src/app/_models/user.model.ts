@@ -1,19 +1,24 @@
 export interface User {
 
-  idUser: number;
-  userName: string;
+  id: number;
+  username: string;
   password: string;
   email: string;
   name: string;
   surname: string;
+  dni: string;
   phone: number;
-  birthDate: Date;
+  birth_date: Date;
   street: string;
   number: number;
   portal: string;
   floor: number;
   door: string;
-  userType: string;
+  province: string;
+  city: string;
+  postal_code: number;
+  user_type: string;
+  avatar: string;
 
   /*public constructor(init?: Partial<User >) {
     Object.assign(this, init);

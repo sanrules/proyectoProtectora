@@ -6,12 +6,13 @@ import { UserService } from 'src/app/_services/user/user-service';
 // Interfaces
 import { User } from 'src/app/_models/user.model';
 // Components
-import { RegisterConfirmationComponent } from 'src/app/components/web/auth/register/register-confirmation/register-confirmation.component';
+
 // Material
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
+import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 
 
 @Component({
@@ -80,7 +81,6 @@ export class AdminUserRegisterComponent {
     if (this.formType === 'userUpdate' || this.formType === 'userProfileUpdate') {
       this.setUpdateData(this.userData);
       console.log('userData', this.userData);
-      console.log('formType', this.formType);
     }
   }
 
@@ -161,7 +161,7 @@ export class AdminUserRegisterComponent {
     this.registerForm.get('door').setValue(userUpdate.door);
     this.registerForm.get('province').setValue(userUpdate.province);
     this.registerForm.get('city').setValue(userUpdate.city);
-    this.registerForm.get('postalCode').setValue(parseInt(userUpdate.postalCode));
+    this.registerForm.get('postalCode').setValue(parseInt(userUpdate.postal_code));
     this.registerForm.get('userType').setValue(userUpdate.user_type);
     this.registerForm.get('imgUrl').setValue(userUpdate.avatar);
   }
@@ -169,15 +169,15 @@ export class AdminUserRegisterComponent {
   // Prepara los datos del formulario para enviarlos en el formato correcto a la API
   dataPrepare() {
     const formData = {
-      "idUser": this.registerForm.get('idUser').value,
-      "userName": this.registerForm.get('userName').value.trim(),
+      "id": this.registerForm.get('idUser').value,
+      "username": this.registerForm.get('userName').value.trim(),
       "password": this.registerForm.get('password').value.trim(),
       "email": this.registerForm.get('email').value.trim(),
       "name": this.registerForm.get('name').value.trim(),
       "surname": this.registerForm.get('surname').value.trim(),
       "dni": this.registerForm.get('dni').value.trim(),
       "phone": this.registerForm.get('phone').value,
-      "birthDate": this.dateToTimestamp(this.registerForm.get('birthDate').value),
+      "birth_date": this.dateToTimestamp(this.registerForm.get('birthDate').value),
       "street": this.registerForm.get('street').value.trim(),
       "number": this.registerForm.get('number').value,
       "portal": this.registerForm.get('portal').value.trim(),
@@ -185,9 +185,9 @@ export class AdminUserRegisterComponent {
       "door":  this.registerForm.get('door').value.trim(),
       "province": this.registerForm.get('province').value.trim(),
       "city": this.registerForm.get('city').value.trim(),
-      "postalCode": this.registerForm.get('postalCode').value,
-      "userType":  this.registerForm.get('userType').value.trim(),
-      "avatar":  this.registerForm.get('imgUrl').value.trim(),
+      "postal_code": this.registerForm.get('postalCode').value,
+      "user_type":  this.registerForm.get('userType').value.trim(),
+      "avatar":  '',
     };
 
     return formData;
@@ -209,7 +209,7 @@ export class AdminUserRegisterComponent {
         // Se guardan los datos del formulario en un objeto usuario
         this.user = this.dataPrepare();
         // Se borra el campo de idUser para que no se envíe al back y se autogenere.
-        delete this.user.idUser;
+        delete this.user.id;
         // Se convierte el objeto user a JSON para enviarlo a la API
         const userJSON = JSON.stringify(this.user);
         console.log('Send JSON: ', userJSON);

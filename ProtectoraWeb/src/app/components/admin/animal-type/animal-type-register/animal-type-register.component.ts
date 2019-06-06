@@ -1,7 +1,9 @@
 import { OnInit, Component, ViewChild, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Type } from '../../../../_models/type.model';
-import { AnimalTypeService } from '../../../../_services/tipo-animal/animal-type-service';
+import { AnimalTypeService } from '../../../../_services/animals/tipo-animal/animal-type-service';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 
 
 @Component({
@@ -12,13 +14,15 @@ import { AnimalTypeService } from '../../../../_services/tipo-animal/animal-type
 
   export class AnimalTypeRegisterComponent implements OnInit {
 
-    @Input() public tipo: string;
+    @Input() public formType: string;
     @Input() public typeData: Type;
 
+    confirmMessage: string;
     registerForm: FormGroup;
     public type: Type;
     constructor(private formBuilder: FormBuilder,
-                private animalTypeService: AnimalTypeService){}
+                private animalTypeService: AnimalTypeService,
+                private dialog: MatDialog){}
 
     ngOnInit() {
 
@@ -28,7 +32,7 @@ import { AnimalTypeService } from '../../../../_services/tipo-animal/animal-type
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     });
 
-    if (this.tipo == 'typeUpdate'){
+    if (this.formType == 'typeUpdate'){
       console.log("animal: ", this.typeData);
      this.setDatosUpdate(this.typeData);
     }
@@ -80,6 +84,23 @@ dataPrepare() {
   borrar() {
 
     console.log('borrar: ');
+  }
+
+  openDialog() {
+    if (this.formType === 'typeUpdate') {
+      this.confirmMessage =
+      'La actualización se ha completado correctamente.';
+    } else {
+    this.confirmMessage =
+      'El registro se ha completado correctamente.';
+    }
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = this.confirmMessage;
+
+    this.dialog.open(RegisterConfirmationComponent, dialogConfig);
   }
 
 

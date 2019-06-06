@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { Breed } from 'src/app/_models/breed.model';
-import { AnimalTypeService } from 'src/app/_services/tipo-animal/animal-type-service';
+import { AnimalTypeService } from 'src/app/_services/animals/tipo-animal/animal-type-service';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { AnimalTypeService } from 'src/app/_services/tipo-animal/animal-type-ser
   })
   export class FormularioAnimalBreedUpdateModal implements OnInit {
 
-    public tipo = 'breedUpdate';
+    public formType = 'breedUpdate';
     public breedData: Breed;
 
     constructor(

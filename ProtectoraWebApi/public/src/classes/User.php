@@ -9,32 +9,52 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
 class User
 {
-    private $_idUser    = ''; //  idUser
-    private $_username  = ''; //  userName
-    private $_password  = ''; //  password
-    private $_email     = ''; //  email
-    private $_name      = ''; // name
-    private $_surname   = ''; // surname
-    private $_phone     = ''; // phone
-    private $_dni = '';
-    private $_birthDate = ''; // birthDate
-    private $_province = '';
-    private $_city = '';
+    private $_idUser     = ''; //  idUser
+    private $_username   = ''; //  userName
+    private $_password   = ''; //  password
+    private $_email      = ''; //  email
+    private $_name       = ''; // name
+    private $_surname    = ''; // surname
+    private $_phone      = ''; // phone
+    private $_dni        = '';
+    private $_birthDate  = ''; // birthDate
+    private $_province   = '';
+    private $_city       = '';
     private $_postalCode = '';
-    private $_street    = ''; // street
-    private $_number    = ''; // number
-    private $_portal    = ''; // portal
-    private $_floor     = ''; // floor
-    private $_door      = ''; // door
-    private $_userType  = ''; // userType
-    private $_token     = ''; // token
-    private $_avatar = ''; // avatar
+    private $_street     = ''; // street
+    private $_number     = ''; // number
+    private $_portal     = ''; // portal
+    private $_floor      = ''; // floor
+    private $_door       = ''; // door
+    private $_userType   = ''; // userType
+    private $_token      = ''; // token
+    private $_avatar     = ''; // avatar
 
     public function __construct()
-    { }
+    {}
 
     /**
-     * Establece todos los valores de un usuario
+     * Establece todos los valores de un usuario.
+     *
+     * @param string $username
+     * @param string $password
+     * @param string $email
+     * @param string $name
+     * @param string $surname
+     * @param string $dni
+     * @param string $phone
+     * @param date $bithdate
+     * @param string $province
+     * @param string $city
+     * @param int $postalcode
+     * @param string $street
+     * @param int $number
+     * @param string $portal
+     * @param string $floor
+     * @param string $door
+     * @param string $userType
+     * @param string $avatar
+     *
      */
     public function createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar)
     {
@@ -59,7 +79,8 @@ class User
     }
 
     /**
-     * Inserta un usuario en la base de datos
+     * Inserta un usuario en la base de datos.
+     *
      */
     public function insertUser()
     {
@@ -92,7 +113,8 @@ class User
     }
 
     /**
-     * Obtiene un usuario de la base de datos en base a su email
+     * Obtiene un usuario de la base de datos en base a su email.
+     *
      * @param int $email MAIL del usuario
      * @return User $user usuario recogido de la base de datos
      */
@@ -104,7 +126,8 @@ class User
     }
 
     /**
-     * Obtiene un usuario de la base de datos en base a su id
+     * Obtiene un usuario de la base de datos en base a su id.
+     *
      * @param int $id ID del usuario
      * @return User $user usuario recogido de la base de datos
      */
@@ -115,7 +138,8 @@ class User
     }
 
     /**
-     * Obtiene todos los usuarios de la base de datos
+     * Obtiene todos los usuarios de la base de datos.
+     *
      * @return Array $users array de Animal multidimensional recogido de la base de datos
      */
     public function retrieveUserAll()
@@ -126,7 +150,8 @@ class User
     }
 
     /**
-     * Actualiza un usuario de la base de datos
+     * Actualiza un usuario de la base de datos.
+     *
      * @param User $updated_user usuario con los datos actualizados
      */
     public function updateUser()
@@ -156,33 +181,31 @@ class User
     }
 
     /**
-     * Actualiza el avatar del usuario para guardarlo en la base de datos
+     * Actualiza el avatar del usuario para guardarlo en la base de datos.
+     *
      * @param User $user usuario a actualizar avatar
      * @param string $avatar URL de la imagen del avatar
      */
     public function updateAvatar($id, $avatar)
     {
-        $user = R::findOne('user', 'id=?', [$id]);
+        $user         = R::findOne('user', 'id=?', [$id]);
         $user->avatar = $avatar;
         R::store($user);
     }
 
     /**
-     * Borra un usuario de la base de datos
+     * Borra un usuario de la base de datos.
+     *
      * @param User $user usuario a borrar
      */
     public function deleteUser($user)
     {
-        R::setup(
-            'mysql:host=localhost;dbname=proyecto',
-            'root',
-            ''
-        );
         R::trash($user);
     }
 
     /**
      * Obtiene todos los usuarios de la base de datos en función a unos parámetros.
+     *
      * @param array $params array formato 'key' => nombreDelCampo, 'value' => 'filtro'
      * @return array $users array de user obtenido de la bbdd
      */
@@ -198,7 +221,7 @@ class User
      */
 
     /**
-     * Get the value of _idUser
+     * Get the value of _idUser.
      */
     public function getIdUser()
     {
@@ -206,7 +229,7 @@ class User
     }
 
     /**
-     * Set the value of _idUser
+     * Set the value of _idUser.
      *
      * @return  self
      */
@@ -218,7 +241,7 @@ class User
     }
 
     /**
-     * Get the value of _username
+     * Get the value of _username.
      */
     public function getUsername()
     {
@@ -226,7 +249,7 @@ class User
     }
 
     /**
-     * Set the value of _username
+     * Set the value of _username.
      *
      * @return  self
      */
@@ -238,7 +261,7 @@ class User
     }
 
     /**
-     * Get the value of _email
+     * Get the value of _email.
      */
     public function getEmail()
     {
@@ -246,7 +269,7 @@ class User
     }
 
     /**
-     * Set the value of _email
+     * Set the value of _email.
      *
      * @return  self
      */
@@ -258,7 +281,7 @@ class User
     }
 
     /**
-     * Get the value of _password
+     * Get the value of _password.
      */
     public function getPassword()
     {
@@ -266,7 +289,7 @@ class User
     }
 
     /**
-     * Set the value of _password
+     * Set the value of _password.
      *
      * @return  self
      */
@@ -278,7 +301,7 @@ class User
     }
 
     /**
-     * Get the value of _name
+     * Get the value of _name.
      */
     public function getName()
     {
@@ -286,7 +309,7 @@ class User
     }
 
     /**
-     * Set the value of _name
+     * Set the value of _name.
      *
      * @return  self
      */
@@ -298,7 +321,7 @@ class User
     }
 
     /**
-     * Get the value of _surname
+     * Get the value of _surname.
      */
     public function getSurname()
     {
@@ -306,7 +329,7 @@ class User
     }
 
     /**
-     * Set the value of _surname
+     * Set the value of _surname.
      *
      * @return  self
      */
@@ -318,7 +341,7 @@ class User
     }
 
     /**
-     * Get the value of _phone
+     * Get the value of _phone.
      */
     public function getPhone()
     {
@@ -326,7 +349,7 @@ class User
     }
 
     /**
-     * Set the value of _phone
+     * Set the value of _phone.
      *
      * @return  self
      */
@@ -338,7 +361,7 @@ class User
     }
 
     /**
-     * Get the value of _birthDate
+     * Get the value of _birthDate.
      */
     public function getBirthDate()
     {
@@ -346,7 +369,7 @@ class User
     }
 
     /**
-     * Set the value of _birthDate
+     * Set the value of _birthDate.
      *
      * @return  self
      */
@@ -358,7 +381,7 @@ class User
     }
 
     /**
-     * Get the value of _street
+     * Get the value of _street.
      */
     public function getStreet()
     {
@@ -366,7 +389,7 @@ class User
     }
 
     /**
-     * Set the value of _street
+     * Set the value of _street.
      *
      * @return  self
      */

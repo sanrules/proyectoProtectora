@@ -1,6 +1,6 @@
 <?php
 require_once 'lib/RedBean/rb.php';
-include 'lib/ChromePhp.php';
+require_once 'lib/ChromePhp.php';
 
 // ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -8,11 +8,12 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
 // ! configuración para xampp
 // R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
-class Comment
+class Comments
 {
     private $_id = 0;
-    private $_idAnimal = 0;
-    private $_idUsuario = 0;
+    private $_animalId = 0;
+    private $_userId = 0;
+    private $_date = '';
     private $_text = '';
 
     public function __construct()
@@ -20,54 +21,64 @@ class Comment
 
     /**
      * Crea un comentario nuevo
-     * @param int $idAnimal id del animal sobre el que se hace el comentario
+     * @param int $animalId id del animal sobre el que se hace el comentario
      * @param int $idUsuario id del usuario que hace el comentario
      * @param string $text cuerpo del comentario
      */
 
-    public function createComment($idAnimal, $idUsuario, $text)
+    public function createComment($animalId, $userId, $date ,$text)
     {
-        $this->_idAnimal = $idAnimal;
-        $this->_idUsuario = $idUsuario;
+        $this->_animalId = $animalId;
+        $this->_userId = $userId;
+        $this->_date = $date;
         $this->_text = $text;
     }
 
     public function insertComment()
     {
-        $comment = R::dispense('comment');
+        $comment = R::dispense('comments');
 
-        $comment->idAnimal = $this->getIdAnimal();
-        $comment->idUser = $this->getIdUser();
-        $comment->text = $this->getText();
+        $comment->animal    = R::load('animal', $this->getAnimalId());
+        $comment->user      = R::load('user', $this->getUserId());
+        $comment->date       = $this->getDate();
+        $comment->text       = $this->getText();
 
         $id = R::store($comment);
+
         $this->setId($id);
     }
 
     /**
      * Devuelve todos los comentarios que ha hecho un usuario
-     * @param int $idUser id del usuario
+     * @param int $userId id del usuario
      * @return array $comments todos los comentarios para un usuario en concreto
      */
-    public function retrieveCommentsUser(
-        $idUser
-    ) {
-        $comments = R::getAll("select * from comment where idUser = $idUser");
-
+    public function retrieveUserComments($userId) {
+        $comments = R::getAll("select * from comments where user_id = $userId");
+        
         return $comments;
     }
 
     /**
      * Devuelve todos los comentarios de un animal en concreto
-     * @param int $idAnimal id del animal
+     * @param int $animalId id del animal
      * @return array $comments todos los comentarios para un animal en concreto
      */
-    public function retrieveCommentsAnimal(
-        $idAnimal
-    ) {
-        $comments = R::getAll("select * from comment where idUser = $idAnimal");
-
+    public function retrieveAnimalComments($animalId) {
+        $comments = R::getAll("select * from comments where animal_id = $animalId");
         return $comments;
+    }
+
+     /**
+     * Obtiene un comentario de la base de datos en base a su id.
+     *
+     * @param int $id ID del usuario
+     * @return User $user usuario recogido de la base de datos
+     */
+    public function retrieveComment($id)
+    {
+        $comment = R::load('comments', $id);
+        return $comment;
     }
 
     /**
@@ -77,7 +88,7 @@ class Comment
      */
     public function updateComment($id, $text)
     {
-        $comment = R::load('animal', $id);
+        $comment = R::load('comments', $id);
         $comment->text = $text;
 
         R::store($comment);
@@ -96,7 +107,7 @@ class Comment
     /**
      * Get the value of _text
      */
-    public function getComment()
+    public function getText()
     {
         return $this->_text;
     }
@@ -106,7 +117,7 @@ class Comment
      *
      * @return  self
      */
-    public function setComment($text)
+    public function setText($text)
     {
         $this->_text = $text;
 
@@ -114,41 +125,61 @@ class Comment
     }
 
     /**
-     * Get the value of _idUsuario
+     * Get the value of _userId
      */
-    public function getIdUsuario()
+    public function getUserId()
     {
-        return $this->_idUsuario;
+        return $this->_userId;
     }
 
     /**
-     * Set the value of _idUsuario
+     * Set the value of _userId
      *
      * @return  self
      */
-    public function setIdUsuario($idUsuario)
+    public function setUserId($userId)
     {
-        $this->_idUsuario = $idUsuario;
+        $this->_userId = $userId;
 
         return $this;
     }
 
     /**
-     * Get the value of _idAnimal
+     * Get the value of _animalId
      */
-    public function getIdAnimal()
+    public function getAnimalId()
     {
-        return $this->_idAnimal;
+        return $this->_animalId;
     }
 
     /**
-     * Set the value of _idAnimal
+     * Set the value of _animalId
      *
      * @return  self
      */
-    public function setIdAnimal($idAnimal)
+    public function setAnimalId($animalId)
     {
-        $this->_idAnimal = $idAnimal;
+        $this->_animalId = $animalId;
+
+        return $this;
+    }
+
+        /**
+     * Get the value of _date
+     */
+    public function getDate()
+    {
+        return $this->_date;
+    }
+
+    /**
+     * Set the value of _date
+     *
+     * @return  self
+     */
+    public function setDate($date)
+    {
+        $this->_date = $date;
 
         return $this;
     }

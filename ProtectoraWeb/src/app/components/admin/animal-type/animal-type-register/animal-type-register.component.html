@@ -1,4 +1,4 @@
-<app-administrator-navbar *ngIf="tipo != 'typeUpdate'"></app-administrator-navbar>
+<app-administrator-navbar *ngIf="formType != 'typeUpdate'"></app-administrator-navbar>
 <div class="container">
     <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
     <div class="row">
@@ -10,12 +10,12 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <input *ngIf="tipo == 'typeUpdate'" type="hidden" formControlName="idType" value="">
+      <input *ngIf="formType == 'typeUpdate'" type="hidden" formControlName="idType" value="">
         <div class="row">
-          <div class="col-md-12" *ngIf="tipo != 'typeUpdate'">
+          <div class="col-md-12" *ngIf="formType != 'typeUpdate'">
             <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Animal</button>
           </div>
-          <div class="col-md-12" *ngIf="tipo == 'typeUpdate'">
+          <div class="col-md-12" *ngIf="formType == 'typeUpdate'">
             <button mat-raised-button color="primary" [disabled]="!registerForm.valid" (click)="guardar()">Guardar</button>
             <button mat-raised-button color="warn" (click)="borrar()">Borrar</button>
           </div>

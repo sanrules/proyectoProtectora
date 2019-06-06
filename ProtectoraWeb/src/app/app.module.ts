@@ -21,13 +21,15 @@ import { AngularFireModule } from '@angular/fire';
 // Avatar
 import { AvatarModule } from 'ngx-avatar';
 
+// NBG
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 // Componentes Web
 // Auth
 import { HomeComponent } from './components/web/home/home.component';
 import { LoginComponent } from './components/web/auth/login/login.component';
 // User
 import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
-import { RegisterConfirmationComponent } from './components/web/auth/register/register-confirmation/register-confirmation.component';
 import { UserProfileComponent } from './components/web/users/user-profile/user-profile.component';
 import { UserUpdateComponent } from './components/web/users/user-profile/user-update/user-update.component';
 import { AdoptedAnimalsComponent } from './components/web/users/user-profile/adopted-animals/adopted-animals.component';
@@ -35,6 +37,9 @@ import { AdoptedAnimalsComponent } from './components/web/users/user-profile/ado
 import { AnimalListComponent } from './components/web/animals/animal-list/animal-list.component';
 import { AnimalComponent } from './components/web/animals/animal/animal.component';
 import { AnimalCardComponent } from './components/web/animals/animal-card/animal-card.component';
+import { AnimalImagesComponent } from './components/web/animals/animal/animal-images/animal-images.component';
+import { CommentsComponent } from './components/web/animals/animal/comments/comments.component';
+
 
 
 // Componentes Admin
@@ -67,8 +72,9 @@ import { NewsUpdateModal } from './components/admin/news/news-mangement/news-mod
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { AutofocusDirective } from './_directives/autofocus.directive';
+import { RegisterConfirmationComponent } from './components/shared/register-confirmation/register-confirmation.component';
 
-import { RegisterConfirmationAnimalComponent } from './components/admin/animals/animal-register/register-confirmation-animal/register-confirmation-animal.component';
+
 
 
 
@@ -103,8 +109,8 @@ import { RegisterConfirmationAnimalComponent } from './components/admin/animals/
     UserProfileComponent,
     UserUpdateComponent,
     AdoptedAnimalsComponent,
-    RegisterConfirmationAnimalComponent
-
+    AnimalImagesComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
@@ -116,7 +122,8 @@ import { RegisterConfirmationAnimalComponent } from './components/admin/animals/
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
-    AvatarModule
+    AvatarModule,
+    NgbModule.forRoot(),
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
@@ -131,7 +138,7 @@ import { RegisterConfirmationAnimalComponent } from './components/admin/animals/
     UserUpdateModalComponent,
     FormularioAnimalTypeUpdateModal,
     FormularioAnimalBreedUpdateModal,
-    RegisterConfirmationAnimalComponent
+    NewsUpdateModal
   ]
 })
 export class AppModule {}
