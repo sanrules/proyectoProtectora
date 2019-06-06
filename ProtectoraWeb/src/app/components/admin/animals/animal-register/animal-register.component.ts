@@ -23,6 +23,7 @@ export class AnimalRegisterComponent implements OnInit {
   @Input() public formType: string;
   @Input() public animalData: Animal;
 
+  step = 0;
   bucketName = 'animalimg';
   arrayAux: any[] = [];
   files: any[];
@@ -246,4 +247,17 @@ dataPrepare() {
 
     this.dialog.open(RegisterConfirmationComponent, dialogConfig);
   }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+
 }

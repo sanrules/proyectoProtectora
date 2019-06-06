@@ -2,6 +2,19 @@
 <div class="container">
     <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
     <div class="row">
+
+  <mat-accordion class="example-headers-align">
+
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Datos de animal
+        </mat-panel-title>
+        <mat-panel-description>
+          Nombre, Raza, Tipo...
+          <mat-icon>pets</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
       <div class="form-group col-md-12">
         <mat-form-field>
           <input matInput placeholder="Nombre de Animal" type="text" formControlName="name" id="name" cdkFocusInitial>
@@ -128,6 +141,18 @@
                 </mat-error>
             </mat-form-field>
         </div>
+      </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Imagenes
+          </mat-panel-title>
+          <mat-panel-description>
+            Para subir imagenes del animal
+            <mat-icon>collections</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
         <div class="row" *ngIf="formType != 'animalUpdate'">
           <div class="col-md-12">
@@ -148,17 +173,18 @@
           <input type="hidden" formControlName="adoptionDate" id="adoptionDate" value="">
           <input type="hidden" formControlName="status" id="status" value="sin adoptar">
         </div>
-
-        <hr>
+      </mat-expansion-panel>
+    </mat-accordion>
+        
         <div *ngIf="formType != 'animalUpdate'">
-          <div class="col-md-12">
+          <div class="row mt-5">
             <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Animal</button>
           </div>
         </div>
 
 
         <div class="row" *ngIf="formType == 'animalUpdate'">
-          <div class="col-md-12">
+          <div class="row mt-5">
             <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Guardar</button>
             <button mat-raised-button color="danger" >Borrar</button>
           </div>
