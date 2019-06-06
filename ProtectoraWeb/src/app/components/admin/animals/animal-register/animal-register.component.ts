@@ -3,7 +3,6 @@ import { Component, OnInit , Input , ElementRef, ViewChild} from '@angular/core'
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { AnimalService } from 'src/app/_services/animals/animal/animal-service';
 import { Animal } from 'src/app/_models/animal.model';
-import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FirebaseStorageService } from '../../../../_services/firebase-upload/firebase-upload-service';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
