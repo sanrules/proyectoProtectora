@@ -24,7 +24,7 @@ export class AnimalRegisterComponent implements OnInit {
   @Input() public animalData: Animal;
 
   bucketName = 'animalimg';
-
+  arrayAux: any[] = [];
   files: any[];
   selectedFiles: FileList;
   uploadpercent: Observable<number>;
@@ -80,20 +80,6 @@ export class AnimalRegisterComponent implements OnInit {
     console.log('form: ', this.registerForm);
   }
 
-  /* onUpload(e) {
-    console.log("imagen", e);
-
-    const imgId = Math.random().toString(36).substring(2);
-    const file = e.target.files[0];
-    const filePath = `animalspictures/img_${imgId}`;
-    const ref = this.firestorage.ref(filePath);
-    const task = this.firestorage.upload(filePath, file);
-
-    this.uploadpercent = task.percentageChanges();
-    task.snapshotChanges().pipe(finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
-
-  } */
-
   openInput(event) {
     document.getElementById('imgUpload').click();
   }
@@ -118,14 +104,14 @@ export class AnimalRegisterComponent implements OnInit {
             this.urlImageAr.push(url);
             console.log('urls', this.urlImageAr);
             if (i == (images.length - 1 ))  {
-              console.log('entra en el subir imagenes')
+              console.log('entra en el subir imagenes');
               this.subirImagenes(id, this.urlImageAr);
             }
           });
         })).subscribe();
     }
   }
-  /* this.formArray.get([3]).get('animalImgs').setValue(URL); */
+
   public subirImagenes(id: number, arrayImages) {
     this.animalService.uploadImages(id, arrayImages ).subscribe(() => {
       this.openDialog();
@@ -135,6 +121,18 @@ export class AnimalRegisterComponent implements OnInit {
     });
   }
 
+  public removeImage(imageName) {
+
+    for (let i = 0; i<this.files.length; i++) {
+        if ( this.files[i].name === imageName ) {
+        } else {
+        this.arrayAux.push(this.files[i]);
+        }
+    }
+    this.files = this.arrayAux;
+    this.arrayAux = [];
+
+  }
 
   public spararFechaYHora(fecha) {
     let arrayFechaYHora = fecha.split(' ');

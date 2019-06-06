@@ -33,3 +33,5 @@
 [2019-06-05 21:39:04] commentsGetByAnimal.INFO: Error: No se han recibido datos [] []
 [2019-06-05 21:40:53] commentsGetByAnimal.ERROR: Array [] []
 [2019-06-05 21:40:53] commentsGetByAnimal.INFO: Error: No se han recibido datos [] []
+[2019-06-06 19:51:10] commentsGetByAnimal.ERROR: No se pueden obtener los comentarios [] []
+[2019-06-06 19:51:21] commentsGetByAnimal.ERROR: No se pueden obtener los comentarios [] []
