@@ -2,6 +2,16 @@
 <div class="container">
     <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
     <div class="row">
+    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Datos de Animal
+          </mat-panel-title>
+          <mat-panel-description>
+            Nombre de usuario, raza, tipo...
+            <mat-icon>pets</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
       <div class="form-group col-md-12">
         <mat-form-field>
           <input matInput placeholder="Nombre de Animal" type="text" formControlName="name" id="name" cdkFocusInitial>
@@ -128,54 +138,24 @@
                 </mat-error>
             </mat-form-field>
         </div>
+      </mat-expansion-panel>
 
-        <!-- Subir imagenes 1-->
-        <!-- <div class="form-group col-md-12">
-          <div [fileUploadInputFor]="fileUploadQueue" class="upload-drop-zone">
-            Just drag and drop files here
-          </div>
-        
-         
-          <div style="width:100%">
-            <mat-file-upload-queue #fileUploadQueue
-              [fileAlias]="'file'"
-              [httpUrl]="'http://animalimg.s3-website.eu-west-3.amazonaws.com'" multiple>
-              <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
-            </mat-file-upload-queue>
-          </div>
-        </div>
- -->
-        
-        <!-- Subir imagenes2 -->
-        <!-- <div class="form-group col-md-12">
-        <label class="btn btn-default">
-          <input type="file" (change)="selectFile($event)">
-        </label>
-        
-        <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
-        </div>
- -->
+      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(0)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Imagenes
+            </mat-panel-title>
+            <mat-panel-description>
+              Imagenes
+              <mat-icon>collectios</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
 
-        <!-- Subir imagenes3 -->
-        <!-- <div class="btn" id="upload_image">Upload image</div> -->
-
-        <!-- Subir imagenes 4 -->
-        <!-- <div *ngIf="formType != 'animalUpdate'"> 
-          <div class="form-group col-mad-12" >
-            <h5>Seleccionar imagen</h5>
-            <input type="file" accept=".png, .jpg" (change)="onUpload($event)">
-          </div>
-          <input #imageAnimal type="text" formControlName="pictures" [value]="urlImage | async">
-          <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
-          [style.width]="(uploadpercent | async) + '%'"></div>
-        </div> -->
-
-        <!-- -------------------------------------------------------------------------------------------------- -->
         <div class="row" *ngIf="formType != 'animalUpdate'">
           <div class="col-md-12">
             <button mat-raised-button color="primary" class="avatarBtn" type="button" (click)="openInput()">Subir</button>
             <input type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg" multiple>
-            <!-- <input formControlName="animalImgs" id="animalImgs" [value]=""> -->
+            
           </div>
             <div class="row col-md-12" *ngFor="let file of files;let i = index">Nombre: {{file.name}} {{i}} </div>
 
@@ -183,6 +163,7 @@
             <mat-progress-bar mode="determinate" [value]="uploadpercent | async"></mat-progress-bar>
           </div>
         </div>
+      </mat-expansion-panel>
 
         <input *ngIf="formType == 'animalUpdate'" type="hidden" formControlName="idAnimal" value="">
 

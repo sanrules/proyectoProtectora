@@ -24,6 +24,8 @@ export class AnimalRegisterComponent implements OnInit {
 
   bucketName = 'animalimg';
 
+  step = 0;
+
   files: any[];
   uploadpercent: Observable<number>;
   confirmMessage: string;
@@ -110,8 +112,7 @@ export class AnimalRegisterComponent implements OnInit {
 
             this.urlImageAr.push(url);
             console.log('urls', this.urlImageAr);
-            if (i == (images.length - 1 ))  {
-              console.log('entra en el subir imagenes')
+            if (i === (images.length - 1 ))  {
               this.subirImagenes(id, this.urlImageAr);
             }
           });
@@ -193,14 +194,10 @@ dataPrepare() {
     console.log(this.animal);
     delete this.animal.idAnimal;
     let animalJSON = JSON.stringify(this.animal);
-    console.log('Conversión JSON: ', animalJSON);
 
     this.animalService.registerAnimal(animalJSON).subscribe(data => {
-
       this.onUpload(this.files, data.response);
-
-
-        console.log('respuesta registerAnimal(data): ', data);
+      console.log('respuesta registerAnimal(data): ', data);
     }, error => {
         console.warn('Error: ', error);
     });
@@ -223,4 +220,17 @@ dataPrepare() {
 
     this.dialog.open(RegisterConfirmationAnimalComponent, dialogConfig);
   }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+
 }
