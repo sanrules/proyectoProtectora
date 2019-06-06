@@ -11,7 +11,7 @@
     <div class="card mb-3 w-100">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="https://images.pexels.com/photos/259803/pexels-photo-259803.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="card-img" alt="...">
+          <img [src]="images[0].image" class="card-img" alt="...">
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -81,7 +81,7 @@
       <ngb-tab title="Imágenes">
         <ng-template ngbTabContent>
           <div class="col-md-12 my-5 text-center">
-            <app-animal-images></app-animal-images>
+            <app-animal-images [animalId]="animalId"></app-animal-images>
           </div>
         </ng-template>
       </ngb-tab>

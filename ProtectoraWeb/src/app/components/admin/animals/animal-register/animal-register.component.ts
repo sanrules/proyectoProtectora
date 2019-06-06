@@ -74,10 +74,11 @@ export class AnimalRegisterComponent implements OnInit {
 
     });
 
-    if (this.formType == 'animalUpdate'){
-      console.log("animal: ", this.animalData);
-     this.setDatosUpdate(this.animalData);
+    if (this.formType === 'animalUpdate'){
+      console.log('animal: ', this.animalData);
+      this.setDatosUpdate(this.animalData);
     }
+    console.log('form: ', this.registerForm);
   }
 
   /* onUpload(e) {
@@ -194,47 +195,42 @@ dataPrepare() {
 }
 
   registerSubmit() {
-  if (this.formType === 'animalUpdate') {
+    if (this.formType === 'animalUpdate') {
 
-    this.animal = this.dataPrepare();
-    const userJSON = JSON.stringify(this.animal);
-    console.log('datos a enviar: ', userJSON);
-    this.animalService.updateAnimal(userJSON).subscribe(data => {
-        console.log('repuesta registerAnimal(data): ', data);
-        this.openDialog();
+      this.animal = this.dataPrepare();
+      const userJSON = JSON.stringify(this.animal);
+      console.log('datos a enviar: ', userJSON);
+      this.animalService.updateAnimal(userJSON).subscribe(data => {
+          console.log('repuesta registerAnimal(data): ', data);
+          this.openDialog();
+          this.router.navigateByUrl('/admin/animals/management');
+        },
+        error => {
+          console.log('Error: ', error);
+        });
+
+    } else {
+
+      console.log('Entra en registerSubmit()');
+      this.animal = this.dataPrepare();
+      console.log(this.animal);
+      delete this.animal.idAnimal;
+      let animalJSON = JSON.stringify(this.animal);
+      console.log('Conversión JSON: ', animalJSON);
+      this.animalService.registerAnimal(animalJSON).subscribe(data => {
+
+        if ( this.files === undefined ) {
+
         this.router.navigateByUrl('/admin/animals/management');
-      },
-      error => {
-        console.log('Error: ', error);
-      });
-
-  } else {
-
-    console.log('Entra en registerSubmit()');
-    this.animal = this.dataPrepare();
-    console.log(this.animal);
-    delete this.animal.idAnimal;
-    let animalJSON = JSON.stringify(this.animal);
-    console.log('Conversión JSON: ', animalJSON);
-    this.animalService.registerAnimal(animalJSON).subscribe(data => {
-
-   
-      if ( this.files === undefined ) {
-
-      this.router.navigateByUrl('/admin/animals/management');
-      this.openDialog();
-      } else {
-        
-        this.onUpload(this.files, data.response);
-
-
-      }
-
+        this.openDialog();
+        } else {
+          this.onUpload(this.files, data.response);
+        }
         console.log('respuesta registerAnimal(data): ', data);
-    }, error => {
-        console.warn('Error: ', error);
-    });
-  }
+      }, error => {
+          console.warn('Error: ', error);
+      });
+    }
   }
 
   openDialog() {

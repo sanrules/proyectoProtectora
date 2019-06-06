@@ -17,7 +17,6 @@ export class AnimalService {
 
   // Solicita a la API una lista con todos los usuarios.
   getAnimals(): Observable<any> {
-    console.log('Respuesta backEnd => get_animal_all()');
     return this.http.get(`${this.baseURL}/animalGetAll.php`);
   }
 
@@ -28,7 +27,6 @@ export class AnimalService {
 
   // Da de alta un nuevo animal
   registerAnimal(data): Observable<any> {
-    //return this.http.get(`${this.baseURL}/user/insert_user.php?createuser=${data}`);
     return this.http.post(`${this.baseURL}/animalInsert.php`, data, this.httpOptions);
   }
 
