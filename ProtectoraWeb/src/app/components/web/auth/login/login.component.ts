@@ -3,7 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/_services/auth/auth.service';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatDialogConfig, MatDialog } from '@angular/material';
+import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 
 @Component({
   selector: 'app-login',
@@ -14,9 +15,11 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   error: string;
+  confirmMessage: string;
 
   constructor(
     private dialogRef: MatDialogRef<LoginComponent>,
+    private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router) {
@@ -59,6 +62,18 @@ export class LoginComponent implements OnInit {
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  openDialog() {
+    this.confirmMessage = this.error;
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = this.confirmMessage;
+
+    this.dialog.open(RegisterConfirmationComponent, dialogConfig);
   }
 
 }

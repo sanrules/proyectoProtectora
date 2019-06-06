@@ -3,10 +3,10 @@ require_once 'lib/RedBean/rb.php';
 require_once 'lib/ChromePhp.php';
 
 // ! configuración para mamp
-//R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
+R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
 
 // ! configuración para xampp
-R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
+//R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
 class Comments
 {

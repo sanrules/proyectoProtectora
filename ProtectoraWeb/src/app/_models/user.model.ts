@@ -17,8 +17,8 @@ export interface User {
   province: string;
   city: string;
   postal_code: number;
-  user_type: string;
   avatar: string;
+  user_type: string;
 
   /*public constructor(init?: Partial<User >) {
     Object.assign(this, init);
