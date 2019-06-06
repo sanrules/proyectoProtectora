@@ -187,7 +187,7 @@ export class AdminUserRegisterComponent {
       "city": this.registerForm.get('city').value.trim(),
       "postal_code": this.registerForm.get('postalCode').value,
       "user_type":  this.registerForm.get('userType').value.trim(),
-      "avatar":  this.registerForm.get('imgUrl').value.trim(),
+      "avatar":  '',
     };
 
     return formData;

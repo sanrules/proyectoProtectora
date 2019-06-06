@@ -1,5 +1,6 @@
 <?php
 require_once 'lib/RedBean/rb.php';
+require_once 'lib/ChromePhp.php';
 
 // ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -12,6 +13,7 @@ class Comments
     private $_id = 0;
     private $_animalId = 0;
     private $_userId = 0;
+    private $_date = '';
     private $_text = '';
 
     public function __construct()
@@ -67,6 +69,18 @@ class Comments
         return $comments;
     }
 
+     /**
+     * Obtiene un comentario de la base de datos en base a su id.
+     *
+     * @param int $id ID del usuario
+     * @return User $user usuario recogido de la base de datos
+     */
+    public function retrieveComment($id)
+    {
+        $comment = R::load('comments', $id);
+        return $comment;
+    }
+
     /**
      * Actualiza el texto de un comentario de la base de datos
      * @param int $id ID del comentario
@@ -74,7 +88,7 @@ class Comments
      */
     public function updateComment($id, $text)
     {
-        $comment = R::load('animal', $id);
+        $comment = R::load('comments', $id);
         $comment->text = $text;
 
         R::store($comment);

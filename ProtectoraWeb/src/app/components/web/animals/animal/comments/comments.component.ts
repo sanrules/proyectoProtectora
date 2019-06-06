@@ -40,7 +40,6 @@ export class CommentsComponent implements OnInit {
   ngOnInit() {
     this.commentService.getCommentsByAnimal(this.animalId).subscribe(commentGet => {
       this.comments = commentGet.response;
-      console.log('comments: ', this.comments);
     });
 
     this.authService.currentUser.subscribe(userGet => {
@@ -49,7 +48,6 @@ export class CommentsComponent implements OnInit {
 
       this.userService.getuserById(this.idUser).subscribe(user => {
         this.user = user.response;
-        console.log('user: ', this.user);
       });
     });
 
@@ -97,11 +95,11 @@ export class CommentsComponent implements OnInit {
 
     // Se convierte el objeto user a JSON para enviarlo a la API
     const commentJSON = JSON.stringify(this.comment);
-    console.log('Conversión JSON: ', commentJSON);
 
     // Se envían los datos mediante post a la API
     this.commentService.postComment(commentJSON).subscribe(data => {
       this.errorMessage = false;
+      this.comments.push(data.response);
       this.openDialog();
     },
     error => {

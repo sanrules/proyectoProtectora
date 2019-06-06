@@ -30,9 +30,15 @@ try {
             $comment->insertComment();
 
             if ($comment != '') {
+                
+                $commentGet = new Comments();
+                ChromePhp :: log ('commentId: ', $comment->getId());
+                $commentGet = R::findOne('comments', 'id=?', [$comment->getId()]);
+                ChromePhp :: log ('commentGet: ', $commentGet);
+
                 $reply = array(
                     'status'   => 'Created',
-                    'response' => $comment,
+                    'response' => $commentGet,
                 );
                 http_response_code(200); // 200 OK
             } else {
@@ -43,8 +49,8 @@ try {
                 http_response_code(503); // 503 Service Unavailable
                 $logger->info("Error: $error");
             }
-
-            header('Content-type:application/json;charset=utf-8');
+            ChromePhp :: log ('respuesta comment: ', $reply);
+            //header('Content-type:application/json;charset=utf-8');
             echo json_encode($reply, JSON_UNESCAPED_UNICODE);
         }
     }

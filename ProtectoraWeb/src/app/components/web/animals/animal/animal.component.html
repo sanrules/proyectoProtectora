@@ -10,7 +10,7 @@
   <div class="row">
     <div class="card mb-3 w-100">
       <div class="row no-gutters">
-        <div class="col-md-4">
+        <div class="col-md-4" *ngIf="images">
           <img [src]="images[0].image" class="card-img" alt="...">
         </div>
         <div class="col-md-8">
