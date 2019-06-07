@@ -115,7 +115,7 @@ export class AnimalRegisterComponent implements OnInit {
 
   public subirImagenes(id: number, arrayImages) {
     this.animalService.uploadImages(id, arrayImages ).subscribe(() => {
-      this.openDialog();
+      this.openDialog(id , 1);
       this.router.navigateByUrl('/admin/animals/management');
     }, error => {
         console.log('Error: ', error);
@@ -198,13 +198,15 @@ dataPrepare() {
       this.animal = this.dataPrepare();
       const userJSON = JSON.stringify(this.animal);
       console.log('datos a enviar: ', userJSON);
+
       this.animalService.updateAnimal(userJSON).subscribe(data => {
           console.log('repuesta registerAnimal(data): ', data);
-          this.openDialog();
+          this.openDialog(data, 1);
           this.router.navigateByUrl('/admin/animals/management');
         },
         error => {
           console.log('Error: ', error);
+          this.openDialog(error, 2);
         });
 
     } else {
@@ -215,29 +217,42 @@ dataPrepare() {
       delete this.animal.idAnimal;
       let animalJSON = JSON.stringify(this.animal);
       console.log('Conversión JSON: ', animalJSON);
+
       this.animalService.registerAnimal(animalJSON).subscribe(data => {
 
         if ( this.files === undefined ) {
 
         this.router.navigateByUrl('/admin/animals/management');
-        this.openDialog();
+        this.openDialog(data, 1);
         } else {
           this.onUpload(this.files, data.response);
         }
         console.log('respuesta registerAnimal(data): ', data);
       }, error => {
           console.warn('Error: ', error);
+          this.openDialog(error , 2 );
       });
     }
   }
 
-  openDialog() {
+  openDialog(aux , type) {
     if (this.formType === 'animalUpdate') {
+      if ( (aux !== undefined && type === 1) || (aux === undefined && type === 2) ) {
       this.confirmMessage =
       'La actualización se ha completado correctamente.';
     } else {
+      this.confirmMessage =
+      'Se ha producido un error en la actualizacion';
+    }
+    } else {
+      if ((aux !== undefined && type === 1) || (aux === undefined && type === 2) ) {
     this.confirmMessage =
       'El registro de animal se ha completado correctamente.';
+    } else {
+
+    this.confirmMessage =
+      'Se ha producido un error en el registro';
+      }
     }
     const dialogConfig = new MatDialogConfig();
 
