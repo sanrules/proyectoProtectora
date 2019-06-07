@@ -9,17 +9,17 @@ import { Observable } from 'rxjs';
   })
   export class AnimalCardComponent implements OnInit {
 
-@Input() dato: any = {};
-@Input() index: number;
+    @Input() dato: any = {};
+    @Input() index: number;
+
     public animales: Observable<any>;
-    constructor(private animalService: AnimalService){
+
+    constructor(private animalService: AnimalService) {
 
     }
 
     ngOnInit() {
         this.animales = this.animalService.getAnimals();
-
-      console.log(this.animales)
     }
 
   }

@@ -51,7 +51,6 @@ export class CommentsComponent implements OnInit {
       });
     });
 
-
     this.commentForm = this.formBuilder.group({
       id: ['', []],
       animalId: ['', []],
@@ -100,10 +99,14 @@ export class CommentsComponent implements OnInit {
     this.commentService.postComment(commentJSON).subscribe(data => {
       this.errorMessage = false;
       this.comments.push(data.response);
+      this.commentForm.reset();
+      this.commentForm.controls.text.setErrors(null);
       this.openDialog();
     },
     error => {
       this.errorMessage = true;
+      this.commentForm.reset();
+      this.commentForm.controls.text.setErrors(null);
       this.openDialog();
     });
 

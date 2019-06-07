@@ -10,10 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  /* isAdmin: boolean;
-  isLogged: boolean;
-  currentUser: JwtResponse; */
-  perfil: number;
+
   user: any;
   userId: number;
   constructor(private dialog: MatDialog,
@@ -26,18 +23,9 @@ export class NavbarComponent implements OnInit {
 
     this.authService.currentUser.subscribe(userProfile => {
       this.user = this.authService.decodeJWT(userProfile.jwt);
-      console.log('jwt: ', this.user);
       this.userId = this.user.data.id;
-      console.log('jwt: ', this.userId);
+      console.log('userId', this.userId );
     });
-
-/*     this.authService.admin.subscribe(data => {
-      this.isAdmin = data;
-    });
-
-    this.authService.logged.subscribe(log => {
-      this.isLogged = log;
-    }); */
 
   }
 
@@ -47,12 +35,10 @@ export class NavbarComponent implements OnInit {
   }
 
   isLogOut() {
-    /* console.log('logState: ', this.authService.isLogged()) */;
     return this.authService.isLogged();
   }
 
   connectAdmin() {
-  /*   console.log('adminState: ', this.authService.isAdmin()); */
     return this.authService.isAdmin();
   }
 
