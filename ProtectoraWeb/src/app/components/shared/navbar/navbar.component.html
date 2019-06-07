@@ -21,7 +21,8 @@
     </ul>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active" *ngIf="isLogOut()">
-        <a class="nav-link" [routerLink]="['user/profile', userId]">Perfil <span class="sr-only">(current)</span></a>
+        <!-- <a class="nav-link" [routerLink]="['user/profile', userId]">Perfil <span class="sr-only">(current)</span></a> -->
+        <a class="nav-link" [routerLink]="" (click)="enterProfile()">Perfil <span class="sr-only">(current)</span></a>
       </li>
       <li>
         <button *ngIf="!isLogOut()" mat-raised-button color="primary" (click)="openDialog()">Acceder</button>

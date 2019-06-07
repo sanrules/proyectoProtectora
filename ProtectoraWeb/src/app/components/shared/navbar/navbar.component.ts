@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private authService: AuthService,
               private router: Router) {
-    // this.authService.currentUser.subscribe(user => this.currentUser = user);
+    // this.authService.currentUser.subscribe(user => this.user = user);
   }
 
   ngOnInit() {
@@ -27,6 +27,12 @@ export class NavbarComponent implements OnInit {
       console.log('userId', this.userId );
     });
 
+  }
+
+  enterProfile() {
+    const id = this.userId;
+    console.log('id: ', id);
+    this.router.navigate(['/user/profile', id]);
   }
 
   logOut() {
@@ -52,7 +58,6 @@ export class NavbarComponent implements OnInit {
 
     this.dialog.open(LoginComponent, dialogConfig);
   }
-
 
 }
 

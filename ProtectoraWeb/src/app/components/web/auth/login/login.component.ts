@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form.email.value, this.form.password.value)
       .subscribe(data => {
         this.closeDialog();
+        this.router.navigate(['']);
       }, error => {
           this.error = error;
           console.log('error: ', error);
