@@ -11,7 +11,7 @@ import { Type } from 'src/app/_models/type.model';
 
 
 @Component({
-    selector: 'app-admin/animal-type/management',
+    selector: 'app-admin-animal-type-management',
     templateUrl: './animal-type-management.component.html',
     styleUrls: ['./animal-type-management.component.css']
   })
