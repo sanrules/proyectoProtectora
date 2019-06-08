@@ -1,6 +1,6 @@
 <?php
-require_once 'lib/RedBean/rb.php';
-include 'lib/ChromePhp.php';
+require_once '../lib/RedBean/rb.php';
+include '../lib/ChromePhp.php';
 
 // ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -10,10 +10,10 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
 
 class News
 {
-    private $_id     = '';
-    private $_name   = '';
-    private $_content   = '';
-    private $_date   = '';
+    private $_id      = '';
+    private $_name    = '';
+    private $_content = '';
+    private $_date    = '';
 
     public function __construct()
     {
@@ -29,9 +29,9 @@ class News
      */
     public function createNews($name, $content, $date)
     {
-        $this->_name   = $name;
+        $this->_name    = $name;
         $this->_content = $content;
-        $this->_date   = $date;
+        $this->_date    = $date;
     }
 
     /**
@@ -41,14 +41,14 @@ class News
      */
     public function insertNews()
     {
-        $news= R::dispense('news');
+        $news = R::dispense('news');
 
-        $news->name   = $this->_name;
+        $news->name    = $this->_name;
         $news->content = $this->_content;
-        $news->date = $this->_date;
+        $news->date    = $this->_date;
 
-        $id        = R::store($news);
-        
+        $id = R::store($news);
+
         $this->_id = $id;
     }
 
@@ -175,7 +175,7 @@ class News
         return $this;
     }
 
-      /**
+    /**
      * Get the value of _name
      */
     public function get_content()
@@ -195,7 +195,7 @@ class News
         return $this;
     }
 
-      /**
+    /**
      * Get the value of _name
      */
     public function get_date()
@@ -214,7 +214,5 @@ class News
 
         return $this;
     }
-
-    
 
 }

@@ -1,6 +1,6 @@
 <?php
-require_once 'lib/RedBean/rb.php';
-require_once 'lib/ChromePhp.php';
+require_once '../lib/RedBean/rb.php';
+require_once '../lib/ChromePhp.php';
 
 // ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -10,14 +10,14 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
 
 class Comments
 {
-    private $_id = 0;
+    private $_id       = 0;
     private $_animalId = 0;
-    private $_userId = 0;
-    private $_date = '';
-    private $_text = '';
+    private $_userId   = 0;
+    private $_date     = '';
+    private $_text     = '';
 
     public function __construct()
-    { }
+    {}
 
     /**
      * Crea un comentario nuevo
@@ -26,22 +26,22 @@ class Comments
      * @param string $text cuerpo del comentario
      */
 
-    public function createComment($animalId, $userId, $date ,$text)
+    public function createComment($animalId, $userId, $date, $text)
     {
         $this->_animalId = $animalId;
-        $this->_userId = $userId;
-        $this->_date = $date;
-        $this->_text = $text;
+        $this->_userId   = $userId;
+        $this->_date     = $date;
+        $this->_text     = $text;
     }
 
     public function insertComment()
     {
         $comment = R::dispense('comments');
 
-        $comment->animal    = R::load('animal', $this->getAnimalId());
-        $comment->user      = R::load('user', $this->getUserId());
-        $comment->date       = $this->getDate();
-        $comment->text       = $this->getText();
+        $comment->animal = R::load('animal', $this->getAnimalId());
+        $comment->user   = R::load('user', $this->getUserId());
+        $comment->date   = $this->getDate();
+        $comment->text   = $this->getText();
 
         $id = R::store($comment);
 
@@ -53,9 +53,10 @@ class Comments
      * @param int $userId id del usuario
      * @return array $comments todos los comentarios para un usuario en concreto
      */
-    public function retrieveUserComments($userId) {
+    public function retrieveUserComments($userId)
+    {
         $comments = R::getAll("select * from comments where user_id = $userId");
-        
+
         return $comments;
     }
 
@@ -64,12 +65,13 @@ class Comments
      * @param int $animalId id del animal
      * @return array $comments todos los comentarios para un animal en concreto
      */
-    public function retrieveAnimalComments($animalId) {
+    public function retrieveAnimalComments($animalId)
+    {
         $comments = R::getAll("select * from comments where animal_id = $animalId");
         return $comments;
     }
 
-     /**
+    /**
      * Obtiene un comentario de la base de datos en base a su id.
      *
      * @param int $id ID del usuario
@@ -88,7 +90,7 @@ class Comments
      */
     public function updateComment($id, $text)
     {
-        $comment = R::load('comments', $id);
+        $comment       = R::load('comments', $id);
         $comment->text = $text;
 
         R::store($comment);
@@ -164,7 +166,7 @@ class Comments
         return $this;
     }
 
-        /**
+    /**
      * Get the value of _date
      */
     public function getDate()
