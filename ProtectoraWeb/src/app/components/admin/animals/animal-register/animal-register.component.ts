@@ -2,6 +2,7 @@
 import { Component, OnInit , Input , ElementRef, ViewChild} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { AnimalService } from 'src/app/_services/animals/animal/animal-service';
+import { ImagesService } from 'src/app/_services/animals/images/images.service';
 import { Animal } from 'src/app/_models/animal.model';
 import { FirebaseStorageService } from '../../../../_services/firebase-upload/firebase-upload-service';
 import { Observable } from 'rxjs';
@@ -31,6 +32,7 @@ export class AnimalRegisterComponent implements OnInit {
   uploadpercent: Observable<number>;
   urlImage: Observable<string>;
   urlImageAr: any[] = [];
+  images: any[];
 
   registerForm: FormGroup;
   confirmMessage: string;
@@ -53,9 +55,11 @@ export class AnimalRegisterComponent implements OnInit {
               private animalService: AnimalService,
               private firestorage: FirebaseStorageService,
               private dialog: MatDialog,
-              private router: Router) { }
+              private router: Router,
+              private imagesService: ImagesService) { }
 
   ngOnInit() {
+
 
     const generosControl = this.generos.map(c => new FormControl(false, Validators.required));
 
@@ -75,6 +79,10 @@ export class AnimalRegisterComponent implements OnInit {
     });
 
     if (this.formType === 'animalUpdate'){
+      this.imagesService.getImagesByAnimal(this.animalData.id).subscribe(e =>{
+        this.images = e.response;
+        console.log(this.images);
+      });
       console.log('animal: ', this.animalData);
       this.setDatosUpdate(this.animalData);
     }
@@ -104,7 +112,7 @@ export class AnimalRegisterComponent implements OnInit {
 
             this.urlImageAr.push(url);
             console.log('urls', this.urlImageAr);
-            if (i == (images.length - 1 ))  {
+            if (i == (images.length - 1))  {
               console.log('entra en el subir imagenes');
               this.subirImagenes(id, this.urlImageAr);
             }
@@ -198,11 +206,16 @@ dataPrepare() {
       this.animal = this.dataPrepare();
       const userJSON = JSON.stringify(this.animal);
       console.log('datos a enviar: ', userJSON);
-
       this.animalService.updateAnimal(userJSON).subscribe(data => {
-          console.log('repuesta registerAnimal(data): ', data);
-          this.openDialog(data, 1);
+
+        if ( this.files === undefined ) {
+
           this.router.navigateByUrl('/admin/animals/management');
+          this.openDialog(data, 1);
+          } else {
+          this.onUpload(this.files, data.response);
+          }
+          console.log('repuesta registerAnimal(data): ', data.response);
         },
         error => {
           console.log('Error: ', error);
@@ -217,7 +230,6 @@ dataPrepare() {
       delete this.animal.idAnimal;
       let animalJSON = JSON.stringify(this.animal);
       console.log('Conversión JSON: ', animalJSON);
-
       this.animalService.registerAnimal(animalJSON).subscribe(data => {
 
         if ( this.files === undefined ) {
@@ -225,7 +237,7 @@ dataPrepare() {
         this.router.navigateByUrl('/admin/animals/management');
         this.openDialog(data, 1);
         } else {
-          this.onUpload(this.files, data.response);
+        this.onUpload(this.files, data.response);
         }
         console.log('respuesta registerAnimal(data): ', data);
       }, error => {
