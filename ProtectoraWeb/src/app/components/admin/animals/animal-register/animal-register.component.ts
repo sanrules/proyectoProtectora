@@ -79,7 +79,7 @@ export class AnimalRegisterComponent implements OnInit {
     });
 
     if (this.formType === 'animalUpdate'){
-      this.imagesService.getImagesByAnimal(this.animalData.id).subscribe(e =>{
+      this.imagesService.getImagesByAnimal(this.animalData.idAnimal).subscribe(e =>{
         this.images = e.response;
         console.log(this.images);
       });
