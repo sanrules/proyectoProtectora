@@ -11,7 +11,7 @@ import { Comment } from '../../../../../_models/comment.model';
 // Components
 import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 // Material
-import { MatDialogConfig, MatDialog } from '@angular/material';
+import { MatDialogConfig, MatDialog, PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-comments',
@@ -21,12 +21,17 @@ import { MatDialogConfig, MatDialog } from '@angular/material';
 export class CommentsComponent implements OnInit {
 
   commentForm: FormGroup;
-  userComment: User;
   comments: Comment[] = [];
   comment: Comment;
+  pagedComments: Comment[] = [];
 
   confirmMessage: string;
   errorMessage: boolean;
+
+  length: number;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  pageEvent: PageEvent;
 
   @Input() animalId: number;
 
@@ -42,11 +47,12 @@ export class CommentsComponent implements OnInit {
 
       this.comments.forEach(comment => {
         this.userService.getuserById(+comment.user_id).subscribe(user => {
-          this.userComment = user.response;
+          comment.username = user.response.username;
+          comment.avatar = user.response.avatar;
         });
 
       });
-
+      // this.length = this.comments.length;
     });
 
     this.commentForm = this.formBuilder.group({
@@ -54,7 +60,7 @@ export class CommentsComponent implements OnInit {
       animalId: ['', []],
       userId: ['', []],
       date: ['', []],
-      text: ['', [Validators.required]]
+      text: ['', [Validators.required, Validators.minLength(5)]]
     });
   }
 
@@ -111,7 +117,8 @@ export class CommentsComponent implements OnInit {
       this.comments.push(data.response);
       this.commentForm.reset();
       this.commentForm.controls.text.setErrors(null);
-      this.openDialog();
+      this.ngOnInit();
+
     },
     error => {
       this.errorMessage = true;
@@ -123,19 +130,28 @@ export class CommentsComponent implements OnInit {
   }
 
   openDialog() {
-    if (this.errorMessage) {
-      this.confirmMessage = 'No se ha podido enviar el comentario.';
-    } else {
-        this.confirmMessage = 'Comentario enviado con éxito';
-    }
 
     const dialogConfig = new MatDialogConfig();
+    this.confirmMessage = 'No se ha podido enviar el comentario.';
 
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = false;
     dialogConfig.data = this.confirmMessage;
 
     this.dialog.open(RegisterConfirmationComponent, dialogConfig);
+  }
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  }
+
+  OnPageChange(event: PageEvent){
+    let startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.length){
+      endIndex = this.length;
+    }
+    this.pagedComments = this.comments.slice(startIndex, endIndex);
   }
 
 }

@@ -10,8 +10,9 @@ import { map } from 'rxjs/operators';
 })
 export class AuthService {
 
-  @Output() admin = new EventEmitter();
+/*   @Output() admin = new EventEmitter();
   @Output() logged = new EventEmitter();
+  @Output() userLogged = new EventEmitter(); */
 
   baseURL = 'http://localhost/ProtectoraWebApi/public/src';
 
@@ -25,8 +26,8 @@ export class AuthService {
   }
 
   public get currentUserValue() {
-    this.logged.emit(this.isLogged());
-    this.admin.emit(this.isAdmin());
+/*     this.logged.emit(this.isLogged());
+    this.admin.emit(this.isAdmin()); */
     return this.currentUserSubject.value;
   }
 
@@ -41,8 +42,9 @@ export class AuthService {
   saveTokenLocalStorage(token) {
     localStorage.setItem('currentUser', JSON.stringify(token));
     this.currentUserSubject.next(token);
-    this.admin.emit(this.isAdmin());
+/*     this.admin.emit(this.isAdmin());
     this.logged.emit(this.isLogged());
+    this.userLogged.emit(this.userIdLogged()); */
     return token;
   }
 
@@ -50,7 +52,6 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     this.logged.emit(this.isLogged());
-    this.admin.emit(this.isAdmin());
   }
 
   isAdmin() {
@@ -82,6 +83,19 @@ export class AuthService {
       logged = true;
     }
     return logged;
+  }
+
+  userIdLogged() {
+    let token = this.currentUserSubject.value;
+
+    if (token != null) {
+      token = token.jwt;
+
+      let user = this.decodeJWT(token);
+      user = user.data.id;
+
+      return user;
+    }
   }
 
   /*

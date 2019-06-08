@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { AuthService } from '../../../_services/auth/auth.service';
 import { JwtResponse } from '../../../_models/jwtResponse';
 import { Router } from '@angular/router';
+import { Observable, BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -13,6 +14,9 @@ export class NavbarComponent implements OnInit {
 
   user: any;
   userId: number;
+  currentUser: Observable<any>;
+
+
   constructor(private dialog: MatDialog,
               private authService: AuthService,
               private router: Router) {
@@ -21,20 +25,18 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
 
-    const currentUser = this.authService.currentUserValue;
+    this.currentUser = this.authService.currentUserValue;
 
-    if (currentUser) {
+    if (this.currentUser) {
       this.authService.currentUser.subscribe(userProfile => {
         this.user = this.authService.decodeJWT(userProfile.jwt);
         this.userId = this.user.data.id;
-        console.log('userId', this.userId );
       });
     }
 
   }
 
   enterProfile(id: number) {
-    console.log('id: ', id);
     this.router.navigate(['/user/profile', id]);
   }
 
@@ -49,6 +51,10 @@ export class NavbarComponent implements OnInit {
 
   connectAdmin() {
     return this.authService.isAdmin();
+  }
+
+  userLogged() {
+    return this.authService.userIdLogged();
   }
 
   openDialog() {
