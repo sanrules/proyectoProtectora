@@ -51,7 +51,7 @@ export class AuthService {
   logOut() {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
-    this.logged.emit(this.isLogged());
+    // this.logged.emit(this.isLogged());
   }
 
   isAdmin() {
