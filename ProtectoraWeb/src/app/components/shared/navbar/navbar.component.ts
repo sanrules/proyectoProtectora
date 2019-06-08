@@ -21,16 +21,19 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
 
-    this.authService.currentUser.subscribe(userProfile => {
-      this.user = this.authService.decodeJWT(userProfile.jwt);
-      this.userId = this.user.data.id;
-      console.log('userId', this.userId );
-    });
+    const currentUser = this.authService.currentUserValue;
+
+    if (currentUser) {
+      this.authService.currentUser.subscribe(userProfile => {
+        this.user = this.authService.decodeJWT(userProfile.jwt);
+        this.userId = this.user.data.id;
+        console.log('userId', this.userId );
+      });
+    }
 
   }
 
-  enterProfile() {
-    const id = this.userId;
+  enterProfile(id: number) {
     console.log('id: ', id);
     this.router.navigate(['/user/profile', id]);
   }

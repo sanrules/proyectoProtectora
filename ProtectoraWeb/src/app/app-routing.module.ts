@@ -18,22 +18,23 @@ import { AnimalBreedManagementComponent } from './components/admin/animal-breed/
 import { AnimalBreedRegisterComponent } from './components/admin/animal-breed/animal-breed-register/animal-breed-register.component';
 import { NewsRegisterComponent } from './components/admin/news/news-register/news-register.component';
 import { NewsManagementComponent } from './components/admin/news/news-mangement/news-management.component';
+import { AuthGuard } from './_guards/auth-guard';
 
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'user/register', component: UserRegisterComponent},
   {path: 'user/profile/:id', component: UserProfileComponent},
-  {path: 'admin/user/register', component: AdminUserRegisterComponent},
-  {path: 'admin/user/management', component: UserManagementComponent},
-  {path: 'admin/animals/register', component: AnimalRegisterComponent},
-  {path: 'admin/animals/management', component: AnimalManagementComponent},
-  {path: 'admin/animals/type/management', component: AnimalTypeManagementComponent},
-  {path: 'admin/animals/type/register', component: AnimalTypeRegisterComponent},
-  {path: 'admin/animals/breed/management', component: AnimalBreedManagementComponent},
-  {path: 'admin/animals/breed/register', component: AnimalBreedRegisterComponent},
-  {path: 'admin/news/register', component: NewsRegisterComponent},
-  {path: 'admin/news/management', component: NewsManagementComponent},
+  {path: 'admin/user/register', component: AdminUserRegisterComponent, canActivate: [AuthGuard]},
+  {path: 'admin/user/management', component: UserManagementComponent, canActivate: [AuthGuard]} ,
+  {path: 'admin/animals/register', component: AnimalRegisterComponent, canActivate: [AuthGuard]},
+  {path: 'admin/animals/management', component: AnimalManagementComponent, canActivate: [AuthGuard]},
+  {path: 'admin/animals/type/management', component: AnimalTypeManagementComponent, canActivate: [AuthGuard]},
+  {path: 'admin/animals/type/register', component: AnimalTypeRegisterComponent, canActivate: [AuthGuard]},
+  {path: 'admin/animals/breed/management', component: AnimalBreedManagementComponent, canActivate: [AuthGuard]},
+  {path: 'admin/animals/breed/register', component: AnimalBreedRegisterComponent, canActivate: [AuthGuard]},
+  {path: 'admin/news/register', component: NewsRegisterComponent, canActivate: [AuthGuard]},
+  {path: 'admin/news/management', component: NewsManagementComponent, canActivate: [AuthGuard]},
   {path: 'animals/list', component: AnimalListComponent},
   {path: 'animals/animal/:id', component: AnimalComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'home'}

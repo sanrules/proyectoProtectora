@@ -1,16 +1,16 @@
-<div class="row" *ngIf="user">
+<div class="row" *ngIf="userComment">
   <div class="col-md-12" *ngFor="let comment of comments">
     <div class="row">
       <div class="col-md-12 d-inline-block">
         <ngx-avatar 
-          [src]="user.avatar" 
+          [src]="userComment.avatar" 
           size="20" 
           [round]="true" borderColor="#000">
         </ngx-avatar>
       </div> 
       <hr>
       <div class="col-md-11">
-        {{user.username}} | {{comment.date | date}}
+        {{comment.user_id | userIdToName | async}} | {{comment.date | date}}
       </div>    
     </div>
     <div class="row mt-1 mb-2">

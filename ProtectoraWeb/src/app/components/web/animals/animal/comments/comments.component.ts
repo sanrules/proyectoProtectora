@@ -21,11 +21,10 @@ import { MatDialogConfig, MatDialog } from '@angular/material';
 export class CommentsComponent implements OnInit {
 
   commentForm: FormGroup;
-  user: User;
-  comment: Comment;
+  userComment: User;
   comments: Comment[] = [];
-  jwt: any;
-  idUser: number;
+  comment: Comment;
+
   confirmMessage: string;
   errorMessage: boolean;
 
@@ -40,15 +39,14 @@ export class CommentsComponent implements OnInit {
   ngOnInit() {
     this.commentService.getCommentsByAnimal(this.animalId).subscribe(commentGet => {
       this.comments = commentGet.response;
-    });
 
-    this.authService.currentUser.subscribe(userGet => {
-      this.jwt = this.authService.decodeJWT(userGet.jwt);
-      this.idUser = this.jwt.data.id;
+      this.comments.forEach(comment => {
+        this.userService.getuserById(+comment.user_id).subscribe(user => {
+          this.userComment = user.response;
+        });
 
-      this.userService.getuserById(this.idUser).subscribe(user => {
-        this.user = user.response;
       });
+
     });
 
     this.commentForm = this.formBuilder.group({
@@ -71,14 +69,26 @@ export class CommentsComponent implements OnInit {
     return date;
   }
 
+  getSendingUser(): number {
+
+    let jwt: any;
+    let userSendId: number;
+
+    this.authService.currentUser.subscribe(userGet => {
+      jwt = this.authService.decodeJWT(userGet.jwt);
+      userSendId = jwt.data.id;
+    });
+    return userSendId;
+  }
+
   dataPrepare() {
 
     const date = new Date();
-   /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
+
     const formData: Comment = {
       "id": this.commentForm.get('id').value,
-      "animalId": this.animalId,
-      "userId": this.user.id,
+      "animal_id": this.animalId,
+      "user_id": this.getSendingUser(),
       "date": this.dateToTimestamp(date),
       "text": this.commentForm.get('text').value.trim(),
     };

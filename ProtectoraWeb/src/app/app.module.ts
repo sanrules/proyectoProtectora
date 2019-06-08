@@ -74,8 +74,8 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { AutofocusDirective } from './_directives/autofocus.directive';
 import { RegisterConfirmationComponent } from './components/shared/register-confirmation/register-confirmation.component';
 
-
-
+// Pipes
+import { UserIdToNamePipe } from './_pipes/user-id-to-name.pipe';
 
 
 @NgModule({
@@ -110,7 +110,8 @@ import { RegisterConfirmationComponent } from './components/shared/register-conf
     UserUpdateComponent,
     AdoptedAnimalsComponent,
     AnimalImagesComponent,
-    CommentsComponent
+    CommentsComponent,
+    UserIdToNamePipe
   ],
   imports: [
     BrowserModule,
