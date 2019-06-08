@@ -44,7 +44,6 @@ import { FormularioAnimalModal } from './formulario-animal-modal/formulario-anim
     openModal(animales) {
       console.log('row: ', animales);
       const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
       dialogConfig.height = '80%';
       dialogConfig.width = '80%';
       dialogConfig.data = animales;

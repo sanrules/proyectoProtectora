@@ -5,7 +5,7 @@ import { FormularioAnimalBreedUpdateModal } from './animal-breed-update-modal/an
 import { AnimalBreedService } from 'src/app/_services/animals/raza-animal/animal-raza-service';
 
 @Component({
-    selector: 'app-admin/animal-breed/management',
+    selector: 'app-admin-animal-breed-management',
     templateUrl: './animal-breed-management.component.html',
     styleUrls: ['./animal-breed-management.component.css']
   })
