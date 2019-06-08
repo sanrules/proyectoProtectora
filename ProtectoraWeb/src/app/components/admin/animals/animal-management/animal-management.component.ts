@@ -3,7 +3,7 @@ import { AnimalService } from '../../../../_services/animals/animal/animal-servi
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} from '@angular/material';
 import { Animal } from 'src/app/_models/animal.model';
 import { Observable } from 'rxjs';
-import { FormularioAnimalModal } from './formulario-animal-modal/formulario-animal-modal.component';
+import { AnimalUpdateComponent } from './animal-update/animal-update.component';
 
 
 @Component({
@@ -48,7 +48,7 @@ import { FormularioAnimalModal } from './formulario-animal-modal/formulario-anim
       dialogConfig.width = '80%';
       dialogConfig.data = animales;
       dialogConfig.autoFocus = false;
-      this.dialog.open(FormularioAnimalModal, dialogConfig);
+      this.dialog.open(AnimalUpdateComponent, dialogConfig);
     }
 
 }

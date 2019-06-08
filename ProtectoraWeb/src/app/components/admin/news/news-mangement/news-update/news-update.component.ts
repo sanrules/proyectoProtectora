@@ -1,22 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Type } from 'src/app/_models/type.model';
 import { News } from 'src/app/_models/news.model';
 
 
 
 
 @Component({
-    selector: 'app-formulario-animal-type-modal',
-    templateUrl: './news-modal.component.html',
+    selector: 'app-news-update',
+    templateUrl: './news-update.component.html',
+    styleUrls: ['./news-update.component.css']
   })
-  export class NewsUpdateModal implements OnInit {
+  export class NewsUpdateComponent implements OnInit {
 
     public typeForm = 'newsUpdate';
     public newData: News;
 
     constructor(
-      public dialogRef: MatDialogRef<NewsUpdateModal>,
+      public dialogRef: MatDialogRef<NewsUpdateComponent>,
       @Inject(MAT_DIALOG_DATA) public data: News) {}
 
     ngOnInit() {

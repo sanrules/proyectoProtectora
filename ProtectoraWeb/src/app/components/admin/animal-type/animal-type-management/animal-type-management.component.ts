@@ -5,7 +5,7 @@ import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} 
 // import { Animal } from 'src/app/_models/animal.model';
 // import { Observable } from 'rxjs';
 // import { FormularioAnimalModal } from '../../../shared/formulario-animal-modal/formulario-animal-modal.component'; */
-import { FormularioAnimalTypeUpdateModal } from './animal-type-update-modal/animal-type-update-modal.component';
+import { AnimalTypeUpdateComponent } from './animal-type-update/animal-type-update.component';
 import { AnimalTypeService } from 'src/app/_services/animals/tipo-animal/animal-type-service';
 import { Type } from 'src/app/_models/type.model';
 
@@ -53,7 +53,7 @@ import { Type } from 'src/app/_models/type.model';
       dialogConfig.height = '80%';
       dialogConfig.width = '80%';
       dialogConfig.data = types;
-      this.dialog.open(FormularioAnimalTypeUpdateModal, dialogConfig);
+      this.dialog.open(AnimalTypeUpdateComponent, dialogConfig);
 
     }
 

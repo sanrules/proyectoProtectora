@@ -6,14 +6,14 @@ import { Animal } from 'src/app/_models/animal.model';
 
 @Component({
     selector: 'app-formulario-animal-modal',
-    templateUrl: './formulario-animal-modal.component.html',
-    styleUrls: ['./formulario-animal-modal.component.css']
+    templateUrl: './animal-update.component.html',
+    styleUrls: ['./animal-update.component.css']
   })
-  export class FormularioAnimalModal implements OnInit {
+  export class AnimalUpdateComponent implements OnInit {
 
     public formType = 'animalUpdate';
     public animalData: Animal;
-    constructor(public dialogRef: MatDialogRef<FormularioAnimalModal>,
+    constructor(public dialogRef: MatDialogRef<AnimalUpdateComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: Animal ) {}
 
     ngOnInit() {
