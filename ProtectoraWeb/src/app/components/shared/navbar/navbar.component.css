@@ -3,3 +3,7 @@
   opacity: 0.8;
   z-index: 0;
 }
+
+.dropdown-menu, .dropdown-item {
+  z-index: 5000;
+}

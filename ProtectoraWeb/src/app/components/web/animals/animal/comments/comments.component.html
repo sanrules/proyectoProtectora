@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-12" *ngFor="let comment of comments">
+  <div class="col-md-12" *ngFor="let comment of comments | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
     <div class="row">
       <div class="col-md-12 d-inline-block">
         <ngx-avatar 
@@ -40,11 +40,13 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <mat-paginator 
-      [length]="comments.length"
-      [pageSize]="pageSize"
-      [pageSizeOptions]="pageSizeOptions"
-      (page)="pageEvent = OnPageChange($event)">
-    </mat-paginator>
+   <ngb-pagination 
+    [collectionSize]="comments.length" 
+    [(page)]="page"
+    [pageSize]="pageSize" 
+    [maxSize]="5" 
+    [rotate]="true" 
+    [ellipses]="false" 
+    [boundaryLinks]="true"></ngb-pagination>
   </div>
 </div>

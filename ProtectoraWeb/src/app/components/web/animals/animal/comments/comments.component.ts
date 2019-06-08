@@ -23,15 +23,12 @@ export class CommentsComponent implements OnInit {
   commentForm: FormGroup;
   comments: Comment[] = [];
   comment: Comment;
-  pagedComments: Comment[] = [];
 
   confirmMessage: string;
   errorMessage: boolean;
 
-  length: number;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-  pageEvent: PageEvent;
+  page = 1;
+  pageSize = 5;
 
   @Input() animalId: number;
 
@@ -42,6 +39,7 @@ export class CommentsComponent implements OnInit {
               private commentService: CommentService) { }
 
   ngOnInit() {
+
     this.commentService.getCommentsByAnimal(this.animalId).subscribe(commentGet => {
       this.comments = commentGet.response;
 
@@ -52,7 +50,7 @@ export class CommentsComponent implements OnInit {
         });
 
       });
-      // this.length = this.comments.length;
+
     });
 
     this.commentForm = this.formBuilder.group({
@@ -139,19 +137,6 @@ export class CommentsComponent implements OnInit {
     dialogConfig.data = this.confirmMessage;
 
     this.dialog.open(RegisterConfirmationComponent, dialogConfig);
-  }
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-  }
-
-  OnPageChange(event: PageEvent){
-    let startIndex = event.pageIndex * event.pageSize;
-    let endIndex = startIndex + event.pageSize;
-    if (endIndex > this.length){
-      endIndex = this.length;
-    }
-    this.pagedComments = this.comments.slice(startIndex, endIndex);
   }
 
 }

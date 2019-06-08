@@ -19,14 +19,28 @@
         <a class="nav-link" routerLink="admin/user/register">Administrador <span class="sr-only">(current)</span></a>
       </li>
     </ul>
+
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active" *ngIf="isLogOut()">
-        <!-- <a class="nav-link" [routerLink]="['user/profile', userId]">Perfil <span class="sr-only">(current)</span></a> -->
-        <a class="nav-link" [routerLink]="" (click)="enterProfile(userLogged())" *ngIf="authService.isLogged()">Perfil <span class="sr-only">(current)</span></a>
+      <li class="nav-item active" routerLinkActive="active"  *ngIf="!isLogOut()">
+        <a class="nav-link" [routerLink]="" (click)="openDialog()">Acceder <span class="sr-only">(current)</span></a>
       </li>
-      <li>
-        <button *ngIf="!isLogOut()" mat-raised-button color="primary" (click)="openDialog()">Acceder</button>
-        <button *ngIf="isLogOut()" mat-raised-button color="primary" (click)="logOut()">Salir</button>
+      <li class="nav-item active" routerLinkActive="active"  *ngIf="isLogOut() && loggedUser">
+        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [routerLink]="" (click)="enterProfile(userLogged())">
+          <ngx-avatar 
+          [src]="loggedUser.avatar" 
+          size="30" 
+          [round]="true" borderColor="#000">
+          </ngx-avatar>
+        </a>
+      </li>
+      <li class="nav-item dropdown" *ngIf="isLogOut() && loggedUser != ''">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{loggedUser.username}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]="" (click)="enterProfile(userLogged())">Perfil</a>
+          <a class="dropdown-item" [routerLink]="" (click)="logOut()">Salir</a>
+        </div>
       </li>
     </ul>
 
