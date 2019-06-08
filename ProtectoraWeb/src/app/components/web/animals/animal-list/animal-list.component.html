@@ -1,8 +1,7 @@
-<h1>Lista de animales</h1>
+  <h1 align='center'>Lista de animales</h1>
 
+  <div class="card-columns" id='list'>
 
-<div class="card-columns">
-
-    <app-animal-card [dato]="animal" [index]="i" *ngFor="let animal of animales, let i = index"></app-animal-card>
-
-</div>  
+    <app-animal-card [dato]="animal" [index]="i" *ngFor="let animal of animales, let i = index">
+    </app-animal-card>
+  </div>

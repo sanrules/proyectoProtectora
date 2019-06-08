@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light">
   <a class="navbar-brand">Protectora</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
+    aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -20,21 +21,20 @@
       </li>
     </ul>
 
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active" routerLinkActive="active"  *ngIf="!isLogOut()">
+    <ul class="navbar-nav">
+      <li class="nav-item active" routerLinkActive="active" *ngIf="!isLogOut()">
         <a class="nav-link" [routerLink]="" (click)="openDialog()">Acceder <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item active" routerLinkActive="active"  *ngIf="isLogOut() && loggedUser">
-        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [routerLink]="" (click)="enterProfile(userLogged())">
-          <ngx-avatar 
-          [src]="loggedUser.avatar" 
-          size="30" 
-          [round]="true" borderColor="#000">
+      <li class="nav-item active" routerLinkActive="active" *ngIf="isLogOut() && loggedUser">
+        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false" [routerLink]="" (click)="enterProfile(userLogged())">
+          <ngx-avatar [src]="loggedUser.avatar" size="30" [round]="true" borderColor="#000">
           </ngx-avatar>
         </a>
       </li>
       <li class="nav-item dropdown" *ngIf="isLogOut() && loggedUser != ''">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
           {{loggedUser.username}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -43,6 +43,5 @@
         </div>
       </li>
     </ul>
-
   </div>
 </nav>
