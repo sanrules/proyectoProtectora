@@ -1,6 +1,6 @@
 <?php
-require_once 'lib/RedBean/rb.php';
-include 'lib/ChromePhp.php';
+require_once '../lib/RedBean/rb.php';
+include '../lib/ChromePhp.php';
 
 // ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');

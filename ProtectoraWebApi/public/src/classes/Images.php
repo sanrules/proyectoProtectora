@@ -1,5 +1,5 @@
 <?php
-require_once 'lib/RedBean/rb.php';
+require_once '../lib/RedBean/rb.php';
 
 // ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -9,12 +9,12 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
 
 class Images
 {
-    private $_id = 0;
-    private $_url = '';
+    private $_id       = 0;
+    private $_url      = '';
     private $_animalId = 0;
 
     public function __construct()
-    { }
+    {}
 
     /**
      * Inserta una imagen
@@ -24,36 +24,35 @@ class Images
      */
 
 /*     public function createComment($animalId, $userId, $date ,$text)
-    {
-        $this->_animalId = $animalId;
-        $this->_userId = $userId;
-        $this->_date = $date;
-        $this->_text = $text;
-    } */
+{
+$this->_animalId = $animalId;
+$this->_userId = $userId;
+$this->_date = $date;
+$this->_text = $text;
+} */
 
     public function insertImage()
     {
         $image = R::dispense('image');
 
-        $image->animal    = R::load('animal', $this->getAnimalId());
-        $image->url      = $this->getUrl();
+        $image->animal = R::load('animal', $this->getAnimalId());
+        $image->url    = $this->getUrl();
 
         $id = R::store($image);
 
         $this->setId($id);
     }
 
-
     /**
      * Devuelve todas las imagenes de un animal en concreto
      * @param int $animalId id del animal
      * @return array $images todas las imágenes para un animal en concreto
      */
-    public function retrieveAnimalImages($animalId) {
+    public function retrieveAnimalImages($animalId)
+    {
         $images = R::getAll("select * from images where animal_id = $animalId");
         return $images;
     }
-
 
     /**
      * Borra una imagen de la base de datos
@@ -65,7 +64,7 @@ class Images
         R::trash($image);
     }
 
-        /*
+    /*
      *** GETTERS Y SETTERS
      */
 
@@ -77,7 +76,7 @@ class Images
         return $this->_id;
     }
 
-        /**
+    /**
      * Set the value of _id
      *
      * @return  self
@@ -97,7 +96,7 @@ class Images
         return $this->_url;
     }
 
-        /**
+    /**
      * Set the value of _url
      *
      * @return  self
@@ -117,7 +116,7 @@ class Images
         return $this->_animalId;
     }
 
-        /**
+    /**
      * Set the value of _id
      *
      * @return  self
@@ -128,6 +127,5 @@ class Images
 
         return $this;
     }
-
 
 }
