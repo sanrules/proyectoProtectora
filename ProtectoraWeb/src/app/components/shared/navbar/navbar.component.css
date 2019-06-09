@@ -1,9 +1,15 @@
 .navbar {
-  background-color: #93d1fdbd;
-  opacity: 0.8;
+  background-color: #0c92bba6;
   z-index: 0;
+  width: 100vw;
+  padding-left: 2em;
 }
 
-.dropdown-menu, .dropdown-item {
+.dropdown-menu,
+.dropdown-item {
   z-index: 5000;
+}
+
+#navbarsExample04 {
+  width: 100vw;
 }

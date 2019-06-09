@@ -1,4 +1,12 @@
-<h1>Lista de animales</h1>
-<div class="container-fluid">
+<h1 align='center'>Lista de animales</h1>
+<div class="card-columns" id='list'>
     <app-animal-card [animal]="animal" [index]="i" *ngFor="let animal of animalList, let i = index"></app-animal-card>
 </div>
+
+<!--   <h1 align='center'>Lista de animales</h1>
+
+  <div class="card-columns" id='list'>
+
+    <app-animal-card [dato]="animal" [index]="i" *ngFor="let animal of animales, let i = index">
+    </app-animal-card>
+  </div> -->
