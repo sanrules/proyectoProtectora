@@ -4,9 +4,12 @@ require_once 'classes/User.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use PHPMailer\PHPMailer\Exception;
 
 $logger = new Logger('userInsert');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
+
+$error = '';
 
 try {
     $postdata = file_get_contents("php://input");
@@ -49,9 +52,15 @@ try {
             // $username_exists = R::findOne('user', 'username=?', [$username]);
             // $dni_exists      = R::findOne('user', 'dni=?', [$dni]);
 
-            $user->dniExist();
-            $user->usernameExist();
-            $user->emailExist();
+            try {
+                $user->dniExist();
+                $user->usernameExist();
+                $user->emailExist();
+            } catch (Exception $e) {
+                $error = 'Usuario ya existe en la bbdd';
+                $logger->error($error);
+                throw new Exception();
+            }
 
             $user->insertUser();
             $error = '';
