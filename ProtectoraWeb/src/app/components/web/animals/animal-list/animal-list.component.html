@@ -1,6 +1,30 @@
 <h1 align='center'>Lista de animales</h1>
+<div>Filtros
+  <mat-form-field>
+    <mat-label>Tamaño</mat-label>
+    <mat-select  [(value)]="datosFiltrar" (selectionChange)="onModelChange(datosFiltrar)">
+      <mat-option value="">---</mat-option>
+      <mat-option value="Pequeño">Pequeño</mat-option>
+      <mat-option value="Mediano">Mediano</mat-option>
+      <mat-option value="Grande">Grande</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Raza</mat-label>
+    <mat-select>
+      <mat-option value="">---</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Tipo</mat-label>
+    <mat-select>
+      <mat-option value="">---</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- <button mat-raised-button color="primary">Aplicar Filtro</button> -->
+</div>
 <div class="card-columns" id='list'>
-    <app-animal-card [animal]="animal" [index]="i" *ngFor="let animal of animalList, let i = index"></app-animal-card>
+    <app-animal-card [animal]="animal" [index]="i" *ngFor="let animal of animalList | async, let i = index"></app-animal-card>
 </div>
 
 <!--   <h1 align='center'>Lista de animales</h1>
