@@ -19,7 +19,7 @@ try {
         /* $picturesArray = explode(",",$request['pictures']); */
 
         // Validate & sanitize
-        $id            = filter_var($request['idAnimal'], FILTER_SANITIZE_NUMBER_INT);
+        $id            = filter_var($request['id'], FILTER_SANITIZE_NUMBER_INT);
         $name          = filter_var($request['name'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
         $type          = filter_var($request['type'], FILTER_SANITIZE_STRING); // Se aceptarán perro, gato, otros
         $breed         = filter_var($request['breed'], FILTER_SANITIZE_STRING); // Raza.
@@ -50,7 +50,7 @@ try {
             if ($animalupdate != '') {
                 $reply = array(
                     'status'   => 'OK',
-                    'response' => $animalupdate,
+                    'response' => $id,
                 );
                 http_response_code(200); // 200 OK
             } else {
