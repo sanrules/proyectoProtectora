@@ -19,4 +19,8 @@ export class ImagesService {
     return this.http.post(`${this.baseURL}/imagesGetByAnimal.php`, animalId);
   }
 
+  deleteImage(imageId): Observable<any> {
+    return this.http.post(`${this.baseURL}/imageDelete.php`, imageId);
+  }
+
 }

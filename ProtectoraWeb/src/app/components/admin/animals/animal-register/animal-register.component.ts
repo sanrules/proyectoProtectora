@@ -32,7 +32,7 @@ export class AnimalRegisterComponent implements OnInit {
   uploadpercent: Observable<number>;
   urlImage: Observable<string>;
   urlImageAr: any[] = [];
-  images: any[];
+  images: any[] = [];
 
   registerForm: FormGroup;
   confirmMessage: string;
@@ -60,9 +60,6 @@ export class AnimalRegisterComponent implements OnInit {
 
   ngOnInit() {
 
-
-    const generosControl = this.generos.map(c => new FormControl(false, Validators.required));
-
     this.registerForm = this.formBuilder.group({
       idAnimal: ['', []],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
@@ -78,15 +75,19 @@ export class AnimalRegisterComponent implements OnInit {
 
     });
 
-    if (this.formType === 'animalUpdate'){
-      this.imagesService.getImagesByAnimal(this.animalData.idAnimal).subscribe(e =>{
-        this.images = e.response;
-        console.log(this.images);
-      });
+    if (this.formType === 'animalUpdate') {
+      this.loadImages();
       console.log('animal: ', this.animalData);
       this.setDatosUpdate(this.animalData);
     }
     console.log('form: ', this.registerForm);
+  }
+
+  public loadImages() {
+    this.imagesService.getImagesByAnimal(this.animalData.id).subscribe(e =>{
+      this.images = e.response;
+      console.log("imagenes de animal" , this.images);
+    });
   }
 
   openInput(event) {
@@ -112,7 +113,7 @@ export class AnimalRegisterComponent implements OnInit {
 
             this.urlImageAr.push(url);
             console.log('urls', this.urlImageAr);
-            if (i == (images.length - 1))  {
+            if (this.urlImageAr.length === images.length)  {
               console.log('entra en el subir imagenes');
               this.subirImagenes(id, this.urlImageAr);
             }
@@ -159,7 +160,9 @@ export class AnimalRegisterComponent implements OnInit {
     this.registerForm.get('gender').setValue(data.gender);
     this.registerForm.get('size').setValue(data.size);
     this.registerForm.get('birthDate').setValue(this.spararFechaYHora(data.birth_date));
-    this.registerForm.get('adoptionDate').setValue(data.adoption_date);
+    if (data.adoption_date !== '' ) {
+      this.registerForm.get('adoptionDate').setValue(this.spararFechaYHora(data.adoption_date));
+    }
     this.registerForm.get('entranceDate').setValue(this.spararFechaYHora(data.entrance_date));
     this.registerForm.get('status').setValue(data.status);
     this.registerForm.get('description').setValue(data.description);
@@ -182,7 +185,7 @@ dataPrepare() {
   const entranceDate = new Date();
  /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
   let formData = {
-    "idAnimal": this.registerForm.get('idAnimal').value,
+    "id": this.registerForm.get('idAnimal').value,
     "name": this.registerForm.get('name').value.trim(),
     "type": this.registerForm.get('type').value.trim(),
     "breed": this.registerForm.get('breed').value.trim(),
@@ -199,6 +202,20 @@ dataPrepare() {
   return formData;
 
 }
+
+  public imageDelete(id) {
+
+    this.imagesService.deleteImage(id).subscribe(data => {
+
+      console.log('respuesta registerAnimal(data): ', data);
+     /*  if (data.response === "delete OK") {
+        this.loadImages();
+      }    */
+    }, error => {
+        console.warn('Error: ', error);
+    });
+
+  }
 
   registerSubmit() {
     if (this.formType === 'animalUpdate') {
@@ -223,7 +240,9 @@ dataPrepare() {
 
     } else {
       this.animal = this.dataPrepare();
-      delete this.animal.idAnimal;
+
+      console.log(this.animal);
+      delete this.animal.id;
 
       let animalJSON = JSON.stringify(this.animal);
       console.log('Conversión JSON: ', animalJSON);
@@ -271,6 +290,7 @@ dataPrepare() {
 
     this.dialog.open(RegisterConfirmationComponent, dialogConfig);
   }
+  
 
   setStep(index: number) {
     this.step = index;

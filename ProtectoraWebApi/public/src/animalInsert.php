@@ -34,7 +34,7 @@ try {
 
         // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($name != '' || $type != '' || $breed != '' || $gender != '' || $size != '' || $birth_date != '' || $entrance_date != '' || $adoption_date != '' || $status != '' || $description != '') {
-
+            $adoption_date = '';
             $birth_date    = new DateTime("@$birth_date");
             $birth_date    = $birth_date->format("Y-m-d H:i:s");
             $entrance_date = new DateTime("@$entrance_date");

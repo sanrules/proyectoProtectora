@@ -1,6 +1,6 @@
 <app-administrator-navbar *ngIf="formType != 'animalUpdate'"></app-administrator-navbar>
   
-  <div class="container col-md-12">
+  <div class="container mt-2">
     <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
       <div class="row col-md-12">
 
@@ -167,9 +167,9 @@
 
         <div class="row col-md-12" *ngFor="let file of files;let i = index">Nombre: {{file.name}} {{i}} <button mat-icon-button (click)="removeImage(file.name)"><i class="material-icons" style="color:red">close</i></button></div>
 
-        <div class="row col-md-12">
+        <div class="row col-md-12" *ngIf="formType == 'animalUpdate' && images.length >= 1 ">
           <h4>Images de animal</h4>
-          <div class="row col-md-12" *ngFor="let image of images"><img [src]="image.image"><button mat-icon-button><i class="material-icons" style="color:red">delete</i></button></div>
+          <div class="row col-md-12" *ngFor="let image of images"><img [src]="image.image"><button mat-icon-button (click)="imageDelete(image.id)"><i class="material-icons" style="color:red">delete</i></button></div>
 
         </div> 
 
