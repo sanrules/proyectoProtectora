@@ -27,25 +27,25 @@ try {
         $size          = filter_var($request['size'], FILTER_SANITIZE_STRING); 
         $birth_date    = filter_var($request['birthDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
         $entrance_date = filter_var($request['entranceDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
-        $adoption_date = filter_var($request['adoptionDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Si no existe, será 1/1/1970
-        $status        = filter_var($request['status'], FILTER_SANITIZE_STRING); // Adoptado, pre-adoptado, en adopción
+        $adoption_date = filter_var($request['adoptionDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; 
+        $status        = filter_var($request['status'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
         $description   = filter_var($request['description'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $userId        = filter_var($request['userId'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
         $pictures      = $request['pictures'];
         // String provisionalmente
         /*    $pictures      = filter_var($request['pictures'], FILTER_REQUIRE_ARRAY) ? $request['pictures'] : ''; // Las imágenes tendrán que venir en un array */
-        if ($name != '' || $type != '' || $breed != '' || $gender != '' || $birth_date != '' || $entrance_date != '' || $adoption_date != '' || $status != '' || $description != '') {
+        if ($name != '' || $type != '' || $breed != '' || $gender != '' || $birth_date != '' || $entrance_date != '' || $adoption_date != '' || $status != '' || $description != '' || $userId != '') {
 
             $birth_date    = new DateTime("@$birth_date");
             $birth_date    = $birth_date->format("Y-m-d H:i:s");
             $entrance_date = new DateTime("@$entrance_date");
             $entrance_date = $entrance_date->format("Y-m-d H:i:s");
 
-            
             $animalupdate  = new Animal();
             $animalupdate->createAnimal($name, $type, $breed, $gender, $size, $birth_date, $entrance_date, $adoption_date, $status, $description, $pictures);
             $animalupdate->setId($id);
+            $animalupdate->setUserId($userId);
             $animalupdate->updateAnimal();
-
 
             if ($animalupdate != '') {
                 $reply = array(

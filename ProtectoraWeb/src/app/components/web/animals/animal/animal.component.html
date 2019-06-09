@@ -60,7 +60,12 @@
             <div class="row">
               <div class="alert alert-success w-100 text-center" role="alert">
                   <i class="material-icons">pets</i>
-                {{animal.status}}
+                {{animal.status | animalStatusNamePipe}} 
+              </div>
+            </div>
+            <div class="row" *ngIf="animal.status === 0">
+              <div class="alert alert-success w-100 text-center" role="alert">
+                <button mat-raised-button color="primary" class="button" (click)="adoptAnimal(animalId)">Adoptar</button>
               </div>
             </div>
           </div>

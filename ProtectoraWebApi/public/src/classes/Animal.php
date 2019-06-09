@@ -151,6 +151,8 @@ class Animal
         $oldAnimal->status        = $this->getStatus();
         $oldAnimal->description   = $this->getDescription();
 
+        $oldAnimal->user = R::load('users', $this->getUserId());
+
         R::store($oldAnimal);
     }
 
@@ -439,6 +441,26 @@ class Animal
     public function setPictures($pictures)
     {
         $this->_pictures = $pictures;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _idUser
+     */
+    public function getUserId()
+    {
+        return $this->_userId;
+    }
+
+    /**
+     * Set the value of _id
+     *
+     * @return  self
+     */
+    public function setUserId($userId)
+    {
+        $this->_userId = $userId;
 
         return $this;
     }

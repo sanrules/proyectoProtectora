@@ -76,6 +76,8 @@ import { RegisterConfirmationComponent } from './components/shared/register-conf
 
 // Pipes
 import { UserIdToNamePipe } from './_pipes/user-id-to-name.pipe';
+import { ConfirmDialogComponent } from './components/shared/confirm-dialog/confirm-dialog.component';
+import { AnimalStatusNamePipe } from './_pipes/animal-status-name.pipe';
 
 
 @NgModule({
@@ -111,7 +113,9 @@ import { UserIdToNamePipe } from './_pipes/user-id-to-name.pipe';
     UserUpdateComponent,
     AdoptedAnimalsComponent,
     AutofocusDirective,
-    UserIdToNamePipe
+    UserIdToNamePipe,
+    AnimalStatusNamePipe,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -138,7 +142,8 @@ import { UserIdToNamePipe } from './_pipes/user-id-to-name.pipe';
     AnimalUpdateComponent,
     AnimalTypeUpdateComponent,
     AnimalBreedUpdateComponent,
-    NewsUpdateComponent
+    NewsUpdateComponent,
+    ConfirmDialogComponent
   ]
 })
 export class AppModule {}

@@ -73,7 +73,7 @@ export class AnimalRegisterComponent implements OnInit {
       birthDate: ['', [Validators.required]],
       adoptionDate: ['', []],
       entranceDate: ['', []],
-      status: ['en adopción', []],
+      status: [0, []],
       description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]]
 
     });
@@ -132,7 +132,7 @@ export class AnimalRegisterComponent implements OnInit {
 
   public removeImage(imageName) {
 
-    for (let i = 0; i<this.files.length; i++) {
+    for (let i = 0; i < this.files.length; i++) {
         if ( this.files[i].name === imageName ) {
         } else {
         this.arrayAux.push(this.files[i]);
@@ -191,7 +191,7 @@ dataPrepare() {
     "birthDate": this.dateToTimestamp(this.registerForm.get('birthDate').value),
     "entranceDate": this.dateToTimestamp(entranceDate),
     "adoptionDate": this.dateToTimestamp(entranceDate) ,
-    "status": this.registerForm.get('status').value,
+    "status": +this.registerForm.get('status').value,
     "description": this.registerForm.get('description').value.trim(),
     "pictures": '',
   };
@@ -209,13 +209,12 @@ dataPrepare() {
       this.animalService.updateAnimal(userJSON).subscribe(data => {
 
         if ( this.files === undefined ) {
-
           this.router.navigateByUrl('/admin/animals/management');
           this.openDialog(data, 1);
           } else {
-          this.onUpload(this.files, data.response);
+              this.onUpload(this.files, data.response);
           }
-          console.log('repuesta registerAnimal(data): ', data.response);
+        console.log('repuesta registerAnimal(data): ', data.response);
         },
         error => {
           console.log('Error: ', error);
@@ -223,21 +222,19 @@ dataPrepare() {
         });
 
     } else {
-
-      console.log('Entra en registerSubmit()');
       this.animal = this.dataPrepare();
-      console.log(this.animal);
       delete this.animal.idAnimal;
+
       let animalJSON = JSON.stringify(this.animal);
       console.log('Conversión JSON: ', animalJSON);
+
       this.animalService.registerAnimal(animalJSON).subscribe(data => {
 
         if ( this.files === undefined ) {
-
-        this.router.navigateByUrl('/admin/animals/management');
-        this.openDialog(data, 1);
+          this.router.navigateByUrl('/admin/animals/management');
+          this.openDialog(data, 1);
         } else {
-        this.onUpload(this.files, data.response);
+            this.onUpload(this.files, data.response);
         }
         console.log('respuesta registerAnimal(data): ', data);
       }, error => {

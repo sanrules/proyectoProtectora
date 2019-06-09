@@ -8,9 +8,10 @@ export class Animal {
   public birthDate: Date;
   public entranceDate: Date;
   public adoptionDate: Date;
-  public status: string;
+  public status: number;
   public description: Date;
   public pictures: any;
+  public idUser?: number;
 
   public constructor(init?: Partial<Animal>) {
     Object.assign(this, init);
