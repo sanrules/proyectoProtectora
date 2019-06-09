@@ -36,6 +36,10 @@ try {
         /*    $pictures      = filter_var($request['pictures'], FILTER_REQUIRE_ARRAY) ? $request['pictures'] : ''; // Las imágenes tendrán que venir en un array */
         if ($name != '' || $type != '' || $breed != '' || $gender != '' || $birth_date != '' || $entrance_date != '' || $adoption_date != '' || $status != '' || $description != '' || $userId != '') {
 
+
+            if ($status == "en adopción"){
+                $adoption_date='';
+            }
             $birth_date    = new DateTime("@$birth_date");
             $birth_date    = $birth_date->format("Y-m-d H:i:s");
             $entrance_date = new DateTime("@$entrance_date");
@@ -46,6 +50,7 @@ try {
             $animalupdate->setId($id);
             $animalupdate->setUserId($userId);
             $animalupdate->updateAnimal();
+
 
             if ($animalupdate != '') {
                 $reply = array(
