@@ -53,15 +53,12 @@ try {
             $user->usernameExist();
             $user->emailExist();
 
-            if ($email_exists == '' || $username_exists == '' || $dni_exists == '') {
-                $user->insertUser();
-                $error = '';
-            } else {
-                $error = 'Email, nombre de usuario o dni ya dados de alta en la BBDD';
-                $logger->error($error);
-                throw new Exception();
-            }
+            $user->insertUser();
+            $error = '';
+
         } else {
+            $error = 'Email, nombre de usuario o dni ya dados de alta en la BBDD';
+            $logger->error($error);
             throw new Exception();
         }
     }
