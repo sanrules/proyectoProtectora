@@ -50,7 +50,7 @@ try {
             $username_exists = R::findOne('user', 'username=?', [$user->getUsername()]);
             $dni_exists      = R::findOne('user', 'dni=?', [$user->getDni()]);
 
-            if ($email_exists == null || $username_exists == null || $dni_exists == null) {
+            if ($email_exists == '' || $username_exists == '' || $dni_exists == '') {
                 $user->insertUser();
                 $error = '';
             } else {
