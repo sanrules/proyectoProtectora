@@ -9,6 +9,12 @@ use PHPMailer\PHPMailer\Exception;
 $logger = new Logger('userInsert');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
+// ! configuración para mamp
+R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
+
+// ! configuración para xampp
+//R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
+
 try {
     $postdata = file_get_contents("php://input");
     $request  = json_decode($postdata, true);
@@ -46,9 +52,9 @@ try {
             $user->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
 
             // Validamos que el email, nombre de usuario o dni no existan
-            $email_exists    = R::findOne('user', 'email=?', [$user->getEmail()]);
-            $username_exists = R::findOne('user', 'username=?', [$user->getUsername()]);
-            $dni_exists      = R::findOne('user', 'dni=?', [$user->getDni()]);
+            $email_exists    = R::findOne('user', 'email=?', [$email]);
+            $username_exists = R::findOne('user', 'username=?', [$username]);
+            $dni_exists      = R::findOne('user', 'dni=?', [$dni]);
 
             if ($email_exists == '' || $username_exists == '' || $dni_exists == '') {
                 $user->insertUser();
@@ -63,7 +69,6 @@ try {
         }
     }
 } catch (Exception $e) {
-    // echo 'Error al registrar el usuario: ' . $e->getMessage();
     $error = 'Error al registrar el usuario';
     $logger->error($error);
 }
@@ -72,7 +77,6 @@ if ($error == '') {
     $reply = array(
         'status'   => 'OK',
         'response' => $user->getIdUser(),
-        // 'response' => 6
     );
     http_response_code(200); // 200 OK
 } else {
