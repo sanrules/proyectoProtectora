@@ -22,10 +22,8 @@ export class AnimalImagesComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('animalid: ', this.animalId);
     this.imgService.getImagesByAnimal(this.animalId).subscribe(resp => {
       this.images = resp.response;
-      console.log('resp: ', resp);
     });
   }
 

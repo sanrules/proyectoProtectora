@@ -11,7 +11,7 @@ import { Comment } from '../../../../../_models/comment.model';
 // Components
 import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 // Material
-import { MatDialogConfig, MatDialog } from '@angular/material';
+import { MatDialogConfig, MatDialog, PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-comments',
@@ -21,15 +21,13 @@ import { MatDialogConfig, MatDialog } from '@angular/material';
 export class CommentsComponent implements OnInit {
 
   commentForm: FormGroup;
-  user: User;
-  comment: Comment;
   comments: Comment[] = [];
-  jwt: any;
-  idUser: number;
+  comment: Comment;
+
   confirmMessage: string;
   errorMessage: boolean;
 
-  logged: boolean;
+  logged
 
   page = 1;
   pageSize = 5;
@@ -48,15 +46,15 @@ export class CommentsComponent implements OnInit {
 
     this.commentService.getCommentsByAnimal(this.animalId).subscribe(commentGet => {
       this.comments = commentGet.response;
-    });
 
-    this.authService.currentUser.subscribe(userGet => {
-      this.jwt = this.authService.decodeJWT(userGet.jwt);
-      this.idUser = this.jwt.data.id;
+      this.comments.forEach(comment => {
+        this.userService.getuserById(+comment.user_id).subscribe(user => {
+          comment.username = user.response.username;
+          comment.avatar = user.response.avatar;
+        });
 
-      this.userService.getuserById(this.idUser).subscribe(user => {
-        this.user = user.response;
       });
+
     });
 
     this.commentForm = this.formBuilder.group({
@@ -64,7 +62,7 @@ export class CommentsComponent implements OnInit {
       animalId: ['', []],
       userId: ['', []],
       date: ['', []],
-      text: ['', [Validators.required]]
+      text: ['', [Validators.required, Validators.minLength(5)]]
     });
   }
 
@@ -80,17 +78,25 @@ export class CommentsComponent implements OnInit {
   }
 
   getSendingUser(): number {
-    return this.authService.userIdLogged();
+
+    let jwt: any;
+    let userSendId: number;
+
+    this.authService.currentUser.subscribe(userGet => {
+      jwt = this.authService.decodeJWT(userGet.jwt);
+      userSendId = jwt.data.id;
+    });
+    return userSendId;
   }
 
   dataPrepare() {
 
     const date = new Date();
-   /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
+
     const formData: Comment = {
       "id": this.commentForm.get('id').value,
-      "animalId": this.animalId,
-      "userId": this.user.id,
+      "animal_id": this.animalId,
+      "user_id": this.getSendingUser(),
       "date": this.dateToTimestamp(date),
       "text": this.commentForm.get('text').value.trim(),
     };
@@ -110,10 +116,11 @@ export class CommentsComponent implements OnInit {
     // Se envían los datos mediante post a la API
     this.commentService.postComment(commentJSON).subscribe(data => {
       this.errorMessage = false;
-      //this.comments.push(data.response);
+      this.comments.push(data.response);
       this.commentForm.reset();
       this.commentForm.controls.text.setErrors(null);
-      this.openDialog();
+      this.ngOnInit();
+
     },
     error => {
       this.errorMessage = true;
@@ -125,13 +132,9 @@ export class CommentsComponent implements OnInit {
   }
 
   openDialog() {
-    if (this.errorMessage) {
-      this.confirmMessage = 'No se ha podido enviar el comentario.';
-    } else {
-        this.confirmMessage = 'Comentario enviado con éxito';
-    }
 
     const dialogConfig = new MatDialogConfig();
+    this.confirmMessage = 'No se ha podido enviar el comentario.';
 
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = false;
