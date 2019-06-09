@@ -80,7 +80,6 @@ export class AdminUserRegisterComponent {
 
     if (this.formType === 'userUpdate' || this.formType === 'userProfileUpdate') {
       this.setUpdateData(this.userData);
-      console.log('userData', this.userData);
     }
   }
 
@@ -117,9 +116,7 @@ export class AdminUserRegisterComponent {
   }
 
   sendAvatarToBBDD(id: number) {
-    console.log('entra en sendAvatar');
     this.userService.setAvatar(id, this.registerForm.get('imgUrl').value).subscribe(resp => {
-      console.log('respAvatar: ', resp);
       this.openDialog();
     }, error => {
         console.log('Error: ', error);
@@ -132,7 +129,6 @@ export class AdminUserRegisterComponent {
     const day = date.getDate();
 
     date = Date.UTC(year, month, day, 0, 0, 0);
-    console.log('date: ', date);
 
     return date;
   }
@@ -197,8 +193,6 @@ export class AdminUserRegisterComponent {
     if (this.formType === 'userUpdate' || this.formType === 'userProfileUpdate') {
       this.user = this.dataPrepare();
       const userJSON = JSON.stringify(this.user);
-      console.log('datos a enviar: ', userJSON);
-      console.log('fileUpload: ', this.fileUpload);
       this.userService.updateUser(userJSON).subscribe(data => {
         console.log('repuesta registerUser(data): ', data);
         if (this.fileUpload !== undefined) {

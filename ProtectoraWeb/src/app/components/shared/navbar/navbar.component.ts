@@ -15,6 +15,7 @@ import { User } from 'src/app/_models/user.model';
 export class NavbarComponent implements OnInit {
 
   user: any;
+  logged: boolean;
   loggedUser: User;
   userId: number;
   currentUser: Observable<any>;
@@ -29,7 +30,17 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
 
-    this.currentUser = this.authService.currentUserValue;
+    this.logged = this.authService.isLogged();
+
+    this.userId = this.authService.userIdLogged();
+
+    if (this.logged) {
+      this.userService.getuserById(this.userId).subscribe(user => {
+        this.loggedUser = user.response;
+      });
+    }
+
+/*     this.currentUser = this.authService.currentUserValue;
 
     if (this.currentUser) {
       this.authService.currentUser.subscribe(userProfile => {
@@ -41,7 +52,7 @@ export class NavbarComponent implements OnInit {
           console.log('user: ', user);
         });
       });
-    }
+    } */
 
   }
 

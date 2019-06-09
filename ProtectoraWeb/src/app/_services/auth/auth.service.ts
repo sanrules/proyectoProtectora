@@ -12,7 +12,7 @@ export class AuthService {
 
 /*   @Output() admin = new EventEmitter();
   @Output() logged = new EventEmitter();
-  @Output() userLogged = new EventEmitter(); */
+  @Output() userLogged = new EventEmitter();*/
 
   baseURL = 'http://localhost/ProtectoraWebApi/public/src';
 
@@ -36,7 +36,8 @@ export class AuthService {
       .pipe(map(jwtResponse => {
         const token = this.saveTokenLocalStorage(jwtResponse);
         return token;
-      }));
+      })
+    );
   }
 
   saveTokenLocalStorage(token) {
@@ -44,7 +45,7 @@ export class AuthService {
     this.currentUserSubject.next(token);
 /*     this.admin.emit(this.isAdmin());
     this.logged.emit(this.isLogged());
-    this.userLogged.emit(this.userIdLogged()); */
+    this.userLogged.emit(this.userIdLogged());*/
     return token;
   }
 
