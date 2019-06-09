@@ -1,3 +1,9 @@
+#card {
+  flex: 0 1 auto;
+  width: 30vw;
+}
+
+
 .grid {
 	position: relative;
 	margin: 0 auto;
@@ -130,7 +136,4 @@ figure.effect-milo:hover p {
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
 }
-#card {
-  flex: 0 1 auto;
-  width: 30vw;
-}
+
