@@ -31,7 +31,7 @@ try {
         $city       = filter_var($request['city'], FILTER_SANITIZE_STRING);
         $postalCode = filter_var($request['postal_code'], FILTER_SANITIZE_NUMBER_INT);
         $userType   = filter_var($request['user_type'], FILTER_SANITIZE_STRING); // String provisionalmente
-        $avatar = $request['avatar'];
+        $avatar     = $request['avatar'];
 
         // TODO VALIDACIÓN DE LOS ÚLTIMOS CAMPOS
 
@@ -45,11 +45,10 @@ try {
             $user = new User();
             $user->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
 
-
             // Validamos que el email, nombre de usuario o dni no existan
-            $email_exists = R::findOne('user', 'email=?', [$user->getEmail()]);
+            $email_exists    = R::findOne('user', 'email=?', [$user->getEmail()]);
             $username_exists = R::findOne('user', 'username=?', [$user->getUsername()]);
-            $dni_exists = R::findOne('user', 'dni=?', [$user->getDni()]);
+            $dni_exists      = R::findOne('user', 'dni=?', [$user->getDni()]);
 
             if ($email_exists == null || $username_exists == null || $dni_exists == null) {
                 $user->insertUser();
@@ -57,26 +56,10 @@ try {
             } else {
                 $error = 'Email, nombre de usuario o dni ya dados de alta en la BBDD';
                 $logger->error($error);
+                throw new Exception();
             }
-
-            if ($error == '') {
-                $reply = array(
-                    'status'   => 'OK',
-                    'response' => $user->getIdUser(),
-                    // 'response' => 6
-                );
-                http_response_code(200); // 200 OK
-            } else {
-                $reply = array(
-                    'status' => 'Error',
-                    'error'  => $error,
-                );
-                http_response_code(503); // 503 Service Unavailable
-                $logger->info("Error: $error");
-            }
-
-            header('Content-type:application/json;charset=utf-8');
-            echo json_encode($reply, JSON_UNESCAPED_UNICODE);
+        } else {
+            throw new Exception();
         }
     }
 } catch (Exception $e) {
@@ -84,5 +67,24 @@ try {
     $error = 'Error al registrar el usuario';
     $logger->error($error);
 }
+
+if ($error == '') {
+    $reply = array(
+        'status'   => 'OK',
+        'response' => $user->getIdUser(),
+        // 'response' => 6
+    );
+    http_response_code(200); // 200 OK
+} else {
+    $reply = array(
+        'status' => 'Error',
+        'error'  => $error,
+    );
+    http_response_code(503); // 503 Service Unavailable
+    $logger->info("Error: $error");
+}
+
+header('Content-type:application/json;charset=utf-8');
+echo json_encode($reply, JSON_UNESCAPED_UNICODE);
 
 // echo json_encode(array("status" => "ok", "data" => $user), JSON_FORCE_OBJECT);
