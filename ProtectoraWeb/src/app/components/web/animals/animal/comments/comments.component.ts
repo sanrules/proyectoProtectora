@@ -29,6 +29,12 @@ export class CommentsComponent implements OnInit {
   confirmMessage: string;
   errorMessage: boolean;
 
+
+  logged: boolean;
+
+  page = 1;
+  pageSize = 5;
+
   @Input() animalId: number;
 
   constructor(private formBuilder: FormBuilder,
@@ -38,6 +44,8 @@ export class CommentsComponent implements OnInit {
               private commentService: CommentService) { }
 
   ngOnInit() {
+    this.logged = this.authService.isLogged();
+
     this.commentService.getCommentsByAnimal(this.animalId).subscribe(commentGet => {
       this.comments = commentGet.response;
     });
@@ -71,6 +79,11 @@ export class CommentsComponent implements OnInit {
     return date;
   }
 
+
+  getSendingUser(): number {
+    return this.authService.userIdLogged();
+  }
+
   dataPrepare() {
 
     const date = new Date();
@@ -98,7 +111,7 @@ export class CommentsComponent implements OnInit {
     // Se envían los datos mediante post a la API
     this.commentService.postComment(commentJSON).subscribe(data => {
       this.errorMessage = false;
-      this.comments.push(data.response);
+      //this.comments.push(data.response);
       this.commentForm.reset();
       this.commentForm.controls.text.setErrors(null);
       this.openDialog();

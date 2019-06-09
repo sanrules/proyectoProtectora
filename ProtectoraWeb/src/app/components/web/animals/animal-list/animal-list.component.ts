@@ -1,5 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { AnimalService } from '../../../../_services/animals/animal/animal-service';
+import { ImagesService } from 'src/app/_services/animals/images/images.service';
 
 @Component({
     selector: 'app-animal-list',
@@ -8,15 +9,23 @@ import { AnimalService } from '../../../../_services/animals/animal/animal-servi
   })
   export class AnimalListComponent implements OnInit {
 
-    public animales: any [];
-    constructor(private animalService: AnimalService) {
+    public animalList: any [];
+    constructor(private animalService: AnimalService,
+                private imgService: ImagesService) {
 
     }
 
     ngOnInit() {
-        this.animalService.getAnimals().subscribe(animals => {
-          this.animales = animals.response;
+      this.animalService.getAnimals().subscribe(animals => {
+        this.animalList = animals.response;
+        this.animalList.forEach(animal => {
+
+          this.imgService.getImagesByAnimal(animal['id']).subscribe(imgAnimal => {
+            animal.pictures = imgAnimal.response[0].image;
+          });
         });
-    }
+    });
 
   }
+
+}
