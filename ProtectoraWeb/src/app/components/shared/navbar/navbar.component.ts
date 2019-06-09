@@ -4,6 +4,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { AuthService } from '../../../_services/auth/auth.service';
 import { JwtResponse } from '../../../_models/jwtResponse';
 import { Router } from '@angular/router';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { UserService } from '../../../_services/user/user-service';
+import { User } from 'src/app/_models/user.model';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -12,21 +15,38 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   user: any;
+  loggedUser: User;
   userId: number;
+  currentUser: Observable<any>;
+
+
   constructor(private dialog: MatDialog,
               private authService: AuthService,
+              private userService: UserService,
               private router: Router) {
-    // this.authService.currentUser.subscribe(user => this.currentUser = user);
+    // this.authService.currentUser.subscribe(user => this.user = user);
   }
 
   ngOnInit() {
 
-    this.authService.currentUser.subscribe(userProfile => {
-      this.user = this.authService.decodeJWT(userProfile.jwt);
-      this.userId = this.user.data.id;
-      console.log('userId', this.userId );
-    });
+    this.currentUser = this.authService.currentUserValue;
 
+    if (this.currentUser) {
+      this.authService.currentUser.subscribe(userProfile => {
+        this.user = this.authService.decodeJWT(userProfile.jwt);
+        this.userId = this.user.data.id;
+
+        this.userService.getuserById(this.userId).subscribe(user => {
+          this.loggedUser = user.response;
+          console.log('user: ', user);
+        });
+      });
+    }
+
+  }
+
+  enterProfile(id: number) {
+    this.router.navigate(['/user/profile', id]);
   }
 
   logOut() {
@@ -42,6 +62,10 @@ export class NavbarComponent implements OnInit {
     return this.authService.isAdmin();
   }
 
+  userLogged() {
+    return this.authService.userIdLogged();
+  }
+
   openDialog() {
     const dialogConfig = new MatDialogConfig();
 
@@ -52,7 +76,6 @@ export class NavbarComponent implements OnInit {
 
     this.dialog.open(LoginComponent, dialogConfig);
   }
-
 
 }
 

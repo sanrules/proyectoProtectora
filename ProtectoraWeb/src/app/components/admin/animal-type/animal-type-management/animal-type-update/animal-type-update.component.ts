@@ -1,23 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
-import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { Type } from 'src/app/_models/type.model';
 
 
 
 
 @Component({
-    selector: 'app-formulario-animal-type-modal',
-    templateUrl: './animal-type-update-modal.component.html',
+    selector: 'app-animal-type-update',
+    templateUrl: './animal-type-update.component.html',
+    styleUrls: ['./animal-type-update.component.css']
   })
-  export class FormularioAnimalTypeUpdateModal implements OnInit {
-    
+  export class AnimalTypeUpdateComponent implements OnInit {
+
     public formType = 'typeUpdate';
     public typeData: Type;
-    
+
     constructor(
-      public dialogRef: MatDialogRef<FormularioAnimalTypeUpdateModal>,
+      public dialogRef: MatDialogRef<AnimalTypeUpdateComponent>,
       @Inject(MAT_DIALOG_DATA) public data: Type) {}
 
     ngOnInit() {

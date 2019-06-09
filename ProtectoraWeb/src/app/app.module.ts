@@ -47,26 +47,26 @@ import { AdministratorNavbarComponent } from './components/admin/navbar/administ
 // User
 import { AdminUserRegisterComponent } from './components/admin/users/user-register/admin-user-register.component';
 import { UserManagementComponent } from './components/admin/users/user-management/user-management.component';
-import { UserUpdateModalComponent } from './components/admin/users/user-management/user-update-modal/user-update-modal.component';
+import { AdminUserUpdateComponent } from './components/admin/users/user-management/admin-user-update/admin-user-update.component';
 // Animals
 import { AnimalRegisterComponent } from './components/admin/animals/animal-register/animal-register.component';
 import { AnimalManagementComponent } from './components/admin/animals/animal-management/animal-management.component';
 // tslint:disable-next-line: max-line-length
-import { FormularioAnimalModal } from './components/admin/animals/animal-management/formulario-animal-modal/formulario-animal-modal.component';
+import { AnimalUpdateComponent } from './components/admin/animals/animal-management/animal-update/animal-update.component';
 // Tipo de animal
 import { AnimalTypeRegisterComponent } from './components/admin/animal-type/animal-type-register/animal-type-register.component';
 import { AnimalTypeManagementComponent } from './components/admin/animal-type/animal-type-management/animal-type-management.component';
 // tslint:disable-next-line: max-line-length
-import { FormularioAnimalTypeUpdateModal } from './components/admin/animal-type/animal-type-management/animal-type-update-modal/animal-type-update-modal.component';
+import { AnimalTypeUpdateComponent } from './components/admin/animal-type/animal-type-management/animal-type-update/animal-type-update.component';
 // Raza
 import { AnimalBreedRegisterComponent } from './components/admin/animal-breed/animal-breed-register/animal-breed-register.component';
 import { AnimalBreedManagementComponent } from './components/admin/animal-breed/animal-breed-management/animal-breed-management.component';
 // tslint:disable-next-line: max-line-length
-import { FormularioAnimalBreedUpdateModal } from './components/admin/animal-breed/animal-breed-management/animal-breed-update-modal/animal-breed-update-modal.component';
+import { AnimalBreedUpdateComponent } from './components/admin/animal-breed/animal-breed-management/animal-breed-update/animal-breed-update.component';
 // Noticias
 import { NewsManagementComponent } from './components/admin/news/news-mangement/news-management.component';
 import { NewsRegisterComponent } from './components/admin/news/news-register/news-register.component';
-import { NewsUpdateModal } from './components/admin/news/news-mangement/news-modal/news-modal.component';
+import { NewsUpdateComponent } from './components/admin/news/news-mangement/news-update/news-update.component';
 
 // Componentes Shared
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
@@ -74,43 +74,44 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { AutofocusDirective } from './_directives/autofocus.directive';
 import { RegisterConfirmationComponent } from './components/shared/register-confirmation/register-confirmation.component';
 
-
-
+// Pipes
+import { UserIdToNamePipe } from './_pipes/user-id-to-name.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    AnimalManagementComponent,
-    AnimalRegisterComponent,
-    UserRegisterComponent,
     AdministratorNavbarComponent,
+    RegisterConfirmationComponent,
+    AnimalRegisterComponent,
+    AnimalManagementComponent,
+    AnimalUpdateComponent,
     AdminUserRegisterComponent,
     UserManagementComponent,
-    UserUpdateModalComponent,
-    AnimalListComponent,
-    AnimalComponent,
-    AnimalCardComponent,
-    HomeComponent,
-    RegisterConfirmationComponent,
-    LoginComponent,
-    AnimalTypeManagementComponent,
+    AdminUserUpdateComponent,
     AnimalTypeRegisterComponent,
+    AnimalTypeManagementComponent,
+    AnimalTypeUpdateComponent,
     AnimalBreedRegisterComponent,
     AnimalBreedManagementComponent,
-    FormularioAnimalBreedUpdateModal,
-    FormularioAnimalTypeUpdateModal,
-    FormularioAnimalModal,
-    AutofocusDirective,
+    AnimalBreedUpdateComponent,
     NewsManagementComponent,
     NewsRegisterComponent,
-    NewsUpdateModal,
+    NewsUpdateComponent,
+    HomeComponent,
+    LoginComponent,
+    UserRegisterComponent,
+    AnimalListComponent,
+    AnimalCardComponent,
+    AnimalComponent,
+    AnimalImagesComponent,
+    CommentsComponent,
     UserProfileComponent,
     UserUpdateComponent,
     AdoptedAnimalsComponent,
-    AnimalImagesComponent,
-    CommentsComponent
+    AutofocusDirective,
+    UserIdToNamePipe
   ],
   imports: [
     BrowserModule,
@@ -131,14 +132,13 @@ import { RegisterConfirmationComponent } from './components/shared/register-conf
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    FormularioAnimalModal,
-    UserUpdateModalComponent,
     RegisterConfirmationComponent,
     LoginComponent,
-    UserUpdateModalComponent,
-    FormularioAnimalTypeUpdateModal,
-    FormularioAnimalBreedUpdateModal,
-    NewsUpdateModal
+    AdminUserUpdateComponent,
+    AnimalUpdateComponent,
+    AnimalTypeUpdateComponent,
+    AnimalBreedUpdateComponent,
+    NewsUpdateComponent
   ]
 })
 export class AppModule {}

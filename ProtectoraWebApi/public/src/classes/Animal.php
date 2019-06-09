@@ -150,8 +150,6 @@ class Animal
         $oldAnimal->adoption_date = $this->getAdoptionDate();
         $oldAnimal->status        = $this->getStatus();
         $oldAnimal->description   = $this->getDescription();
-        
-        
 
         R::store($oldAnimal);
     }

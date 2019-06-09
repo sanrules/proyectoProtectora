@@ -1,5 +1,5 @@
 <?php
-require 'lib/RedBean/rb.php';
+require_once 'lib/RedBean/rb.php';
 
 // ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');

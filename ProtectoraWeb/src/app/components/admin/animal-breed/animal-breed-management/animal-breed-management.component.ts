@@ -1,11 +1,11 @@
 import { OnInit, Component, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} from '@angular/material';
 import { Breed } from 'src/app/_models/breed.model';
-import { FormularioAnimalBreedUpdateModal } from './animal-breed-update-modal/animal-breed-update-modal.component';
 import { AnimalBreedService } from 'src/app/_services/animals/raza-animal/animal-raza-service';
+import { AnimalBreedUpdateComponent } from './animal-breed-update/animal-breed-update.component';
 
 @Component({
-    selector: 'app-admin/animal-breed/management',
+    selector: 'app-admin-animal-breed-management',
     templateUrl: './animal-breed-management.component.html',
     styleUrls: ['./animal-breed-management.component.css']
   })
@@ -47,7 +47,7 @@ import { AnimalBreedService } from 'src/app/_services/animals/raza-animal/animal
       dialogConfig.height = "80%"
       dialogConfig.width = "80%";
       dialogConfig.data = razas;
-      this.dialog.open(FormularioAnimalBreedUpdateModal, dialogConfig);
+      this.dialog.open(AnimalBreedUpdateComponent, dialogConfig);
 
     }
 

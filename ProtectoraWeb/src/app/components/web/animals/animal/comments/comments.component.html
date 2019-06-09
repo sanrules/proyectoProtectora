@@ -1,16 +1,16 @@
-<div class="row" *ngIf="user">
-  <div class="col-md-12" *ngFor="let comment of comments">
+<div class="row">
+  <div class="col-md-12" *ngFor="let comment of comments | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
     <div class="row">
       <div class="col-md-12 d-inline-block">
         <ngx-avatar 
-          [src]="user.avatar" 
+          [src]="comment.avatar" 
           size="20" 
           [round]="true" borderColor="#000">
         </ngx-avatar>
       </div> 
       <hr>
       <div class="col-md-11">
-        {{user.username}} | {{comment.date | date}}
+        {{ comment.username }} | {{ comment.date | date }}
       </div>    
     </div>
     <div class="row mt-1 mb-2">
@@ -35,5 +35,18 @@
     <input type="hidden" formControlName="animalId" id="animalId" [value]="animalId">
     <input type="hidden" formControlName="userId" id="userId">
     <input type="hidden" formControlName="date" id="date">
+    
   </form>
+</div>
+<div class="row">
+  <div class="col-md-12">
+   <ngb-pagination 
+    [collectionSize]="comments.length" 
+    [(page)]="page"
+    [pageSize]="pageSize" 
+    [maxSize]="5" 
+    [rotate]="true" 
+    [ellipses]="false" 
+    [boundaryLinks]="true"></ngb-pagination>
+  </div>
 </div>

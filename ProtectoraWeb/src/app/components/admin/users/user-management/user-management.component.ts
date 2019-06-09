@@ -1,7 +1,7 @@
 // Angular Core imports
 import { Component, OnInit, ViewChild } from '@angular/core';
 // Component import
-import { UserUpdateModalComponent } from './user-update-modal/user-update-modal.component';
+import { AdminUserUpdateComponent } from './admin-user-update/admin-user-update.component';
 // Interface import
 import { User } from '../../../../_models/user.model';
 // Service import
@@ -59,7 +59,7 @@ export class UserManagementComponent implements OnInit {
     dialogConfig.width = '80%';
     dialogConfig.data = users;
     dialogConfig.autoFocus = false;
-    this.dialog.open(UserUpdateModalComponent, dialogConfig);
+    this.dialog.open(AdminUserUpdateComponent, dialogConfig);
   }
 
 }

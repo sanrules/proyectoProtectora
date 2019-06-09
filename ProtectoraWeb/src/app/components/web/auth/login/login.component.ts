@@ -14,8 +14,9 @@ import { RegisterConfirmationComponent } from 'src/app/components/shared/registe
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  error: string;
+  invalidLogin: boolean;
   confirmMessage: string;
+  error: string;
 
   constructor(
     private dialogRef: MatDialogRef<LoginComponent>,
@@ -53,8 +54,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form.email.value, this.form.password.value)
       .subscribe(data => {
         this.closeDialog();
+        this.router.navigate(['']);
       }, error => {
-          this.error = error;
+          this.invalidLogin = true;
           console.log('error: ', error);
       });
 

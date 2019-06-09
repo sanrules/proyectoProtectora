@@ -187,7 +187,7 @@ export class AdminUserRegisterComponent {
       "city": this.registerForm.get('city').value.trim(),
       "postal_code": this.registerForm.get('postalCode').value,
       "user_type":  this.registerForm.get('userType').value.trim(),
-      "avatar":  '',
+      "avatar":  this.registerForm.get('imgUrl').value.trim(),
     };
 
     return formData;
@@ -198,13 +198,16 @@ export class AdminUserRegisterComponent {
       this.user = this.dataPrepare();
       const userJSON = JSON.stringify(this.user);
       console.log('datos a enviar: ', userJSON);
+      console.log('fileUpload: ', this.fileUpload);
       this.userService.updateUser(userJSON).subscribe(data => {
-          console.log('repuesta registerUser(data): ', data);
+        console.log('repuesta registerUser(data): ', data);
+        if (this.fileUpload !== undefined) {
           this.onUpload(this.fileUpload, data.response);
-        },
-        error => {
-          console.log('Error: ', error);
-        });
+        }
+      },
+      error => {
+        console.log('Error: ', error);
+      });
     } else {
         // Se guardan los datos del formulario en un objeto usuario
         this.user = this.dataPrepare();
@@ -216,7 +219,9 @@ export class AdminUserRegisterComponent {
         // Se envían los datos mediante post a la API
         this.userService.registerUser(userJSON).subscribe(data => {
           console.log('repuesta registerUser(data): ', data);
-          this.onUpload(this.fileUpload, data.response);
+          if (this.fileUpload !== undefined) {
+            this.onUpload(this.fileUpload, data.response);
+          }
           this.regError = false;
           },
           error => {
@@ -229,7 +234,7 @@ export class AdminUserRegisterComponent {
 
   openDialog() {
     if (this.regError) {
-      this.confirmMessage = 'Ha habido un error';
+      this.confirmMessage = 'Ha habido un error al enviar el formulario';
     } else {
       if (this.formType === 'userUpdate') {
         this.confirmMessage = 'Usuario actualizado correctamente';

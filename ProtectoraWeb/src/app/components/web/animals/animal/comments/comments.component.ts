@@ -29,7 +29,6 @@ export class CommentsComponent implements OnInit {
   confirmMessage: string;
   errorMessage: boolean;
 
-
   logged: boolean;
 
   page = 1;
@@ -44,6 +43,7 @@ export class CommentsComponent implements OnInit {
               private commentService: CommentService) { }
 
   ngOnInit() {
+
     this.logged = this.authService.isLogged();
 
     this.commentService.getCommentsByAnimal(this.animalId).subscribe(commentGet => {
@@ -78,7 +78,6 @@ export class CommentsComponent implements OnInit {
 
     return date;
   }
-
 
   getSendingUser(): number {
     return this.authService.userIdLogged();

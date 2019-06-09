@@ -22,7 +22,7 @@ import { RegisterConfirmationComponent } from 'src/app/components/shared/registe
     public type: Type;
     constructor(private formBuilder: FormBuilder,
                 private animalTypeService: AnimalTypeService,
-                private dialog: MatDialog){}
+                private dialog: MatDialog) {}
 
     ngOnInit() {
 
@@ -32,9 +32,9 @@ import { RegisterConfirmationComponent } from 'src/app/components/shared/registe
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     });
 
-    if (this.formType == 'typeUpdate'){
-      console.log("animal: ", this.typeData);
-     this.setDatosUpdate(this.typeData);
+    if (this.formType == 'typeUpdate') {
+      console.log('animal: ', this.typeData);
+      this.setDatosUpdate(this.typeData);
     }
   }
 

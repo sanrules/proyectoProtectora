@@ -2,6 +2,7 @@
 import { Component, OnInit , Input , ElementRef, ViewChild} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { AnimalService } from 'src/app/_services/animals/animal/animal-service';
+import { ImagesService } from 'src/app/_services/animals/images/images.service';
 import { Animal } from 'src/app/_models/animal.model';
 import { FirebaseStorageService } from '../../../../_services/firebase-upload/firebase-upload-service';
 import { Observable } from 'rxjs';
@@ -23,6 +24,7 @@ export class AnimalRegisterComponent implements OnInit {
   @Input() public formType: string;
   @Input() public animalData: Animal;
 
+  step = 0;
   bucketName = 'animalimg';
   arrayAux: any[] = [];
   files: any[];
@@ -30,6 +32,7 @@ export class AnimalRegisterComponent implements OnInit {
   uploadpercent: Observable<number>;
   urlImage: Observable<string>;
   urlImageAr: any[] = [];
+  images: any[];
 
   registerForm: FormGroup;
   confirmMessage: string;
@@ -52,9 +55,11 @@ export class AnimalRegisterComponent implements OnInit {
               private animalService: AnimalService,
               private firestorage: FirebaseStorageService,
               private dialog: MatDialog,
-              private router: Router) { }
+              private router: Router,
+              private imagesService: ImagesService) { }
 
   ngOnInit() {
+
 
     const generosControl = this.generos.map(c => new FormControl(false, Validators.required));
 
@@ -74,6 +79,10 @@ export class AnimalRegisterComponent implements OnInit {
     });
 
     if (this.formType === 'animalUpdate'){
+      this.imagesService.getImagesByAnimal(this.animalData.idAnimal).subscribe(e =>{
+        this.images = e.response;
+        console.log(this.images);
+      });
       console.log('animal: ', this.animalData);
       this.setDatosUpdate(this.animalData);
     }
@@ -103,7 +112,7 @@ export class AnimalRegisterComponent implements OnInit {
 
             this.urlImageAr.push(url);
             console.log('urls', this.urlImageAr);
-            if (i == (images.length - 1 ))  {
+            if (i == (images.length - 1))  {
               console.log('entra en el subir imagenes');
               this.subirImagenes(id, this.urlImageAr);
             }
@@ -114,7 +123,7 @@ export class AnimalRegisterComponent implements OnInit {
 
   public subirImagenes(id: number, arrayImages) {
     this.animalService.uploadImages(id, arrayImages ).subscribe(() => {
-      this.openDialog();
+      this.openDialog(id , 1);
       this.router.navigateByUrl('/admin/animals/management');
     }, error => {
         console.log('Error: ', error);
@@ -198,12 +207,19 @@ dataPrepare() {
       const userJSON = JSON.stringify(this.animal);
       console.log('datos a enviar: ', userJSON);
       this.animalService.updateAnimal(userJSON).subscribe(data => {
-          console.log('repuesta registerAnimal(data): ', data);
-          this.openDialog();
+
+        if ( this.files === undefined ) {
+
           this.router.navigateByUrl('/admin/animals/management');
+          this.openDialog(data, 1);
+          } else {
+          this.onUpload(this.files, data.response);
+          }
+          console.log('repuesta registerAnimal(data): ', data.response);
         },
         error => {
           console.log('Error: ', error);
+          this.openDialog(error, 2);
         });
 
     } else {
@@ -219,24 +235,36 @@ dataPrepare() {
         if ( this.files === undefined ) {
 
         this.router.navigateByUrl('/admin/animals/management');
-        this.openDialog();
+        this.openDialog(data, 1);
         } else {
-          this.onUpload(this.files, data.response);
+        this.onUpload(this.files, data.response);
         }
         console.log('respuesta registerAnimal(data): ', data);
       }, error => {
           console.warn('Error: ', error);
+          this.openDialog(error , 2 );
       });
     }
   }
 
-  openDialog() {
+  openDialog(aux , type) {
     if (this.formType === 'animalUpdate') {
+      if ( (aux !== undefined && type === 1) || (aux === undefined && type === 2) ) {
       this.confirmMessage =
       'La actualización se ha completado correctamente.';
     } else {
+      this.confirmMessage =
+      'Se ha producido un error en la actualizacion';
+    }
+    } else {
+      if ((aux !== undefined && type === 1) || (aux === undefined && type === 2) ) {
     this.confirmMessage =
       'El registro de animal se ha completado correctamente.';
+    } else {
+
+    this.confirmMessage =
+      'Se ha producido un error en el registro';
+      }
     }
     const dialogConfig = new MatDialogConfig();
 
@@ -246,4 +274,17 @@ dataPrepare() {
 
     this.dialog.open(RegisterConfirmationComponent, dialogConfig);
   }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+
 }
