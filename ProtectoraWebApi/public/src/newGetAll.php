@@ -10,7 +10,7 @@ $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 $error = '';
 
 try {
-    $new  = new News();
+    $new  = new New();
     $news = $new->retrieveAllNews();
 } catch (Exception $e) {
     $error = 'No se han podido obtener todos los animales';
