@@ -28,10 +28,9 @@ try {
         $birth_date    = filter_var($request['birthDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
         $entrance_date = filter_var($request['entranceDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
         $adoption_date = filter_var($request['adoptionDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Si no existe, será 1/1/1970
-        $status        = in_array(filter_var($request['status'], FILTER_SANITIZE_STRING), $vStatus) ? $request['status'] : ''; // Adoptado, pre-adoptado, en adopción
+        $status        = filter_var($request['status'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
         $description   = filter_var($request['description'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $pictures      = $request['pictures']; // String provisionalmente
-        /*    $pictures      = filter_var($request['pictures'], FILTER_REQUIRE_ARRAY) ? $request['pictures'] : ''; // Las imágenes tendrán que venir en un array */
+        $pictures      = $request['pictures'];
 
         // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($name != '' || $type != '' || $breed != '' || $gender != '' || $size != '' || $birth_date != '' || $entrance_date != '' || $adoption_date != '' || $status != '' || $description != '') {

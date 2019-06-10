@@ -58,7 +58,7 @@ $this->_text = $text;
      * Borra una imagen de la base de datos
      * @param int $id id de la imagen a borrar
      */
-    public function deleteComment($id)
+    public function deleteImage($id)
     {
         $image = R::load('images', $id);
         R::trash($image);
