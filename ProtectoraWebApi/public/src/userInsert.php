@@ -50,7 +50,7 @@ try {
                 $user->usernameExist();
                 $user->emailExist();
             } catch (Exception $e) {
-                $error += 'Usuario ya existe en la bbdd. ';
+                $error .= 'Usuario ya existe en la bbdd. ';
                 $logger->error($error);
                 throw $e;
             }
@@ -59,13 +59,13 @@ try {
             $error = '';
 
         } else {
-            $error += 'Email, nombre de usuario o dni ya dados de alta en la BBDD. ';
+            $error .= 'Email, nombre de usuario o dni ya dados de alta en la BBDD. ';
             $logger->error($error);
             throw new Exception();
         }
     }
 } catch (Exception $e) {
-    $error += 'Error al registrar el usuario. ';
+    $error .= 'Error al registrar el usuario. ';
     $logger->error($error);
 }
 
