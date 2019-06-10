@@ -51,7 +51,7 @@ try {
     $logger->error("No se ha podido insertar el animal");
 }
 
-if ($animal != '') {
+if ($error == '') {
     $reply = array(
         'status'   => 'Created',
         'response' => $animal->getId(),
