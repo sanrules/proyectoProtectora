@@ -7,18 +7,17 @@ use Monolog\Logger;
 
 $logger = new Logger('newsGetAll');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
+$error = '';
 
 try {
-
     $new  = new News();
     $news = $new->retrieveAllNews();
-    $error = '';
 } catch (Exception $e) {
     $error = 'No se han podido obtener todos los animales';
     $logger->error($error);
 }
 
-if ($news != '') {
+if ($error == '') {
     $reply = array(
         'status'   => 'Getted',
         'response' => $news,

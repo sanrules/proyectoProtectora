@@ -7,6 +7,7 @@ use Monolog\Logger;
 
 $logger = new Logger('animalBreedGetAll');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
+$error = '';
 
 try {
     $animalbreed = new AnimalBreed();
@@ -33,8 +34,3 @@ if ($animalbreed != '') {
 
 header('Content-type:application/json;charset=utf-8');
 echo json_encode($reply, JSON_UNESCAPED_UNICODE);
-
-// Lo antiguo
-// echo json_encode($animalbreed, JSON_UNESCAPED_UNICODE);
-// echo json_encode($animals);
-// header('Content-Type: application/json');

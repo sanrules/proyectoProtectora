@@ -35,9 +35,17 @@ try {
         $userType   = filter_var($request['user_type'], FILTER_SANITIZE_STRING); // String provisionalmente
         $avatar     = $request['avatar'];
 
-        // TODO VALIDACIÓN DE LOS ÚLTIMOS CAMPOS
-
         if ($username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $dni != '' || $phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $province != '' || $city != '' || $postalCode != '' || $userType != '') {
+
+            try {
+                $user->dniExist();
+                $user->usernameExist();
+                $user->emailExist();
+            } catch (Exception $e) {
+                $error += 'Usuario ya existe en la bbdd. ';
+                $logger->error($error);
+                throw $e;
+            }
 
             $birthDate = new DateTime("@$birthDate");
             $birthDate->format("Y-m-d H:i:s");
@@ -47,32 +55,17 @@ try {
             $user = new User();
             $user->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
 
-            // Validamos que el email, nombre de usuario o dni no existan
-            // $email_exists    = R::findOne('user', 'email=?', [$email]);
-            // $username_exists = R::findOne('user', 'username=?', [$username]);
-            // $dni_exists      = R::findOne('user', 'dni=?', [$dni]);
-
-            try {
-                $user->dniExist();
-                $user->usernameExist();
-                $user->emailExist();
-            } catch (Exception $e) {
-                $error = 'Usuario ya existe en la bbdd';
-                $logger->error($error);
-                throw new Exception();
-            }
-
             $user->insertUser();
             $error = '';
 
         } else {
-            $error = 'Email, nombre de usuario o dni ya dados de alta en la BBDD';
+            $error += 'Email, nombre de usuario o dni ya dados de alta en la BBDD. ';
             $logger->error($error);
             throw new Exception();
         }
     }
 } catch (Exception $e) {
-    $error = 'Error al registrar el usuario';
+    $error += 'Error al registrar el usuario. ';
     $logger->error($error);
 }
 
@@ -93,5 +86,3 @@ if ($error == '') {
 
 header('Content-type:application/json;charset=utf-8');
 echo json_encode($reply, JSON_UNESCAPED_UNICODE);
-
-// echo json_encode(array("status" => "ok", "data" => $user), JSON_FORCE_OBJECT);

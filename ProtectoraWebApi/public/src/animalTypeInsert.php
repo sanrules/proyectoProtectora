@@ -7,7 +7,7 @@ require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use PHPMailer\PHPMailer\Exception;
+$error = '';
 
 $logger = new Logger('animalTypeInsert');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
@@ -33,9 +33,10 @@ try {
 
             $animalType->insertAnimalType();
 
-            echo json_encode(array("status" => "ok", "data" => $animalType), JSON_FORCE_OBJECT);
         }
     }
 } catch (Exception $e) {
     echo 'Error al registrar animalType: ' . $e->getMessage();
 }
+
+echo json_encode(array("status" => "ok", "data" => $animalType), JSON_FORCE_OBJECT);

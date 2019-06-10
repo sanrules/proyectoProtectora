@@ -199,7 +199,6 @@ class Animal
 
         R:store($animal);
     }
-    // TODO
 
     /*
      *** GETTERS Y SETTERS

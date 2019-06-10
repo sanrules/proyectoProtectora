@@ -11,10 +11,10 @@ $error = array();
 
 try {
     $postdata = file_get_contents("php://input");
-    $request = json_decode($postdata, true);
+    $request  = json_decode($postdata, true);
 
     if ($request) {
-        $comment = new Comments();
+        $comment  = new Comments();
         $comments = $comment->retrieveUserComments($idUser);
     } else {
         $error['request'] = 'No se han recibido datos';
@@ -41,3 +41,6 @@ if (count($error) == 0) {
         $logger->info("Error: $err");
     }
 }
+
+header('Content-type:application/json;charset=utf-8');
+echo json_encode($reply, JSON_UNESCAPED_UNICODE);

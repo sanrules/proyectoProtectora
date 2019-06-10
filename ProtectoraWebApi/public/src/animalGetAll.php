@@ -7,12 +7,12 @@ use Monolog\Logger;
 
 $logger = new Logger('animalGetAll');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
+$error = '';
 
 try {
 
     $animal  = new Animal();
     $animals = $animal->retrieveAnimalAll();
-    $error = '';
 } catch (Exception $e) {
     $error = 'No se han podido obtener todos los animales';
     $logger->error($error);

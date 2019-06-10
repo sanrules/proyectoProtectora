@@ -8,6 +8,7 @@ use PHPMailer\PHPMailer\Exception;
 
 $logger = new Logger('commentsInsert');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
+$error = '';
 
 try {
     $postdata = file_get_contents("php://input");
@@ -16,9 +17,9 @@ try {
     if ($request) {
         $animalId = filter_var($request['animal_id'], FILTER_SANITIZE_NUMBER_INT);
         $userId   = filter_var($request['user_id'], FILTER_SANITIZE_NUMBER_INT);
-        $date     = filter_var($request['date'], FILTER_SANITIZE_NUMBER_INT)/1000;
+        $date     = filter_var($request['date'], FILTER_SANITIZE_NUMBER_INT) / 1000;
         $text     = filter_var($request['text'], FILTER_SANITIZE_STRING);
-        
+
         if ($animalId != '' || $userId != '' || $date != '' || $text != '') {
 
             $date = new DateTime("@$date");
@@ -28,27 +29,6 @@ try {
             $comment->createComment($animalId, $userId, $date, $text);
 
             $comment->insertComment();
-
-            if ($comment != '') {
-                
-                $commentGet = new Comments();
-                $commentGet = R::findOne('comments', 'id=?', [$comment->getId()]);
-
-                $reply = array(
-                    'status'   => 'Created',
-                    'response' => $commentGet,
-                );
-                http_response_code(200); // 200 OK
-            } else {
-                $reply = array(
-                    'status' => 'Error',
-                    'error'  => $error,
-                );
-                http_response_code(503); // 503 Service Unavailable
-                $logger->info("Error: $error");
-            }
-
-            echo json_encode($reply, JSON_UNESCAPED_UNICODE);
         }
     }
 } catch (Exception $error) {
@@ -56,3 +36,21 @@ try {
     $error = 'Error al enviar comentario';
     $logger->error($error);
 }
+
+if ($error == '') {
+    $reply = array(
+        'status'   => 'Created',
+        'response' => $comment,
+    );
+    http_response_code(200); // 200 OK
+} else {
+    $reply = array(
+        'status' => 'Error',
+        'error'  => $error,
+    );
+    http_response_code(503); // 503 Service Unavailable
+    $logger->info("Error: $error");
+}
+
+header('Content-type:application/json;charset=utf-8');
+echo json_encode($reply, JSON_UNESCAPED_UNICODE);

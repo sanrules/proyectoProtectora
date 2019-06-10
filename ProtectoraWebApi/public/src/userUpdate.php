@@ -2,12 +2,14 @@
 require_once '../../vendor/autoload.php';
 require_once 'classes/User.php';
 
-use PHPMailer\PHPMailer\Exception;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use PHPMailer\PHPMailer\Exception;
 
 $logger = new Logger('userUpdate');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
+
+$error = '';
 
 try {
     $postdata = file_get_contents("php://input");
@@ -59,26 +61,8 @@ try {
             } else {
                 $error = 'El usuario no existe en la base de datos';
                 $logger->error($error);
-                // throw new Exception();
+                throw new Exception();
             }
-
-            if ($error == '') {
-                $reply = array(
-                    'status'   => 'OK',
-                    'response' => $updatedUser->getIdUser(),
-                );
-                http_response_code(200); // 200 OK
-            } else {
-                $reply = array(
-                    'status' => 'Error',
-                    'error'  => $error,
-                );
-                http_response_code(503); // 503 Service Unavailable
-                $logger->info("Error: $error");
-            }
-
-            header('Content-type:application/json;charset=utf-8');
-            echo json_encode($reply, JSON_UNESCAPED_UNICODE);
         }
     }
 } catch (Exception $e) {
@@ -87,6 +71,22 @@ try {
     $logger->error($error);
 }
 
+if ($error == '') {
+    $reply = array(
+        'status'   => 'OK',
+        'response' => $updatedUser->getIdUser(),
+    );
+    http_response_code(200); // 200 OK
+} else {
+    $reply = array(
+        'status' => 'Error',
+        'error'  => $error,
+    );
+    http_response_code(503); // 503 Service Unavailable
+    $logger->info("Error: $error");
+}
 
+header('Content-type:application/json;charset=utf-8');
+echo json_encode($reply, JSON_UNESCAPED_UNICODE);
 
 // echo json_encode(array("status" => "ok", "data" => $user), JSON_FORCE_OBJECT);

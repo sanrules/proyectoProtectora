@@ -7,7 +7,6 @@ require_once 'classes/AnimalBreed.php';
 require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
-use PHPMailer\PHPMailer\Exception;
 use Monolog\Logger;
 
 $logger = new Logger('animalBreedInsert');
@@ -18,9 +17,6 @@ try {
     $request  = json_decode($postdata, true);
 
     if ($request) {
-
-        /* $picturesArray = explode(",",$request['pictures']); */
-
         // Validate & sanitize
         $idtype = filter_var($request['idtipo'], FILTER_SANITIZE_NUMBER_INT);
         $name   = filter_var($request['nombre'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
@@ -35,9 +31,10 @@ try {
 
             $animalBreed->insertAnimalBreed();
 
-            echo json_encode(array("status" => "ok", "data" => $animalBreed), JSON_FORCE_OBJECT);
         }
     }
 } catch (Exception $e) {
     echo 'Error al registrar animalType: ' . $e->getMessage();
 }
+
+echo json_encode(array("status" => "ok", "data" => $animalBreed), JSON_FORCE_OBJECT);

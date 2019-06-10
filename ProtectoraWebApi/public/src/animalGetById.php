@@ -10,17 +10,16 @@ use Monolog\Logger;
 
 $logger = new Logger('animalGetById');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
+$error = '';
 
 try {
     $postdata = file_get_contents("php://input");
     $request  = json_decode($postdata, true);
-    
+
     if ($request) {
         $animal = new Animal();
         $animal->setId($request);
         $animalGet = $animal->retrieveAnimal();
-        $error     = '';
-        // echo json_encode($animalGet, JSON_UNESCAPED_UNICODE);
     }
 } catch (Exception $e) {
     $error = 'No se puede obtener el animal';

@@ -27,3 +27,6 @@ if ($error == '') {
     http_response_code(503); // 503 Service Unavailable
     $logger->info("Error: $error");
 }
+
+header('Content-type:application/json;charset=utf-8');
+echo json_encode($reply, JSON_UNESCAPED_UNICODE);

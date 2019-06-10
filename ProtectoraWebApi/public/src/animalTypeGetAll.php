@@ -11,6 +11,7 @@ use Monolog\Logger;
 
 $logger = new Logger('animalTypeGetAll');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
+$error = '';
 
 try {
     $animaltype  = new AnimalType();

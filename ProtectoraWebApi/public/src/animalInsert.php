@@ -3,12 +3,13 @@
 require_once 'classes/Animal.php';
 require_once '../../vendor/autoload.php';
 
-use PHPMailer\PHPMailer\Exception;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 $logger = new Logger('animalInsert');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
+
+$error = '';
 
 try {
     $postdata = file_get_contents("php://input");
@@ -23,7 +24,7 @@ try {
         $type          = filter_var($request['type'], FILTER_SANITIZE_STRING); // Se aceptarán perro, gato, otros
         $breed         = filter_var($request['breed'], FILTER_SANITIZE_STRING); // Raza.
         $gender        = filter_var($request['gender'], FILTER_SANITIZE_STRING);
-        $size        = filter_var($request['size'], FILTER_SANITIZE_STRING); // Se aceptarán M y H (macho / hembra)
+        $size          = filter_var($request['size'], FILTER_SANITIZE_STRING); // Se aceptarán M y H (macho / hembra)
         $birth_date    = filter_var($request['birthDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
         $entrance_date = filter_var($request['entranceDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
         $adoption_date = filter_var($request['adoptionDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Si no existe, será 1/1/1970
@@ -44,29 +45,27 @@ try {
             $animal->createAnimal($name, $type, $breed, $gender, $size, $birth_date, $entrance_date, $adoption_date, $status, $description, $pictures);
 
             $animal->insertAnimal();
-
-            if ($animal != '') {
-                $reply = array(
-                    'status'   => 'Created',
-                    'response' => $animal->getId(),
-                );
-                http_response_code(200); // 200 OK
-            } else {
-                $reply = array(
-                    'status' => 'Error',
-                    'error'  => $error,
-                );
-                http_response_code(503); // 503 Service Unavailable
-                $logger->info("Error: $error");
-            }
-            
-            header('Content-type:application/json;charset=utf-8');
-            echo json_encode($reply, JSON_UNESCAPED_UNICODE);
         }
     }
 } catch (Exception $e) {
-    $error = 'Error al registrar animal: ' . $e->getMessage();
+    $error += 'Error al registrar animal ';
     $logger->error("No se ha podido insertar el animal");
 }
 
+if ($animal != '') {
+    $reply = array(
+        'status'   => 'Created',
+        'response' => $animal->getId(),
+    );
+    http_response_code(200); // 200 OK
+} else {
+    $reply = array(
+        'status' => 'Error',
+        'error'  => $error,
+    );
+    http_response_code(503); // 503 Service Unavailable
+    $logger->info("Error: $error");
+}
 
+header('Content-type:application/json;charset=utf-8');
+echo json_encode($reply, JSON_UNESCAPED_UNICODE);

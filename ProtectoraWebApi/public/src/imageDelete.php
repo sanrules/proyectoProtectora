@@ -11,17 +11,15 @@ use Monolog\Logger;
 $logger = new Logger('imageDelete');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
+$error = '';
+
 try {
     $postdata = file_get_contents("php://input");
     $request  = json_decode($postdata, true);
-    
+
     if ($request) {
         $image = new Images();
-        $image -> deleteImage($request);
-       /*  $image = new Images();
-        $image->setId($request);
-        $images = $image->retrieveAnimalImages($image->getId());
-        $error     = ''; */
+        $image->deleteImage($request);
     }
 } catch (Exception $e) {
     $error = 'No se pueden obtener las imágenes';
