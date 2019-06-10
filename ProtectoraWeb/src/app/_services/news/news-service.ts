@@ -21,22 +21,25 @@ export class NewsService {
 
   // Solicita a la API una lista con todos los usuarios.
   getNews(): Observable<any> {
-    return this.http.get(`${this.baseURL}/newsGetAll.php`);
+    return this.http.get(`${this.baseURL}/newGetAll.php`);
   }
 
   // Solicita a la API el usuario que se le manda por parámetro
-  getNewsById(id) {
-    return this.http.post(`${this.baseURL}/newsGetById.php`, id, this.httpOptions);
+  getNewById(id) {
+    return this.http.post(`${this.baseURL}/newGetById.php`, id, this.httpOptions);
   }
 
   // Da de alta un nuevo usuario
-  registerNews(data): Observable<any> {
-    return this.http.post(`${this.baseURL}/newsInsert.php`, data, this.httpOptions);
+  registerNew(data): Observable<any> {
+    return this.http.post(`${this.baseURL}/newInsert.php`, data, this.httpOptions);
   }
 
   // Modifica un usuario
-  updateNews(data): Observable<any> {
-    return this.http.post(`${this.baseURL}/newsUpdate.php`, data, this.httpOptions);
+  updateNew(data): Observable<any> {
+    return this.http.post(`${this.baseURL}/newUpdate.php`, data, this.httpOptions);
+  }
+  deleteNew(id): Observable<any> {
+    return this.http.post(`${this.baseURL}/newDelete.php`, id, this.httpOptions);
   }
 
 }

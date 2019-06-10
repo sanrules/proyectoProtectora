@@ -1,23 +1,16 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
-require_once '../../../vendor/autoload.php';
-require_once '../classes/User.php';
+require_once '../../vendor/autoload.php';
+require_once 'classes/User.php';
 
-sendMail();
-
-function sendMail(User $user = null)
+function sendMail($user)
 {
-    // Params for mail
-
-    //TODO PARA PRUEBAS borrar
-    if ($user == null) {
-        $user = new User();
-    }
-
     // Variables usuario
     $name     = $user->getName();
     $username = $user->getUsername();
     $receiver = $user->getEmail();
+
+    var_dump($user);
 
     $url = "protectoraweb.com";
 

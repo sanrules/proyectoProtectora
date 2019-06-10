@@ -89,7 +89,7 @@ dataPrepare() {
     delete this.news.id;
     let animalJSON = JSON.stringify(this.news);
     console.log('Conversión JSON: ', animalJSON);
-    this.newsService.registerNews(animalJSON).subscribe(data => {
+    this.newsService.registerNew(animalJSON).subscribe(data => {
         console.log('respuesta registerAnimal(data): ', data);
     }, error => {
         console.warn('Error: ', error);
