@@ -46,9 +46,9 @@ try {
             $user->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
 
             try {
-                $user->dniExist();
-                $user->usernameExist();
-                $user->emailExist();
+                var_dump($user->dniExist());
+                var_dump($user->usernameExist());
+                var_dump($user->emailExist());
             } catch (Exception $e) {
                 $error .= 'Usuario ya existe en la bbdd. ';
                 $logger->error($error);
