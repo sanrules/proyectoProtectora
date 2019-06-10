@@ -308,9 +308,9 @@ class User
      *
      * @return  self
      */
-    public function setEmail($_email)
+    public function setEmail($email)
     {
-        $this->_email = $_email;
+        $this->_email = $email;
 
         return $this;
     }

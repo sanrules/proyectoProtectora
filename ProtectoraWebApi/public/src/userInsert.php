@@ -1,10 +1,10 @@
 <?php
 require_once '../../vendor/autoload.php';
 require_once 'classes/User.php';
+require_once 'lib/phpmailer.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use PHPMailer\PHPMailer\Exception;
 
 $logger = new Logger('userInsert');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
@@ -67,6 +67,15 @@ try {
 } catch (Exception $e) {
     $error .= 'Error al registrar el usuario. ';
     $logger->error($error);
+}
+
+if ($error == '') {
+    try {
+        sendMail($user);
+    } catch (Exception $e) {
+        $logger->error('Error al mandar el mail' . $e->getMessage());
+
+    }
 }
 
 if ($error == '') {
