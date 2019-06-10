@@ -221,7 +221,7 @@ class User
     public function dniExist()
     {
         try {
-            if (R::findOne('user', 'dni=?', [$this->getDni()]) == null) {
+            if (R::findOne('user', 'dni=?', [$this->getDni()]) != null) {
                 throw new Exception();
             }
         } catch (Exception $e) {
@@ -232,7 +232,7 @@ class User
     public function usernameExist()
     {
         try {
-            if (R::findOne('user', 'username=?', [$this->getUsername()]) == null) {
+            if (R::findOne('user', 'username=?', [$this->getUsername()]) != null) {
                 throw new Exception();
             }
         } catch (Exception $e) {
@@ -243,7 +243,7 @@ class User
     public function emailExist()
     {
         try {
-            if (R::findOne('user', 'email=?', [$this->getEmail()]) == null) {
+            if (R::findOne('user', 'email=?', [$this->getEmail()]) != null) {
                 throw new Exception();
             }
         } catch (Exception $e) {
