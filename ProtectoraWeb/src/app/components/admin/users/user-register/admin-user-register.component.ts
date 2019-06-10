@@ -83,7 +83,7 @@ export class AdminUserRegisterComponent {
     }
   }
 
-  openInput(event) {
+  openInput() {
     document.getElementById('imgUpload').click();
   }
 

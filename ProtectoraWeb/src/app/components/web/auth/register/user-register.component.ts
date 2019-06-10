@@ -79,7 +79,7 @@ export class UserRegisterComponent  implements OnInit {
     });
   }
 
-  openInput(event) {
+  openInput() {
     document.getElementById('imgUpload').click();
   }
 

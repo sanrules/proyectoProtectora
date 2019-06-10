@@ -90,7 +90,7 @@ export class AnimalRegisterComponent implements OnInit {
     });
   }
 
-  openInput(event) {
+  openInput() {
     document.getElementById('imgUpload').click();
   }
 
