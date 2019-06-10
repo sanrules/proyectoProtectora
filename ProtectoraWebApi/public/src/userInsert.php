@@ -46,9 +46,9 @@ try {
             $user->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
 
             try {
-                var_dump($user->dniExist());
-                var_dump($user->usernameExist());
-                var_dump($user->emailExist());
+                $user->dniExist();
+                $user->usernameExist();
+                $user->emailExist();
             } catch (Exception $e) {
                 $error .= 'Usuario ya existe en la bbdd. ';
                 $logger->error($error);
@@ -70,20 +70,12 @@ try {
 }
 
 if ($error == '') {
-    try {
-        sendMail($user);
-    } catch (Exception $e) {
-        $logger->error('Error al mandar el mail' . $e->getMessage());
-
-    }
-}
-
-if ($error == '') {
     $reply = array(
         'status'   => 'OK',
         'response' => $user->getIdUser(),
     );
     http_response_code(200); // 200 OK
+    sendMail($user);
 } else {
     $reply = array(
         'status' => 'Error',

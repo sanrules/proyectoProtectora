@@ -8,7 +8,7 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
 // ! configuración para xampp
 //R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
-class New
+class News
 {
     private $_id      = '';
     private $_name    = '';
@@ -21,7 +21,7 @@ class New
     }
 
     /**
-     * Crea una raza de animal.
+     * Crea una noticia.
      *
      * @param mixed $_name
      * @param mixed $_idtype
