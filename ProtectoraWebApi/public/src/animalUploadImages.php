@@ -21,7 +21,7 @@ try {
         $images = $request['images'];
     }
 } catch (Exception $error) {
-    $error = 'Error al registrar el usuario';
+    $error = 'Error al subir imagenes';
     $logger->error($error);
 }
 
@@ -36,9 +36,7 @@ if ($error == '') {
         'response' => $images,
     );
     http_response_code(200); // 200 OK
-
-    header('Content-type:application/json;charset=utf-8');
-    echo json_encode($reply, JSON_UNESCAPED_UNICODE);
+    
 }
 
 header('Content-type:application/json;charset=utf-8');

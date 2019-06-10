@@ -123,7 +123,8 @@ export class AnimalRegisterComponent implements OnInit {
   }
 
   public subirImagenes(id: number, arrayImages) {
-    this.animalService.uploadImages(id, arrayImages ).subscribe(() => {
+    this.animalService.uploadImages(id, arrayImages ).subscribe( data => {
+      
       this.openDialog(id , 1);
       this.router.navigateByUrl('/admin/animals/management');
     }, error => {
@@ -208,9 +209,9 @@ dataPrepare() {
     this.imagesService.deleteImage(id).subscribe(data => {
 
       console.log('respuesta deleteAnimal (data): ', data);
-     /*  if (data.response === "delete OK") {
-        this.loadImages();
-      }    */
+      if (data.response === "delete OK") {
+      this.loadImages();
+      }
     }, error => {
         console.warn('Error: ', error);
     });
@@ -228,9 +229,11 @@ dataPrepare() {
         if ( this.files === undefined ) {
           this.router.navigateByUrl('/admin/animals/management');
           this.openDialog(data, 1);
-          } else {
-              this.onUpload(this.files, data.response);
-          }
+          this.ngOnInit();
+        } else {
+          this.onUpload(this.files, data.response);
+          this.ngOnInit();
+        }
         console.log('repuesta registerAnimal(data): ', data.response);
         },
         error => {
@@ -253,7 +256,7 @@ dataPrepare() {
           this.router.navigateByUrl('/admin/animals/management');
           this.openDialog(data, 1);
         } else {
-            this.onUpload(this.files, data.response);
+          this.onUpload(this.files, data.response);
         }
         console.log('respuesta registerAnimal(data): ', data);
       }, error => {

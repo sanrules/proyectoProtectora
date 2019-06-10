@@ -87,7 +87,7 @@
 
         <div class="mt-2">
           <mat-form-field>
-              <input matInput [matDatepicker]="birthDate" placeholder="Fecha de Nacimiento" formControlName="birthDate" (click)="birthDate.open()">
+              <input matInput [matDatepicker]="birthDate" placeholder="Fecha de Nacimiento" formControlName="birthDate" (click)="birthDate.open()" readonly="true">
               <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
               <mat-datepicker #birthDate></mat-datepicker>
               <mat-error *ngIf="registerForm.controls['birthDate'].errors">
@@ -99,7 +99,7 @@
         <div *ngIf="formType == 'animalUpdate'" class="mt-2">
             <div>
                 <mat-form-field>
-                    <input matInput [matDatepicker]="entranceDate" placeholder="Fecha de Entrada" formControlName="entranceDate" (click)="entranceDate.open()">
+                    <input matInput [matDatepicker]="entranceDate" placeholder="Fecha de Entrada" formControlName="entranceDate" (click)="entranceDate.open()" readonly="true">
                     <mat-datepicker-toggle matSuffix [for]="entranceDate"></mat-datepicker-toggle>
                     <mat-datepicker #entranceDate></mat-datepicker>
                     <mat-error *ngIf="registerForm.controls['entranceDate'].errors">
@@ -110,7 +110,7 @@
 
               <div>
                 <mat-form-field>
-                    <input matInput [matDatepicker]="adoptionDate" placeholder="Fecha de Adopcion" formControlName="adoptionDate" (click)="adoptionDate.open()">
+                    <input matInput [matDatepicker]="adoptionDate" placeholder="Fecha de Adopcion" formControlName="adoptionDate" (click)="adoptionDate.open()" readonly="true">
                     <mat-datepicker-toggle matSuffix [for]="adoptionDate"></mat-datepicker-toggle>
                     <mat-datepicker #adoptionDate></mat-datepicker>
                     <mat-error *ngIf="registerForm.controls['adoptionDate'].errors">

@@ -8,7 +8,7 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
 // ! configuración para xampp
 //R::setup('mysql:host=localhost;dbname=proyecto', 'root', '');
 
-class News
+class New
 {
     private $_id      = '';
     private $_name    = '';
@@ -27,7 +27,7 @@ class News
      * @param mixed $_idtype
      * @return void
      */
-    public function createNews($name, $content, $date)
+    public function createNew($name, $content, $date)
     {
         $this->_name    = $name;
         $this->_content = $content;
@@ -39,7 +39,7 @@ class News
      *
      * @return void
      */
-    public function insertNews()
+    public function insertNew()
     {
         $news = R::dispense('news');
 
@@ -58,7 +58,7 @@ class News
  * @param int $id ID del animal
  * @return Animal $animal animal recogido de la base de datos
  */
-    public function retrieveNews($id)
+    public function retrieveNew($id)
     {
         $news = R::load('news', $id);
 
@@ -83,7 +83,7 @@ class News
  * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
  * @return Array $animals array de Animal multidimensional recogido de la base de datos
  */
-    public function retrieveAnimalTypeParams($params)
+    public function retrieveNewParams($params)
     {
         $num = count($params);
         $sql = "SELECT * FROM animal WHERE ";
@@ -104,9 +104,9 @@ class News
  * @param int $id ID del animal
  * @param Animal $updated_animal animal con los datos actualizados
  */
-    public function updateAnimalBreed($id, $updated_news)
+    public function updateNew($id, $updated_news)
     {
-        $old_news = R::load('news', $id);
+        $old_news = R::load('new', $id);
         $old_news = $updated_news;
 
         R::store($old_news);
@@ -116,7 +116,7 @@ class News
  * Borra un animal de la base de datos
  * @param Animal $animal animal a borrar
  */
-    public function deleteAnimalBreed($animalBreed)
+    public function deleteNew($animalBreed)
     {
         R::trash($animalBreed);
     }

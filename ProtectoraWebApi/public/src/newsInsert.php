@@ -31,10 +31,10 @@ try {
             $date = new DateTime("@$date");
             $date = $date->format("Y-m-d H:i:s");
 
-            $news = new News();
-            $news->createNews($name, $content, $date);
+            $new = new New();
+            $new->createNew($name, $content, $date);
 
-            $news->insertNews();
+            $new->insertNew();
         }
     }
 } catch (Exception $e) {
@@ -44,7 +44,7 @@ try {
 if ($error == '') {
     $reply = array(
         'status'   => 'Created',
-        'response' => $news->get_id(),
+        'response' => $new->get_id(),
     );
     http_response_code(200); // 200 OK
 } else {
