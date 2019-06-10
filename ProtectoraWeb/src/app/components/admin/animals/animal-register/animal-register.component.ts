@@ -194,7 +194,7 @@ dataPrepare() {
     "birthDate": this.dateToTimestamp(this.registerForm.get('birthDate').value),
     "entranceDate": this.dateToTimestamp(entranceDate),
     "adoptionDate": this.dateToTimestamp(entranceDate) ,
-    "status": +this.registerForm.get('status').value,
+    "status": this.registerForm.get('status').value,
     "description": this.registerForm.get('description').value.trim(),
     "pictures": '',
   };
@@ -207,7 +207,7 @@ dataPrepare() {
 
     this.imagesService.deleteImage(id).subscribe(data => {
 
-      console.log('respuesta registerAnimal(data): ', data);
+      console.log('respuesta deleteAnimal (data): ', data);
      /*  if (data.response === "delete OK") {
         this.loadImages();
       }    */
