@@ -82,29 +82,32 @@ dataPrepare() {
 }
 
   registerSubmit() {
+    if (this.typeForm === 'newsUpdate') {
     console.log('Entra en registerSubmit()');
-
+    this.news = this.dataPrepare();
+    console.log(this.news);
+    let animalJSON = JSON.stringify(this.news);
+    console.log('Conversión JSON: ', animalJSON);
+    this.newsService.updateNew(animalJSON).subscribe(data => {
+        console.log('respuesta updateNew(data): ', data);
+    }, error => {
+        console.warn('Error: ', error);
+    });
+    
+    } else {
+    console.log('Entra en registerSubmit()');
     this.news = this.dataPrepare();
     console.log(this.news);
     delete this.news.id;
     let animalJSON = JSON.stringify(this.news);
     console.log('Conversión JSON: ', animalJSON);
     this.newsService.registerNew(animalJSON).subscribe(data => {
-        console.log('respuesta registerAnimal(data): ', data);
+        console.log('respuesta registerNew(data): ', data);
     }, error => {
         console.warn('Error: ', error);
     });
-  }
-
-  guardar() {
-
-    console.log('formulario: ', this.dataPrepare());
+    }
 
   }
-  borrar() {
-
-    console.log('borrar: ');
-  }
-
 
 }

@@ -32,7 +32,7 @@ try {
             $date = $date->format("Y-m-d H:i:s");
 
             $new = new News();
-            $new->createNew($name, $content, $date);
+            $new->createNews($name, $content, $date);
 
             $new->insertNew();
         }
