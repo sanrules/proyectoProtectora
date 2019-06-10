@@ -1,8 +1,5 @@
 import { OnInit, Component, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} from '@angular/material';
-
-
-
 import { AnimalTypeService } from 'src/app/_services/animals/tipo-animal/animal-type-service';
 import { Type } from 'src/app/_models/type.model';
 import { NewsUpdateComponent } from './news-update/news-update.component';
@@ -54,6 +51,18 @@ import { NewsService } from '../../../../_services/news/news-service';
       dialogConfig.data = news;
       this.dialog.open(NewsUpdateComponent, dialogConfig);
 
+    }
+    deleteNew(id) {
+      this.newsService.deleteNew(id).subscribe(data => {
+
+        console.log('respuesta deleteAnimal (data): ', data);
+        if (data.response === "delete OK") {
+        this.ngOnInit();
+        }
+      }, error => {
+          console.warn('Error: ', error);
+      });
+  
     }
 
 }

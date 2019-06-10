@@ -27,7 +27,7 @@ class News
      * @param mixed $_idtype
      * @return void
      */
-    public function createNew($name, $content, $date)
+    public function createNews($name, $content, $date)
     {
         $this->_name    = $name;
         $this->_content = $content;
@@ -35,7 +35,7 @@ class News
     }
 
     /**
-     * Inserta en base de datos una raza de animal.
+     * Inserta en base de datos una noticia.
      *
      * @return void
      */
@@ -116,10 +116,11 @@ class News
  * Borra un animal de la base de datos
  * @param Animal $animal animal a borrar
  */
-    public function deleteNew($animalBreed)
-    {
-        R::trash($animalBreed);
-    }
+public function deleteNew($id)
+{
+    $new = R::load('news', $id);
+    R::trash($new);
+}
 
     /**
      * Obtiene todos los animales de la base de datos en función a unos parámetros.

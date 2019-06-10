@@ -35,12 +35,12 @@
       <input *ngIf="typeForm == 'newsUpdate'" type="hidden" formControlName="idnews" value="">
       <input *ngIf="typeForm == 'newsUpdate'" type="hidden" formControlName="publicationDate" value="">
         <div class="row">
+          
           <div class="col-md-12" *ngIf="typeForm != 'newsUpdate'">
             <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Noticia</button>
           </div>
           <div class="col-md-12" *ngIf="typeForm == 'newsUpdate'">
-            <button mat-raised-button color="primary" [disabled]="!registerForm.valid" (click)="guardar()">Guardar</button>
-            <button mat-raised-button color="warn" (click)="borrar()">Borrar</button>
+            <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Guardar</button>
           </div>
         </div>
       </div>
