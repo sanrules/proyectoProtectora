@@ -23,12 +23,14 @@
 
     <ul class="navbar-nav">
       <li class="nav-item active" routerLinkActive="active" *ngIf="!isLogOut()">
-        <a class="nav-link" [routerLink]="" (click)="openDialog()">Acceder <span class="sr-only">(current)</span></a>
+        <a class="nav-link" [routerLink]="" (click)="open(content)">Acceder <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item active" routerLinkActive="active" *ngIf="isLogOut() && loggedUser">
+      <li class="nav-item active" routerLinkActive="active" *ngIf="isLogOut()">
         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false" [routerLink]="" (click)="enterProfile(userLogged())">
-          <ngx-avatar [src]="loggedUser.avatar" size="30" [round]="true" borderColor="#000">
+          <ngx-avatar [src]="loggedAvatar" size="30" [round]="true" *ngIf="loggedAvatar">
+          </ngx-avatar>
+          <ngx-avatar [name]="name" size="30" [round]="true" *ngIf="!loggedAvatar">
           </ngx-avatar>
         </a>
       </li>
@@ -44,4 +46,48 @@
       </li>
     </ul>
   </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Acceder</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="row">
+        <div class="form-group col-12">
+          <mat-form-field>
+            <input matInput placeholder="Correo Electrónico" type="text" formControlName="email" id="email" >
+            <mat-error *ngIf="loginForm.controls['email'].errors">
+              Tienes que introducir un correo electrónico válido.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-12">
+          <mat-form-field>
+            <input matInput placeholder="Contraseña" type="password" formControlName="password" id="password" >
+            <mat-error *ngIf="loginForm.controls['password'].errors">
+              Para acceder hace falta la contraseña.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row text-center" *ngIf="invalidLogin">
+        <div class="col-12 alert alert-danger invalid" *ngIf="invalidLogin">
+          Usuario o contraseña inválidos.
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="form-group col-12">
+            <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Aceptar</button>
+            <button mat-raised-button color="warn" (click)="modal.dismiss('Cancelar')">Cancelar</button>
+          </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+
 </nav>

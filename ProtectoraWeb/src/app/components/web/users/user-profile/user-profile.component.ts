@@ -16,6 +16,7 @@ export class UserProfileComponent implements OnInit {
   public token: string;
   public userData: User;
   public page: string;
+  public name: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -33,6 +34,7 @@ export class UserProfileComponent implements OnInit {
       this.userService.getuserById(param.id).subscribe(userGet => {
         this.user = userGet['response'];
         this.userData = this.user;
+        this.name = this.user.name + ' ' + this.user.surname;
 
         this.authService.currentUser.subscribe(userProfile => {
           this.checkUser = this.authService.decodeJWT(userProfile.jwt);

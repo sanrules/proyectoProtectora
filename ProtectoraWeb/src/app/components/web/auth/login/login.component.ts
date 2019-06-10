@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   error: string;
 
   constructor(
-    private dialogRef: MatDialogRef<LoginComponent>,
+    //private dialogRef: MatDialogRef<LoginComponent>,
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.form.email.value, this.form.password.value)
       .subscribe(data => {
-        this.closeDialog();
+        //this.closeDialog();
         this.router.navigate(['']);
       }, error => {
           this.invalidLogin = true;
@@ -61,10 +61,10 @@ export class LoginComponent implements OnInit {
       });
 
   }
-
+/* 
   closeDialog() {
     this.dialogRef.close();
-  }
+  } */
 
   openDialog() {
     this.confirmMessage = this.error;
