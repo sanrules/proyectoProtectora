@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NewsService } from '../../../_services/news/news-service';
 
 @Component({
   selector: 'app-home',
@@ -12,11 +13,39 @@ export class HomeComponent implements OnInit {
 
   imgBackground: string;
 
+  config: any;
+  fullpage_api: any;
 
-  constructor() { }
+  news: any[];
+
+
+  constructor(private newsService: NewsService) {
+    this.config = {
+
+      // fullpage options
+      licenseKey: 'YOUR LICENSE KEY HERE',
+      anchors: ['inicio', 'noticias', 'enlaces', 'fourthPage', 'lastPage'],
+      menu: '#menu',
+
+      // fullpage callbacks
+      afterResize: () => {
+      },
+      afterLoad: (origin, destination, direction) => {
+      }
+    };
+  }
+
+   getRef(fullPageRef) {
+    this.fullpage_api = fullPageRef;
+  }
 
   ngOnInit() {
     this.imgBackground = this.imgArray[Math.floor((Math.random() * 9) + 1)];
+
+    this.newsService.getNews().subscribe(newsGet => {
+      this.news = newsGet.response;
+      console.log('news: ', this.news);
+    });
   }
 
 }

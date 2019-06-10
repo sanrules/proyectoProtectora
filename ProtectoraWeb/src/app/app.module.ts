@@ -24,6 +24,9 @@ import { AvatarModule } from 'ngx-avatar';
 // NBG
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+// Fullpage
+import { AngularFullpageModule } from '@fullpage/angular-fullpage';
+
 // Componentes Web
 // Auth
 import { HomeComponent } from './components/web/home/home.component';
@@ -129,6 +132,7 @@ import { AnimalStatusNamePipe } from './_pipes/animal-status-name.pipe';
     AngularFireStorageModule,
     AvatarModule,
     NgbModule.forRoot(),
+    AngularFullpageModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

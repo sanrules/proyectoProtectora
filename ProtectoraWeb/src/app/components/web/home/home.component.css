@@ -1,5 +1,9 @@
+html, body{
+  height: 100%;
+}
+
 .masthead {
-  height: 90vh;
+  height: 95vh;
   min-height: 500px;
   background: linear-gradient(rgba(0,0,0,.8), rgba(255,255,255,0.1));
   background-size: cover;
@@ -27,4 +31,38 @@ h1 {
   margin-top: 5%;
 }
 
+.animalLinks {
+  background: linear-gradient(rgba(0,0,0,.8), rgba(255,255,255,0.1));
+  color: white;
+  z-index: 1;
+  overflow: hidden;
+  width: 100%;
+}
+
+.cats {
+  max-height: 33%;
+  float: left;
+  background-color: blue;
+}
+
+.dogs {
+  max-height: 33%;
+  float: left;
+  background-color: red;
+}
+
+.dogs {
+  max-height: 33%;
+  float: left;
+  background-color: green;
+}
+
+.news {
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  border-radius: 5px;
+}
+
+.dateNews {
+  border-top: 1px solid rgba(0, 0, 0, 0.13);
+}
 
