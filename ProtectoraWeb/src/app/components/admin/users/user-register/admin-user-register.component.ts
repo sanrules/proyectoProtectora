@@ -101,10 +101,6 @@ export class AdminUserRegisterComponent {
     const task = this.storage.upload(filePath, file);
 
     this.uploadPercent = task.percentageChanges();
-    /* ref.getDownloadURL().subscribe((URL) => {
-      this.urlImage = URL;
-      this.formArray.get([3]).get('imgUrl').setValue(URL);
-    }); */
     task.snapshotChanges().pipe(
       finalize(() => {
         ref.getDownloadURL().subscribe(url => {
@@ -119,9 +115,12 @@ export class AdminUserRegisterComponent {
 
   sendAvatarToBBDD(id: number) {
     this.userService.setAvatar(id, this.registerForm.get('imgUrl').value).subscribe(resp => {
+      this.regError = false;
       this.openDialog();
     }, error => {
         console.log('Error: ', error);
+        this.regError = true;
+        this.openDialog();
     });
   }
 
@@ -194,22 +193,26 @@ export class AdminUserRegisterComponent {
   registerSubmit() {
     if (this.formType === 'userUpdate' || this.formType === 'userProfileUpdate') {
       this.user = this.dataPrepare();
-      console.log('password pristine: ', this.registerForm.get('password').pristine);
+
       if (this.registerForm.get('password').pristine === true) {
         delete this.user.password;
       }
 
       const userJSON = JSON.stringify(this.user);
-      console.log('userSend: ', this.user);
+
       this.userService.updateUser(userJSON).subscribe(data => {
         console.log('repuesta registerUser(data): ', data);
         if (this.fileUpload !== undefined) {
           this.onUpload(this.fileUpload, data.response);
+        } else {
+            this.regError = false;
+            this.openDialog();
         }
       },
       error => {
         console.log('Error: ', error);
       });
+
     } else {
         // Se guardan los datos del formulario en un objeto usuario
         this.user = this.dataPrepare();
@@ -218,20 +221,24 @@ export class AdminUserRegisterComponent {
         // Se convierte el objeto user a JSON para enviarlo a la API
         const userJSON = JSON.stringify(this.user);
         console.log('Send JSON: ', userJSON);
+
         // Se envían los datos mediante post a la API
         this.userService.registerUser(userJSON).subscribe(data => {
           console.log('repuesta registerUser(data): ', data);
           if (this.fileUpload !== undefined) {
             this.onUpload(this.fileUpload, data.response);
+          } else {
+              this.regError = false;
+              this.openDialog();
           }
-          this.regError = false;
-          },
-          error => {
-            this.regError = true;
-            console.log('Error: ', error);
-          }
-        );
-      }
+
+        },
+        error => {
+          this.regError = true;
+          this.openDialog();
+          console.log('Error: ', error);
+        });
+    }
   }
 
   openDialog() {

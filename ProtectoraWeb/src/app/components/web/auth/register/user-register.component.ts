@@ -27,6 +27,7 @@ export class UserRegisterComponent  implements OnInit {
   registerForm: FormGroup;
   isLinear = true;
   confirmMessage: string;
+  regError: boolean;
   user: User;
 
   fileUpload: any;
@@ -113,9 +114,12 @@ export class UserRegisterComponent  implements OnInit {
 
   sendAvatarToBBDD(id: number) {
     this.userService.setAvatar(id, this.formArray.get([3]).get('imgUrl').value).subscribe(() => {
+      this.regError = false;
       this.openDialog();
     }, error => {
         console.log('Error: ', error);
+        this.regError = true;
+        this.openDialog();
     });
   }
 
@@ -169,8 +173,13 @@ export class UserRegisterComponent  implements OnInit {
 
     // Se envían los datos mediante post a la API
     this.userService.registerUser(userJSON).subscribe(data => {
-      console.log('repuesta registerUser(data): ', data);
-      this.onUpload(this.fileUpload, data.response, data.response);
+      console.log('respuesta registerUser(data): ', data);
+      if (this.fileUpload !== undefined) {
+        this.onUpload(this.fileUpload, data.response, data.response);
+      } else {
+          this.regError = false;
+          this.openDialog();
+      }
     },
     error => {
       console.log('Error: ', error);

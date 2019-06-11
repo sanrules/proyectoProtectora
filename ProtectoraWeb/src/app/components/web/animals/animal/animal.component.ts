@@ -46,14 +46,11 @@ export class AnimalComponent implements OnInit {
   }
 
   adoptAnimal() {
-    this.animal.status = 1;
-    this.animal.userId = this.authService.userIdLogged();
-    const animalJSON = JSON.stringify(this.animal);
-    console.log('JSON: ', animalJSON);
-    this.openConfirmDialog(animalJSON);
+    
+    this.openConfirmDialog();
   }
 
-  openConfirmDialog(json) {
+  openConfirmDialog() {
     const message = `¿Seguro que quieres pre-adoptar el animal?`;
     const dialogData = new ConfirmDialogModel('Pre-adoptar', message);
 
@@ -65,16 +62,24 @@ export class AnimalComponent implements OnInit {
     dialogRef.afterClosed().subscribe(confirm => {
 
       if (confirm) {
+        this.animal.status = 1;
+        this.animal.userId = this.authService.userIdLogged();
+        const animalJSON = JSON.stringify(this.animal);
+        console.log('JSON: ', animalJSON);
         this.adoptError = false;
-        this.animalService.updateAnimal(json).subscribe(resp => {
+        console.log('confirm');
+        this.animalService.updateAnimal(animalJSON).subscribe(resp => {
           console.log('resp adopt: ', resp);
           this.adoptError = false;
+          this.openDialog();
         },
         error => {
           console.log('Error: ', error);
+          this.animal.status = 0;
+          this.animal.userId = null;
           this.adoptError = true;
+          this.openDialog();
         });
-        this.openDialog();
       }
 
     });
