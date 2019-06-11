@@ -24,7 +24,8 @@ export class HomeComponent implements OnInit {
 
       // fullpage options
       licenseKey: 'YOUR LICENSE KEY HERE',
-      anchors: ['inicio', 'noticias', 'enlaces', 'fourthPage', 'lastPage'],
+      anchors: ['inicio', 'noticias', 'enlaces'],
+      navigation: true,
       menu: '#menu',
 
       // fullpage callbacks

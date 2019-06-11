@@ -1,5 +1,7 @@
 html, body{
   height: 100%;
+  margin: 0px;
+  padding: 0px;
 }
 
 .masthead {
@@ -14,7 +16,7 @@ html, body{
   overflow: hidden;
 }
 
-img {
+.imgPrincipal {
   height: 92.1%;
   width: 100%;
   z-index: -1;
@@ -37,24 +39,14 @@ h1 {
   z-index: 1;
   overflow: hidden;
   width: 100%;
+  margin: 0px;
+  padding: 0px;
+  height: 30.7%;
 }
 
-.cats {
-  max-height: 33%;
-  float: left;
-  background-color: blue;
-}
-
-.dogs {
-  max-height: 33%;
-  float: left;
-  background-color: red;
-}
-
-.dogs {
-  max-height: 33%;
-  float: left;
-  background-color: green;
+.links {
+  margin: 0px;
+  padding: 0px;
 }
 
 .news {
@@ -66,3 +58,87 @@ h1 {
   border-top: 1px solid rgba(0, 0, 0, 0.13);
 }
 
+
+.cathome {
+  height: 30.7%;
+  background-image: url(../../../../assets/homeimg/cathome.jpg);
+  z-index: -1;
+}
+
+.doghome {
+  height: 30.7%;
+  background-image: url(../../../../assets/homeimg/doghome.jpg);
+  text-align: right;
+  z-index: -1;
+}
+
+.othershome {
+  height: 30.7%;
+  background-image: url(../../../../assets/homeimg/rabbithome.jpg);
+  text-align: right;
+  z-index: -1;
+}
+
+.link {
+  width: 100%;
+  text-align: right;
+  vertical-align: bottom;
+  text-decoration: none;
+  color: white;
+}
+
+.catLink {
+  width: 100%;
+  vertical-align: bottom;
+  text-decoration: none;
+  color: white;
+}
+
+
+/********/
+#menu li {
+	display:inline-block;
+	margin: 10px;
+	color: #000;
+	background:#fff;
+	background: rgba(255,255,255, 0.5);
+	-webkit-border-radius: 10px;
+            border-radius: 10px;
+}
+#menu li.active{
+	background:#666;
+	background: rgba(0,0,0, 0.5);
+	color: #fff;
+}
+#menu li a{
+	text-decoration:none;
+	color: #000;
+}
+#menu li.active a:hover{
+	color: #000;
+}
+#menu li:hover{
+	background: rgba(255,255,255, 0.8);
+}
+#menu li a,
+#menu li.active a{
+	padding: 9px 18px;
+	display:block;
+}
+#menu li.active a{
+	color: #fff;
+}
+#menu{
+	position:fixed;
+	top:90%;
+	text-align: center;
+	height: 40px;
+	z-index: 70;
+	width: 100%;
+	padding: 0;
+	margin:0;
+}
+
+.section {
+  z-index: -10;
+}

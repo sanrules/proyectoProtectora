@@ -8,10 +8,17 @@
     </div>
   </div>
 </div> -->
+
+<ul id="menu">
+  <li data-menuanchor="inicio"><a href="#inicio">Portada</a></li>
+  <li data-menuanchor="noticias"><a href="#noticias">Noticias</a></li>
+  <li data-menuanchor="enlaces"><a href="#enlaces">Enlaces</a></li>
+</ul>
+
 <div fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
   
   <div class="section masthead">
-    <img src='assets/homeimg/{{imgBackground}}' alt="" >
+    <img src='assets/homeimg/{{imgBackground}}' alt="animals" class="imgPrincipal">
     <div class="row">
       <div class="col-12 text-center content">
         <h1 class="font-weight-light">Bienvenidos a nuestra protectora</h1>
@@ -19,7 +26,7 @@
     </div>
   </div>
 
-  <div class="section">
+  <div class="section masthead">
     <div class="container">
       <div class="row text-center">
         <div class="col-12">
@@ -46,17 +53,21 @@
     </div>
   </div>
 
-  <div class="section container-fluid">
-    <div class="row animalLinks cats">
-      <!-- <img src='assets/homeimg/img1.jpeg' alt="" > -->
+  <div class="section links animalLinks">
+    <div class="row m-0 p-0 cathome imgBack">
+      <a href="" class="catLink">
+        <h1>NUESTROS GATOS</h1>
+      </a>
     </div>
-    <div class="row animalLinks dogs">
-      <!-- <img src='assets/homeimg/img4.jpg' alt="" > -->
+    <div class="row m-0 p-0 doghome imgBack">
+      <a href="" class="link">
+        <h1>NUESTROS PERROS</h1>
+      </a>
     </div>
-    <div class="row animalLinks others">
-      <!-- <img src='assets/homeimg/img7.jpg' alt="" > -->
+    <div class="row m-0 p-0 othershome imgBack">
+      <a href="" class="link">
+        <h1>OTROS ANIMALES</h1>
+      </a>
     </div>
   </div>
-  <!-- <div class="section" (click)="fullpage_api.moveTo('secondPage', 2)">Some section4</div>
-  <div class="section" (click)="fullpage_api.moveSectionDown()">Some section2</div> -->
-  </div>
+</div>
