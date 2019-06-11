@@ -78,6 +78,8 @@ export class AdminUserRegisterComponent {
       imgUrl: ['', []]
     });
 
+    console.log('password: ', this.registerForm.get('password'));
+
     if (this.formType === 'userUpdate' || this.formType === 'userProfileUpdate') {
       this.setUpdateData(this.userData);
     }
@@ -192,7 +194,13 @@ export class AdminUserRegisterComponent {
   registerSubmit() {
     if (this.formType === 'userUpdate' || this.formType === 'userProfileUpdate') {
       this.user = this.dataPrepare();
+      console.log('password pristine: ', this.registerForm.get('password').pristine);
+      if (this.registerForm.get('password').pristine === true) {
+        delete this.user.password;
+      }
+
       const userJSON = JSON.stringify(this.user);
+      console.log('userSend: ', this.user);
       this.userService.updateUser(userJSON).subscribe(data => {
         console.log('repuesta registerUser(data): ', data);
         if (this.fileUpload !== undefined) {

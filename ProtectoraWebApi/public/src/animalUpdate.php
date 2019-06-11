@@ -30,17 +30,18 @@ try {
         $adoption_date = filter_var($request['adoptionDate'], FILTER_SANITIZE_NUMBER_INT) / 1000;  
         $status        = filter_var($request['status'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
         $description   = filter_var($request['description'], FILTER_SANITIZE_SPECIAL_CHARS);
-        if($status != "0"){  
-        $userId        = filter_var($request['userId'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
+        
+        if($status != 0) {  
+            $userId        = filter_var($request['userId'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
         } else {
-        $userId = ''; 
+            $userId = ''; 
         }
         $pictures      = $request['pictures'];
         // String provisionalmente
         /*    $pictures      = filter_var($request['pictures'], FILTER_REQUIRE_ARRAY) ? $request['pictures'] : ''; // Las imágenes tendrán que venir en un array */
         if ($name != '' || $type != '' || $breed != '' || $gender != '' || $birth_date != '' || $entrance_date != '' || $adoption_date != '' || $status != '' || $description != '' ) {
 
-            if ($status == "0") {
+            if ($status == 0) {
                 $adoption_date = '';
             }
             $birth_date    = new DateTime("@$birth_date");

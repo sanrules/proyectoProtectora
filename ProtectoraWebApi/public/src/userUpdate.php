@@ -18,7 +18,7 @@ try {
     if ($request) {
         $id         = filter_var($request['id'], FILTER_SANITIZE_NUMBER_INT);
         $username   = filter_var($request['username'], FILTER_SANITIZE_STRING);
-        $password   = filter_var($request['password'], FILTER_SANITIZE_STRING);
+        $password   = isset($request['password']) ? filter_var($request['password'], FILTER_SANITIZE_STRING) : '';
         $email      = filter_var($request['email'], FILTER_SANITIZE_STRING);
         $name       = filter_var($request['name'], FILTER_SANITIZE_STRING);
         $surname    = filter_var($request['surname'], FILTER_SANITIZE_STRING);
@@ -36,22 +36,27 @@ try {
         $userType   = filter_var($request['user_type'], FILTER_SANITIZE_STRING);
         $avatar     = filter_var($request['avatar'], FILTER_SANITIZE_STRING);
 
-        if ($id != '' || $username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $dni != '' || $phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $province != '' || $city != '' || $postalCode != '' || $userType != '') {
+
+        if ($id != '' || $username != '' || $email != '' || $name != '' || $surname != '' || $dni != '' || $phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $province != '' || $city != '' || $postalCode != '' || $userType != '') {
 
             $birthDate = new DateTime("@$birthDate");
             $birthDate->format("Y-m-d H:i:s");
 
-            $password = password_hash($password, PASSWORD_BCRYPT);
-
             $updatedUser = new User();
             $updatedUser->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
             $updatedUser->setIdUser($id);
-
+            
             $user_exists = R::findOne('user', 'id=?', [$updatedUser->getIdUser()]);
 
             if ($user_exists != null) {
                 $user_error = R::findOne('user', 'email=? and id<>?', [$email, $id]);
                 if ($user_error == null) {
+                    
+                    if($password != '') {
+                        $updatedUser->setPassword(password_hash($password, PASSWORD_BCRYPT));
+                    } else {
+                        $updatedUser->setPassword($user_exists->password);
+                    }
                     $updatedUser->updateUser();
                     $error = '';
                 } else {

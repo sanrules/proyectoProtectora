@@ -151,7 +151,7 @@ class Animal
         $oldAnimal->status        = $this->getStatus();
         $oldAnimal->description   = $this->getDescription();
 
-        $oldAnimal->user = R::load('users', $this->getUserId());
+        $oldAnimal->user = R::load('user', $this->getUserId());
 
         R::store($oldAnimal);
     }
