@@ -16,6 +16,8 @@ import { Animal } from 'src/app/_models/animal.model';
 })
 export class AnimalImagesComponent implements OnInit {
 
+
+  @Input() public animalData: Animal;
   arrayAux: any[] = [];
   files: any[];
   images: any[];
@@ -23,7 +25,7 @@ export class AnimalImagesComponent implements OnInit {
   urlImage: Observable<string>;
   uploadpercent: Observable<number>;
   urlImageAr: any[] = [];
-  private animal: Animal;
+  animal: Animal;
   @Input() animalId: number;
 
   constructor(private imgService: ImagesService,
@@ -116,19 +118,45 @@ export class AnimalImagesComponent implements OnInit {
 
   }
 
+  public spararFechaYHora(fecha) {
+    let arrayFechaYHora = fecha.split(' ');
+    let arrayfecha = arrayFechaYHora[0].split('-');
+    fecha = new Date(arrayfecha[0], (arrayfecha[1] - 1), arrayfecha[2]);
+    return fecha;
+  }
+
+  dataPrepare() {
+
+    let formData = {
+      "id":  this.animalData.id,
+      "name": this.animalData.name,
+      "type": this.animalData.type,
+      "breed": this.animalData.breed,
+      "gender": this.animalData.gender,
+      "size": this.animalData.size,
+      "birthDate": this.animalData.birthDate,
+      "entranceDate": this.animalData.entranceDate,
+      "adoptionDate": this.animalData.adoptionDate,
+      "status": this.animalData.status,
+      "description": this.animalData.description,
+      "pictures": '',
+    };
+    return formData;
+  }
+
   registerSubmit() {
 
-      this.animal = this.dataPrepare();
-      const userJSON = JSON.stringify(this.animal);
-      console.log('datos a enviar: ', userJSON);
-      this.animalService.updateAnimal(userJSON).subscribe(data => {
+    this.animal = this.dataPrepare();
+    const userJSON = JSON.stringify(this.animal);
+    console.log('datos a enviar: ', userJSON);
+    this.animalService.updateAnimal(userJSON).subscribe(data => {
 
-        this.onUpload(this.files, data.response);
-          this.ngOnInit();
-        console.log('repuesta registerAnimal(data): ', data.response);
-        },
-        error => {
-          console.log('Error: ', error);
-        });
-    }
+      this.onUpload(this.files, data.response);
+        this.ngOnInit();
+      console.log('repuesta registerAnimal(data): ', data.response);
+      },
+      error => {
+        console.log('Error: ', error);
+      });
+  }
 }

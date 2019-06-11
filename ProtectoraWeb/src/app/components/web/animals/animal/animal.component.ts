@@ -21,6 +21,7 @@ export class AnimalComponent implements OnInit {
   images: any[];
   adoptError: boolean;
   confirmMessage: string;
+  public animalData: Animal;
 
   constructor(private route: ActivatedRoute,
               private animalService: AnimalService,
@@ -33,6 +34,7 @@ export class AnimalComponent implements OnInit {
 
       this.animalService.getAnimalById(parametros.id).subscribe(anim => {
         this.animal = anim['response'];
+        this.animalData = this.animal;
         this.animalId = this.animal.id;
 
         this.imgService.getImagesByAnimal(this.animal.id).subscribe(resp => {
