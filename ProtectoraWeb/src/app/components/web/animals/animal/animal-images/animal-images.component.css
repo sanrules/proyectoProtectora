@@ -5,3 +5,8 @@ img {
 .carouselContainer {
   max-width: 800px;
 }
+
+#imagenListar {
+	height: 50px;
+	width: 100px;
+}

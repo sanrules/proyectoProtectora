@@ -21,7 +21,7 @@
 
   <div class="row col-md-12" *ngIf="images.length >= 1 ">
     <h4>Images de animal</h4>
-    <div class="row col-md-12" *ngFor="let image of images"><img [src]="image.image"><button mat-icon-button (click)="imageDelete(image.id)"><i class="material-icons" style="color:red">delete</i></button></div>
+    <div class="row col-md-12" *ngFor="let image of images"><img [src]="image.image" id="imagenListar"><button mat-icon-button (click)="imageDelete(image.id)"><i class="material-icons" style="color:red">delete</i></button></div>
 
   </div> 
 
