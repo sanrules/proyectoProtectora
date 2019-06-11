@@ -12,7 +12,7 @@ import { News } from 'src/app/_models/news.model';
   })
   export class NewsUpdateComponent implements OnInit {
 
-    public typeForm = 'newsUpdate';
+    public formType = 'newsUpdate';
     public newData: News;
 
     constructor(

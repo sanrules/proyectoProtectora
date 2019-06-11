@@ -1,6 +1,6 @@
 <?php
 require_once '../../vendor/autoload.php';
-require_once 'classes/Animal.php';
+require_once 'classes/News.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -32,10 +32,9 @@ try {
             $publicationDate    = $publicationDate->format("Y-m-d H:i:s");
             
             $newupdate = new News();
-            $newupdate->createNew($name, $content, $publicationDate );
-            $newupdate->setId($id);
-            $newupdate->setUserId($userId);
-            $newupdate->updateAnimal();
+            $newupdate->createNews($name, $content, $publicationDate );
+            $newupdate->set_id($id);
+            $newupdate->updateNew();
         }
     }
 

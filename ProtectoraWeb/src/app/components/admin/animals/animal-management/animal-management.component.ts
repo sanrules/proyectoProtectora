@@ -48,7 +48,14 @@ import { AnimalUpdateComponent } from './animal-update/animal-update.component';
       dialogConfig.width = '80%';
       dialogConfig.data = animales;
       dialogConfig.autoFocus = false;
-      this.dialog.open(AnimalUpdateComponent, dialogConfig);
-    }
+      const dialogRef = this.dialog.open(AnimalUpdateComponent, dialogConfig);
 
+      dialogRef.afterClosed().subscribe(confirm => {
+
+      if (confirm) {
+      this.ngOnInit();
+      }
+
+    });
+  }
 }
