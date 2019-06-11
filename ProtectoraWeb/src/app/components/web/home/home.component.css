@@ -15,8 +15,8 @@ html, body{
 }
 
 img {
-  height: 95vh;
-  width: 99vw;
+  height: 92.1%;
+  width: 100%;
   z-index: -1;
   position: absolute;
 }

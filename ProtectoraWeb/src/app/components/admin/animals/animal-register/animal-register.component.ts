@@ -228,8 +228,9 @@ dataPrepare() {
 
         if ( this.files === undefined ) {
           this.router.navigateByUrl('/admin/animals/management');
-          this.openDialog(data, 1);
+          this.openDialog(data, 1); 
           this.ngOnInit();
+          
         } else {
           this.onUpload(this.files, data.response);
           this.ngOnInit();
@@ -293,7 +294,7 @@ dataPrepare() {
 
     this.dialog.open(RegisterConfirmationComponent, dialogConfig);
   }
-  
+
 
   setStep(index: number) {
     this.step = index;

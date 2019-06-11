@@ -104,12 +104,18 @@ class News
  * @param int $id ID del animal
  * @param Animal $updated_animal animal con los datos actualizados
  */
-    public function updateNew($id, $updated_news)
+    public function updateNew()
     {
-        $old_news = R::load('new', $id);
-        $old_news = $updated_news;
+        $oldNew = R::load('news', $this->get_id());
 
-        R::store($old_news);
+        $oldNew->name          = $this->get_name();
+        $oldNew->content       = $this->get_content();
+        $oldNew->date          = $this->get_date();
+       
+
+        
+
+        R::store($oldNew);
     }
 
 /**
