@@ -71,8 +71,8 @@ export class AnimalRegisterComponent implements OnInit {
       adoptionDate: ['', []],
       entranceDate: ['', []],
       status: [0, []],
-      description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]]
-
+      description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
+      idUser: ['', []]
     });
 
     if (this.formType === 'animalUpdate') {
@@ -161,12 +161,13 @@ export class AnimalRegisterComponent implements OnInit {
     this.registerForm.get('gender').setValue(data.gender);
     this.registerForm.get('size').setValue(data.size);
     this.registerForm.get('birthDate').setValue(this.spararFechaYHora(data.birth_date));
-    if (data.adoption_date !== '' ) {
+    if (data.adoption_date !== null ) {
       this.registerForm.get('adoptionDate').setValue(this.spararFechaYHora(data.adoption_date));
     }
     this.registerForm.get('entranceDate').setValue(this.spararFechaYHora(data.entrance_date));
     this.registerForm.get('status').setValue(data.status);
     this.registerForm.get('description').setValue(data.description);
+    this.registerForm.get('idUser').setValue(data.user_id);
 
 }
 
@@ -192,12 +193,13 @@ dataPrepare() {
     "breed": this.registerForm.get('breed').value.trim(),
     "gender": this.registerForm.get('gender').value.trim(),
     "size": this.registerForm.get('size').value.trim(),
-    "birthDate": this.dateToTimestamp(this.registerForm.get('birthDate').value),
-    "entranceDate": this.dateToTimestamp(entranceDate),
-    "adoptionDate": this.dateToTimestamp(entranceDate) ,
+    "birth_date": this.dateToTimestamp(this.registerForm.get('birthDate').value),
+    "entrance_date": this.dateToTimestamp(entranceDate),
+    "adoption_date": this.dateToTimestamp(entranceDate) ,
     "status": this.registerForm.get('status').value,
     "description": this.registerForm.get('description').value.trim(),
     "pictures": '',
+    "user_id": this.registerForm.get('idUser').value,
   };
 
   return formData;
@@ -222,6 +224,9 @@ dataPrepare() {
     if (this.formType === 'animalUpdate') {
 
       this.animal = this.dataPrepare();
+      if (this.animal.user_id == null){
+        delete this.animal.user_id;
+      }
       const userJSON = JSON.stringify(this.animal);
       console.log('datos a enviar: ', userJSON);
       this.animalService.updateAnimal(userJSON).subscribe(data => {
@@ -247,7 +252,7 @@ dataPrepare() {
 
       console.log(this.animal);
       delete this.animal.id;
-
+      delete this.animal.user_id;
       let animalJSON = JSON.stringify(this.animal);
       console.log('Conversión JSON: ', animalJSON);
 
