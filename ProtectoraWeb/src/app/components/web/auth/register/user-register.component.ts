@@ -186,8 +186,8 @@ export class UserRegisterComponent  implements OnInit {
     error => {
       console.log('Error: ', error);
       this.error = error;
-      this.openDialog();
       this.regError = 2;
+      this.openDialog();
     });
   }
 
@@ -198,7 +198,7 @@ export class UserRegisterComponent  implements OnInit {
     } else if (this.regError == 1) {
         this.confirmMessage =
           'El usuario se ha registrado pero se ha producido un error en la subida del avatar, por favor actualice más tarde el usuario';
-    } else{
+    } else {
         this.confirmMessage = 'Ya se encuentra dado de alta un usuario con el mismo DNI, nombre de usuario o correo electrónico.';
     }
 

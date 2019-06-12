@@ -78,8 +78,6 @@ export class AdminUserRegisterComponent {
       imgUrl: ['', []]
     });
 
-    console.log('password: ', this.registerForm.get('password'));
-
     if (this.formType === 'userUpdate' || this.formType === 'userProfileUpdate') {
       this.setUpdateData(this.userData);
     }
@@ -104,7 +102,6 @@ export class AdminUserRegisterComponent {
     task.snapshotChanges().pipe(
       finalize(() => {
         ref.getDownloadURL().subscribe(url => {
-          console.log(url); // <-- do what ever you want with the url..
           this.urlImage = url;
           this.registerForm.get('imgUrl').setValue(url);
           this.sendAvatarToBBDD(id);
