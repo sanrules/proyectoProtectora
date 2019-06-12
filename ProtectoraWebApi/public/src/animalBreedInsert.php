@@ -21,8 +21,6 @@ try {
         $idtype = filter_var($request['idtipo'], FILTER_SANITIZE_NUMBER_INT);
         $name   = filter_var($request['nombre'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
 
-        /*    $pictures      = filter_var($request['pictures'], FILTER_REQUIRE_ARRAY) ? $request['pictures'] : ''; // Las imágenes tendrán que venir en un array */
-
         // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($name != '') {
 

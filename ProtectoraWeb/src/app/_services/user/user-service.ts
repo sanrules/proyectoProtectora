@@ -40,4 +40,9 @@ export class UserService {
   setAvatar(id: number, avatar: string): Observable<any> {
     return this.http.post(`${this.baseURL}/userUploadAvatar.php`, {id, avatar}, this.httpOptions);
   }
+
+  sendMail(id: number): Observable<any> {
+    return this.http.post(`${this.baseURL}/sendMail.php`, id);
+  }
+
 }

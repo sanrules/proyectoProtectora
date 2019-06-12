@@ -103,10 +103,7 @@ export class UserRegisterComponent  implements OnInit {
     const task = this.storage.upload(filePath, file);
 
     this.uploadPercent = task.percentageChanges();
-    /* ref.getDownloadURL().subscribe((URL) => {
-      this.urlImage = URL;
-      this.formArray.get([3]).get('imgUrl').setValue(URL);
-    }); */
+
     task.snapshotChanges().pipe(
       finalize(() => {
         ref.getDownloadURL().subscribe(url => {
@@ -121,6 +118,16 @@ export class UserRegisterComponent  implements OnInit {
 
   sendAvatarToBBDD(id: number) {
     this.userService.setAvatar(id, this.formArray.get([3]).get('imgUrl').value).subscribe(() => {
+      /* this.userService.sendMail(id).subscribe(respEmail => {
+        console.log('respEmail: ', respEmail);
+        this.regError = 0;
+        this.openDialog();
+      },
+      error => {
+        console.log('Error: ', error);
+        this.regError = 3;
+        this.openDialog();
+      }); */
       this.regError = 0;
       this.openDialog();
     }, error => {
@@ -182,11 +189,22 @@ export class UserRegisterComponent  implements OnInit {
     // Se envían los datos mediante post a la API
     this.userService.registerUser(userJSON).subscribe(data => {
       console.log('respuesta registerUser(data): ', data);
+
       if (this.fileUpload !== undefined) {
         this.onUpload(this.fileUpload, data.response, data.response);
       } else {
+        /* this.userService.sendMail(data.response).subscribe(respEmail => {
+          console.log('respEmail: ', respEmail);
           this.regError = 0;
           this.openDialog();
+        },
+        error => {
+          console.log('Error: ', error);
+          this.regError = 3;
+          this.openDialog();
+        }); */
+        this.regError = 0;
+        this.openDialog();
       }
     },
     error => {
@@ -198,14 +216,16 @@ export class UserRegisterComponent  implements OnInit {
   }
 
   openDialog() {
-    if (this.regError == 0) {
+    if (this.regError === 0) {
       this.confirmMessage =
           'Su registro se ha completado correctamente, en breves momentos recibirá un correo electrónico para completarlo.';
-    } else if (this.regError == 1) {
+    } else if (this.regError === 1) {
         this.confirmMessage =
           'El usuario se ha registrado pero se ha producido un error en la subida del avatar, por favor actualice más tarde el usuario';
-    } else {
+    } else if (this.regError === 2) {
         this.confirmMessage = 'Ya se encuentra dado de alta un usuario con el mismo DNI, nombre de usuario o correo electrónico.';
+    } else {
+      this.confirmMessage = 'Usuario dado de alta, pero ha habido un error al enviar el correo.';
     }
 
     const dialogConfig = new MatDialogConfig();

@@ -214,7 +214,6 @@ dataPrepare() {
     "adoption_date": this.dateToTimestamp(entranceDate) ,
     "status": this.registerForm.get('status').value,
     "description": this.registerForm.get('description').value.trim(),
-    "pictures": '',
     "user_id": this.registerForm.get('idUser').value,
   };
 
@@ -227,7 +226,7 @@ dataPrepare() {
     this.imagesService.deleteImage(id).subscribe(data => {
 
       console.log('respuesta deleteAnimal (data): ', data);
-      if (data.response === "delete OK") {
+      if (data.response === 'delete OK') {
       this.loadImages();
       }
     }, error => {
@@ -240,21 +239,22 @@ dataPrepare() {
     if (this.formType === 'animalUpdate') {
 
       this.animal = this.dataPrepare();
+
       if (this.animal.user_id == null){
         delete this.animal.user_id;
       }
+
       const userJSON = JSON.stringify(this.animal);
       console.log('datos a enviar: ', userJSON);
       this.animalService.updateAnimal(userJSON).subscribe(data => {
 
         if ( this.files === undefined ) {
           this.router.navigateByUrl('/admin/animals/management');
-          this.openDialog(data, 1); 
+          this.openDialog(data, 1);
           this.ngOnInit();
-          
         } else {
-          this.onUpload(this.files, data.response);
-          this.ngOnInit();
+            this.onUpload(this.files, data.response);
+            this.ngOnInit();
         }
         console.log('repuesta registerAnimal(data): ', data.response);
         },
@@ -266,7 +266,6 @@ dataPrepare() {
     } else {
       this.animal = this.dataPrepare();
 
-      console.log(this.animal);
       delete this.animal.id;
       delete this.animal.user_id;
       let animalJSON = JSON.stringify(this.animal);

@@ -1,5 +1,7 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 require_once '../../vendor/autoload.php';
 require_once 'classes/User.php';
 
@@ -36,23 +38,28 @@ EMAIL;
 
 // PHPMAILER
 
-    $mail = new PHPMailer;
-    $mail->isSMTP();
-    $mail->SMTPDebug  = 0;
-    $mail->Host       = 'smtp.gmail.com';
-    $mail->Port       = 587;
-    $mail->SMTPSecure = 'tls';
-    $mail->SMTPAuth   = true;
-    $mail->Username   = 'protectoraweb@gmail.com';
-    $mail->Password   = '@ReyFernando';
-    $mail->setFrom('protectoraweb@gmail.com', 'Protectora web');
-    $mail->addReplyTo('protectoraweb@gmail.com', 'Protectora Web');
-    $mail->addAddress($receiver, 'Receiver Name');
-    $mail->Subject = 'Bienvenido a Protectora Web';
-    $mail->msgHTML("$message");
-    // $mail->AltBody = 'This is a plain text message body';
-    // $mail->addAttachment('test.txt');
+    $mail = new PHPMailer(true);
 
-    $mail->send();
+    try {
+        $mail->isSMTP();
+        $mail->SMTPDebug  = 0;
+        $mail->WordWrap = 50;
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->Port       = 587;
+        $mail->SMTPSecure = 'tls';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'protectoraweb@gmail.com';
+        $mail->Password   = '@ReyFernando';
+        $mail->setFrom('protectoraweb@gmail.com', 'Protectora web');
+        $mail->addReplyTo('protectoraweb@gmail.com', 'Protectora Web');
+        $mail->addAddress($receiver, 'Receiver Name');
+        $mail->Subject = 'Bienvenido a Protectora Web';
+        $mail->msgHTML("$message");
+
+        $mail->send();
+
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
 
 }

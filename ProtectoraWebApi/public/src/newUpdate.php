@@ -16,16 +16,12 @@ try {
     $request  = json_decode($postdata, true);
 
     if ($request) {
-        
-
         // Validate & sanitize
         $id            = filter_var($request['id'], FILTER_SANITIZE_NUMBER_INT);
         $name          = filter_var($request['name'], FILTER_SANITIZE_STRING);
         $content          = filter_var($request['content'], FILTER_SANITIZE_STRING); 
         $publicationDate = filter_var($request['publicationDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
       
-        // String provisionalmente
-        /*    $pictures      = filter_var($request['pictures'], FILTER_REQUIRE_ARRAY) ? $request['pictures'] : ''; // Las imágenes tendrán que venir en un array */
         if ($id != '' || $name != '' || $content != '' || $publicationDate != '') {
 
             $publicationDate    = new DateTime("@$publicationDate");

@@ -25,7 +25,7 @@ export class AdminUserRegisterComponent {
   // Variables del componente
   registerForm: FormGroup;
   confirmMessage: string;
-  regError: boolean;
+  regError: number;
 
   user: User;
 
@@ -118,11 +118,25 @@ export class AdminUserRegisterComponent {
 
   sendAvatarToBBDD(id: number) {
     this.userService.setAvatar(id, this.registerForm.get('imgUrl').value).subscribe(resp => {
-      this.regError = false;
+
+      if (!this.formType) {
+        this.userService.sendMail(id).subscribe(respEmail => {
+          console.log('respEmail: ', respEmail);
+          this.regError = 0;
+          this.openDialog();
+        },
+        error => {
+          console.log('Error: ', error);
+          this.regError = 3;
+          this.openDialog();
+        });
+      }
+
+      this.regError = 4;
       this.openDialog();
     }, error => {
         console.log('Error: ', error);
-        this.regError = true;
+        this.regError = 1;
         this.openDialog();
     });
   }
@@ -145,23 +159,23 @@ export class AdminUserRegisterComponent {
   }
 
   setUpdateData(userUpdate) {
-    this.registerForm.get('idUser').setValue(parseInt(userUpdate.id));
+    this.registerForm.get('idUser').setValue(+userUpdate.id);
     this.registerForm.get('userName').setValue(userUpdate.username);
     this.registerForm.get('password').setValue(userUpdate.password);
     this.registerForm.get('email').setValue(userUpdate.email);
     this.registerForm.get('name').setValue(userUpdate.name);
     this.registerForm.get('surname').setValue(userUpdate.surname);
     this.registerForm.get('dni').setValue(userUpdate.dni);
-    this.registerForm.get('phone').setValue(parseInt(userUpdate.phone));
+    this.registerForm.get('phone').setValue(userUpdate.phone);
     this.registerForm.get('birthDate').setValue(this.parseFormDate(userUpdate.birth_date));
     this.registerForm.get('street').setValue(userUpdate.street);
-    this.registerForm.get('number').setValue(parseInt(userUpdate.number));
+    this.registerForm.get('number').setValue(+userUpdate.number);
     this.registerForm.get('portal').setValue(userUpdate.portal);
-    this.registerForm.get('floor').setValue(parseInt(userUpdate.floor));
+    this.registerForm.get('floor').setValue(+userUpdate.floor);
     this.registerForm.get('door').setValue(userUpdate.door);
     this.registerForm.get('province').setValue(userUpdate.province);
     this.registerForm.get('city').setValue(userUpdate.city);
-    this.registerForm.get('postalCode').setValue(parseInt(userUpdate.postal_code));
+    this.registerForm.get('postalCode').setValue(+userUpdate.postal_code);
     this.registerForm.get('userType').setValue(userUpdate.user_type);
     this.registerForm.get('imgUrl').setValue(userUpdate.avatar);
   }
@@ -208,12 +222,14 @@ export class AdminUserRegisterComponent {
         if (this.fileUpload !== undefined) {
           this.onUpload(this.fileUpload, data.response);
         } else {
-            this.regError = false;
+            this.regError = 4;
             this.openDialog();
         }
       },
       error => {
         console.log('Error: ', error);
+        this.regError = 2;
+        this.openDialog();
       });
 
     } else {
@@ -231,13 +247,20 @@ export class AdminUserRegisterComponent {
           if (this.fileUpload !== undefined) {
             this.onUpload(this.fileUpload, data.response);
           } else {
-              this.regError = false;
-              this.openDialog();
+              this.userService.sendMail(data.response).subscribe(respEmail => {
+                console.log('respEmail: ', respEmail);
+                this.regError = 0;
+                this.openDialog();
+              },
+              error => {
+                console.log('Error: ', error);
+                this.regError = 3;
+                this.openDialog();
+              });
           }
-
         },
         error => {
-          this.regError = true;
+          this.regError = 2;
           this.openDialog();
           console.log('Error: ', error);
         });
@@ -245,14 +268,19 @@ export class AdminUserRegisterComponent {
   }
 
   openDialog() {
-    if (this.regError) {
-      this.confirmMessage = 'Ha habido un error al enviar el formulario';
+    if (this.regError === 0) {
+      this.confirmMessage =
+          'Su registro se ha completado correctamente, en breves momentos recibirá un correo electrónico para completarlo.';
+    } else if (this.regError === 1) {
+        this.confirmMessage =
+          // tslint:disable-next-line: max-line-length
+          'Los datos se han registrado / actualizado correctamente pero ha habido un error a la hora de subir el avatar.';
+    } else  if (this.regError === 2) {
+        this.confirmMessage = 'Ya se encuentra dado de alta un usuario con el mismo DNI, nombre de usuario o correo electrónico.';
+    } else if (this.regError === 4) {
+        this.confirmMessage = 'Usuario modificado correctamente.';
     } else {
-      if (this.formType === 'userUpdate') {
-        this.confirmMessage = 'Usuario actualizado correctamente';
-      } else {
-          this.confirmMessage = 'Usuario registrado correctamente';
-      }
+        this.confirmMessage = 'Error al enviar el correo electrónico.';
     }
 
     const dialogConfig = new MatDialogConfig();

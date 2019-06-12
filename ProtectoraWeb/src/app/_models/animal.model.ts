@@ -10,7 +10,6 @@ export class Animal {
   public adoption_date?: Date;
   public status: number;
   public description: string;
-  public pictures: any;
   public user_id?: number;
 
   public constructor(init?: Partial<Animal>) {

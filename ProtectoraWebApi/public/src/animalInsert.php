@@ -18,7 +18,6 @@ try {
     ChromePhp::log('request: ', $request);
     if ($request) {
         $vStatus = ['adoptado', 'pre-adoptado', 'en adopción'];
-        /* $picturesArray = explode(",",$request['pictures']); */
 
         // Validate & sanitize
         $name          = filter_var($request['name'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
@@ -31,7 +30,6 @@ try {
         $adoption_date = filter_var($request['adoption_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Si no existe, será 1/1/1970
         $status        = filter_var($request['status'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
         $description   = filter_var($request['description'], FILTER_SANITIZE_SPECIAL_CHARS);
-        $pictures      = $request['pictures'];
 
         // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($name != '' || $type != '' || $breed != '' || $gender != '' || $size != '' || $birth_date != '' || $entrance_date != '' || $adoption_date != '' || $status != '' || $description != '') {
@@ -42,7 +40,7 @@ try {
             $entrance_date = $entrance_date->format("Y-m-d H:i:s");
 
             $animal = new Animal();
-            $animal->createAnimal($name, $type, $breed, $gender, $size, $birth_date, $entrance_date, $adoption_date, $status, $description, $pictures);
+            $animal->createAnimal($name, $type, $breed, $gender, $size, $birth_date, $entrance_date, $adoption_date, $status, $description);
 
             $animal->insertAnimal();
         }
