@@ -85,7 +85,7 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="mt-2">
-            <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" formControlName="birthDate" readonly="true" (open)="picker.open()" (dateInput)="dateToTimestamp(registerForm.controls['birthDate'].value)" (dateChange)="dateToTimestamp(registerForm.controls['birthDate'].value)">
+            <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" formControlName="birthDate" readonly="true" (click)="picker.open()" formControlName="birthDate" [max]="maxDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngIf="registerForm.controls['birthDate'].errors">
@@ -181,7 +181,7 @@
           </mat-expansion-panel-header>
           <div class="row mt-3">
             <div class="col-md-4">
-              <button mat-raised-button color="primary" class="avatarBtn" type="button" (click)="openInput()">Avatar</button>
+              <button mat-raised-button color="primary" class="avatarBtn btnPrincipalColor" type="button" (click)="openInput()">Avatar</button>
               <input hidden type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg">
               <input type="hidden" formControlName="imgUrl" id="imgUrl" [value]="urlImage">
             </div>
@@ -193,11 +193,11 @@
       </mat-accordion>
     </div>
 
-    <div class="row mt-5">
-      <button *ngIf="(!formType)" mat-raised-button color="primary" class="submitBtn" [disabled]="!registerForm.valid">
+    <div class="row my-5">
+      <button *ngIf="(!formType)" mat-raised-button color="primary" class="submitBtn btnPrincipalColor" [disabled]="!registerForm.valid">
         Registrar Usuario
       </button>
-      <button *ngIf="(formType)" mat-raised-button color="primary" class="submitBtn" [disabled]="!registerForm.valid">
+      <button *ngIf="(formType)" mat-raised-button color="primary" class="submitBtn btnPrincipalColor" [disabled]="!registerForm.valid">
         Modificar Usuario
       </button>
     </div>

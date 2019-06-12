@@ -25,15 +25,17 @@ export class UserRegisterComponent  implements OnInit {
 
   // Variables del componente
   registerForm: FormGroup;
+  user: User;
   isLinear = true;
   confirmMessage: string;
   regError: number;
   error: string;
-  user: User;
 
   fileUpload: any;
   uploadPercent: Observable<number>;
   urlImage: Observable<string>;
+
+  maxDate = new Date(Date.now());
 
   /** Returns a FormArray with the name 'formArray'. */
   get formArray(): AbstractControl | null { return this.registerForm.get('formArray'); }
@@ -79,6 +81,10 @@ export class UserRegisterComponent  implements OnInit {
         })
       ])
     });
+
+    this.maxDate.setDate(this.maxDate.getDate());
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
+
   }
 
   openInput() {

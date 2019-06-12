@@ -39,6 +39,8 @@ export class AdminUserRegisterComponent {
   uploadPercent: Observable<number>;
   urlImage: Observable<string>;
 
+  maxDate = new Date(Date.now());
+
   step = 0;
 
   // Depende de la página que accede al formulario podrá ser:
@@ -78,9 +80,13 @@ export class AdminUserRegisterComponent {
       imgUrl: ['', []]
     });
 
+    this.maxDate.setDate(this.maxDate.getDate());
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
+
     if (this.formType === 'userUpdate' || this.formType === 'userProfileUpdate') {
       this.setUpdateData(this.userData);
     }
+
   }
 
   openInput() {
