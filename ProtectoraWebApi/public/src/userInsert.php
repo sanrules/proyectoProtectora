@@ -58,6 +58,7 @@ try {
             $user->insertUser();
             $error = '';
 
+            sendMail($user);
         } else {
             $error .= 'Email, nombre de usuario o dni ya dados de alta en la BBDD. ';
             $logger->error($error);
@@ -75,7 +76,6 @@ if ($error == '') {
         'response' => $user->getIdUser(),
     );
     http_response_code(200); // 200 OK
-    sendMail($user);
 } else {
     $reply = array(
         'status' => 'Error',
@@ -85,5 +85,5 @@ if ($error == '') {
     $logger->info("Error: $error");
 }
 
-// header('Content-type:application/json;charset=utf-8');
+header('Content-type:application/json;charset=utf-8');
 echo json_encode($reply, JSON_UNESCAPED_UNICODE);

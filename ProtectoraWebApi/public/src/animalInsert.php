@@ -9,7 +9,8 @@ use Monolog\Logger;
 $logger = new Logger('animalInsert');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
-$error = '';
+$error  = '';
+$animal = new Animal();
 
 try {
     $postdata = file_get_contents("php://input");
