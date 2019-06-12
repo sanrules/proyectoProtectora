@@ -27,7 +27,8 @@ export class UserRegisterComponent  implements OnInit {
   registerForm: FormGroup;
   isLinear = true;
   confirmMessage: string;
-  regError: boolean;
+  regError: number;
+  error: string;
   user: User;
 
   fileUpload: any;
@@ -114,11 +115,12 @@ export class UserRegisterComponent  implements OnInit {
 
   sendAvatarToBBDD(id: number) {
     this.userService.setAvatar(id, this.formArray.get([3]).get('imgUrl').value).subscribe(() => {
-      this.regError = false;
+      this.regError = 0;
       this.openDialog();
     }, error => {
         console.log('Error: ', error);
-        this.regError = true;
+        this.error = error;
+        this.regError = 1;
         this.openDialog();
     });
   }
@@ -177,18 +179,28 @@ export class UserRegisterComponent  implements OnInit {
       if (this.fileUpload !== undefined) {
         this.onUpload(this.fileUpload, data.response, data.response);
       } else {
-          this.regError = false;
+          this.regError = 0;
           this.openDialog();
       }
     },
     error => {
       console.log('Error: ', error);
+      this.error = error;
+      this.openDialog();
+      this.regError = 2;
     });
   }
 
   openDialog() {
-    this.confirmMessage =
-      'Su registro se ha completado correctamente, en breves momentos recibirá un correo electrónico para completarlo.';
+    if (this.regError == 0) {
+      this.confirmMessage =
+          'Su registro se ha completado correctamente, en breves momentos recibirá un correo electrónico para completarlo.';
+    } else if (this.regError == 1) {
+        this.confirmMessage =
+          'El usuario se ha registrado pero se ha producido un error en la subida del avatar, por favor actualice más tarde el usuario';
+    } else{
+        this.confirmMessage = 'Ya se encuentra dado de alta un usuario con el mismo DNI, nombre de usuario o correo electrónico.';
+    }
 
     const dialogConfig = new MatDialogConfig();
 
