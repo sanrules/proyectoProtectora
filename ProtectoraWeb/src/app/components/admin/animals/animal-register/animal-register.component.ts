@@ -11,6 +11,8 @@ import { MatDialogConfig, MatDialog } from '@angular/material';
 
 import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 import { Router } from '@angular/router';
+import { AnimalTypeService } from '../../../../_services/animals/tipo-animal/animal-type-service';
+import { AnimalBreedService } from '../../../../_services/animals/raza-animal/animal-raza-service';
 
 @Component({
   selector: 'app-admin-animal-register',
@@ -33,6 +35,7 @@ export class AnimalRegisterComponent implements OnInit {
   urlImage: Observable<string>;
   urlImageAr: any[] = [];
   images: any[] = [];
+  animalType: any[];
 
   registerForm: FormGroup;
   confirmMessage: string;
@@ -56,9 +59,15 @@ export class AnimalRegisterComponent implements OnInit {
               private firestorage: FirebaseStorageService,
               private dialog: MatDialog,
               private router: Router,
-              private imagesService: ImagesService) { }
+              private imagesService: ImagesService,
+              private animalTypeService: AnimalTypeService,
+              private animalBreedService: AnimalBreedService) { }
 
   ngOnInit() {
+    this.animalTypeService.getAnimalTypes().subscribe( e => {
+    this.animalType = e.response;
+    console.log("tipos de animal", e);
+    });
 
     this.registerForm = this.formBuilder.group({
       idAnimal: ['', []],
@@ -81,6 +90,13 @@ export class AnimalRegisterComponent implements OnInit {
       this.setDatosUpdate(this.animalData);
     }
     console.log('form: ', this.registerForm);
+  }
+
+  public getAnimalBreeds(idtype){
+    console.log(idtype);
+    this.animalBreedService.getAnimalBreedsByIdType(idtype).subscribe( e => {
+      console.log("reazas de animal", e);
+    });
   }
 
   public loadImages() {

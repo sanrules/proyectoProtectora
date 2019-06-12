@@ -10,9 +10,9 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
 
 class AnimalBreed
 {
-    private $_id     = '';
-    private $_idtype = '';
-    private $_name   = '';
+    private $idBreed    = '';
+    private $idType = '';
+    private $name   = '';
 
     public function __construct()
     {
@@ -21,15 +21,15 @@ class AnimalBreed
 
     /**
      * Crea una raza de animal.
-     *
+     *  
      * @param mixed $_name
      * @param mixed $_idtype
      * @return void
      */
     public function createAnimalBreed($_name, $_idtype)
     {
-        $this->_name   = $_name;
-        $this->_idtype = $_idtype;
+        $this->name   = $_name;
+        $this->idType = $_idtype;
     }
 
     /**
@@ -42,7 +42,7 @@ class AnimalBreed
         $animalBreed = R::dispense('animalbreed');
 
         $animalBreed->name   = $this->_name;
-        $animalBreed->idtype = $this->_idtype;
+        $animalBreed->idType = $this->_idtype;
 
         $id        = R::store($animalBreed);
         $this->_id = $id;
@@ -54,11 +54,10 @@ class AnimalBreed
  * @param int $id ID del animal
  * @return Animal $animal animal recogido de la base de datos
  */
-    public function retrieveAnimalBreed($id)
+    public function retrieveAnimalBreedsByIdType($idtype)
     {
-        $animalBreed = R::load('animalbreed', $id);
-
-        return $animalBreed;
+        $animalBreeds = R::getAll("select * from animalBreed where idtype = $idtype");
+        return $animalBreeds;
     }
 
 /**
@@ -136,7 +135,7 @@ class AnimalBreed
      */
     public function get_id()
     {
-        return $this->_id;
+        return $this->idBreed;
     }
 
     /**
@@ -144,9 +143,9 @@ class AnimalBreed
      *
      * @return  self
      */
-    public function set_id($_idtype)
+    public function set_id($_idBreed)
     {
-        $this->_idtype = $_idtype;
+        $this->$idBreed = $_idBreed;
 
         return $this;
     }
@@ -156,7 +155,7 @@ class AnimalBreed
      */
     public function get_idType()
     {
-        return $this->_idtype;
+        return $this->idType;
     }
 
     /**
@@ -164,9 +163,9 @@ class AnimalBreed
      *
      * @return  self
      */
-    public function set_idType($_idtype)
+    public function set_idType($_idType)
     {
-        $this->_idtype = $_idtype;
+        $this->idType = $_idType;
 
         return $this;
     }
@@ -176,7 +175,7 @@ class AnimalBreed
      */
     public function get_name()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -186,7 +185,7 @@ class AnimalBreed
      */
     public function set_name($_name)
     {
-        $this->_name = $_name;
+        $this->name = $_name;
 
         return $this;
     }
