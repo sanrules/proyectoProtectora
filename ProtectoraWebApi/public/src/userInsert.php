@@ -2,6 +2,7 @@
 require_once '../../vendor/autoload.php';
 require_once 'classes/User.php';
 require_once 'lib/phpmailer.php';
+include 'lib/ChromePhp.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -57,8 +58,9 @@ try {
 
             $user->insertUser();
             $error = '';
-
+            ChromePhp::log('antes del mail');
             sendMail($user);
+            ChromePhp::log('despues del mail');
         } else {
             $error .= 'Email, nombre de usuario o dni ya dados de alta en la BBDD. ';
             $logger->error($error);
@@ -71,12 +73,14 @@ try {
 }
 
 if ($error == '') {
+    ChromePhp::log('Entra en OK', $user->getIdUser());
     $reply = array(
         'status'   => 'OK',
         'response' => $user->getIdUser(),
     );
     http_response_code(200); // 200 OK
 } else {
+    ChromePhp::log('Entra en ERROR');
     $reply = array(
         'status' => 'Error',
         'error'  => $error,
@@ -85,5 +89,5 @@ if ($error == '') {
     $logger->info("Error: $error");
 }
 
-header('Content-type:application/json;charset=utf-8');
+// header('Content-type:application/json;charset=utf-8');
 echo json_encode($reply, JSON_UNESCAPED_UNICODE);

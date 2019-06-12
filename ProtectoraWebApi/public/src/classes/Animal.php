@@ -23,7 +23,6 @@ class Animal
 
     private $_status      = ''; // Adoptado, sin adoptar
     private $_description = '';
-    private $_pictures    = '';
 
     public function __construct()
     {}
@@ -41,11 +40,10 @@ class Animal
      * @param date $adoptionDate
      * @param bool $status
      * @param string $description
-     * @param string $pictures
      * @return void
      */
 
-    public function createAnimal($name, $type, $breed, $gender, $size, $birthDate, $entranceDate, $adoptionDate = null, $status, $description, $pictures)
+    public function createAnimal($name, $type, $breed, $gender, $size, $birthDate, $entranceDate, $adoptionDate = null, $status, $description)
     {
         $this->_name         = $name;
         $this->_type         = $type;
@@ -57,7 +55,6 @@ class Animal
         $this->_adoptionDate = $adoptionDate;
         $this->_status       = $status;
         $this->_description  = $description;
-        $this->_pictures     = $pictures;
     }
 
     /**
@@ -152,7 +149,7 @@ class Animal
         $oldAnimal->description   = $this->getDescription();
 
         if ($adopta){
-        $oldAnimal->user = R::load('user', $this->getUserId());
+            $oldAnimal->user = R::load('user', $this->getUserId());
         }
 
         R::store($oldAnimal);
@@ -422,26 +419,6 @@ class Animal
     public function setDescription($description)
     {
         $this->_description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of _pictures
-     */
-    public function getPictures()
-    {
-        return $this->_pictures;
-    }
-
-    /**
-     * Set the value of _pictures
-     *
-     * @return  self
-     */
-    public function setPictures($pictures)
-    {
-        $this->_pictures = $pictures;
 
         return $this;
     }

@@ -8,7 +8,7 @@ $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 $error = '';
 
 try {
-    sendMail();
+    sendMail($user);
 } catch (Exception $e) {
     $error = 'Mail no enviado';
     $logger->error($error);

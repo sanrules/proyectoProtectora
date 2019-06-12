@@ -17,7 +17,7 @@ import { AuthService } from '../../../../_services/auth/auth.service';
 export class AnimalComponent implements OnInit {
 
   public animalId: number;
-  animal: any;
+  animal: Animal;
   images: any[];
   adoptError: boolean;
   confirmMessage: string;
@@ -47,8 +47,48 @@ export class AnimalComponent implements OnInit {
     });
   }
 
+  public parseDate(date) {
+    const arrayDateTime = date.split(' ');
+    const dateArray = arrayDateTime[0].split('-');
+    date = new Date(dateArray[0], (dateArray[1] - 1), dateArray[2]);
+    return date;
+  }
+
+  dateToTimestamp(date) {
+
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
+    date = Date.UTC(year, month, day, 0, 0, 0);
+
+    return date;
+  }
+
+  prepareAdoptData() {
+
+    this.animal.birth_date = this.parseDate(this.animal.birth_date);
+    this.animal.entrance_date = this.parseDate(this.animal.entrance_date);
+
+    const adoptData = {
+      'id': this.animal.id,
+      'name': this.animal.name.trim(),
+      'type': this.animal.type.trim(),
+      'breed': this.animal.breed.trim(),
+      'gender': this.animal.gender.trim(),
+      'size': this.animal.size.trim(),
+      'birth_date': this.dateToTimestamp(this.animal.birth_date),
+      'entrance_date': this.dateToTimestamp(this.animal.entrance_date),
+      'adoption_date': null,
+      'status': 1,
+      'description': this.animal.description.trim(),
+      'user_id': this.authService.userIdLogged(),
+    };
+
+    return adoptData;
+  }
+
   adoptAnimal() {
-    
     this.openConfirmDialog();
   }
 
@@ -64,12 +104,11 @@ export class AnimalComponent implements OnInit {
     dialogRef.afterClosed().subscribe(confirm => {
 
       if (confirm) {
-        this.animal.status = 1;
-        this.animal.userId = this.authService.userIdLogged();
+
+        this.animal = this.prepareAdoptData();
         const animalJSON = JSON.stringify(this.animal);
         console.log('JSON: ', animalJSON);
-        this.adoptError = false;
-        console.log('confirm');
+
         this.animalService.updateAnimal(animalJSON).subscribe(resp => {
           console.log('resp adopt: ', resp);
           this.adoptError = false;
@@ -77,8 +116,8 @@ export class AnimalComponent implements OnInit {
         },
         error => {
           console.log('Error: ', error);
-          this.animal.status = 0;
-          this.animal.userId = null;
+/*           this.animal.status = 0;
+          this.animal.user_id = null; */
           this.adoptError = true;
           this.openDialog();
         });

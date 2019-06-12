@@ -16,14 +16,11 @@ try {
     $request  = json_decode($postdata, true);
     ChromePhp::log('request: ', $request);
     if ($request) {
-
-        /* $picturesArray = explode(",",$request['pictures']); */
-
         // Validate & sanitize
         $name    = filter_var($request['name'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
         $content = filter_var($request['content'], FILTER_SANITIZE_STRING);
         $date    = filter_var($request['publicationDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
-        /*    $pictures      = filter_var($request['pictures'], FILTER_REQUIRE_ARRAY) ? $request['pictures'] : ''; // Las imágenes tendrán que venir en un array */
+
 
         // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($name != '' || $content != '' || $date != '') {
