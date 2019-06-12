@@ -25,16 +25,16 @@ try {
         $breed         = filter_var($request['breed'], FILTER_SANITIZE_STRING); // Raza.
         $gender        = filter_var($request['gender'], FILTER_SANITIZE_STRING); // Se aceptarán M y H (macho / hembra)
         $size          = filter_var($request['size'], FILTER_SANITIZE_STRING);
-        $birth_date    = filter_var($request['birthDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
-        $entrance_date = filter_var($request['entranceDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
-        $adoption_date = filter_var($request['adoptionDate'], FILTER_SANITIZE_NUMBER_INT) / 1000;  
+        $birth_date    = filter_var($request['birth_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
+        $entrance_date = filter_var($request['entrance_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
+        $adoption_date = filter_var($request['adoption_date'], FILTER_SANITIZE_NUMBER_INT) / 1000;  
         $status        = filter_var($request['status'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
         $description   = filter_var($request['description'], FILTER_SANITIZE_SPECIAL_CHARS);
         
         if($status != 0) {  
-            $userId        = filter_var($request['userId'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
+            $userId    = filter_var($request['user_id'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
         } else {
-            $userId = ''; 
+            $userId = null; 
         }
         $pictures      = $request['pictures'];
         // String provisionalmente
@@ -42,7 +42,7 @@ try {
         if ($name != '' || $type != '' || $breed != '' || $gender != '' || $birth_date != '' || $entrance_date != '' || $adoption_date != '' || $status != '' || $description != '' ) {
 
             if ($status == 0) {
-                $adoption_date = '';
+                $adoption_date = null;
             }
             $birth_date    = new DateTime("@$birth_date");
             $birth_date    = $birth_date->format("Y-m-d H:i:s");
@@ -52,8 +52,14 @@ try {
             $animalupdate = new Animal();
             $animalupdate->createAnimal($name, $type, $breed, $gender, $size, $birth_date, $entrance_date, $adoption_date, $status, $description, $pictures);
             $animalupdate->setId($id);
-            $animalupdate->setUserId($userId);
-            $animalupdate->updateAnimal();
+            if($userId != null){
+                $animalupdate->setUserId($userId); 
+                $animalupdate->updateAnimal(true);
+
+            }else{
+                
+                $animalupdate->updateAnimal(false);
+            }
         }
     }
 

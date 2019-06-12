@@ -41,6 +41,7 @@ export class AnimalImagesComponent implements OnInit {
     this.imgService.getImagesByAnimal(this.animalId).subscribe(resp => {
       this.images = resp.response;
     });
+    console.log("animal", this.animalData);
   }
 
 
@@ -118,11 +119,22 @@ export class AnimalImagesComponent implements OnInit {
 
   }
 
-  public spararFechaYHora(fecha) {
+  public separarFechaYHora(fecha) {
     let arrayFechaYHora = fecha.split(' ');
     let arrayfecha = arrayFechaYHora[0].split('-');
     fecha = new Date(arrayfecha[0], (arrayfecha[1] - 1), arrayfecha[2]);
     return fecha;
+  }
+
+  dateToTimestamp(date) {
+
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+  
+    date = Date.UTC(year, month, day, 0, 0, 0);
+  
+    return date;
   }
 
   dataPrepare() {
@@ -134,19 +146,29 @@ export class AnimalImagesComponent implements OnInit {
       "breed": this.animalData.breed,
       "gender": this.animalData.gender,
       "size": this.animalData.size,
-      "birthDate": this.animalData.birthDate,
-      "entranceDate": this.animalData.entranceDate,
-      "adoptionDate": this.animalData.adoptionDate,
+      "birth_date": this.dateToTimestamp(this.separarFechaYHora(this.animalData.birth_date)),
+      "entrance_date": this.dateToTimestamp(this.separarFechaYHora(this.animalData.entrance_date)),
+      "adoption_date": null,
       "status": this.animalData.status,
       "description": this.animalData.description,
       "pictures": '',
+      "user_id": this.animalData.user_id,
     };
+    if (this.animalData.adoption_date === null) {
+      formData.adoption_date = formData.entrance_date;
+    } else {
+      formData.adoption_date = this.dateToTimestamp(this.separarFechaYHora(this.animalData.adoption_date));
+    }
+
     return formData;
   }
 
   registerSubmit() {
 
     this.animal = this.dataPrepare();
+    if (this.animal.user_id == null){
+      delete this.animal.user_id;
+    }
     const userJSON = JSON.stringify(this.animal);
     console.log('datos a enviar: ', userJSON);
     this.animalService.updateAnimal(userJSON).subscribe(data => {

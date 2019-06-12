@@ -5,13 +5,13 @@ export class Animal {
   public breed: string;
   public gender: string;
   public size: string;
-  public birthDate: Date;
-  public entranceDate: Date;
-  public adoptionDate: Date;
+  public birth_date: Date;
+  public entrance_date: Date;
+  public adoption_date?: Date;
   public status: number;
-  public description: Date;
+  public description: string;
   public pictures: any;
-  public idUser?: number;
+  public user_id?: number;
 
   public constructor(init?: Partial<Animal>) {
     Object.assign(this, init);

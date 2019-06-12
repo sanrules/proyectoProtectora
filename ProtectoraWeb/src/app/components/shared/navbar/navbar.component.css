@@ -1,6 +1,6 @@
 .navbar {
   background-color: #0c92bba6;
-  z-index: 0;
+  z-index: 1000;
   width: 100vw;
   padding-left: 2em;
 }

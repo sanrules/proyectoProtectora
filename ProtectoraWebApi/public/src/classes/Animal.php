@@ -136,7 +136,7 @@ class Animal
      * @param int $id ID del animal
      * @param Animal $updated_animal animal con los datos actualizados
      */
-    public function updateAnimal()
+    public function updateAnimal($adopta)
     {
         $oldAnimal = R::load('animal', $this->getId());
 
@@ -151,7 +151,9 @@ class Animal
         $oldAnimal->status        = $this->getStatus();
         $oldAnimal->description   = $this->getDescription();
 
+        if ($adopta){
         $oldAnimal->user = R::load('user', $this->getUserId());
+        }
 
         R::store($oldAnimal);
     }
