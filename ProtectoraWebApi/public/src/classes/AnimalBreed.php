@@ -26,10 +26,10 @@ class AnimalBreed
      * @param mixed $_idtype
      * @return void
      */
-    public function createAnimalBreed($_name, $_idtype)
+    public function createAnimalBreed($name, $idtype)
     {
-        $this->name   = $_name;
-        $this->idType = $_idtype;
+        $this->name   = $name;
+        $this->idType = $idtype;
     }
 
     /**
@@ -41,11 +41,11 @@ class AnimalBreed
     {
         $animalBreed = R::dispense('animalbreed');
 
-        $animalBreed->name   = $this->_name;
-        $animalBreed->idType = $this->_idtype;
+        $animalBreed->name   = $this->name;
+        $animalBreed->idtype = $this->idType;
 
         $id        = R::store($animalBreed);
-        $this->_id = $id;
+        $this->id = $id;
     }
 
 /**
@@ -56,7 +56,7 @@ class AnimalBreed
  */
     public function retrieveAnimalBreedsByIdType($idtype)
     {
-        $animalBreeds = R::getAll("select * from animalBreed where idtype = $idtype");
+        $animalBreeds = R::getAll("select * from animalbreed where idtype = $idtype");
         return $animalBreeds;
     }
 
@@ -163,9 +163,9 @@ class AnimalBreed
      *
      * @return  self
      */
-    public function set_idType($_idType)
+    public function set_idType($idType)
     {
-        $this->idType = $_idType;
+        $this->idType = $idType;
 
         return $this;
     }

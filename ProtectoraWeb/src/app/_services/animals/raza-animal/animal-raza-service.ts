@@ -22,8 +22,8 @@ export class AnimalBreedService {
   }
 
   // Solicita a la API el animal que se le manda por parámetro
-  getAnimalBreedsByIdType(id) {
-    return this.http.post(`${this.baseURL}/animalBreedGetByIdType.php`, id/* , this.httpOptions */);
+  getAnimalBreedsByIdType(id): Observable<any> {
+    return this.http.post(`${this.baseURL}/animalBreedGetByIdType.php`, id, this.httpOptions);
   }
 
   // Da de alta un nuevo animal

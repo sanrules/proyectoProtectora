@@ -26,7 +26,7 @@
         </mat-form-field>
       </div>
 
-        <div class="mt-2">
+        
           <!-- <mat-radio-group aria-label="Selecciona un genero" formControlName="type">
             <mat-radio-button value="Perro"  ngDefaultControl> Perro </mat-radio-button>
             <br>
@@ -37,10 +37,10 @@
             <mat-error *ngIf="registerForm.controls['type'].errors">
               Tipo de Animal requerido
             </mat-error> -->
-          <div *ngIf="formType != 'animalUpdate'">
+          <div class="mt-2" *ngIf="formType != 'animalUpdate'">
             <mat-form-field>
               <mat-label>Tipo de animal</mat-label>
-              <mat-select formControlName="type" (valueChange)="getAnimalBreeds(selectedFiles)">
+              <mat-select formControlName="type"  (valueChange)="getAnimalBreeds(selectType.value)" #selectType>
                 <mat-option>--</mat-option>
                 <mat-option *ngFor="let type of animalType" [value]="type.id">
                   {{type.name}}
@@ -49,16 +49,31 @@
               <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
             </mat-form-field>
             </div>
-        </div>
+        
 
-        <div class="mt-2">
+        <!-- <div class="mt-2">
           <mat-form-field>
             <input matInput placeholder="Raza" type="text" formControlName="breed" id="breed" >
             <mat-error *ngIf="registerForm.controls['breed'].errors">
               Raza requerida
             </mat-error>
           </mat-form-field>
+        </div> -->
+
+        <div class="mt-2" *ngIf="formType != 'animalUpdate'">
+          <mat-form-field>
+            <mat-label>Tipo de animal</mat-label>
+            <mat-select formControlName="breed" >
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let breed of animalBreed" [value]="breed.id">
+                {{breed.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
+          </mat-form-field>
         </div>
+      
+
 
         <div class="mt-2">
 

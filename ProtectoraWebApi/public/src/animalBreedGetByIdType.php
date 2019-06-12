@@ -7,25 +7,25 @@ use Monolog\Logger;
 
 $logger = new Logger('animalBreedGetByidType');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
-$error = '';
+
 
 try {
     $postdata = file_get_contents("php://input");
     $request  = json_decode($postdata, true);
 
+    
     if ($request) {
-
         $animalbreed = new AnimalBreed();
         $animalbreed->set_idType($request);
         $animalbreeds = $animalbreed->retrieveAnimalBreedsByIdType($animalbreed->get_idType());
-
-    }    
+        $error = '';
+    }
 } catch (Exception $e) {
     $error = 'Error al recoger las razas de los animales';
     $logger->error($error);
 }
 
-if ($error != '') {
+if ($error == '') {
     $reply = array(
         'status'   => 'Getted',
         'response' => $animalbreeds,
@@ -37,9 +37,7 @@ if ($error != '') {
         'error'  => $error,
     );
     http_response_code(503); // 503 Service Unavailable
-   foreach ($error as $err) {
-        $logger->info("Error: $err");
-    }
+    $logger->info("Error: $error");
 }
 
 header('Content-type:application/json;charset=utf-8');

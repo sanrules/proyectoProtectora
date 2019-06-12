@@ -36,7 +36,7 @@ export class AnimalRegisterComponent implements OnInit {
   urlImageAr: any[] = [];
   images: any[] = [];
   animalType: any[];
-
+  animalBreed: any[];
   registerForm: FormGroup;
   confirmMessage: string;
 
@@ -94,8 +94,8 @@ export class AnimalRegisterComponent implements OnInit {
 
   public getAnimalBreeds(idtype){
     console.log(idtype);
-    this.animalBreedService.getAnimalBreedsByIdType(idtype).subscribe( e => {
-      console.log("reazas de animal", e);
+    this.animalBreedService.getAnimalBreedsByIdType(idtype).subscribe(e => {
+      this.animalBreed = e.response;
     });
   }
 
