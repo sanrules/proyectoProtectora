@@ -8,21 +8,33 @@
 <div class="container">
 
   <div class="row mt-2">
-    <div>
-      <button class="col-md-6" mat-raised-button color="primary" class="avatarBtn" type="button" (click)="openInput()">Subir imagenes</button>
-      <input hidden type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg" multiple>
+      <div class="col">
+        <div style="width: 120px;">
+          <button mat-raised-button color="primary" class="avatarBtn" type="button" (click)="openInput()">Subir imagenes</button>
+          <input hidden type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg" multiple>
+        </div>
+      </div>
     </div>
-    <div class="col-md-6 loading">
-      <mat-progress-bar mode="determinate" [value]="uploadpercent | async"></mat-progress-bar>
-    </div>
+
+  <div class="row my-4">
+      <div class="col loading">
+          <mat-progress-bar mode="determinate" [value]="uploadpercent | async"></mat-progress-bar>
+      </div>
   </div>
 
   <div class="row col-md-12" *ngFor="let file of files;let i = index">Nombre: {{file.name}} {{i}} <button mat-icon-button (click)="removeImage(file.name)"><i class="material-icons" style="color:red">close</i></button></div>
 
-  <div class="row col-md-12" *ngIf="images.length >= 1 ">
-    <h4>Images de animal</h4>
-    <div class="row col-md-12" *ngFor="let image of images"><img [src]="image.image" id="imagenListar"><button mat-icon-button (click)="imageDelete(image.id)"><i class="material-icons" style="color:red">delete</i></button></div>
-
+  <div *ngIf="images.length >= 1 ">
+    <div  class="row col-md-12 px-0 mx-0">
+      <h4>Images de animal</h4>
+    </div>
+  <div class="row" >
+    <div class="col-md-3" *ngFor="let image of images" [ngStyle]="{'background-image':'url('+image.image+')'}" id="imagenListar">
+      <button mat-icon-button (click)="imageDelete(image.id)" id="delete">
+        <i class="material-icons" style="color:red" id="icon">delete</i>
+      </button>
+    </div>
+  </div> 
   </div> 
   <button class="col-md-6" mat-raised-button color="primary" class="avatarBtn" type="button" (click)="registerSubmit()">Subir imagenes</button>
 
