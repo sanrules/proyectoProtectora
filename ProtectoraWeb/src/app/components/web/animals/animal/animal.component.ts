@@ -73,8 +73,8 @@ export class AnimalComponent implements OnInit {
     const adoptData = {
       'id': this.animal.id,
       'name': this.animal.name.trim(),
-      'type': this.animal.type.trim(),
-      'breed': this.animal.breed.trim(),
+      'type': this.animal.type,
+      'breed': this.animal.breed,
       'gender': this.animal.gender.trim(),
       'size': this.animal.size.trim(),
       'birth_date': this.dateToTimestamp(this.animal.birth_date),

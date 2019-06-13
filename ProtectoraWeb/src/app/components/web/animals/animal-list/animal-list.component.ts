@@ -28,7 +28,7 @@ export class AnimalListComponent implements OnInit {
       this.animalType = type.type;
 
       this.animalService.getAnimalByType(this.animalType).subscribe(animals => {
-        this.animalList = animals.response;
+        this.animalList = animals['response'];
         console.log('animals: ', this.animalList);
 
         this.animalList.forEach(animal => {
