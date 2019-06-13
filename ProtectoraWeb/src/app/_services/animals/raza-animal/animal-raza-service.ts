@@ -32,6 +32,7 @@ export class AnimalBreedService {
   }
 
   // Modifica un animal
-  updateAnimalBreed() {}
-
+  updateAnimalBreed(data): Observable<any> {
+    return this.http.post(`${this.baseURL}/animalBreedUpdate.php`, data, this.httpOptions);
+  }
 }

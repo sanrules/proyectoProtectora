@@ -8,8 +8,8 @@
           <mat-label>Favorite animal</mat-label>
           <mat-select formControlName="idType" >
             <mat-option>--</mat-option>
-            <mat-option *ngFor="let tipos of types" [value]="tipos.id">
-              {{tipos.name}}
+            <mat-option *ngFor="let type of types" [value]="type.id">
+              {{type.name}}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
@@ -19,7 +19,7 @@
         <div class="form-group col-md-12" *ngIf="formType == 'breedUpdate'">
         <mat-form-field>
           <mat-label>Favorite animal</mat-label>
-          <mat-select formControlName="idType" [value]="breedData.idtipo">
+          <mat-select formControlName="idType" [value]="breedData.idtype">
           <mat-option *ngFor="let type of types" [value]="type.id">
               {{type.name}}
           </mat-option>
@@ -47,8 +47,8 @@
         
         
           <div class="col-md-12" *ngIf="formType == 'breedUpdate'">
-              <button mat-raised-button color="primary" [disabled]="!registerForm.valid" (click)="guardar()">Guardar</button>
-              <button mat-raised-button color="warn" (click)="borrar()">Borrar</button>
+              <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Guardar</button>
+              
           </div>
         </div>
       </div>

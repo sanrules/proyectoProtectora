@@ -33,6 +33,8 @@ export class AnimalTypeService {
   }
 
   // Modifica un animal
-  updateAnimalType() {}
+  updateAnimalType(data): Observable<any> {
+    return this.http.post(`${this.baseURL}/animalTypeUpdate.php`, data, this.httpOptions);
+  }
 
 }

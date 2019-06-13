@@ -18,8 +18,8 @@ try {
 
     if ($request) {
         // Validate & sanitize
-        $idtype = filter_var($request['idtipo'], FILTER_SANITIZE_NUMBER_INT);
-        $name   = filter_var($request['nombre'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
+        $idtype = filter_var($request['idType'], FILTER_SANITIZE_NUMBER_INT);
+        $name   = filter_var($request['name'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
 
         // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($name != '') {

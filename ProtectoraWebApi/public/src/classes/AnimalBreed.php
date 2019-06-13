@@ -10,9 +10,9 @@ R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
 
 class AnimalBreed
 {
-    private $idBreed    = '';
-    private $idType = '';
-    private $name   = '';
+    private $idBreed  = '';
+    private $idType   = '';
+    private $name     = '';
 
     public function __construct()
     {
@@ -100,10 +100,12 @@ class AnimalBreed
      * @param int    $id             ID del animal
      * @param Animal $updated_animal animal con los datos actualizados
      */
-    public function updateAnimalBreed($id, $updated_animalBreed)
+    public function updateAnimalBreed()
     {
-        $old_animalBreed = R::load('animalbreed', $id);
-        $old_animalBreed = $updated_animalBreed;
+            
+        $old_animalBreed = R::load('animalbreed', $this->get_id());
+        $old_animalBreed->name         = $this->get_name();
+        $old_animalBreed->idtype       = $this->get_idType();
 
         R::store($old_animalBreed);
     }
@@ -148,7 +150,7 @@ class AnimalBreed
      */
     public function set_id($_idBreed)
     {
-        $this->$idBreed = $_idBreed;
+        $this->idBreed = $_idBreed;
 
         return $this;
     }
