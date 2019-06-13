@@ -3,10 +3,9 @@
 }
 
 #list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: stretch;
   margin: 1%;
-  flex-direction: row;
+}
+
+.cardContainer {
+  align-items: center;
 }

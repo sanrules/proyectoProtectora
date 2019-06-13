@@ -76,11 +76,12 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { AutofocusDirective } from './_directives/autofocus.directive';
 import { RegisterConfirmationComponent } from './components/shared/register-confirmation/register-confirmation.component';
+import { ConfirmDialogComponent } from './components/shared/confirm-dialog/confirm-dialog.component';
 
 // Pipes
 import { UserIdToNamePipe } from './_pipes/user-id-to-name.pipe';
-import { ConfirmDialogComponent } from './components/shared/confirm-dialog/confirm-dialog.component';
 import { AnimalStatusNamePipe } from './_pipes/animal-status-name.pipe';
+import { AnimalTypeNamePipe } from './_pipes/animal-type-name.pipe';
 
 
 @NgModule({
@@ -118,6 +119,7 @@ import { AnimalStatusNamePipe } from './_pipes/animal-status-name.pipe';
     AutofocusDirective,
     UserIdToNamePipe,
     AnimalStatusNamePipe,
+    AnimalTypeNamePipe,
     ConfirmDialogComponent
   ],
   imports: [

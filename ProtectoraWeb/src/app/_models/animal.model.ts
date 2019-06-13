@@ -11,6 +11,7 @@ export class Animal {
   public status: number;
   public description: string;
   public user_id?: number;
+  public image ?: string;
 
   public constructor(init?: Partial<Animal>) {
     Object.assign(this, init);

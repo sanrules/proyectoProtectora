@@ -13,8 +13,6 @@ export class AnimalListComponent implements OnInit {
 
   /* public animalList: Animal []; */
   public animalList: any[] = [];
-  public datosBuscar;
-  public animalImg: string;
   public animalType: any;
 
   constructor(private route: ActivatedRoute,
@@ -25,21 +23,35 @@ export class AnimalListComponent implements OnInit {
   ngOnInit() {
 
     this.route.params.subscribe(type => {
-      this.animalType = type.type;
+      this.animalType = +type.type;
 
-      this.animalService.getAnimalByType(this.animalType).subscribe(animals => {
-        this.animalList = animals['response'];
-        console.log('animals: ', this.animalList);
+      if (this.animalType === 0) {
 
-        this.animalList.forEach(animal => {
-          this.imgService.getImagesByAnimal(animal['id']).subscribe(imgAnimal => {
-            this.animalImg = imgAnimal.response[0].image;
+        this.animalService.getAnimals().subscribe(animals => {
+          this.animalList = animals.response;
+
+          this.animalList.forEach(animal => {
+            this.imgService.getImagesByAnimal(animal['id']).subscribe(imgAnimal => {
+              animal.image = imgAnimal.response[0].image;
+            });
           });
-        });
 
-      });
+        });
+      } else {
+        this.animalService.getAnimalByType(this.animalType).subscribe(animals => {
+          this.animalList = animals['response'];
+
+          this.animalList.forEach(animal => {
+            this.imgService.getImagesByAnimal(animal['id']).subscribe(imgAnimal => {
+              animal.image = imgAnimal.response[0].image;
+            });
+          });
+
+        });
+      }
 
     });
+
 
   }
 

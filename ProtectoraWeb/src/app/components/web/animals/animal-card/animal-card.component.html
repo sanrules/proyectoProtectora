@@ -1,42 +1,13 @@
-<!-- <mat-card class="example-card" > -->
-
-<!-- <mat-card class="example-card">
-  <div id='card'>
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{animal.name}}</mat-card-title>
-      <mat-card-subtitle>{{animal.type}} {{animal.breed}}</mat-card-subtitle>
-    </mat-card-header> -->
-
-       <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-        <p>
-            {{dato.description}}
-        </p>
-        </mat-card-content>
-        <mat-card-actions>
-    <button mat-button [routerLink]="['../animal', dato.id]">Ver</button>
-</mat-card-actions>
-</mat-card> -->
-<div class="grid col-md-4">
-    <figure class="effect-milo" id ="card">
-        <img [src]="animal.pictures"/>
-        <figcaption>
-            <h2><span>{{animal.name}}</span></h2>
-            <p>{{animal.type}}</p>
-            <p>{{animal.breed}}</p>
-            <a [routerLink]="['../animal', animal.id]">View more</a>
-        </figcaption>			
-    </figure>
-
-<!--     <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-      <p>
-        {{animal.description}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button [routerLink]="['../animal', animal.id]">Ver</button>
-    </mat-card-actions>
-  </div>
-</mat-card> -->
+<div class="grid col-md-3">
+  <figure class="effect-milo" id ="card">
+    <img [src]="animal.image"/>
+    <figcaption>
+      <h2><span>{{animal.name}}</span></h2>
+      <p>{{animal.type | animalTypeNamePipe}}</p>
+      <p>{{animal.breed}}</p>
+      <p>{{animal.size}}</p>
+      <p>{{animal.birth_date | date: 'mediumDate'}}</p>
+      <a [routerLink]="['../../animal', animal.id]">View more</a>
+    </figcaption>			
+  </figure>
+</div>

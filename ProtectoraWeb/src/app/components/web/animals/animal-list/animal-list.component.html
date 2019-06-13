@@ -1,18 +1,8 @@
 <h1 align='center'>Lista de animales</h1>
-<div class="card-columns" id='list'>
-  <app-animal-card [animal]="animal" [index]="i" *ngFor="let animal of animalList, let i = index"></app-animal-card>
+<div class="row container-fluid cardContainer">
+  <div class="col-md-3" id='list'  *ngFor="let animal of animalList, let i = index">
+    <app-animal-card [animal]="animal" [index]="i" ></app-animal-card>
+  </div>
 </div>
 
-<!--   <h1 align='center'>Lista de animales</h1>
-
-  <div class="card-columns" id='list'>
-
-
-    <app-animal-card [animal]="animal" [index]="i" *ngFor="let animal of animalList, let i = index"></app-animal-card>
-
-</div>  
-
-    <app-animal-card [dato]="animal" [index]="i" *ngFor="let animal of animales, let i = index">
-    </app-animal-card>
-  </div> -->
 

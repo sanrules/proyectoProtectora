@@ -112,9 +112,10 @@ class Animal
      */
     public function retrieveAnimalByType()
     {
-        $animal = R::find( 'animal', ' type = ? ', [$this->getType()]);
+        $animals = R::getAll( 'SELECT * FROM animal WHERE type = :type',
+        [':type' => $this->getType()]);
 
-        return $animal;
+        return $animals;
     }
 
     /**
