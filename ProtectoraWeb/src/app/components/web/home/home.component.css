@@ -3,6 +3,7 @@ html, body{
   padding: 0px;
 }
 
+/* Portada */
 .masthead {
   background: linear-gradient(rgba(0,0,0,.8), rgba(255,255,255,0.1));
   background-size: cover;
@@ -14,9 +15,11 @@ html, body{
 }
 
 .imgPrincipal {
-  width: 100%;
   z-index: -1;
-  position: absolute;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 
@@ -45,6 +48,8 @@ h1 {
   padding: 0px;
 }
 
+/* Noticias */
+
 .news {
   border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 5px;
@@ -54,6 +59,7 @@ h1 {
   border-top: 1px solid rgba(0, 0, 0, 0.13);
 }
 
+/* Enlaces */
 
 .cathome {
   height: 30.7%;
@@ -91,7 +97,7 @@ h1 {
 }
 
 
-/********/
+/* Botones */
 #menu li {
 	display:inline-block;
 	margin: 10px;
@@ -99,7 +105,7 @@ h1 {
 	background:#fff;
 	background: rgba(255,255,255, 0.5);
 	-webkit-border-radius: 10px;
-            border-radius: 10px;
+          border-radius: 10px;
 }
 #menu li.active{
 	background:#666;

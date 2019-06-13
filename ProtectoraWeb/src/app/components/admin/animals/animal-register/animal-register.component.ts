@@ -140,7 +140,7 @@ export class AnimalRegisterComponent implements OnInit {
 
   public subirImagenes(id: number, arrayImages) {
     this.animalService.uploadImages(id, arrayImages ).subscribe( data => {
-      
+
       this.openDialog(id , 1);
       this.router.navigateByUrl('/admin/animals/management');
     }, error => {
@@ -205,8 +205,8 @@ dataPrepare() {
   let formData = {
     "id": this.registerForm.get('idAnimal').value,
     "name": this.registerForm.get('name').value.trim(),
-    "type": this.registerForm.get('type').value.trim(),
-    "breed": this.registerForm.get('breed').value.trim(),
+    "type": +this.registerForm.get('type').value,
+    "breed": +this.registerForm.get('breed').value,
     "gender": this.registerForm.get('gender').value.trim(),
     "size": this.registerForm.get('size').value.trim(),
     "birth_date": this.dateToTimestamp(this.registerForm.get('birthDate').value),
@@ -240,7 +240,7 @@ dataPrepare() {
 
       this.animal = this.dataPrepare();
 
-      if (this.animal.user_id == null){
+      if (this.animal.user_id == null) {
         delete this.animal.user_id;
       }
 

@@ -1,9 +1,10 @@
 img {
-  width: 100%;
+  max-width: 100%;
+  height: auto;
 }
 
 .carouselContainer {
-  max-width: 800px;
+  width: 100%;
 }
 
 #imagenListar {

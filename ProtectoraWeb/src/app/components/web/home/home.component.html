@@ -1,14 +1,3 @@
-<!-- <div class="masthead">
-  <img src='assets/homeimg/{{imgBackground}}' alt="" >
-  <div class="container h-90">
-    <div class="row h-90">
-      <div class="col-12 text-center content">
-          <h1 class="font-weight-light">Bienvenidos a nuestra protectora</h1>
-      </div>
-    </div>
-  </div>
-</div> -->
-
 <ul id="menu">
   <li data-menuanchor="inicio"><a href="#inicio">Portada</a></li>
   <li data-menuanchor="noticias"><a href="#noticias">Noticias</a></li>
@@ -17,8 +6,7 @@
 
 <div fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
   
-  <div class="section masthead">
-    <img src='assets/homeimg/{{imgBackground}}' alt="animals" class="imgPrincipal">
+  <div class="section masthead imgPrincipal" [ngStyle]="{'background-image': 'url(assets/homeimg/' + imgBackground + ')'}">
     <div class="row">
       <div class="col-12 text-center content">
         <h1 class="font-weight-light">Bienvenidos a nuestra protectora</h1>
@@ -26,11 +14,11 @@
     </div>
   </div>
 
-  <div class="section masthead">
+  <div class="section">
     <div class="container">
       <div class="row text-center">
         <div class="col-12">
-          <h1 class="font-weight-light">Noticias</h1>
+          <h1 class="font-weight-light">Eventos</h1>
         </div>
       </div>
       <div class="row mt-3 px-5 news" *ngFor="let item of news">
@@ -40,8 +28,8 @@
             </div>
           </div>
           <div class="row mt-2">
-            <div class="col-12">
-              {{item.content}}
+            <div class="col-12 w-100">
+             <p class="w-100">{{item.content}}</p>  
             </div>
           </div>
           <div class="row mt-2 mb-2 w-100">
@@ -55,17 +43,17 @@
 
   <div class="section links animalLinks">
     <div class="row m-0 p-0 cathome imgBack">
-      <a href="" class="catLink">
+      <a href="" class="catLink" [routerLink]="['../animals/list', 1]">
         <h1>NUESTROS GATOS</h1>
       </a>
     </div>
-    <div class="row m-0 p-0 doghome imgBack">
+    <div class="row m-0 p-0 doghome imgBack" [routerLink]="" >
       <a href="" class="link">
         <h1>NUESTROS PERROS</h1>
       </a>
     </div>
     <div class="row m-0 p-0 othershome imgBack">
-      <a href="" class="link">
+      <a href="" class="link" [routerLink]="" >
         <h1>OTROS ANIMALES</h1>
       </a>
     </div>

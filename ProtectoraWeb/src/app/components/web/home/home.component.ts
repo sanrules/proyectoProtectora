@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NewsService } from '../../../_services/news/news-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,8 +19,8 @@ export class HomeComponent implements OnInit {
 
   news: any[];
 
-
-  constructor(private newsService: NewsService) {
+  constructor(private newsService: NewsService,
+              private router: Router) {
     this.config = {
 
       // fullpage options

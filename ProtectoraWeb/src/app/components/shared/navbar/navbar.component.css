@@ -1,8 +1,9 @@
 .navbar {
-  background-color: #0c92bba6;
+  background-color: #0c92bbda;
   z-index: 1000;
   width: 100vw;
   padding-left: 2em;
+  color: white;
 }
 
 .dropdown-menu,
@@ -10,6 +11,11 @@
   z-index: 5000;
 }
 
+.nav.navbar-nav.navbar-right li a {
+  color: white;
+}
+
 #navbarsExample04 {
   width: 100vw;
+  color: white;
 }

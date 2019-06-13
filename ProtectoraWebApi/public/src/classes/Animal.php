@@ -106,6 +106,18 @@ class Animal
     }
 
     /**
+     * Obtiene todos los animales según su tipo.
+     *
+     * @return array $animals array de Animal multidimensional recogido de la base de datos
+     */
+    public function retrieveAnimalByType()
+    {
+        $animal = R::find( 'animal', ' type = ? ', [$this->getType()]);
+
+        return $animal;
+    }
+
+    /**
      * Obtiene todos los animales de la base de datos en función a los parámetros pasados.
      *
      * @param  array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.

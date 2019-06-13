@@ -25,6 +25,10 @@ export class AnimalService {
     return this.http.post(`${this.baseURL}/animalGetById.php`, id, this.httpOptions);
   }
 
+  getAnimalByType(type) {
+    return this.http.post(`${this.baseURL}/animalGetByType.php`, type, this.httpOptions);
+  }
+
   // Da de alta un nuevo animal
   registerAnimal(data): Observable<any> {
     return this.http.post(`${this.baseURL}/animalInsert.php`, data, this.httpOptions);

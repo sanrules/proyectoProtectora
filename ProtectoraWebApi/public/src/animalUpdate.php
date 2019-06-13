@@ -21,19 +21,19 @@ try {
 
         // Validate & sanitize
         $id            = filter_var($request['id'], FILTER_SANITIZE_NUMBER_INT);
-        $name          = filter_var($request['name'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
-        $type          = filter_var($request['type'], FILTER_SANITIZE_STRING); // Se aceptarán perro, gato, otros
-        $breed         = filter_var($request['breed'], FILTER_SANITIZE_STRING); // Raza.
-        $gender        = filter_var($request['gender'], FILTER_SANITIZE_STRING); // Se aceptarán M y H (macho / hembra)
+        $name          = filter_var($request['name'], FILTER_SANITIZE_STRING);
+        $type          = filter_var($request['type'], FILTER_SANITIZE_NUMBER_INT); 
+        $breed         = filter_var($request['breed'], FILTER_SANITIZE_NUMBER_INT); 
+        $gender        = filter_var($request['gender'], FILTER_SANITIZE_STRING); 
         $size          = filter_var($request['size'], FILTER_SANITIZE_STRING);
-        $birth_date    = filter_var($request['birth_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
-        $entrance_date = filter_var($request['entrance_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
+        $birth_date    = filter_var($request['birth_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; 
+        $entrance_date = filter_var($request['entrance_date'], FILTER_SANITIZE_NUMBER_INT) / 1000;
         $adoption_date = isset($request['adoption_date']) ? filter_var($request['adoption_date'], FILTER_SANITIZE_NUMBER_INT) / 1000 : null;
-        $status        = filter_var($request['status'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
+        $status        = filter_var($request['status'], FILTER_SANITIZE_NUMBER_INT); 
         $description   = filter_var($request['description'], FILTER_SANITIZE_SPECIAL_CHARS);
 
         if ($status != 0) {
-            $userId = filter_var($request['user_id'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
+            $userId = filter_var($request['user_id'], FILTER_SANITIZE_NUMBER_INT); 
         } else {
             $userId = null;
         }

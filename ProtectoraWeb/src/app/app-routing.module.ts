@@ -35,7 +35,7 @@ const routes: Routes = [
   {path: 'admin/animals-breed/management', component: AnimalBreedManagementComponent, canActivate: [AuthGuard]},
   {path: 'admin/news/register', component: NewsRegisterComponent, canActivate: [AuthGuard]},
   {path: 'admin/news/management', component: NewsManagementComponent, canActivate: [AuthGuard]},
-  {path: 'animals/list', component: AnimalListComponent},
+  {path: 'animals/list/:type', component: AnimalListComponent},
   {path: 'animals/animal/:id', component: AnimalComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'home'}
 ];
