@@ -8,7 +8,7 @@ require_once '../../vendor/autoload.php';
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
-$logger = new Logger('animalGetByType');
+$logger = new Logger('animalGetByUser');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 $error = '';
 
@@ -18,8 +18,8 @@ try {
 
     if ($request) {
         $animal = new Animal();
-        $animal->setType($request);
-        $animalGet = $animal->retrieveAnimalByType();
+        $animal->setUserId($request);
+        $animalGet = $animal->retrieveAnimalByUser();
     }
 } catch (Exception $e) {
     $error = 'No se puede obtener el animal';
@@ -46,4 +46,3 @@ if ($error == '') {
 header('Content-type:application/json;charset=utf-8');
 echo json_encode($reply, JSON_UNESCAPED_UNICODE);
 
-// echo json_encode($animals);

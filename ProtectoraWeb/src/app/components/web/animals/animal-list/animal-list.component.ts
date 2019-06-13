@@ -14,6 +14,7 @@ export class AnimalListComponent implements OnInit {
   /* public animalList: Animal []; */
   public animalList: any[] = [];
   public animalType: any;
+  public from: string;
 
   constructor(private route: ActivatedRoute,
               private animalService: AnimalService,
@@ -24,11 +25,10 @@ export class AnimalListComponent implements OnInit {
 
     this.route.params.subscribe(type => {
       this.animalType = +type.type;
-
-      if (this.animalType === 0) {
-
-        this.animalService.getAnimals().subscribe(animals => {
-          this.animalList = animals.response;
+      this.from = 'list';
+      if (this.animalType !== 0) {
+        this.animalService.getAnimalByType(this.animalType).subscribe(animals => {
+          this.animalList = animals['response'];
 
           this.animalList.forEach(animal => {
             this.imgService.getImagesByAnimal(animal['id']).subscribe(imgAnimal => {
@@ -38,7 +38,7 @@ export class AnimalListComponent implements OnInit {
 
         });
       } else {
-        this.animalService.getAnimalByType(this.animalType).subscribe(animals => {
+        this.animalService.getAnimalByStatus(1).subscribe(animals => {
           this.animalList = animals['response'];
 
           this.animalList.forEach(animal => {

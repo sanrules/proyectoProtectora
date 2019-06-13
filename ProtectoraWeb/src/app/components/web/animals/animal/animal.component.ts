@@ -80,7 +80,7 @@ export class AnimalComponent implements OnInit {
       'birth_date': this.dateToTimestamp(this.animal.birth_date),
       'entrance_date': this.dateToTimestamp(this.animal.entrance_date),
       'adoption_date': null,
-      'status': 1,
+      'status': 2,
       'description': this.animal.description.trim(),
       'user_id': this.authService.userIdLogged(),
     };
@@ -116,8 +116,6 @@ export class AnimalComponent implements OnInit {
         },
         error => {
           console.log('Error: ', error);
-/*           this.animal.status = 0;
-          this.animal.user_id = null; */
           this.adoptError = true;
           this.openDialog();
         });

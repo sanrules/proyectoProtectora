@@ -119,6 +119,31 @@ class Animal
     }
 
     /**
+     * Obtiene todos los animales según su estado de adopición.
+     *
+     * @return array $animals array de Animal multidimensional recogido de la base de datos
+     */
+    public function retrieveAnimalByStatus()
+    {
+        $animals = R::getAll( 'SELECT * FROM animal WHERE status = :status',
+        [':status' => $this->getStatus()]);
+        return $animals;
+    }
+
+    /**
+     * Obtiene todos los animales adoptados por un usuario en concreto
+     *
+     * @return array $animals array de Animal multidimensional recogido de la base de datos
+     */
+    public function retrieveAnimalByUser()
+    {
+        $animals = R::getAll( 'SELECT * FROM animal WHERE user_id = :user_id',
+        [':user_id' => $this->getUserId()]);
+
+        return $animals;
+    }
+
+    /**
      * Obtiene todos los animales de la base de datos en función a los parámetros pasados.
      *
      * @param  array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.

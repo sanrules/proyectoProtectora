@@ -1,7 +1,7 @@
 <h1 align='center'>Lista de animales</h1>
 <div class="row container-fluid cardContainer">
   <div class="col-md-3" id='list'  *ngFor="let animal of animalList, let i = index">
-    <app-animal-card [animal]="animal" [index]="i" ></app-animal-card>
+    <app-animal-card [animal]="animal" [index]="i" [from]="from"></app-animal-card>
   </div>
 </div>
 

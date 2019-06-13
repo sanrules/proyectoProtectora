@@ -3,6 +3,7 @@ import { UserService } from '../../../../_services/user/user-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/_models/user.model';
 import { AuthService } from '../../../../_services/auth/auth.service';
+import { Animal } from 'src/app/_models/animal.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,7 +15,7 @@ export class UserProfileComponent implements OnInit {
   public user: User;
   public checkUser: any;
   public token: string;
-  public userData: User;
+  public userAnimals: Animal[];
   public page: string;
   public name: string;
 
@@ -33,7 +34,6 @@ export class UserProfileComponent implements OnInit {
 
       this.userService.getuserById(param.id).subscribe(userGet => {
         this.user = userGet['response'];
-        this.userData = this.user;
         this.name = this.user.name + ' ' + this.user.surname;
 
         this.authService.currentUser.subscribe(userProfile => {

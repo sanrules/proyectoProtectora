@@ -33,11 +33,14 @@
         </div>
       </div>
     </div>
-    <div class="col-md-8 mx-0 px-0 w-70" *ngIf="page === 'userUpdate'; else myAnimals">
-      <app-user-update [userData]="user"></app-user-update>
+
+    <div class="col-md-9 mx-0 px-0 w-100" *ngIf="page === 'userUpdate'; else myAnimals">
+      <app-user-update [user]="user"></app-user-update>
     </div>
     <ng-template #myAnimals>
-        <app-adopted-animals></app-adopted-animals>
+      <div class="col-md-9 mx-0 px-0 w-100">
+        <app-adopted-animals [userId]="user.id"></app-adopted-animals>
+      </div>
     </ng-template>
   </div>  
 </div>

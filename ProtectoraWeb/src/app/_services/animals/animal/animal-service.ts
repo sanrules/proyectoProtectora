@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -25,8 +25,19 @@ export class AnimalService {
     return this.http.post(`${this.baseURL}/animalGetById.php`, id, this.httpOptions);
   }
 
+  // Obtiene una lista de animales según su tipo
   getAnimalByType(type) {
     return this.http.post(`${this.baseURL}/animalGetByType.php`, type, this.httpOptions);
+  }
+
+  // Obtiene una lista de animales según su estado de adopción
+  getAnimalByStatus(status) {
+    return this.http.post(`${this.baseURL}/animalGetByStatus.php`, status, this.httpOptions);
+  }
+
+  // Obtiene una lista de animales adoptados por un usuario en concreto
+  getAnimalByUser(userId) {
+    return this.http.post(`${this.baseURL}/animalGetByUser.php`, userId, this.httpOptions);
   }
 
   // Da de alta un nuevo animal

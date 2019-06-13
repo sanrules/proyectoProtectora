@@ -9,12 +9,12 @@ import { User } from 'src/app/_models/user.model';
 export class UserUpdateComponent implements OnInit {
 
   public formType = 'userProfileUpdate';
-  @Input() userData: User;
+  @Input() user: User;
 
   constructor() { }
 
   ngOnInit() {
-    console.log('userDataProfileUpdate: ', this.userData);
+    console.log('userDataProfileUpdate: ', this.user);
   }
 
 }

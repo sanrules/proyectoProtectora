@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 
     @Input() animal: any = {};
     @Input() index: number;
+    @Input() from: string;
 
     public animales: Observable<any>;
 
@@ -19,7 +20,7 @@ import { Observable } from 'rxjs';
     }
 
     ngOnInit() {
-        this.animales = this.animalService.getAnimals();
+      this.animales = this.animalService.getAnimals();
     }
 
   }

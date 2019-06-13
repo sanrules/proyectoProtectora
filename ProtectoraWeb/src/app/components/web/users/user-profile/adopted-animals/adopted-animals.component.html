@@ -1,78 +1,16 @@
 
-<div class="row principal">
+<div class="row mt-2">
   <div class="col-md-12 text-center">
-      <h1>Modificar Perfil</h1>
-    </div>
-
-  <!-- https://bootsnipp.com/snippets/E701l -->
-  <div class="row services w-100">
-    <div class="col-md-6">
-      <figure class="snip1174 blue col-md-4">
-        <img src="https://images.pexels.com/photos/259803/pexels-photo-259803.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
-        <figcaption>
-          <h2>Hodor</h2>
-          <a href="#">VER</a>
-        </figcaption>
-      </figure>
-    </div>
-
-    <!-- https://bootsnipp.com/snippets/3Meen -->
-    <div class="grid col-md-6">
-      <figure class="effect-milo">
-        <img src="https://images.pexels.com/photos/259803/pexels-photo-259803.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
-        <figcaption>
-          <h2><span>Hodor</span></h2>
-          <p>Milo went to the woods. He took a fun ride and never came back.</p>
-          <a href="#">View more</a>
-        </figcaption>			
-      </figure>
-      <figure class="effect-milo">
-        <img src="https://images.pexels.com/photos/259803/pexels-photo-259803.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
-        <figcaption>
-          <h2><span>Hodor</span></h2>
-          <p>Milo went to the woods. He took a fun ride and never came back.</p>
-          <a href="#">View more</a>
-        </figcaption>			
-      </figure>
-    </div>
-
+    <h1>Tus animales</h1>
   </div>
-
-  <div class="row w-100">
-    <div class="col-md-6 grid">
-      <figure class="effect-ravi">
-        <img src="https://images.pexels.com/photos/259803/pexels-photo-259803.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="img12" />
-        <figcaption>
-          <div>
-            <h2>Rings</h2>
-            <p>Rings - Buy Rings Online for men & women at best price in India.</p>
-          </div>
-          <a href="#">View more</a>
-        </figcaption>
-      </figure>
-    </div>  
-
-
-
-    <div class="col-md-6">
-      <div class="thumbnail img-thumb-bg w-100">
-        <div class="overlay"></div>
-        <div class="caption">
-          <div class="title"><a href="#">Hodor</a></div>
-          <div class="content">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo nulla porro qui quo expedita voluptas ab iure dolore.</p>
-          </div>
-        </div>
-      </div>
+</div>
+  <div class="row container-fluid" *ngIf="animalList; else noAnimals">
+    <div class="col-md-3" id='list'  *ngFor="let animal of animalList, let i = index">
+      <app-animal-card [animal]="animal" [index]="i" [from]="from"></app-animal-card>
     </div>
   </div>
+  <ng-template #noAnimals>
+      No tiene ningún animal adoptado o pre-adoptado.
+  </ng-template>
 
   
-
-
-
-
-
-
-
-</div>

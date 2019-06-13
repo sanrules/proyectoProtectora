@@ -149,11 +149,11 @@
 
               <div>
                 <mat-radio-group aria-label="Selecciona un Estado" formControlName="status">
-                  <mat-radio-button value="0" ngDefaultControl> En adopción </mat-radio-button>
+                  <mat-radio-button value="1" ngDefaultControl> En adopción </mat-radio-button>
                   <br>
-                  <mat-radio-button value="1" ngDefaultControl> En proceso de adopción </mat-radio-button>
+                  <mat-radio-button value="2" ngDefaultControl> En proceso de adopción </mat-radio-button>
                   <br>
-                  <mat-radio-button value="2" ngDefaultControl> Adoptado </mat-radio-button>
+                  <mat-radio-button value="3" ngDefaultControl> Adoptado </mat-radio-button>
                 </mat-radio-group>
                 <mat-error *ngIf="registerForm.controls['status'].errors">
                   Estado requerido
