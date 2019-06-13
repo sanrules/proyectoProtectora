@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button mat-icon-button [matDialogClose]>
+          <i class="material-icons" style="color:red">close</i>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1 mat-dialog-title>Modificar animal</h1>
+    </div>
+    
+        <div class="col-md-12 text-center">
+          <mat-dialog-content>
+            <app-admin-animal-register #registerForm [formType]="formType" [animalData]="animalData"></app-admin-animal-register>
+          </mat-dialog-content>
+        </div>
+    
+  </div>
+</div>

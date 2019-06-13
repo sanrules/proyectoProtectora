@@ -1,0 +1,103 @@
+<div class="container" *ngIf="animal">
+  <div class="row">
+    <div class="jumbotron jumbotron-fluid col-md-12 mt-3">
+      <div class="container">
+        <h1 class="display-4 text-center">{{ animal.name }}</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card mb-3 w-100">
+      <div class="row no-gutters">
+        <div class="col-md-4" *ngIf="images">
+          <img [src]="images[0].image" class="card-img" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{animal.name}}</h5>
+
+            <div class="row">
+              <div class="col-md-4">
+                <p>Raza: </p>
+              </div>
+              <div class="col-md-4">
+                <p>{{animal.breed}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <p>Sexo: </p>
+              </div>
+              <div class="col-md-4">
+                <p>{{animal.gender}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <p>Fecha de Nacimiento: </p>
+              </div>
+              <div class="col-md-4">
+                <p>{{animal.birth_date}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <p>Fecha de Entrada: </p>
+              </div>
+              <div class="col-md-4">
+                <p>{{animal.entrance_date}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <p>Fecha de Entrada: </p>
+              </div>
+              <div class="col-md-4">
+                <p>{{animal.entrance_date}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="alert alert-success w-100 text-center" role="alert">
+                  <i class="material-icons">pets</i>
+                {{animal.status | animalStatusNamePipe}} 
+              </div>
+            </div>
+            <div class="row" *ngIf="animal.status == 0">
+              <div class="alert alert-success w-100 text-center" role="alert">
+                <button mat-raised-button color="primary" class="button" (click)="adoptAnimal(animalId)">Adoptar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row w-100">
+    <ngb-tabset class="w-100">
+      <ngb-tab title="Descripción">
+        <ng-template ngbTabContent>
+          <div class="col-md-12 mt-2">
+            <p>{{animal.description}}</p>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Imágenes">
+        <ng-template ngbTabContent>
+          <div class="col-md-12 my-5 text-center">
+            <app-animal-images [animalId]="animalId" [animalData]=animalData></app-animal-images>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Comentarios">
+        <ng-template ngbTabContent>
+          <div class="col-md-12 mt-2">
+           <app-comments [animalId]="animalId"></app-comments>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>  
+  </div>
+
+</div>

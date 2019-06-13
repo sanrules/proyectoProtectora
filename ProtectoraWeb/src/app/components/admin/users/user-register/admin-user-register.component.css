@@ -1,0 +1,30 @@
+.example-headers-align {
+	width: 100%!important;
+}
+
+.mat-form-field {
+	width: 100%;
+	margin-right: 12px;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.loading {
+	display: flex;
+	align-content: center;
+	align-items: center;
+}
+
+.submitBtn, .avatarBtn {
+	width: 100%;
+	background-color: #0c92bba6;
+}

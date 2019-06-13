@@ -1,0 +1,12 @@
+img {
+  width: 100%;
+}
+
+.carouselContainer {
+  max-width: 800px;
+}
+
+#imagenListar {
+	height:100px;
+	width: 100px;
+}

@@ -1,0 +1,21 @@
+<h1 align='center'>Lista de animales</h1>
+<div>Filtros
+  <input type="search" autofocus class="form-control py-0" placeholder="Buscar" [(ngModel)]="datosBuscar" (ngModelChange)="onModelChange()">
+</div>
+<div class="card-columns" id='list'>
+    <app-animal-card [animal]="animal" [index]="i" *ngFor="let animal of animalList, let i = index"></app-animal-card>
+</div>
+
+<!--   <h1 align='center'>Lista de animales</h1>
+
+  <div class="card-columns" id='list'>
+
+
+    <app-animal-card [animal]="animal" [index]="i" *ngFor="let animal of animalList, let i = index"></app-animal-card>
+
+</div>  
+
+    <app-animal-card [dato]="animal" [index]="i" *ngFor="let animal of animales, let i = index">
+    </app-animal-card>
+  </div> -->
+

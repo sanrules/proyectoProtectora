@@ -1,0 +1,45 @@
+<!-- <div class="container-fluid">
+    <div class="row">
+      <div class="col-11">
+        <h1 mat-dialog-title>Acceder</h1>
+      </div>
+      <div class="col-1 close">
+        <button mat-icon-button [matDialogClose]>
+          <i class="material-icons" style="color:red">close</i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container text-center"> -->
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="row">
+        <div class="form-group col-12">
+          <mat-form-field>
+            <input matInput placeholder="Correo Electrónico" type="text" formControlName="email" id="email" >
+            <mat-error *ngIf="loginForm.controls['email'].errors">
+              Tienes que introducir un correo electrónico válido.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-12">
+          <mat-form-field>
+            <input matInput placeholder="Contraseña" type="password" formControlName="password" id="password" >
+            <mat-error *ngIf="loginForm.controls['password'].errors">
+              Para acceder hace falta la contraseña.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row text-center" *ngIf="invalidLogin">
+        <div class="col-12 alert alert-danger invalid" *ngIf="invalidLogin">
+          Usuario o contraseña inválidos.
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="form-group col-12">
+            <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Aceptar</button>
+            <button mat-raised-button color="warn" [matDialogClose]>Cancelar</button>
+          </div>
+      </div>
+    </form>
+<!--   </div> -->

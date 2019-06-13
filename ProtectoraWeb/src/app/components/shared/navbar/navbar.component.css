@@ -1,0 +1,15 @@
+.navbar {
+  background-color: #0c92bba6;
+  z-index: 1000;
+  width: 100vw;
+  padding-left: 2em;
+}
+
+.dropdown-menu,
+.dropdown-item {
+  z-index: 5000;
+}
+
+#navbarsExample04 {
+  width: 100vw;
+}

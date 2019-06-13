@@ -1,0 +1,215 @@
+<div class="container">
+<form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
+    <mat-horizontal-stepper #stepper formArrayName="formArray" [linear]="isLinear">
+      <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+        <ng-template matStepLabel>Datos de usuario</ng-template>
+        <div class="row">
+          <div class="col-md-6 imageAside"></div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <input matInput placeholder="Nombre de Usuario" type="text" formControlName="userName" id="userName" >
+                  <mat-error>
+                    Nombre de usuario requerido: min 4 caracteres.
+                    Mayúsculas, minúsculas, números, -, _
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <input matInput placeholder="Contraseña" type="password" formControlName="password" id="password" >
+                  <mat-error>
+                    Contraseña requerida: min 6 caracteres, debe contener minúscula, mayúscula, número y símbolo
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <input matInput placeholder="Correo Electrónico" type="text" formControlName="email" id="email" >
+                  <mat-error>
+                    Email requerido: Formato: ejemplo@email.com
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5 text-right">
+          <button mat-button matStepperNext type="button">Siguiente</button>
+        </div>
+      </mat-step>
+
+      <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
+        <ng-template matStepLabel>Datos Personales</ng-template>
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="Nombre" type="text" formControlName="name" id="name">
+                  <mat-error>
+                    Nombre requerido
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="Apellidos" type="text" formControlName="surname" id="surname" >
+                  <mat-error>
+                    Apellido requerido
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="DNI" type="dni" formControlName="dni" id="dni" >
+                  <mat-error>
+                    DNI requerido: Formato: 12345678L
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="Teléfono" type="number" formControlName="phone" id="phone" >
+                  <mat-error>
+                    Número de teléfono requerido: 9 números
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <input matInput [matDatepicker]="picker" placeholder="Fecha de Nacimiento" (click)="picker.open()" formControlName="birthDate" readonly="true" [max]="maxDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error>
+                    Fecha de Nacimiento requerida en formato DD/MM/AAAA
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>  
+        <div class="mt-5 text-right">
+          <button mat-button matStepperPrevious type="button">Anterior</button>
+          <button mat-button matStepperNext type="button">Siguiente</button>
+        </div>
+      </mat-step>
+
+      <mat-step formGroupName="2" [stepControl]="formArray?.get([2])">
+          <ng-template matStepLabel>Dirección</ng-template>
+          <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field>
+                    <input matInput placeholder="Calle" type="text" formControlName="street" id="street">
+                    <mat-error>
+                        Calle requerido
+                      </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <input matInput placeholder="Número" type="number" formControlName="number" id="number">
+                    <mat-error>
+                        Número de la calle requerido.
+                      </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <input matInput placeholder="Portal" type="text" formControlName="portal" id="portal">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <input matInput placeholder="Piso" type="number" formControlName="floor" id="floor">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <input matInput placeholder="Puerta" type="text" formControlName="door" id="door">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-form-field>
+                      <input matInput placeholder="Provincia" type="text" formControlName="province" id="province">
+                      <mat-error>
+                          Provincia requerido.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                    <input matInput placeholder="Ciudad" type="text" formControlName="city" id="city">
+                    <mat-error>
+                        Ciudad requerido.
+                      </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field>
+                      <input matInput placeholder="Código Postal" type="text" formControlName="postalCode" id="postalCode">
+                    <mat-error>
+                        Código Postal requerido.
+                      </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="mt-5 text-right">
+          <button mat-button matStepperPrevious type="button">Anterior</button>
+          <button mat-button matStepperNext type="button">Siguiente</button>
+        </div>
+      </mat-step>
+
+      <mat-step formGroupName="3" [stepControl]="formArray?.get([3])">
+        <ng-template matStepLabel>Enviar</ng-template>
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Imagen de Perfil (opcional)</h5>
+            <div class="row">
+              <div class="col-md-12">
+                <button mat-raised-button color="primary" class="avatarBtn" type="button" (click)="openInput()">Avatar</button>
+                <input hidden type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg">
+                <input type="hidden" formControlName="imgUrl" id="imgUrl" [value]="urlImage">
+              </div>
+              <div class="col-md-12 mt-3">
+                <mat-progress-bar mode="determinate" [value]="uploadPercent | async"></mat-progress-bar>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h5>Enviar Formulario</h5>
+            <div class="row">
+              <div class="col-md-12">
+                <button mat-raised-button color="primary" [disabled]="!registerForm.valid" class="btnRegister">Registrar Usuario</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="mt-5 text-right">
+            <button mat-button matStepperPrevious type="button">Anterior</button>
+          </div>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+    </form>
+  </div>

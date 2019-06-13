@@ -1,0 +1,52 @@
+<app-administrator-navbar></app-administrator-navbar>
+
+<div class="container">
+  <div class="mat-elevation-z18">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- ID -->
+      <ng-container matColumnDef="id" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID noticia </th>
+        <td mat-cell *matCellDef="let news"> {{news.id}} </td>
+      </ng-container>
+
+      <!-- Nombre de Usuario -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre noticia </th>
+        <td mat-cell *matCellDef="let news"> {{news.name}} </td>
+      </ng-container>
+
+      <!-- Nombre de Usuario -->
+      <ng-container matColumnDef="newsDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha noticia </th>
+        <td mat-cell *matCellDef="let news"> {{news.date}} </td>
+      </ng-container>
+
+      
+      <!-- Acceder -->
+      <ng-container matColumnDef="acces">
+        <th mat-header-cell *matHeaderCellDef> Modificar </th>
+        <td mat-cell *matCellDef="let news">
+          <button mat-icon-button color="accent" (click)="openModal(news)">
+            <mat-icon class="mat-18">system_update</mat-icon>
+        </button>
+        </td>
+      </ng-container>
+
+      <!-- Eliminar -->
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+        <td mat-cell *matCellDef="let news">
+            <button mat-icon-button color="warn" (click)="deleteNew(news.id)">
+                <mat-icon class="mat-18">delete</mat-icon>
+            </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

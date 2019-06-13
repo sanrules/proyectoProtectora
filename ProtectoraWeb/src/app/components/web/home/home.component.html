@@ -1,0 +1,73 @@
+<!-- <div class="masthead">
+  <img src='assets/homeimg/{{imgBackground}}' alt="" >
+  <div class="container h-90">
+    <div class="row h-90">
+      <div class="col-12 text-center content">
+          <h1 class="font-weight-light">Bienvenidos a nuestra protectora</h1>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<ul id="menu">
+  <li data-menuanchor="inicio"><a href="#inicio">Portada</a></li>
+  <li data-menuanchor="noticias"><a href="#noticias">Noticias</a></li>
+  <li data-menuanchor="enlaces"><a href="#enlaces">Enlaces</a></li>
+</ul>
+
+<div fullpage id="fullpage" [options]="config" (ref)="getRef($event)">
+  
+  <div class="section masthead">
+    <img src='assets/homeimg/{{imgBackground}}' alt="animals" class="imgPrincipal">
+    <div class="row">
+      <div class="col-12 text-center content">
+        <h1 class="font-weight-light">Bienvenidos a nuestra protectora</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="section masthead">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-12">
+          <h1 class="font-weight-light">Noticias</h1>
+        </div>
+      </div>
+      <div class="row mt-3 px-5 news" *ngFor="let item of news">
+          <div class="row mt-2">
+            <div class="col-12">
+              <h2>{{item.name}}</h2>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-12">
+              {{item.content}}
+            </div>
+          </div>
+          <div class="row mt-2 mb-2 w-100">
+            <div class="col-12 dateNews">
+              {{item.date}}
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section links animalLinks">
+    <div class="row m-0 p-0 cathome imgBack">
+      <a href="" class="catLink">
+        <h1>NUESTROS GATOS</h1>
+      </a>
+    </div>
+    <div class="row m-0 p-0 doghome imgBack">
+      <a href="" class="link">
+        <h1>NUESTROS PERROS</h1>
+      </a>
+    </div>
+    <div class="row m-0 p-0 othershome imgBack">
+      <a href="" class="link">
+        <h1>OTROS ANIMALES</h1>
+      </a>
+    </div>
+  </div>
+</div>

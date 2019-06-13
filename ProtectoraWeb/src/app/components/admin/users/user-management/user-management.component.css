@@ -1,0 +1,16 @@
+table {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.matRow:hover {
+  background-color: rgba(66, 123, 255, 0.5);
+}
+
+button:focus {outline:0;}
