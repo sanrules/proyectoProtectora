@@ -81,3 +81,6 @@
 [2019-06-10 18:38:41] userInsert.ERROR: Usuario ya existe en la bbdd.  [] []
 [2019-06-10 18:38:41] userInsert.ERROR: Usuario ya existe en la bbdd. Error al registrar el usuario.  [] []
 [2019-06-10 18:38:41] userInsert.INFO: Error: Usuario ya existe en la bbdd. Error al registrar el usuario.  [] []
+[2019-06-13 14:39:15] userInsert.ERROR: Usuario ya existe en la bbdd.  [] []
+[2019-06-13 14:39:15] userInsert.ERROR: Usuario ya existe en la bbdd. Error al registrar el usuario.  [] []
+[2019-06-13 14:39:15] userInsert.INFO: Error: Usuario ya existe en la bbdd. Error al registrar el usuario.  [] []

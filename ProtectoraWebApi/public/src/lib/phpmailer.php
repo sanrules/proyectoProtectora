@@ -13,7 +13,7 @@ function sendMail($user)
 
     var_dump($user);
 
-    $url = "protectoraweb.com";
+    $url = "http://protectoraweb.com";
 
     $message = <<<EMAIL
     <!DOCTYPE html>
@@ -21,15 +21,16 @@ function sendMail($user)
     </head>
     <body>
         <div style='margin: 1em; width: 50em;'>
+        <img style='float:right; width: 50px; height:50px' src='https://i.gifer.com/embedded/download/19wY.gif'>
             <h1 align='center'> Bienvenido a Protectora Web </h1>
             <div class='head' align='center' style="border:1px solid black; margin-bottom: 0.2em; font-weight: bold; font-size: 20px;"> Hola $name </div>
             <div class='main' style="padding: 0.5em; text-align: justify;">
                 Muchas gracias por registrarte en nuestra protectora y con ello, empezar a formar parte de esta gran familia de amantes de los animales.
                 <br><br>
                 Aquí tienes el nombre de usuario con el que te registraste: <b> $username </b>
-                <h4> Enamórate un poquito de alguno de nosotros: $url </h4>
+                <h4> Enam&oacuterate un poquito de alguno de nosotros: $url </h4>
                 <h3 align='center'> PROTECTORA WEB </h3>
-                <img src='https://cdn.pixabay.com/photo/2015/11/16/14/43/cat-1045782_1280.jpg'>
+                <img align=center style='width:800px; height:300px;' src='https://cdn.designcrowd.com/blog/2015/October/catty-designs/GR_NationalCatDay_Banner_828x300.png'>
             </div>
         </div>
     </body>
