@@ -10,12 +10,8 @@ function sendMail($user)
     $name     = $user->getName();
     $username = $user->getUsername();
     $receiver = $user->getEmail();
-
-    var_dump($user);
-
-    $url = "http://protectoraweb.com";
-
-    $message = <<<EMAIL
+    $url      = "http://protectoraweb.com";
+    $message  = <<<EMAIL
     <!DOCTYPE html>
     <head>
     </head>
@@ -35,15 +31,7 @@ function sendMail($user)
         </div>
     </body>
 EMAIL;
-
-    $alt = <<<EMAIL
-    Hola $name. Muchas gracias por registrarte en nuestra protectora y con ello, empezar a formar parte de esta gran familia de amantes de los animales. Aquí tienes el nombre de usuario con el que te registraste:  $username.
-    Enamórate un poquito de alguno de nosotros: $url
-    PROTECTORA WEB
-EMAIL;
-
     // PHPMAILER
-
     $mail = new PHPMailer(true);
 
     $mail->isSMTP();

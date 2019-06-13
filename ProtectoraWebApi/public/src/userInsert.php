@@ -11,6 +11,7 @@ $logger = new Logger('userInsert');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 $error = '';
+$user  = new User();
 
 try {
     $postdata = file_get_contents("php://input");
@@ -42,7 +43,7 @@ try {
 
             $password = password_hash($password, PASSWORD_BCRYPT);
 
-            $user = new User();
+            //$user = new User();
             $user->createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar);
 
             try {
@@ -57,9 +58,7 @@ try {
 
             $user->insertUser();
             $error = '';
-            ChromePhp::log('antes del mail');
             sendMail($user);
-            ChromePhp::log('despues del mail');
         } else {
             $error .= 'Email, nombre de usuario o dni ya dados de alta en la BBDD. ';
             $logger->error($error);
@@ -72,14 +71,12 @@ try {
 }
 
 if ($error == '') {
-    ChromePhp::log('Entra en OK', $user->getIdUser());
     $reply = array(
         'status'   => 'OK',
         'response' => $user->getIdUser(),
     );
     http_response_code(200); // 200 OK
 } else {
-    ChromePhp::log('Entra en ERROR');
     $reply = array(
         'status' => 'Error',
         'error'  => $error,
