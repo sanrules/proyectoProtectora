@@ -1,4 +1,5 @@
 <?php
+
 require_once '../../vendor/autoload.php';
 require_once 'classes/News.php';
 
@@ -17,16 +18,16 @@ try {
 
     if ($request) {
         // Validate & sanitize
-        $id            = filter_var($request['id'], FILTER_SANITIZE_NUMBER_INT);
-        $name          = filter_var($request['name'], FILTER_SANITIZE_STRING);
-        $content          = filter_var($request['content'], FILTER_SANITIZE_STRING); 
+        $id              = filter_var($request['id'], FILTER_SANITIZE_NUMBER_INT);
+        $name            = filter_var($request['name'], FILTER_SANITIZE_STRING);
+        $content         = filter_var($request['content'], FILTER_SANITIZE_STRING);
         $publicationDate = filter_var($request['publicationDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
-      
+
         if ($id != '' || $name != '' || $content != '' || $publicationDate != '') {
 
-            $publicationDate    = new DateTime("@$publicationDate");
-            $publicationDate    = $publicationDate->format("Y-m-d H:i:s");
-            
+            $publicationDate = new DateTime("@$publicationDate");
+            $publicationDate = $publicationDate->format("Y-m-d H:i:s");
+
             $newupdate = new News();
             $newupdate->createNews($name, $content, $publicationDate);
             $newupdate->set_id($id);
