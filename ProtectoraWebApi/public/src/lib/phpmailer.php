@@ -59,7 +59,7 @@ EMAIL;
     $mail->addAddress($receiver, 'Receiver Name');
     $mail->Subject = 'Bienvenido a Protectora Web';
     $mail->msgHTML($message);
-    $mail->AltBody($alt);
+    // $mail->AltBody($alt);
 
     if (!$mail->send()) {
         echo "Mailer Error: " . $mail->ErrorInfo;
