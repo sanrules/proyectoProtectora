@@ -10,17 +10,15 @@ function sendMail($user)
     $name     = $user->getName();
     $username = $user->getUsername();
     $receiver = $user->getEmail();
-
-    var_dump($user);
-
-    $url = "protectoraweb.com";
-
-    $message = <<<EMAIL
+    $url      = "http://protectoraweb.com";
+    $message  = <<<EMAIL
     <!DOCTYPE html>
+    <html lang="es">
     <head>
     </head>
     <body>
         <div style='margin: 1em; width: 50em;'>
+        <img style='float:right; width: 50px; height:50px' src='https://i.gifer.com/embedded/download/19wY.gif'>
             <h1 align='center'> Bienvenido a Protectora Web </h1>
             <div class='head' align='center' style="border:1px solid black; margin-bottom: 0.2em; font-weight: bold; font-size: 20px;"> Hola $name </div>
             <div class='main' style="padding: 0.5em; text-align: justify;">
@@ -29,20 +27,12 @@ function sendMail($user)
                 Aquí tienes el nombre de usuario con el que te registraste: <b> $username </b>
                 <h4> Enamórate un poquito de alguno de nosotros: $url </h4>
                 <h3 align='center'> PROTECTORA WEB </h3>
-                <img src='https://cdn.pixabay.com/photo/2015/11/16/14/43/cat-1045782_1280.jpg'>
+                <img align=center style='width:800px; height:300px;' src='https://cdn.designcrowd.com/blog/2015/October/catty-designs/GR_NationalCatDay_Banner_828x300.png'>
             </div>
         </div>
     </body>
 EMAIL;
-
-    $alt = <<<EMAIL
-    Hola $name. Muchas gracias por registrarte en nuestra protectora y con ello, empezar a formar parte de esta gran familia de amantes de los animales. Aquí tienes el nombre de usuario con el que te registraste:  $username.
-    Enamórate un poquito de alguno de nosotros: $url
-    PROTECTORA WEB
-EMAIL;
-
     // PHPMAILER
-
     $mail = new PHPMailer(true);
 
     $mail->isSMTP();

@@ -21,7 +21,6 @@ try {
         $text     = filter_var($request['text'], FILTER_SANITIZE_STRING);
 
         if ($animalId != '' || $userId != '' || $date != '' || $text != '') {
-
             $date = new DateTime("@$date");
             $date->format("Y-m-d H:i:s");
 

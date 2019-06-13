@@ -10,7 +10,6 @@ $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 $error = '';
 
 try {
-
     $animal  = new Animal();
     $animals = $animal->retrieveAnimalAll();
 } catch (Exception $e) {

@@ -1,5 +1,4 @@
 <?php
-
 require_once '../../vendor/autoload.php';
 require_once 'classes/Animal.php';
 
@@ -25,6 +24,8 @@ try {
         $type          = filter_var($request['type'], FILTER_SANITIZE_NUMBER_INT); 
         $breed         = filter_var($request['breed'], FILTER_SANITIZE_NUMBER_INT); 
         $gender        = filter_var($request['gender'], FILTER_SANITIZE_STRING); 
+
+
         $size          = filter_var($request['size'], FILTER_SANITIZE_STRING);
         $birth_date    = filter_var($request['birth_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; 
         $entrance_date = filter_var($request['entrance_date'], FILTER_SANITIZE_NUMBER_INT) / 1000;
@@ -39,7 +40,6 @@ try {
         }
 
         if ($name != '' || $type != '' || $breed != '' || $gender != '' || $birth_date != '' || $entrance_date != '' || $status != '' || $description != '') {
-
             if ($status == 0) {
                 $adoption_date = null;
             }
@@ -61,13 +61,11 @@ try {
             if ($userId != null) {
                 $animalupdate->setUserId($userId);
                 $animalupdate->updateAnimal(true);
-
             } else {
                 $animalupdate->updateAnimal(false);
             }
         }
     }
-
 } catch (Exception $e) {
     $logger->error('Error al recoger todos los animales');
 }

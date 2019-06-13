@@ -23,12 +23,10 @@ try {
 
         // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($name != '') {
-
             $animalBreed = new AnimalBreed();
             $animalBreed->createAnimalBreed($name, $idtype);
 
             $animalBreed->insertAnimalBreed();
-
         }
     }
 } catch (Exception $e) {

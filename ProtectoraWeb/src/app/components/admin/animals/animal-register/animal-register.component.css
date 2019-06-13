@@ -29,3 +29,19 @@ img{
 	height: 50px;
 	width: 100px;
 }
+#imagenListar {
+	height: 108px;
+  width: 192px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 0.5px solid black;
+  margin: 20px;
+}
+#delete {
+  position: relative;
+  float: right;
+}
+#icon {
+  border: 0.3 solid black;
+}

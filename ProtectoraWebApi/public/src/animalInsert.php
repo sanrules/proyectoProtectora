@@ -1,5 +1,4 @@
 <?php
-
 require_once 'classes/Animal.php';
 require_once '../../vendor/autoload.php';
 
@@ -20,6 +19,7 @@ try {
         $vStatus = ['adoptado', 'pre-adoptado', 'en adopción'];
 
         // Validate & sanitize
+
         $name          = filter_var($request['name'], FILTER_SANITIZE_STRING); 
         $type          = filter_var($request['type'], FILTER_SANITIZE_NUMBER_INT); 
         $breed         = filter_var($request['breed'], FILTER_SANITIZE_NUMBER_INT); 
