@@ -16,7 +16,6 @@ try {
     $request  = json_decode($postdata, true);
     ChromePhp::log("request", $request);
     if ($request) {
-
         $id     = filter_var($request['id'], FILTER_SANITIZE_NUMBER_INT);
         $images = $request['images'];
     }
@@ -36,7 +35,6 @@ if ($error == '') {
         'response' => $images,
     );
     http_response_code(200); // 200 OK
-    
 }
 
 header('Content-type:application/json;charset=utf-8');

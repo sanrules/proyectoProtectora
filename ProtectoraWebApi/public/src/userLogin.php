@@ -13,7 +13,6 @@ $logger = new Logger('userLogin');
 $logger->pushHandler(new StreamHandler('lib/app.log', Logger::DEBUG));
 
 if ($request) {
-
     $email    = filter_var($request['email'], FILTER_SANITIZE_STRING);
     $password = filter_var($request['password'], FILTER_SANITIZE_STRING);
     //$password  = password_hash($password, PASSWORD_BCRYPT);

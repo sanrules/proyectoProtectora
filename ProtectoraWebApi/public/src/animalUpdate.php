@@ -1,5 +1,4 @@
 <?php
-
 require_once '../../vendor/autoload.php';
 require_once 'classes/Animal.php';
 
@@ -21,7 +20,7 @@ try {
 
         // Validate & sanitize
         $id            = filter_var($request['id'], FILTER_SANITIZE_NUMBER_INT);
-        $name          = filter_var($request['name'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
+        $name          = filter_var($request['name'], FILTER_SANITIZE_STRING);
         $type          = filter_var($request['type'], FILTER_SANITIZE_STRING); // Se aceptarán perro, gato, otros
         $breed         = filter_var($request['breed'], FILTER_SANITIZE_STRING); // Raza.
         $gender        = filter_var($request['gender'], FILTER_SANITIZE_STRING); // Se aceptarán M y H (macho / hembra)
@@ -29,7 +28,7 @@ try {
         $birth_date    = filter_var($request['birth_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
         $entrance_date = filter_var($request['entrance_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
         $adoption_date = isset($request['adoption_date']) ? filter_var($request['adoption_date'], FILTER_SANITIZE_NUMBER_INT) / 1000 : null;
-        $status        = filter_var($request['status'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
+        $status        = filter_var($request['status'], FILTER_SANITIZE_NUMBER_INT);
         $description   = filter_var($request['description'], FILTER_SANITIZE_SPECIAL_CHARS);
 
         if ($status != 0) {
@@ -39,7 +38,6 @@ try {
         }
 
         if ($name != '' || $type != '' || $breed != '' || $gender != '' || $birth_date != '' || $entrance_date != '' || $status != '' || $description != '') {
-
             if ($status == 0) {
                 $adoption_date = null;
             }
@@ -61,13 +59,11 @@ try {
             if ($userId != null) {
                 $animalupdate->setUserId($userId);
                 $animalupdate->updateAnimal(true);
-
             } else {
                 $animalupdate->updateAnimal(false);
             }
         }
     }
-
 } catch (Exception $e) {
     $logger->error('Error al recoger todos los animales');
 }

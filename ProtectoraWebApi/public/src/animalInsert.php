@@ -1,5 +1,4 @@
 <?php
-
 require_once 'classes/Animal.php';
 require_once '../../vendor/autoload.php';
 
@@ -20,15 +19,15 @@ try {
         $vStatus = ['adoptado', 'pre-adoptado', 'en adopción'];
 
         // Validate & sanitize
-        $name          = filter_var($request['name'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
-        $type          = filter_var($request['type'], FILTER_SANITIZE_STRING); // Se aceptarán perro, gato, otros
-        $breed         = filter_var($request['breed'], FILTER_SANITIZE_STRING); // Raza.
+        $name          = filter_var($request['name'], FILTER_SANITIZE_STRING);
+        $type          = filter_var($request['type'], FILTER_SANITIZE_STRING);
+        $breed         = filter_var($request['breed'], FILTER_SANITIZE_STRING);
         $gender        = filter_var($request['gender'], FILTER_SANITIZE_STRING);
-        $size          = filter_var($request['size'], FILTER_SANITIZE_STRING); // Se aceptarán M y H (macho / hembra)
-        $birth_date    = filter_var($request['birth_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
-        $entrance_date = filter_var($request['entrance_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
-        $adoption_date = filter_var($request['adoption_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Si no existe, será 1/1/1970
-        $status        = filter_var($request['status'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
+        $size          = filter_var($request['size'], FILTER_SANITIZE_STRING);
+        $birth_date    = filter_var($request['birth_date'], FILTER_SANITIZE_NUMBER_INT) / 1000;
+        $entrance_date = filter_var($request['entrance_date'], FILTER_SANITIZE_NUMBER_INT) / 1000;
+        $adoption_date = filter_var($request['adoption_date'], FILTER_SANITIZE_NUMBER_INT) / 1000;
+        $status        = filter_var($request['status'], FILTER_SANITIZE_NUMBER_INT);
         $description   = filter_var($request['description'], FILTER_SANITIZE_SPECIAL_CHARS);
 
         // Comprobamos que todo viene con datos. Si no, se devolverá al formulario

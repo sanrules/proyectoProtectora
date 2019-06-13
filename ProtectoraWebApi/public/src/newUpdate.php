@@ -1,5 +1,4 @@
 <?php
-
 require_once '../../vendor/autoload.php';
 require_once 'classes/News.php';
 
@@ -24,7 +23,6 @@ try {
         $publicationDate = filter_var($request['publicationDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
 
         if ($id != '' || $name != '' || $content != '' || $publicationDate != '') {
-
             $publicationDate = new DateTime("@$publicationDate");
             $publicationDate = $publicationDate->format("Y-m-d H:i:s");
 
@@ -34,7 +32,6 @@ try {
             $newupdate->updateNew();
         }
     }
-
 } catch (Exception $e) {
     $logger->error('Error al recoger la noticia');
 }

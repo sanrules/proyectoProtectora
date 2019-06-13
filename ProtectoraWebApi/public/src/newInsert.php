@@ -21,10 +21,8 @@ try {
         $content = filter_var($request['content'], FILTER_SANITIZE_STRING);
         $date    = filter_var($request['publicationDate'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
 
-
         // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($name != '' || $content != '' || $date != '') {
-
             $date = new DateTime("@$date");
             $date = $date->format("Y-m-d H:i:s");
 

@@ -7,6 +7,7 @@ require_once '../../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+
 $error = '';
 
 $logger = new Logger('animalTypeInsert');
@@ -17,7 +18,6 @@ try {
     $request  = json_decode($postdata, true);
 
     if ($request) {
-
         // Validate & sanitize
         $name = filter_var($request['name'], FILTER_SANITIZE_STRING); // Cualquier nombre sin caracteres especiales
 

@@ -37,7 +37,6 @@ try {
         $avatar     = $request['avatar'];
 
         if ($username != '' || $password != '' || $email != '' || $name != '' || $surname != '' || $dni != '' || $phone != '' || $birthDate != '' || $street != '' || $number != '' || $portal != '' || $floor != '' || $door != '' || $province != '' || $city != '' || $postalCode != '' || $userType != '') {
-
             $birthDate = new DateTime("@$birthDate");
             $birthDate->format("Y-m-d H:i:s");
 

@@ -34,5 +34,3 @@ if ($error == '') {
 
 echo json_encode($reply, JSON_UNESCAPED_UNICODE);
 // header('Content-Type: application/json');
-
-
