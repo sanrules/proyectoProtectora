@@ -1,6 +1,6 @@
 <?php
 require_once 'lib/RedBean/rb.php';
-include 'lib/ChromePhp.php';
+require 'lib/ChromePhp.php';
 
 // ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -23,8 +23,8 @@ class News
     /**
      * Crea una noticia.
      *
-     * @param mixed $_name
-     * @param mixed $_idtype
+     * @param  mixed $_name
+     * @param  mixed $_idtype
      * @return void
      */
     public function createNews($name, $content, $date)
@@ -52,12 +52,12 @@ class News
         $this->_id = $id;
     }
 
-/**
- * Obtiene una raza de la base de datos en base a su id.
- *
- * @param int $id ID del animal
- * @return Animal $animal animal recogido de la base de datos
- */
+    /**
+     * Obtiene una raza de la base de datos en base a su id.
+     *
+     * @param  int $id ID del animal
+     * @return Animal $animal animal recogido de la base de datos
+     */
     public function retrieveNew($id)
     {
         $news = R::load('news', $id);
@@ -65,11 +65,11 @@ class News
         return $news;
     }
 
-/**
- * Obtiene todas las razas de la base de datos.
- *
- * @return Array $animals array de Animal multidimensional recogido de la base de datos
- */
+    /**
+     * Obtiene todas las razas de la base de datos.
+     *
+     * @return Array $animals array de Animal multidimensional recogido de la base de datos
+     */
     public function retrieveAllNews()
     {
         $news = R::getAll('select * from news');
@@ -77,12 +77,12 @@ class News
         return $news;
     }
 
-/**
- * Obtiene todos las razas de la base de datos en función a los parámetros pasados.
- *
- * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
- * @return Array $animals array de Animal multidimensional recogido de la base de datos
- */
+    /**
+     * Obtiene todos las razas de la base de datos en función a los parámetros pasados.
+     *
+     * @param  array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+     * @return Array $animals array de Animal multidimensional recogido de la base de datos
+     */
     public function retrieveNewParams($params)
     {
         $num = count($params);
@@ -99,11 +99,12 @@ class News
         return $animalTypes;
     }
 
-/**
- * Actualiza un animal de la base de datos
- * @param int $id ID del animal
- * @param Animal $updated_animal animal con los datos actualizados
- */
+    /**
+     * Actualiza un animal de la base de datos
+     *
+     * @param int    $id             ID del animal
+     * @param Animal $updated_animal animal con los datos actualizados
+     */
     public function updateNew()
     {
         $oldNew = R::load('news', $this->get_id());
@@ -118,19 +119,21 @@ class News
         R::store($oldNew);
     }
 
-/**
- * Borra un animal de la base de datos
- * @param Animal $animal animal a borrar
- */
-public function deleteNew($id)
-{
-    $new = R::load('news', $id);
-    R::trash($new);
-}
+    /**
+     * Borra un animal de la base de datos
+     *
+     * @param Animal $animal animal a borrar
+     */
+    public function deleteNew($id)
+    {
+        $new = R::load('news', $id);
+        R::trash($new);
+    }
 
     /**
      * Obtiene todos los animales de la base de datos en función a unos parámetros.
-     * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+     *
+     * @param  array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
      * @return array $users array de user obtenido de la bbdd
      */
     public function getSpecificAnimal($params)
@@ -153,7 +156,7 @@ public function deleteNew($id)
     /**
      * Set the value of _id
      *
-     * @return  self
+     * @return self
      */
     public function set_id($_id)
     {
@@ -173,7 +176,7 @@ public function deleteNew($id)
     /**
      * Set the value of _name
      *
-     * @return  self
+     * @return self
      */
     public function set_name($_name)
     {
@@ -193,7 +196,7 @@ public function deleteNew($id)
     /**
      * Set the value of _name
      *
-     * @return  self
+     * @return self
      */
     public function set_content($_content)
     {
@@ -213,7 +216,7 @@ public function deleteNew($id)
     /**
      * Set the value of _name
      *
-     * @return  self
+     * @return self
      */
     public function set_date($_date)
     {

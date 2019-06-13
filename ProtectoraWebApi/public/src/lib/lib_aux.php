@@ -4,8 +4,10 @@
  * que tratan datos genéricos y son susceptibles de ser usadas en más de una ocasión
  */
 
-/** Comprueba si una fecha está en un formato válido y además existe en el calendario
- * @param date $date fecha en formato j/m/Y
+/**
+ * Comprueba si una fecha está en un formato válido y además existe en el calendario
+ *
+ * @param  date $date fecha en formato j/m/Y
  * @return boolean $valid true si el formato es válido y existe, false si no
  */
 function validate_date($date)

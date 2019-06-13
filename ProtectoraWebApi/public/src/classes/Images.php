@@ -14,22 +14,24 @@ class Images
     private $_animalId = 0;
 
     public function __construct()
-    {}
+    {
+    }
 
     /**
      * Inserta una imagen
+     *
      * @param int $animalId id del animal sobre el que se hace el comentario
      * @param int $idUsuario id del usuario que hace el comentario
      * @param string $text cuerpo del comentario
      */
 
-/*     public function createComment($animalId, $userId, $date ,$text)
-{
-$this->_animalId = $animalId;
-$this->_userId = $userId;
-$this->_date = $date;
-$this->_text = $text;
-} */
+    /*     public function createComment($animalId, $userId, $date ,$text)
+    {
+    $this->_animalId = $animalId;
+    $this->_userId = $userId;
+    $this->_date = $date;
+    $this->_text = $text;
+    } */
 
     public function insertImage()
     {
@@ -45,7 +47,8 @@ $this->_text = $text;
 
     /**
      * Devuelve todas las imagenes de un animal en concreto
-     * @param int $animalId id del animal
+     *
+     * @param  int $animalId id del animal
      * @return array $images todas las imágenes para un animal en concreto
      */
     public function retrieveAnimalImages($animalId)
@@ -56,6 +59,7 @@ $this->_text = $text;
 
     /**
      * Borra una imagen de la base de datos
+     *
      * @param int $id id de la imagen a borrar
      */
     public function deleteImage($id)
@@ -79,7 +83,7 @@ $this->_text = $text;
     /**
      * Set the value of _id
      *
-     * @return  self
+     * @return self
      */
     public function setId($id)
     {
@@ -99,7 +103,7 @@ $this->_text = $text;
     /**
      * Set the value of _url
      *
-     * @return  self
+     * @return self
      */
     public function setUrl($url)
     {
@@ -119,7 +123,7 @@ $this->_text = $text;
     /**
      * Set the value of _id
      *
-     * @return  self
+     * @return self
      */
     public function setAnimalId($animalId)
     {

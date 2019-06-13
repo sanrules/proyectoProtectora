@@ -19,7 +19,7 @@
  * Server Side Chrome PHP debugger class
  *
  * @package ChromePhp
- * @author Craig Campbell <iamcraigcampbell@gmail.com>
+ * @author  Craig Campbell <iamcraigcampbell@gmail.com>
  */
 class ChromePhp
 {
@@ -131,7 +131,7 @@ class ChromePhp
     /**
      * logs a variable to the console
      *
-     * @param mixed $data,... unlimited OPTIONAL number of additional logs [...]
+     * @param  mixed $data,... unlimited OPTIONAL number of additional logs [...]
      * @return void
      */
     public static function log()
@@ -142,7 +142,7 @@ class ChromePhp
     /**
      * logs a warning to the console
      *
-     * @param mixed $data,... unlimited OPTIONAL number of additional logs [...]
+     * @param  mixed $data,... unlimited OPTIONAL number of additional logs [...]
      * @return void
      */
     public static function warn()
@@ -153,7 +153,7 @@ class ChromePhp
     /**
      * logs an error to the console
      *
-     * @param mixed $data,... unlimited OPTIONAL number of additional logs [...]
+     * @param  mixed $data,... unlimited OPTIONAL number of additional logs [...]
      * @return void
      */
     public static function error()
@@ -174,7 +174,7 @@ class ChromePhp
     /**
      * sends an info log
      *
-     * @param mixed $data,... unlimited OPTIONAL number of additional logs [...]
+     * @param  mixed $data,... unlimited OPTIONAL number of additional logs [...]
      * @return void
      */
     public static function info()
@@ -215,7 +215,7 @@ class ChromePhp
     /**
      * internal logging call
      *
-     * @param string $type
+     * @param  string $type
      * @return void
      */
     protected static function _log($type, array $args)
@@ -241,7 +241,7 @@ class ChromePhp
     /**
      * converts an object to a better format for logging
      *
-     * @param Object
+     * @param  Object
      * @return array
      */
     protected function _convert($object)
@@ -292,7 +292,7 @@ class ChromePhp
     /**
      * takes a reflection property and returns a nicely formatted key of the property name
      *
-     * @param ReflectionProperty
+     * @param  ReflectionProperty
      * @return string
      */
     protected function _getPropertyKey(ReflectionProperty $property)
@@ -311,7 +311,7 @@ class ChromePhp
     /**
      * adds a value to the data array
      *
-     * @var mixed
+     * @var    mixed
      * @return void
      */
     protected function _addRow(array $logs, $backtrace, $type)
@@ -339,7 +339,7 @@ class ChromePhp
     /**
      * encodes the data to be sent along with the request
      *
-     * @param array $data
+     * @param  array $data
      * @return string
      */
     protected function _encode($data)
@@ -349,8 +349,8 @@ class ChromePhp
     /**
      * adds a setting
      *
-     * @param string key
-     * @param mixed value
+     * @param  string key
+     * @param  mixed value
      * @return void
      */
     public function addSetting($key, $value)
@@ -360,7 +360,7 @@ class ChromePhp
     /**
      * add ability to set multiple settings in one call
      *
-     * @param array $settings
+     * @param  array $settings
      * @return void
      */
     public function addSettings(array $settings)
@@ -372,7 +372,7 @@ class ChromePhp
     /**
      * gets a setting
      *
-     * @param string key
+     * @param  string key
      * @return mixed
      */
     public function getSetting($key)

@@ -1,6 +1,6 @@
 <?php
 require_once 'lib/RedBean/rb.php';
-include 'lib/ChromePhp.php';
+require 'lib/ChromePhp.php';
 
 // ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -25,21 +25,22 @@ class Animal
     private $_description = '';
 
     public function __construct()
-    {}
+    {
+    }
 
     /**
      * Crea todas las propiedades de un animal y les da valores.
      *
-     * @param string $name
-     * @param AnimalType $type
-     * @param AnimalBreed $breed
-     * @param string $gender
-     * @param string $size
-     * @param date $birthDate
-     * @param date $entranceDate
-     * @param date $adoptionDate
-     * @param bool $status
-     * @param string $description
+     * @param  string      $name
+     * @param  AnimalType  $type
+     * @param  AnimalBreed $breed
+     * @param  string      $gender
+     * @param  string      $size
+     * @param  date        $birthDate
+     * @param  date        $entranceDate
+     * @param  date        $adoptionDate
+     * @param  bool        $status
+     * @param  string      $description
      * @return void
      */
 
@@ -59,7 +60,6 @@ class Animal
 
     /**
      * Inserta un animal en la base de datos.
-     *
      */
     public function insertAnimal()
     {
@@ -108,7 +108,7 @@ class Animal
     /**
      * Obtiene todos los animales de la base de datos en función a los parámetros pasados.
      *
-     * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+     * @param  array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
      * @return array $animals array de Animal multidimensional recogido de la base de datos
      */
     public function retrieveAnimalParams($params)
@@ -130,7 +130,7 @@ class Animal
     /**
      * Actualiza un animal de la base de datos.
      *
-     * @param int $id ID del animal
+     * @param int    $id             ID del animal
      * @param Animal $updated_animal animal con los datos actualizados
      */
     public function updateAnimal($adopta)
@@ -148,7 +148,7 @@ class Animal
         $oldAnimal->status        = $this->getStatus();
         $oldAnimal->description   = $this->getDescription();
 
-        if ($adopta){
+        if ($adopta) {
             $oldAnimal->user = R::load('user', $this->getUserId());
         }
 
@@ -169,7 +169,6 @@ class Animal
 
     /**
      * Borra un animal de la base de datos.
-     *
      */
     public function deleteAnimal()
     {
@@ -179,11 +178,12 @@ class Animal
     /**
      * Obtiene todos los animales de la base de datos en función a unos parámetros.
      *
-     * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+     * @param  array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
      * @return array $users array de user obtenido de la bbdd
      */
     public function getSpecificAnimal($params)
-    {}
+    {
+    }
 
     /**
      * Marca un animal como adoptado y le asigna un usuario.
@@ -214,7 +214,7 @@ class Animal
     /**
      * Set the value of _id
      *
-     * @return  self
+     * @return self
      */
     public function setId($id)
     {
@@ -234,7 +234,7 @@ class Animal
     /**
      * Set the value of _name
      *
-     * @return  self
+     * @return self
      */
     public function setName($name)
     {
@@ -254,7 +254,7 @@ class Animal
     /**
      * Set the value of _type
      *
-     * @return  self
+     * @return self
      */
     public function setType($type)
     {
@@ -274,7 +274,7 @@ class Animal
     /**
      * Set the value of _breed
      *
-     * @return  self
+     * @return self
      */
     public function setBreed($breed)
     {
@@ -294,7 +294,7 @@ class Animal
     /**
      * Set the value of _gender
      *
-     * @return  self
+     * @return self
      */
     public function setGender($gender)
     {
@@ -314,7 +314,7 @@ class Animal
     /**
      * Set the value of _gender
      *
-     * @return  self
+     * @return self
      */
     public function setSize($size)
     {
@@ -334,7 +334,7 @@ class Animal
     /**
      * Set the value of _birthDate
      *
-     * @return  self
+     * @return self
      */
     public function setBirthDate($birthDate)
     {
@@ -354,7 +354,7 @@ class Animal
     /**
      * Set the value of _entranceDate
      *
-     * @return  self
+     * @return self
      */
     public function setEntranceDate($entranceDate)
     {
@@ -374,7 +374,7 @@ class Animal
     /**
      * Set the value of _adoptionDate
      *
-     * @return  self
+     * @return self
      */
     public function setAdoptionDate($adoptionDate)
     {
@@ -394,7 +394,7 @@ class Animal
     /**
      * Set the value of _status
      *
-     * @return  self
+     * @return self
      */
     public function setStatus($status)
     {
@@ -414,7 +414,7 @@ class Animal
     /**
      * Set the value of _description
      *
-     * @return  self
+     * @return self
      */
     public function setDescription($description)
     {
@@ -434,7 +434,7 @@ class Animal
     /**
      * Set the value of _id
      *
-     * @return  self
+     * @return self
      */
     public function setUserId($userId)
     {

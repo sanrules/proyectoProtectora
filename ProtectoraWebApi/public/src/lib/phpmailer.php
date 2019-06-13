@@ -41,7 +41,7 @@ EMAIL;
     PROTECTORA WEB
 EMAIL;
 
-// PHPMAILER
+    // PHPMAILER
 
     $mail = new PHPMailer(true);
 

@@ -33,7 +33,8 @@ class User
     private $_avatar     = ''; // avatar
 
     public function __construct()
-    {}
+    {
+    }
 
     /**
      * Establece todos los valores de un usuario.
@@ -45,18 +46,17 @@ class User
      * @param string $surname
      * @param string $dni
      * @param string $phone
-     * @param date $bithdate
+     * @param date   $bithdate
      * @param string $province
      * @param string $city
-     * @param int $postalcode
+     * @param int    $postalcode
      * @param string $street
-     * @param int $number
+     * @param int    $number
      * @param string $portal
      * @param string $floor
      * @param string $door
      * @param string $userType
      * @param string $avatar
-     *
      */
     public function createUser($username, $password, $email, $name, $surname, $dni, $phone, $birthDate, $province, $city, $postalCode, $street, $number, $portal, $floor, $door, $userType, $avatar)
     {
@@ -82,7 +82,6 @@ class User
 
     /**
      * Inserta un usuario en la base de datos.
-     *
      */
     public function insertUser()
     {
@@ -117,7 +116,7 @@ class User
     /**
      * Obtiene un usuario de la base de datos en base a su email.
      *
-     * @param int $email MAIL del usuario
+     * @param  int $email MAIL del usuario
      * @return User $user usuario recogido de la base de datos
      */
     public function retrieveUserEmail($email)
@@ -130,7 +129,7 @@ class User
     /**
      * Obtiene un usuario de la base de datos en base a su id.
      *
-     * @param int $id ID del usuario
+     * @param  int $id ID del usuario
      * @return User $user usuario recogido de la base de datos
      */
     public function retrieveUser($id)
@@ -185,7 +184,7 @@ class User
     /**
      * Actualiza el avatar del usuario para guardarlo en la base de datos.
      *
-     * @param User $user usuario a actualizar avatar
+     * @param User   $user   usuario a actualizar avatar
      * @param string $avatar URL de la imagen del avatar
      */
     public function updateAvatar($id, $avatar)
@@ -208,7 +207,7 @@ class User
     /**
      * Obtiene todos los usuarios de la base de datos en función a unos parámetros.
      *
-     * @param array $params array formato 'key' => nombreDelCampo, 'value' => 'filtro'
+     * @param  array $params array formato 'key' => nombreDelCampo, 'value' => 'filtro'
      * @return array $users array de user obtenido de la bbdd
      */
     public function getSpecificUser($params)
@@ -266,7 +265,7 @@ class User
     /**
      * Set the value of _idUser.
      *
-     * @return  self
+     * @return self
      */
     public function setIdUser($_idUser)
     {
@@ -286,7 +285,7 @@ class User
     /**
      * Set the value of _username.
      *
-     * @return  self
+     * @return self
      */
     public function setUsername($_username)
     {
@@ -306,7 +305,7 @@ class User
     /**
      * Set the value of _email.
      *
-     * @return  self
+     * @return self
      */
     public function setEmail($email)
     {
@@ -326,7 +325,7 @@ class User
     /**
      * Set the value of _password.
      *
-     * @return  self
+     * @return self
      */
     public function setPassword($_password)
     {
@@ -346,7 +345,7 @@ class User
     /**
      * Set the value of _name.
      *
-     * @return  self
+     * @return self
      */
     public function setName($_name)
     {
@@ -366,7 +365,7 @@ class User
     /**
      * Set the value of _surname.
      *
-     * @return  self
+     * @return self
      */
     public function setSurname($_surname)
     {
@@ -386,7 +385,7 @@ class User
     /**
      * Set the value of _phone.
      *
-     * @return  self
+     * @return self
      */
     public function setPhone($_phone)
     {
@@ -406,7 +405,7 @@ class User
     /**
      * Set the value of _birthDate.
      *
-     * @return  self
+     * @return self
      */
     public function setBirthDate($_birthDate)
     {
@@ -426,7 +425,7 @@ class User
     /**
      * Set the value of _street.
      *
-     * @return  self
+     * @return self
      */
     public function setStreet($_street)
     {
@@ -446,7 +445,7 @@ class User
     /**
      * Set the value of _number
      *
-     * @return  self
+     * @return self
      */
     public function setNumber($_number)
     {
@@ -466,7 +465,7 @@ class User
     /**
      * Set the value of _portal
      *
-     * @return  self
+     * @return self
      */
     public function setPortal($_portal)
     {
@@ -486,7 +485,7 @@ class User
     /**
      * Set the value of _floor
      *
-     * @return  self
+     * @return self
      */
     public function setFloor($_floor)
     {
@@ -506,7 +505,7 @@ class User
     /**
      * Set the value of _door
      *
-     * @return  self
+     * @return self
      */
     public function setDoor($_door)
     {
@@ -526,7 +525,7 @@ class User
     /**
      * Set the value of _userType
      *
-     * @return  self
+     * @return self
      */
     public function setUserType($_userType)
     {
@@ -546,7 +545,7 @@ class User
     /**
      * Set the value of _token
      *
-     * @return  self
+     * @return self
      */
     public function setToken($_token)
     {
@@ -566,7 +565,7 @@ class User
     /**
      * Set the value of _dni
      *
-     * @return  self
+     * @return self
      */
     public function setDni($_dni)
     {
@@ -586,7 +585,7 @@ class User
     /**
      * Set the value of _province
      *
-     * @return  self
+     * @return self
      */
     public function setProvince($_province)
     {
@@ -606,7 +605,7 @@ class User
     /**
      * Set the value of _city
      *
-     * @return  self
+     * @return self
      */
     public function setCity($_city)
     {
@@ -626,7 +625,7 @@ class User
     /**
      * Set the value of _postalCode
      *
-     * @return  self
+     * @return self
      */
     public function setPostalCode($_postalCode)
     {
@@ -646,7 +645,7 @@ class User
     /**
      * Set the value of _avatar
      *
-     * @return  self
+     * @return self
      */
     public function setAvatar($_avatar)
     {

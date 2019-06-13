@@ -28,7 +28,7 @@ try {
             $publicationDate    = $publicationDate->format("Y-m-d H:i:s");
             
             $newupdate = new News();
-            $newupdate->createNews($name, $content, $publicationDate );
+            $newupdate->createNews($name, $content, $publicationDate);
             $newupdate->set_id($id);
             $newupdate->updateNew();
         }

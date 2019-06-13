@@ -1,4 +1,5 @@
 <?php
+
 require_once '../../vendor/autoload.php';
 require_once 'classes/Animal.php';
 
@@ -27,17 +28,17 @@ try {
         $size          = filter_var($request['size'], FILTER_SANITIZE_STRING);
         $birth_date    = filter_var($request['birth_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
         $entrance_date = filter_var($request['entrance_date'], FILTER_SANITIZE_NUMBER_INT) / 1000; // Formato j/m/Y
-        $adoption_date   = isset($request['adoption_date']) ? filter_var($request['adoption_date'], FILTER_SANITIZE_NUMBER_INT) / 1000 : null;
+        $adoption_date = isset($request['adoption_date']) ? filter_var($request['adoption_date'], FILTER_SANITIZE_NUMBER_INT) / 1000 : null;
         $status        = filter_var($request['status'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
         $description   = filter_var($request['description'], FILTER_SANITIZE_SPECIAL_CHARS);
-        
-        if($status != 0) {  
-            $userId    = filter_var($request['user_id'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
+
+        if ($status != 0) {
+            $userId = filter_var($request['user_id'], FILTER_SANITIZE_NUMBER_INT); // Adoptado, pre-adoptado, en adopción
         } else {
-            $userId = null; 
+            $userId = null;
         }
 
-        if ($name != '' || $type != '' || $breed != '' || $gender != '' || $birth_date != '' || $entrance_date != '' || $status != '' || $description != '' ) {
+        if ($name != '' || $type != '' || $breed != '' || $gender != '' || $birth_date != '' || $entrance_date != '' || $status != '' || $description != '') {
 
             if ($status == 0) {
                 $adoption_date = null;
@@ -56,12 +57,12 @@ try {
             $animalupdate = new Animal();
             $animalupdate->createAnimal($name, $type, $breed, $gender, $size, $birth_date, $entrance_date, $adoption_date, $status, $description);
             $animalupdate->setId($id);
-            
-            if($userId != null){
-                $animalupdate->setUserId($userId); 
+
+            if ($userId != null) {
+                $animalupdate->setUserId($userId);
                 $animalupdate->updateAnimal(true);
 
-            }else{
+            } else {
                 $animalupdate->updateAnimal(false);
             }
         }

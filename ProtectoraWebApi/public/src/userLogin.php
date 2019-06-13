@@ -1,7 +1,7 @@
 <?php
 require_once 'classes/User.php';
 require_once '../../vendor/autoload.php';
-include_once 'lib/jwt_config.php';
+require_once 'lib/jwt_config.php';
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use \Firebase\JWT\JWT;

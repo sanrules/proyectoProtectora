@@ -2,7 +2,7 @@
 require_once '../../vendor/autoload.php';
 require_once 'classes/User.php';
 require_once 'lib/phpmailer.php';
-include 'lib/ChromePhp.php';
+require 'lib/ChromePhp.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;

@@ -1,6 +1,6 @@
 <?php
 //Chrome php: Muestra logs de php en la consola del navegador
-include 'ChromePhp.php';
+require 'ChromePhp.php';
 
 //header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE");

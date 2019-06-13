@@ -1,6 +1,6 @@
 <?php
 require_once 'lib/RedBean/rb.php';
-include 'lib/ChromePhp.php';
+require 'lib/ChromePhp.php';
 
 // ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -35,11 +35,12 @@ class AnimalType
         $this->_id = $id;
     }
 
-/**
- * Obtiene un animal de la base de datos en base a su id
- * @param int $id ID del animal
- * @return Animal $animal animal recogido de la base de datos
- */
+    /**
+     * Obtiene un animal de la base de datos en base a su id
+     *
+     * @param  int $id ID del animal
+     * @return Animal $animal animal recogido de la base de datos
+     */
     public function retrieveAnimalType($id)
     {
         $animalType = R::load('animaltype', $id);
@@ -47,10 +48,11 @@ class AnimalType
         return $animalType;
     }
 
-/**
- * Obtiene todos los animales de la base de datos
- * @return Array $animals array de Animal multidimensional recogido de la base de datos
- */
+    /**
+     * Obtiene todos los animales de la base de datos
+     *
+     * @return Array $animals array de Animal multidimensional recogido de la base de datos
+     */
     public function retrieveAnimalTypesAll()
     {
         $animalTypes = R::getAll('select * from animaltype');
@@ -58,11 +60,12 @@ class AnimalType
         return $animalTypes;
     }
 
-/**
- * Obtiene todos los animales de la base de datos en función a los parámetros pasados
- * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
- * @return Array $animals array de Animal multidimensional recogido de la base de datos
- */
+    /**
+     * Obtiene todos los animales de la base de datos en función a los parámetros pasados
+     *
+     * @param  array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+     * @return Array $animals array de Animal multidimensional recogido de la base de datos
+     */
     public function retrieveAnimalTypeParams($params)
     {
         $num = count($params);
@@ -79,11 +82,12 @@ class AnimalType
         return $animalTypes;
     }
 
-/**
- * Actualiza un animal de la base de datos
- * @param int $id ID del animal
- * @param Animal $updated_animal animal con los datos actualizados
- */
+    /**
+     * Actualiza un animal de la base de datos
+     *
+     * @param int    $id             ID del animal
+     * @param Animal $updated_animal animal con los datos actualizados
+     */
     public function updateAnimalType($id, $updated_animalType)
     {
         $old_animalType = R::load('animaltype', $id);
@@ -92,10 +96,11 @@ class AnimalType
         R::store($old_animalType);
     }
 
-/**
- * Borra un animal de la base de datos
- * @param Animal $animal animal a borrar
- */
+    /**
+     * Borra un animal de la base de datos
+     *
+     * @param Animal $animal animal a borrar
+     */
     public function deleteAnimalType($animalType)
     {
         R::trash($animalType);
@@ -103,7 +108,8 @@ class AnimalType
 
     /**
      * Obtiene todos los animales de la base de datos en función a unos parámetros.
-     * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+     *
+     * @param  array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
      * @return array $users array de user obtenido de la bbdd
      */
     public function getSpecificAnimal($params)
@@ -126,7 +132,7 @@ class AnimalType
     /**
      * Set the value of _id
      *
-     * @return  self
+     * @return self
      */
     public function set_id($_id)
     {
@@ -146,7 +152,7 @@ class AnimalType
     /**
      * Set the value of _name
      *
-     * @return  self
+     * @return self
      */
     public function set_name($_name)
     {

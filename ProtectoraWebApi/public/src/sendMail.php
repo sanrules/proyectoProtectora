@@ -1,5 +1,5 @@
 <?php
-include 'lib/mail/phpmailer.php';
+require 'lib/mail/phpmailer.php';
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 

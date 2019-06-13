@@ -1,6 +1,6 @@
 <?php
 require_once 'lib/RedBean/rb.php';
-include 'lib/ChromePhp.php';
+require 'lib/ChromePhp.php';
 
 // ! configuración para mamp
 R::setup('mysql:host=localhost;dbname=proyecto', 'root', 'root');
@@ -22,8 +22,8 @@ class AnimalBreed
     /**
      * Crea una raza de animal.
      *  
-     * @param mixed $_name
-     * @param mixed $_idtype
+     * @param  mixed $_name
+     * @param  mixed $_idtype
      * @return void
      */
     public function createAnimalBreed($name, $idtype)
@@ -48,23 +48,23 @@ class AnimalBreed
         $this->id = $id;
     }
 
-/**
- * Obtiene una raza de la base de datos en base a su id.
- *
- * @param int $id ID del animal
- * @return Animal $animal animal recogido de la base de datos
- */
+    /**
+     * Obtiene una raza de la base de datos en base a su id.
+     *
+     * @param  int $id ID del animal
+     * @return Animal $animal animal recogido de la base de datos
+     */
     public function retrieveAnimalBreedsByIdType($idtype)
     {
         $animalBreeds = R::getAll("select * from animalbreed where idtype = $idtype");
         return $animalBreeds;
     }
 
-/**
- * Obtiene todas las razas de la base de datos.
- *
- * @return Array $animals array de Animal multidimensional recogido de la base de datos
- */
+    /**
+     * Obtiene todas las razas de la base de datos.
+     *
+     * @return Array $animals array de Animal multidimensional recogido de la base de datos
+     */
     public function retrieveAnimalBreedsAll()
     {
         $animalBreeds = R::getAll('select * from animalbreed');
@@ -72,12 +72,12 @@ class AnimalBreed
         return $animalBreeds;
     }
 
-/**
- * Obtiene todos las razas de la base de datos en función a los parámetros pasados.
- *
- * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
- * @return Array $animals array de Animal multidimensional recogido de la base de datos
- */
+    /**
+     * Obtiene todos las razas de la base de datos en función a los parámetros pasados.
+     *
+     * @param  array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+     * @return Array $animals array de Animal multidimensional recogido de la base de datos
+     */
     public function retrieveAnimalTypeParams($params)
     {
         $num = count($params);
@@ -94,11 +94,12 @@ class AnimalBreed
         return $animalTypes;
     }
 
-/**
- * Actualiza un animal de la base de datos
- * @param int $id ID del animal
- * @param Animal $updated_animal animal con los datos actualizados
- */
+    /**
+     * Actualiza un animal de la base de datos
+     *
+     * @param int    $id             ID del animal
+     * @param Animal $updated_animal animal con los datos actualizados
+     */
     public function updateAnimalBreed($id, $updated_animalBreed)
     {
         $old_animalBreed = R::load('animalbreed', $id);
@@ -107,10 +108,11 @@ class AnimalBreed
         R::store($old_animalBreed);
     }
 
-/**
- * Borra un animal de la base de datos
- * @param Animal $animal animal a borrar
- */
+    /**
+     * Borra un animal de la base de datos
+     *
+     * @param Animal $animal animal a borrar
+     */
     public function deleteAnimalBreed($animalBreed)
     {
         R::trash($animalBreed);
@@ -118,7 +120,8 @@ class AnimalBreed
 
     /**
      * Obtiene todos los animales de la base de datos en función a unos parámetros.
-     * @param array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
+     *
+     * @param  array $params array asociativo con todos los parámetros a tener en cuenta. Formato campo => valor.
      * @return array $users array de user obtenido de la bbdd
      */
     public function getSpecificAnimal($params)
@@ -141,7 +144,7 @@ class AnimalBreed
     /**
      * Set the value of _id
      *
-     * @return  self
+     * @return self
      */
     public function set_id($_idBreed)
     {
@@ -161,7 +164,7 @@ class AnimalBreed
     /**
      * Set the value of _id
      *
-     * @return  self
+     * @return self
      */
     public function set_idType($idType)
     {
@@ -181,7 +184,7 @@ class AnimalBreed
     /**
      * Set the value of _name
      *
-     * @return  self
+     * @return self
      */
     public function set_name($_name)
     {

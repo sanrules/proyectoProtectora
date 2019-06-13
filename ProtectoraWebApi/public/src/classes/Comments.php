@@ -17,13 +17,15 @@ class Comments
     private $_text     = '';
 
     public function __construct()
-    {}
+    {
+    }
 
     /**
      * Crea un comentario nuevo
-     * @param int $animalId id del animal sobre el que se hace el comentario
-     * @param int $idUsuario id del usuario que hace el comentario
-     * @param string $text cuerpo del comentario
+     *
+     * @param int    $animalId  id del animal sobre el que se hace el comentario
+     * @param int    $idUsuario id del usuario que hace el comentario
+     * @param string $text      cuerpo del comentario
      */
 
     public function createComment($animalId, $userId, $date, $text)
@@ -50,7 +52,8 @@ class Comments
 
     /**
      * Devuelve todos los comentarios que ha hecho un usuario
-     * @param int $userId id del usuario
+     *
+     * @param  int $userId id del usuario
      * @return array $comments todos los comentarios para un usuario en concreto
      */
     public function retrieveUserComments($userId)
@@ -62,7 +65,8 @@ class Comments
 
     /**
      * Devuelve todos los comentarios de un animal en concreto
-     * @param int $animalId id del animal
+     *
+     * @param  int $animalId id del animal
      * @return array $comments todos los comentarios para un animal en concreto
      */
     public function retrieveAnimalComments($animalId)
@@ -74,7 +78,7 @@ class Comments
     /**
      * Obtiene un comentario de la base de datos en base a su id.
      *
-     * @param int $id ID del usuario
+     * @param  int $id ID del usuario
      * @return User $user usuario recogido de la base de datos
      */
     public function retrieveComment($id)
@@ -85,7 +89,8 @@ class Comments
 
     /**
      * Actualiza el texto de un comentario de la base de datos
-     * @param int $id ID del comentario
+     *
+     * @param int    $id   ID del comentario
      * @param string $text con el nuevo texto
      */
     public function updateComment($id, $text)
@@ -98,6 +103,7 @@ class Comments
 
     /**
      * Borra un comentario de la base de datos
+     *
      * @param int $id id del comentario a borrar
      */
     public function deleteComment($id)
@@ -117,7 +123,7 @@ class Comments
     /**
      * Set the value of _text
      *
-     * @return  self
+     * @return self
      */
     public function setText($text)
     {
@@ -137,7 +143,7 @@ class Comments
     /**
      * Set the value of _userId
      *
-     * @return  self
+     * @return self
      */
     public function setUserId($userId)
     {
@@ -157,7 +163,7 @@ class Comments
     /**
      * Set the value of _animalId
      *
-     * @return  self
+     * @return self
      */
     public function setAnimalId($animalId)
     {
@@ -177,7 +183,7 @@ class Comments
     /**
      * Set the value of _date
      *
-     * @return  self
+     * @return self
      */
     public function setDate($date)
     {
@@ -197,7 +203,7 @@ class Comments
     /**
      * Set the value of _id
      *
-     * @return  self
+     * @return self
      */
     public function setId($id)
     {
