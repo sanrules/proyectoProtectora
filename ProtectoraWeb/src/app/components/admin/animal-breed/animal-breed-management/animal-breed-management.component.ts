@@ -1,8 +1,8 @@
 import { OnInit, Component, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig} from '@angular/material';
 import { Breed } from 'src/app/_models/breed.model';
-import { AnimalBreedService } from 'src/app/_services/animals/raza-animal/animal-raza-service';
 import { AnimalBreedUpdateComponent } from './animal-breed-update/animal-breed-update.component';
+import { AnimalBreedService } from 'src/app/_services/animals/animal-breed/animal-breed';
 
 @Component({
     selector: 'app-admin-animal-breed-management',
@@ -41,11 +41,10 @@ import { AnimalBreedUpdateComponent } from './animal-breed-update/animal-breed-u
     }
 
     openModal(razas) {
-      console.log("row: ", razas);
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
-      dialogConfig.height = "80%"
-      dialogConfig.width = "80%";
+      dialogConfig.height = '80%';
+      dialogConfig.width = '80%';
       dialogConfig.data = razas;
       this.dialog.open(AnimalBreedUpdateComponent, dialogConfig);
 

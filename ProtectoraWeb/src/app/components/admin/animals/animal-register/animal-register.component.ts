@@ -12,7 +12,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material';
 import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 import { Router } from '@angular/router';
 import { AnimalTypeService } from '../../../../_services/animals/tipo-animal/animal-type-service';
-import { AnimalBreedService } from '../../../../_services/animals/raza-animal/animal-raza-service';
+import { AnimalBreedService } from '../../../../_services/animals/animal-breed/animal-breed';
 
 @Component({
   selector: 'app-admin-animal-register',
@@ -66,7 +66,7 @@ export class AnimalRegisterComponent implements OnInit {
   ngOnInit() {
     this.animalTypeService.getAnimalTypes().subscribe( e => {
     this.animalType = e.response;
-    console.log("tipos de animal", e);
+    console.log('tipos de animal', e);
     });
 
     this.registerForm = this.formBuilder.group({
@@ -92,9 +92,9 @@ export class AnimalRegisterComponent implements OnInit {
     console.log('form: ', this.registerForm);
   }
 
-  public getAnimalBreeds(idtype){
-    console.log(idtype);
-    this.animalBreedService.getAnimalBreedsByIdType(idtype).subscribe(e => {
+  public getAnimalBreeds(idType) {
+    console.log(idType);
+    this.animalBreedService.getAnimalBreedsByIdType(idType).subscribe(e => {
       this.animalBreed = e.response;
     });
   }
@@ -102,7 +102,6 @@ export class AnimalRegisterComponent implements OnInit {
   public loadImages() {
     this.imagesService.getImagesByAnimal(this.animalData.id).subscribe(e =>{
       this.images = e.response;
-      console.log("imagenes de animal" , this.images);
     });
   }
 
@@ -128,9 +127,7 @@ export class AnimalRegisterComponent implements OnInit {
           ref.getDownloadURL().subscribe(url => {
 
             this.urlImageAr.push(url);
-            console.log('urls', this.urlImageAr);
             if (this.urlImageAr.length === images.length)  {
-              console.log('entra en el subir imagenes');
               this.subirImagenes(id, this.urlImageAr);
             }
           });
@@ -227,7 +224,7 @@ dataPrepare() {
 
       console.log('respuesta deleteAnimal (data): ', data);
       if (data.response === 'delete OK') {
-      this.loadImages();
+        this.loadImages();
       }
     }, error => {
         console.warn('Error: ', error);
@@ -237,7 +234,6 @@ dataPrepare() {
 
   registerSubmit() {
     if (this.formType === 'animalUpdate') {
-
       this.animal = this.dataPrepare();
 
       if (this.animal.user_id == null) {
@@ -268,7 +264,7 @@ dataPrepare() {
 
       delete this.animal.id;
       delete this.animal.user_id;
-      let animalJSON = JSON.stringify(this.animal);
+      const animalJSON = JSON.stringify(this.animal);
       console.log('Conversión JSON: ', animalJSON);
 
       this.animalService.registerAnimal(animalJSON).subscribe(data => {

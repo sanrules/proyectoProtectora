@@ -1,6 +1,6 @@
 export class Breed {
     public id: number;
-    public idtype: number;
+    public idType: number;
     public name: string;
 
     public constructor(init?: Partial<Breed>) {

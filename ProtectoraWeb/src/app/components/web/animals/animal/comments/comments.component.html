@@ -1,34 +1,48 @@
 <div class="row">
-  <div class="col-md-12" *ngFor="let comment of comments | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+  <div class="col-md-12 mt-3 comment" *ngFor="let comment of comments | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
     <div class="row">
-      <div class="col-md-12 d-inline-block">
+      <div class="col-1 d-inline-block pr-0">
         <ngx-avatar 
           [src]="comment.avatar" 
-          size="20" 
-          [round]="true" borderColor="#000">
+          size="30" 
+          [round]="true"
+          *ngIf="comment.avatar">
+        </ngx-avatar>
+        <ngx-avatar 
+          [name]="name" 
+          size="30" 
+          [round]="true" 
+          *ngIf="!comment.avatar">
         </ngx-avatar>
       </div> 
-      <hr>
-      <div class="col-md-11">
+
+      <div class="col-11 pl-0">
         {{ comment.username }} | {{ comment.date | date }}
       </div>    
     </div>
-    <div class="row mt-1 mb-2">
+    <div class="row my-3">
       {{comment.text}}
     </div>
   </div>
 </div>
-<div class="row"*ngIf="logged">
+<div class="row w-100 mt-5" *ngIf="logged">
   <form [formGroup]="commentForm" (ngSubmit)="commentSubmit()">
-    <div class="col-md-12">
+    <div class="col-md-10 w-100">
       <mat-form-field>
-        <textarea matInput placeholder="Escribir comentario" formControlName="text" id="text"></textarea>
+        <textarea 
+          matInput 
+          placeholder="Escribir comentario" 
+          formControlName="text" 
+          id="text"
+          cdkAutosizeMinRows="2"
+          cdkAutosizeMaxRows="5">
+        </textarea>
         <mat-error>
           Campo obligatorio para enviar un comentario.
         </mat-error>
       </mat-form-field>
     </div>
-    <div class="row col md-12 text-center mt-3">
+    <div class="col-md-2 mt-3">
       <button mat-raised-button color="primary" [disabled]="!commentForm.valid" class="btnRegister">Comentar</button>
     </div>
     <input type="hidden" formControlName="id" id="id">
@@ -38,7 +52,7 @@
     
   </form>
 </div>
-<div class="row">
+<div class="row mt-3 text-rigth">
   <div class="col-md-12">
    <ngb-pagination 
     [collectionSize]="comments.length" 

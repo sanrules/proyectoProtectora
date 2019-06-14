@@ -19,7 +19,7 @@
         <div class="form-group col-md-12" *ngIf="formType == 'breedUpdate'">
         <mat-form-field>
           <mat-label>Favorite animal</mat-label>
-          <mat-select formControlName="idType" [value]="breedData.idtype">
+          <mat-select formControlName="idType" [value]="breedData.idType">
           <mat-option *ngFor="let type of types" [value]="type.id">
               {{type.name}}
           </mat-option>

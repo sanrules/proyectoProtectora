@@ -27,7 +27,8 @@ export class CommentsComponent implements OnInit {
   confirmMessage: string;
   errorMessage: boolean;
 
-  logged
+  logged: any;
+  name: string;
 
   page = 1;
   pageSize = 5;
@@ -51,6 +52,7 @@ export class CommentsComponent implements OnInit {
         this.userService.getuserById(+comment.user_id).subscribe(user => {
           comment.username = user.response.username;
           comment.avatar = user.response.avatar;
+          this.name = user.response.name + ' ' + user.response.surname;
         });
 
       });

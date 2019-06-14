@@ -64,12 +64,14 @@ h1 {
 .cathome {
   height: 30.7%;
   background-image: url(../../../../assets/homeimg/cathome.jpg);
+  background-size: cover;
   z-index: -1;
 }
 
 .doghome {
   height: 30.7%;
   background-image: url(../../../../assets/homeimg/doghome.jpg);
+  background-size: cover;
   text-align: right;
   z-index: -1;
 }
@@ -77,6 +79,7 @@ h1 {
 .othershome {
   height: 30.7%;
   background-image: url(../../../../assets/homeimg/rabbithome.jpg);
+  background-size: cover;
   text-align: right;
   z-index: -1;
 }

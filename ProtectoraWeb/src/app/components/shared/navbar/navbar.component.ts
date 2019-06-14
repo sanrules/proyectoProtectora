@@ -47,7 +47,6 @@ export class NavbarComponent implements OnInit {
         this.loggedAvatar = user.response.avatar;
         this.loggedUserName = user.response.username;
         this.name = user.response.name + ' ' + user.response.surname;
-        console.log(this.name);
       });
     }
 

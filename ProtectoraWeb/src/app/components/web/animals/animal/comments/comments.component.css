@@ -1,3 +1,10 @@
-textarea {
-	width: 100%;
+mat-form-field {
+  width: 100%;
+}
+
+.comment {
+	-webkit-box-shadow: 10px 9px 11px -4px rgba(0,0,0,0.43);
+	-moz-box-shadow: 10px 9px 11px -4px rgba(0,0,0,0.43);
+	box-shadow: 10px 9px 11px -4px rgba(0,0,0,0.43);
+	padding-left: 2%
 }

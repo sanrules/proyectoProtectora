@@ -49,6 +49,18 @@ class AnimalBreed
     }
 
     /**
+     * Obtiene una raza de animal de la base de datos en base a su id.
+     *
+     * @return AnimalBreed $breed raza recogida de la base de datos
+     */
+    public function retrieveAnimalBreed()
+    {
+        $breed = R::load('animalbreed', $this->get_id());
+
+        return $breed;
+    }
+
+    /**
      * Obtiene una raza de la base de datos en base a su id.
      *
      * @param  int $id ID del animal

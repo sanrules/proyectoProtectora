@@ -19,12 +19,12 @@
       <!-- Tipo -->
       <ng-container matColumnDef="type">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de animal </th>
-        <td mat-cell *matCellDef="let animales"> {{animales.type}} </td>
+        <td mat-cell *matCellDef="let animales"> {{animales.type | animalTypeNamePipe | async}} </td>
       </ng-container>
       <!-- Raza -->
       <ng-container matColumnDef="breed">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Raza </th>
-        <td mat-cell *matCellDef="let animales"> {{animales.breed}} </td>
+        <td mat-cell *matCellDef="let animales"> {{animales.breed | animalBreedNamePipe | async}} </td>
       </ng-container>
       <!-- Fecha Nacimiento -->
       <ng-container matColumnDef="birthDate">

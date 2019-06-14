@@ -41,11 +41,11 @@ class AnimalType
      * @param  int $id ID del animal
      * @return Animal $animal animal recogido de la base de datos
      */
-    public function retrieveAnimalType($id)
+    public function retrieveAnimalType()
     {
-        $animalType = R::load('animaltype', $id);
+        $type = R::load('animaltype', $this->get_id());
 
-        return $animalType;
+        return $type;
     }
 
     /**

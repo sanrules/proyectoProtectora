@@ -1,9 +1,8 @@
-import { OnInit, Component, ViewChild, Input } from '@angular/core';
+import { OnInit, Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Type } from '../../../../_models/type.model';
-import { AnimalBreedService } from 'src/app/_services/animals/raza-animal/animal-raza-service';
 import { AnimalTypeService } from 'src/app/_services/animals/tipo-animal/animal-type-service';
+import { AnimalBreedService } from 'src/app/_services/animals/animal-breed/animal-breed';
 import { Breed } from 'src/app/_models/breed.model';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
@@ -36,23 +35,21 @@ import { Router } from '@angular/router';
 
     this.animalTypeService.getAnimalTypes().subscribe(e => {
       this.types = e.response;
-      console.log(e);
-      });
+    });
 
     this.registerForm = this.formBuilder.group({
       idBreed: ['', []],
       idType: ['', [Validators.required]],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
     });
-    if (this.formType == 'breedUpdate'){
-      console.log("breed: ", this.breedData);
+    if (this.formType == 'breedUpdate') {
      this.setDatosUpdate(this.breedData);
     }
   }
 
   public setDatosUpdate(data) {
 
-    this.registerForm.get('idType').setValue(data.idtype);
+    this.registerForm.get('idType').setValue(data.idType);
     this.registerForm.get('idBreed').setValue(data.id);
     this.registerForm.get('name').setValue(data.name);
 }
@@ -61,9 +58,9 @@ dataPrepare() {
 
   const entranceDate = new Date();
  /*  const imagenes = this.registerForm.get('pictures').value.split(','); */
-  let formData = {
+  const formData = {
     "id": this.registerForm.get('idBreed').value,
-    "idtype": this.registerForm.get('idType').value,
+    "idType": this.registerForm.get('idType').value,
     "name": this.registerForm.get('name').value.trim(),
 
   };
@@ -76,9 +73,8 @@ dataPrepare() {
     console.log('Entra en registerSubmit()');
     if (this.formType == 'breedUpdate'){
       this.breed = this.dataPrepare();
-      console.log(this.breed);
-      
-      let animalJSON = JSON.stringify(this.breed);
+
+      const animalJSON = JSON.stringify(this.breed);
       console.log('Conversión JSON: ', animalJSON);
       this.animalBreedService.updateAnimalBreed(animalJSON).subscribe(data => {
           console.log('respuesta registerAnimal(data): ', data);
@@ -90,9 +86,8 @@ dataPrepare() {
       });
     } else {
       this.breed = this.dataPrepare();
-      console.log(this.breed);
       delete this.breed.id;
-      let animalJSON = JSON.stringify(this.breed);
+      const animalJSON = JSON.stringify(this.breed);
       console.log('Conversión JSON: ', animalJSON);
 
       this.animalBreedService.registerAnimalBreed(animalJSON).subscribe(data => {

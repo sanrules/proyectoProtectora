@@ -15,23 +15,28 @@ export class AnimalBreedService {
   };
   constructor(private http: HttpClient) {}
 
-  // Solicita a la API una lista con todos los usuarios.
+  // Solicita a la API una lista con todas las razas de animal.
   getAnimalBreeds(): Observable<any> {
     console.log('Respuesta backEnd => get_animalBreeds_all()');
     return this.http.get(`${this.baseURL}/animalBreedGetAll.php`);
   }
 
-  // Solicita a la API el animal que se le manda por parámetro
+  // Solicita a la API la raza que se le manda por parámetro
   getAnimalBreedsByIdType(id): Observable<any> {
     return this.http.post(`${this.baseURL}/animalBreedGetByIdType.php`, id, this.httpOptions);
   }
 
-  // Da de alta un nuevo animal
+  // Da de alta una  nueva raza
   registerAnimalBreed(data): Observable<any> {
     return this.http.post(`${this.baseURL}/animalBreedInsert.php`, data, this.httpOptions);
   }
 
-  // Modifica un animal
+  // Solicita a la API la raza con el id que se le envía por parámetro
+  getAnimalBreedById(id) {
+    return this.http.post(`${this.baseURL}/animalBreedGetById.php`, id, this.httpOptions);
+  }
+
+  // Modifica una raza
   updateAnimalBreed(data): Observable<any> {
     return this.http.post(`${this.baseURL}/animalBreedUpdate.php`, data, this.httpOptions);
   }
