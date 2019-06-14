@@ -132,6 +132,17 @@ class AnimalBreed
         R::trash($animalBreed);
     }
 
+    public function animalBreedExist()
+    {
+        try {
+            if (R::findOne('animalbreed', 'name=?', [$this->get_name()]) != null) {
+                throw new Exception();
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     /**
      * Obtiene todos los animales de la base de datos en función a unos parámetros.
      *

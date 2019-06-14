@@ -44,5 +44,7 @@ export class UserService {
   sendMail(id: number): Observable<any> {
     return this.http.post(`${this.baseURL}/sendMail.php`, id);
   }
-
+  deleteUser(id: number): Observable<any> {
+    return this.http.post(`${this.baseURL}/userDelete.php`, id);
+  }
 }
