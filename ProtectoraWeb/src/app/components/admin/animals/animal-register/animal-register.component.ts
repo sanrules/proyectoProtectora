@@ -88,6 +88,7 @@ export class AnimalRegisterComponent implements OnInit {
       this.loadImages();
       console.log('animal: ', this.animalData);
       this.setDatosUpdate(this.animalData);
+      this.getAnimalBreeds(this.animalData.type);
     }
     console.log('form: ', this.registerForm);
   }

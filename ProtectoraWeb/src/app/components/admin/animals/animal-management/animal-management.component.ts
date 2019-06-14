@@ -14,7 +14,7 @@ import { AnimalUpdateComponent } from './animal-update/animal-update.component';
   export class AnimalManagementComponent implements OnInit {
 
     animales: any;
-    displayedColumns: string[] = ['id', 'name', 'type', 'breed', 'birthDate', 'entranceDate', 'acces', 'delete'];
+    displayedColumns: string[] = ['id', 'name', 'type', 'breed', 'birthDate', 'entranceDate', 'acces'];
     dataSource = new MatTableDataSource(this.animales);
 
     constructor(private animalService: AnimalService,

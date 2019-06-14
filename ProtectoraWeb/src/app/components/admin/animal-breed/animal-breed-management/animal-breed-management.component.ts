@@ -12,7 +12,7 @@ import { AnimalBreedService } from 'src/app/_services/animals/animal-breed/anima
   export class AnimalBreedManagementComponent implements OnInit {
 
     razas: any;
-    displayedColumns: string[] = ['id', 'idtype', 'name' , 'acces', 'delete'];
+    displayedColumns: string[] = ['id', 'idtype', 'name' , 'acces'];
     dataSource = new MatTableDataSource(this.razas);
 
     constructor(private animalBreedService: AnimalBreedService,

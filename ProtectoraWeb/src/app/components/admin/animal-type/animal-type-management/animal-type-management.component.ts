@@ -18,7 +18,7 @@ import { Type } from 'src/app/_models/type.model';
   export class AnimalTypeManagementComponent implements OnInit {
 
     tipos: any;
-    displayedColumns: string[] = ['id', 'name' , 'acces', 'delete'];
+    displayedColumns: string[] = ['id', 'name' , 'acces'];
     dataSource = new MatTableDataSource(this.tipos);
 
     constructor(private animalTypeService: AnimalTypeService,

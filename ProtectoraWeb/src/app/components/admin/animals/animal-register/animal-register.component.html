@@ -6,39 +6,53 @@
 
       <mat-accordion class="example-headers-align">
 
-  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Datos de animal
-        </mat-panel-title>
-        <mat-panel-description>
-          Nombre, Raza, Tipo...
-          <mat-icon>pets</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="mt-2">
-        <mat-form-field>
-          <input matInput placeholder="Nombre de Animal" type="text" formControlName="name" id="name" cdkFocusInitial>
-          <mat-error *ngIf="registerForm.controls['name'].errors">
-            Nombre de Animal requerido: min 4 caracteres.
-            Mayúsculas, minúsculas, -
-          </mat-error>
-        </mat-form-field>
-      </div>
+    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Datos de animal
+          </mat-panel-title>
+          <mat-panel-description>
+            Nombre, Raza, Tipo...
+            <mat-icon>pets</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="mt-2">
+          <mat-form-field>
+            <input matInput placeholder="Nombre de Animal" type="text" formControlName="name" id="name" cdkFocusInitial>
+            <mat-error *ngIf="registerForm.controls['name'].errors">
+              Nombre de Animal requerido: min 4 caracteres.
+              Mayúsculas, minúsculas, -
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-      <div class="mt-2" *ngIf="formType != 'animalUpdate'">
-        <mat-form-field>
-          <mat-label>Tipo de animal</mat-label>
-          <mat-select formControlName="type"  (valueChange)="getAnimalBreeds(selectType.value)" #selectType>
-            <mat-option>--</mat-option>
-            <mat-option *ngFor="let type of animalType" [value]="type.id">
-              {{type.name}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
-        </mat-form-field>
+        <div class="mt-2" *ngIf="formType != 'animalUpdate'">
+          <mat-form-field>
+            <mat-label>Tipo de animal</mat-label>
+            <mat-select formControlName="type"  (valueChange)="getAnimalBreeds(selectType.value)" #selectType>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let type of animalType" [value]="type.id">
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="mt-2" *ngIf="formType == 'animalUpdate'">
+          <mat-form-field>
+            <mat-label>Tipo de animal</mat-label>
+            <mat-select formControlName="type"  (valueChange)="getAnimalBreeds(selectType.value)" #selectType [value]="animalData.type">
+              <mat-option *ngFor="let type of animalType" [value]="type.id">
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
+          </mat-form-field>
         </div>
         
+
+
         <div class="mt-2" *ngIf="formType != 'animalUpdate'">
           <mat-form-field>
             <mat-label>Tipo de animal</mat-label>
@@ -48,7 +62,19 @@
                 {{breed.name}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
+            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione una raza </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="mt-2" *ngIf="formType != 'animalUpdate'">
+          <mat-form-field>
+            <mat-label>Tipo de animal</mat-label>
+            <mat-select formControlName="breed" [value]="">
+              <mat-option *ngFor="let breed of animalBreed" [value]="breed.id">
+                {{breed.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione una raza </mat-error>
           </mat-form-field>
         </div>
 
@@ -199,15 +225,16 @@
     </mat-expansion-panel>
   </mat-accordion>
         
-          </div>
-          <div class="row mt-5 col-md-12">
+        
+        <div class="row mt- col-md-12">
 
           <div *ngIf="formType != 'animalUpdate'">
               <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Animal</button>
           </div>
           <div *ngIf="formType == 'animalUpdate'">
-            <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Guardar</button>
+              <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Guardar</button>
           </div>
-    </div>
+        </div>
+      </div>
   </form>
 </div>
