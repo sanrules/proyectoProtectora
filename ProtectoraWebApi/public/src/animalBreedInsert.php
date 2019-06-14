@@ -23,7 +23,17 @@ try {
 
         // Comprobamos que todo viene con datos. Si no, se devolverá al formulario
         if ($name != '') {
+
             $animalBreed = new AnimalBreed();
+            $animalBreed->createAnimalBreed($name, $idtype);
+                try {
+                    $animalBreed->animalBreedExist();
+                    
+                } catch (Exception $e) {
+                    $error .= 'la raza que ha introducido ya existe en la bbdd. ';
+                    $logger->error($error);
+                    throw $e;
+                }
             $animalBreed->createAnimalBreed($name, $idtype);
 
             $animalBreed->insertAnimalBreed();

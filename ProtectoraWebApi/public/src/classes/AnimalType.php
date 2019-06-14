@@ -121,6 +121,17 @@ class AnimalType
 
     }
 
+    public function animalTypeExist()
+    {
+        try {
+            if (R::findOne('animaltype', 'name=?', [$this->get_name()]) != null) {
+                throw new Exception();
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     /*
      *** GETTERS Y SETTERS
      */

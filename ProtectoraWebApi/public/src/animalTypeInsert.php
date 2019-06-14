@@ -25,6 +25,16 @@ try {
         if ($name != '') {
             $animalType = new AnimalType();
             $animalType->createAnimalType($name);
+            try {
+                $animalType->animalTypeExist();
+                
+            } catch (Exception $e) {
+                $error .= 'el tipo que ha introducido ya existe en la bbdd. ';
+                $logger->error($error);
+                throw $e;
+            }
+
+            
             $animalType->insertAnimalType();
         }
     }

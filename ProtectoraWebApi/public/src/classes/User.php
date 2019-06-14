@@ -199,8 +199,9 @@ class User
      *
      * @param User $user usuario a borrar
      */
-    public function deleteUser($user)
+    public function deleteUser($id)
     {
+        $user = R::load('user',$id);
         R::trash($user);
     }
 
