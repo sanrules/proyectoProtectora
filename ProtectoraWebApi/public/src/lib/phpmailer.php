@@ -10,7 +10,7 @@ function sendMail($user)
     $name     = $user->getName();
     $username = $user->getUsername();
     $receiver = $user->getEmail();
-    $url      = "http://protectoraweb.com";
+    $url      = "http://protectoramaskotak.com";
     $message  = <<<EMAIL
     <!DOCTYPE html>
     <html lang="es">
@@ -18,16 +18,19 @@ function sendMail($user)
     </head>
     <body>
         <div style='margin: 1em; width: 50em;'>
-        <img style='float:right; width: 50px; height:50px' src='https://i.gifer.com/embedded/download/19wY.gif'>
-            <h1 align='center'> Bienvenido a Protectora Web </h1>
-            <div class='head' align='center' style="border:1px solid black; margin-bottom: 0.2em; font-weight: bold; font-size: 20px;"> Hola $name </div>
+            <img style='float:right; width: 50px; height:50px' src='https://i.gifer.com/embedded/download/19wY.gif'>
+            <h1 align='center'> Bienvenido a Maskotak - Protectora de animales </h1>
+            <div class='head' align='center'
+                style="border:1px solid black; margin-bottom: 0.2em; font-weight: bold; font-size: 20px;"> Hola $name </div>
             <div class='main' style="padding: 0.5em; text-align: justify;">
-                Muchas gracias por registrarte en nuestra protectora y con ello, empezar a formar parte de esta gran familia de amantes de los animales.
+                Muchas gracias por registrarte en nuestra protectora y con ello, empezar a formar parte de esta gran familia
+                de amantes de los animales.
                 <br><br>
                 Aquí tienes el nombre de usuario con el que te registraste: <b> $username </b>
                 <h4> Enamórate un poquito de alguno de nosotros: $url </h4>
                 <h3 align='center'> PROTECTORA WEB </h3>
-                <img align=center style='width:800px; height:300px;' src='https://cdn.designcrowd.com/blog/2015/October/catty-designs/GR_NationalCatDay_Banner_828x300.png'>
+                <img align=center style='width:600px; height:300px;'
+                    src='https://lh3.googleusercontent.com/tmsjvhOFPqb2kyMFf3k7lrUvUvrHmkkBxiAGn8RQZ0m1d9hOUiVDK64m8X4J2uA6u7HtJMvXYr6Xg1YcJlkJjMvfwNpixmtVaFIQiUACCL12xI5CJoxu6G9IingpID-JPoPklDdbo_LkP10znOhmw1HCYzpVVcsjt6mFMSv3LoaqOWnSPgRMZjYVDYSeu3SmtHNw8OpBKKrsfoSOXxGGozqjkddk5B5r81b5UsxQfg2M8bSUdGEI5w7AaqE8-Onri9bbQmeOpXP6gShbf3QLfvcbFCyWu0t13B0kmgzU1yBL704ds2WcV5yeoIfk8dzLao4Jt2ZCHfU3cfBYAze53uuMpep_sn3Ou9BeJDz12jN_gp1PXvhTIQuDbSwPFm-UdV640wTT64JHodZqpmt5-P7IVl8ToeLen-1ovXzSQ_6gNA_1UTFwbI9P0w_uAijK8AOSNwHMtgqYnTf0eaY-Gk9JjHERbWMz8t5vSN9Kc_mLbZtceIwtNri53NlgiOGCWySFe_tsKxeexPjGEgWxU2HF7h3X7f6ibgUP_yuTd98cexbJ1FWOZ79ErXj52gL1G9ytjoNF9RpEUr6wjp3xxQRftLhmTChb1BrP4wrrNkw5rvFWsxI26efxiaB_BYHlH_6EDXKS2nnEKTWhG1chgGE2lds3UAMP=w442-h249-no'>
             </div>
         </div>
     </body>
