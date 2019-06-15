@@ -13,10 +13,10 @@
       <input *ngIf="formType == 'typeUpdate'" type="hidden" formControlName="idType" value="">
         <div class="row">
           <div class="col-md-12" *ngIf="formType != 'typeUpdate'">
-            <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Animal</button>
+            <button mat-raised-button color="primary"  class="submitBtn btnPrincipalColor" [disabled]="!registerForm.valid">Registrar Animal</button>
           </div>
           <div class="col-md-12" *ngIf="formType == 'typeUpdate'">
-            <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Guardar</button>
+            <button mat-raised-button color="primary" class="submitBtn btnPrincipalColor" [disabled]="!registerForm.valid">Guardar</button>
           
           </div>
         </div>

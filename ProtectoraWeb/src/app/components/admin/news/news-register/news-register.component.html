@@ -37,10 +37,10 @@
         <div class="row">
           
           <div class="col-md-12" *ngIf="formType != 'newsUpdate'">
-            <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Registrar Noticia</button>
+            <button mat-raised-button color="primary"  class="submitBtn btnPrincipalColor" [disabled]="!registerForm.valid">Registrar Noticia</button>
           </div>
           <div class="col-md-12" *ngIf="formType == 'newsUpdate'">
-            <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Guardar</button>
+            <button mat-raised-button color="primary"  class="submitBtn btnPrincipalColor" [disabled]="!registerForm.valid">Guardar</button>
           </div>
         </div>
       </div>

@@ -4,3 +4,8 @@
 form {
     margin: 10%;
 }
+.submitBtn {
+    width: 100%;
+    background-color: #0c92bba6;
+  }
+  
