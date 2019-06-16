@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 // Formularios
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { ValidateDni } from 'src/app/_validators/dni.validator';
 // Servicios
 import { UserService } from 'src/app/_services/user/user-service';
 // Interfaces
 import { User } from 'src/app/_models/user.model';
 // Components
-
+import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 // Material
 import { MatDialogConfig, MatDialog } from '@angular/material';
 // FireStorage
@@ -14,7 +15,6 @@ import { AngularFireStorage } from '@angular/fire/storage';
 // Rxjs
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 
 @Component({
   selector: 'app-registro',
@@ -62,7 +62,7 @@ export class UserRegisterComponent  implements OnInit {
         this.formBuilder.group({
           name: ['Nombre', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
           surname: ['Apellidos', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-záéíúóñç]+[ -]?){1,2}$/)]],
-          dni: ['12345678S', [Validators.pattern(/^[0-9XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
+          dni: ['12345678S', [Validators.required, ValidateDni, Validators.pattern(/^[0-9XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
           phone: [987654321, [Validators.required, Validators.pattern(/^[6789]{1}[0-9]{8}$/)]],
           birthDate: ['26/13/2016', [ Validators.required]],
         }),
@@ -84,7 +84,7 @@ export class UserRegisterComponent  implements OnInit {
 
     this.maxDate.setDate(this.maxDate.getDate());
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
-
+    console.log('form: ', this.registerForm);
   }
 
   openInput() {
@@ -118,16 +118,6 @@ export class UserRegisterComponent  implements OnInit {
 
   sendAvatarToBBDD(id: number) {
     this.userService.setAvatar(id, this.formArray.get([3]).get('imgUrl').value).subscribe(() => {
-      /* this.userService.sendMail(id).subscribe(respEmail => {
-        console.log('respEmail: ', respEmail);
-        this.regError = 0;
-        this.openDialog();
-      },
-      error => {
-        console.log('Error: ', error);
-        this.regError = 3;
-        this.openDialog();
-      }); */
       this.regError = 0;
       this.openDialog();
     }, error => {
@@ -193,18 +183,8 @@ export class UserRegisterComponent  implements OnInit {
       if (this.fileUpload !== undefined) {
         this.onUpload(this.fileUpload, data.response, data.response);
       } else {
-        /* this.userService.sendMail(data.response).subscribe(respEmail => {
-          console.log('respEmail: ', respEmail);
           this.regError = 0;
           this.openDialog();
-        },
-        error => {
-          console.log('Error: ', error);
-          this.regError = 3;
-          this.openDialog();
-        }); */
-        this.regError = 0;
-        this.openDialog();
       }
     },
     error => {

@@ -1,13 +1,13 @@
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
-export function ValidateDni(control: AbstractControl) {
+export function ValidateDni(control: AbstractControl): ValidationErrors | null {
 
   const validChars = 'TRWAGMYFPDXBNJZSQVHLCKET';
   const regExp = /^[0-9XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i;
-  const str = control.toString().toUpperCase();
+  const str = control.value.toString().toUpperCase();
 
   if (!regExp.test(str)) {
-    return false;
+    return {validDni: true};
   }
 
   const nie = str
@@ -19,7 +19,6 @@ export function ValidateDni(control: AbstractControl) {
   const charIndex = +nie.substr(0, 8) % 23;
 
   if (validChars.charAt(charIndex) === letter) {
-    console.log('dniValidator: OK');
     return null;
   }
 

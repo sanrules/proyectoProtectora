@@ -73,17 +73,20 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="mt-2">
-            <input matInput placeholder="DNI" type="dni" formControlName="dni" id="dni" (change)="properties()">
-            <mat-error>
-              DNI o NIE requerido: Formato: 12345678L o X1234567A
+            <input matInput placeholder="DNI" type="dni" formControlName="dni" id="dni">
+            <mat-error *ngIf="registerForm.controls['dni'].errors && registerForm.controls['dni'].errors.required">
+              DNI obligatorio.
             </mat-error>
-            <mat-error *ngIf="registerForm.controls['dni'].errors">
-              El DNI o NIE instroducido no existe.
+            <mat-error *ngIf="registerForm.controls['dni'].errors && registerForm.controls['dni'].errors.pattern">
+              Formato DNI o NIE incorrecto: 12345678L o X1234567A.
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['dni'].errors && registerForm.controls['dni'].errors.validDni">
+              La letra introducida no coincide con el número de DNI.
             </mat-error>
           </mat-form-field>
           <mat-form-field class="mt-2">
             <input matInput placeholder="Teléfono" type="number" formControlName="phone" id="phone" >
-            <mat-error *ngIf="registerForm.controls['number'].errors">
+            <mat-error>
               Número de teléfono requerido: 9 números
             </mat-error>
           </mat-form-field>

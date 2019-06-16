@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark">
-  <a class="navbar-brand">Protectora</a>
+  <a class="navbar-brand">Maskotak</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
     aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -16,7 +16,7 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['../animals/list', 0]">Lista de animales <span class="sr-only">(current)</span></a>
       </li>
-      <li *ngIf="connectAdmin()" class="nav-item" routerLinkActive="active">
+      <li *ngIf="connectAdmin() || connectVoluntario()" class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="admin/user/register">Administrador <span class="sr-only">(current)</span></a>
       </li>
     </ul>

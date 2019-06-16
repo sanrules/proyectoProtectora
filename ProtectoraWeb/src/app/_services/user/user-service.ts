@@ -4,13 +4,14 @@ import {
   HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  // TODO: poner las variables de usuario en el fichero enviroment.ts (mirar en el trabajo cómo se hace)
-  baseURL = 'http://localhost/ProtectoraWebApi/public/src';
+
+  baseURL = environment.baseURL;
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

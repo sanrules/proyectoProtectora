@@ -57,8 +57,6 @@ export class NavbarComponent implements OnInit {
 
   }
 
-
-
   open(content) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -92,6 +90,10 @@ export class NavbarComponent implements OnInit {
 
   connectAdmin() {
     return this.authService.isAdmin();
+  }
+
+  connectVoluntario() {
+    return this.authService.isVoluntario();
   }
 
   userLogged() {

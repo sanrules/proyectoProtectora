@@ -1,19 +1,19 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 // Formularios
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // Servicios
 import { UserService } from 'src/app/_services/user/user-service';
+import { AngularFireStorage } from '@angular/fire/storage';
 // Interfaces
 import { User } from 'src/app/_models/user.model';
+import { ValidateDni } from 'src/app/_validators/dni.validator';
 // Components
+import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 
 // Material
 import { MatDialogConfig, MatDialog } from '@angular/material';
-import { Observable } from 'rxjs';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { finalize } from 'rxjs/operators';
-import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
-import { ValidateDni } from 'src/app/_validators/dni.validator';
 
 
 @Component({
@@ -66,7 +66,7 @@ export class AdminUserRegisterComponent {
       email: ['usuario@correo.es', [Validators.required, Validators.email]],
       name: ['Nombre', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
       surname: ['Apellidos', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-záéíúóñç]+[ -]?){1,2}$/)]],
-      dni: ['12345678A', [Validators.pattern(/^[0-9XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i), ValidateDni]],
+      dni: ['', [Validators.required, ValidateDni, Validators.pattern(/^[0-9XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
       phone: ['987654321', [Validators.required, Validators.pattern(/^[6789]{1}[0-9]{8}$/)]],
       birthDate: ['', [ Validators.required]],
       street: ['Calle', [Validators.required]],
@@ -87,12 +87,7 @@ export class AdminUserRegisterComponent {
     if (this.formType === 'userUpdate' || this.formType === 'userProfileUpdate') {
       this.setUpdateData(this.userData);
     }
-    console.log('FORM: ', this.registerForm);
 
-  }
-  
-  properties() {
-    console.log('FORM: ', this.registerForm);
   }
 
   openInput() {

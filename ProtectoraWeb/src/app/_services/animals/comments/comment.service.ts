@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
 
-  baseURL = 'http://localhost/ProtectoraWebApi/public/src';
+  baseURL = environment.baseURL;
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

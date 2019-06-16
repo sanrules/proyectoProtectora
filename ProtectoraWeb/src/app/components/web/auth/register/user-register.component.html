@@ -71,8 +71,14 @@
               <div class="col-md-6">
                 <mat-form-field>
                   <input matInput placeholder="DNI" type="dni" formControlName="dni" id="dni" >
-                  <mat-error>
-                    DNI requerido: Formato: 12345678L
+                  <mat-error *ngIf="formArray?.get([1])['controls']['dni'].errors && formArray?.get([1])['controls']['dni'].errors.required">
+                    DNI obligatorio.
+                  </mat-error>
+                  <mat-error *ngIf="formArray?.get([1])['controls']['dni'].errors && formArray?.get([1])['controls']['dni'].errors.pattern">
+                    Formato DNI o NIE incorrecto: 12345678L o X1234567A.
+                  </mat-error>
+                  <mat-error *ngIf="formArray?.get([1])['controls']['dni'].errors && formArray?.get([1])['controls']['dni'].errors.validDni">
+                    La letra introducida no coincide con el número de DNI.
                   </mat-error>
                 </mat-form-field>
               </div>

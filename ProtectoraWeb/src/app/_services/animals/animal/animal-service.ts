@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 export class AnimalService {
 
   // TODO: poner las variables de animal en el fichero enviroment.ts (mirar en el trabajo cómo se hace)
-  baseURL = 'http://localhost/ProtectoraWebApi/public/src';
+  baseURL = environment.baseURL;
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

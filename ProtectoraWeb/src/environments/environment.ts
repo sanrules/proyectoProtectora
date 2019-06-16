@@ -12,7 +12,8 @@ export const environment = {
     storageBucket: "protectoraweb-4cb74.appspot.com",
     messagingSenderId: "181170156834",
     appId: "1:181170156834:web:25110f51e5654e94"
-  }
+  },
+  baseURL: 'http://54.85.249.73/ProtectoraWebApi/public/src'
 };
 
 /*
