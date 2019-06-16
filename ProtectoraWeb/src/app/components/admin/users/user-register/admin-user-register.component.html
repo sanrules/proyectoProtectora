@@ -73,9 +73,12 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field class="mt-2">
-            <input matInput placeholder="DNI" type="dni" formControlName="dni" id="dni" >
+            <input matInput placeholder="DNI" type="dni" formControlName="dni" id="dni" (change)="properties()">
             <mat-error>
-              DNI requerido: Formato: 12345678L
+              DNI o NIE requerido: Formato: 12345678L o X1234567A
+            </mat-error>
+            <mat-error *ngIf="registerForm.controls['dni'].errors">
+              El DNI o NIE instroducido no existe.
             </mat-error>
           </mat-form-field>
           <mat-form-field class="mt-2">

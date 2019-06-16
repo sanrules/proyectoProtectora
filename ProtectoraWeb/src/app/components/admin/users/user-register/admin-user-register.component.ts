@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
+import { ValidateDni } from 'src/app/_validators/dni.validator';
 
 
 @Component({
@@ -65,7 +66,7 @@ export class AdminUserRegisterComponent {
       email: ['usuario@correo.es', [Validators.required, Validators.email]],
       name: ['Nombre', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
       surname: ['Apellidos', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-záéíúóñç]+[ -]?){1,2}$/)]],
-      dni: ['12345678A', []],
+      dni: ['12345678A', [Validators.pattern(/^[0-9XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i), ValidateDni]],
       phone: ['987654321', [Validators.required, Validators.pattern(/^[6789]{1}[0-9]{8}$/)]],
       birthDate: ['', [ Validators.required]],
       street: ['Calle', [Validators.required]],
@@ -86,7 +87,12 @@ export class AdminUserRegisterComponent {
     if (this.formType === 'userUpdate' || this.formType === 'userProfileUpdate') {
       this.setUpdateData(this.userData);
     }
+    console.log('FORM: ', this.registerForm);
 
+  }
+  
+  properties() {
+    console.log('FORM: ', this.registerForm);
   }
 
   openInput() {

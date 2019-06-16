@@ -62,7 +62,7 @@ export class UserRegisterComponent  implements OnInit {
         this.formBuilder.group({
           name: ['Nombre', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
           surname: ['Apellidos', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-záéíúóñç]+[ -]?){1,2}$/)]],
-          dni: ['12345678S', []],
+          dni: ['12345678S', [Validators.pattern(/^[0-9XYZ][0-9]{7}[TRWAGMYFPDXBNJZSQVHLCKE]$/i)]],
           phone: [987654321, [Validators.required, Validators.pattern(/^[6789]{1}[0-9]{8}$/)]],
           birthDate: ['26/13/2016', [ Validators.required]],
         }),
