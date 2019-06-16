@@ -43,8 +43,8 @@ import { MatDialog } from '@angular/material';
   }
 
   public parseDate(fecha) {
-    let arrayFechaYHora = fecha.split(' ');
-    let arrayfecha = arrayFechaYHora[0].split('-');
+    const arrayFechaYHora = fecha.split(' ');
+    const arrayfecha = arrayFechaYHora[0].split('-');
     fecha = new Date(arrayfecha[0], (arrayfecha[1] - 1), arrayfecha[2]);
     return fecha;
   }
@@ -73,7 +73,7 @@ dataPrepare() {
 
   const todayDate = new Date();
 
-  let formData = {
+  const formData = {
     'id': this.registerForm.get('idnews').value,
     'name': this.registerForm.get('name').value.trim(),
     'content': this.registerForm.get('content').value.trim(),
@@ -90,7 +90,7 @@ dataPrepare() {
     console.log('Entra en registerSubmit()');
     this.news = this.dataPrepare();
     console.log(this.news);
-    let animalJSON = JSON.stringify(this.news);
+    const animalJSON = JSON.stringify(this.news);
     console.log('Conversión JSON: ', animalJSON);
     this.newsService.updateNew(animalJSON).subscribe(data => {
         console.log('respuesta updateNew(data): ', data);
@@ -105,7 +105,7 @@ dataPrepare() {
     this.news = this.dataPrepare();
     console.log(this.news);
     delete this.news.id;
-    let animalJSON = JSON.stringify(this.news);
+    const animalJSON = JSON.stringify(this.news);
     console.log('Conversión JSON: ', animalJSON);
     this.newsService.registerNew(animalJSON).subscribe(data => {
 
@@ -130,14 +130,12 @@ dataPrepare() {
     }
     } else {
       if ((aux !== undefined && type === 1) || (aux === undefined && type === 2) ) {
-    this.confirmMessage =
-      'La noticia se ha publicado.';
+    this.confirmMessage = 'La noticia se ha publicado.';
     } else {
-
-    this.confirmMessage =
-      'Se ha producido un error en la publicación.';
+        this.confirmMessage = 'Se ha producido un error en la publicación.';
       }
     }
+
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = false;

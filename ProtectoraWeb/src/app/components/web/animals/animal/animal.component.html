@@ -49,14 +49,16 @@
                 <p>{{animal.entrance_date}}</p>
               </div>
             </div>
-            <div class="row">
+
+            <div class="row" *ngIf="animal.status !=1">
               <div class="col-md-4">
-                <p>Fecha de Entrada: </p>
+                <p>Fecha de Adopción: </p>
               </div>
               <div class="col-md-4">
-                <p>{{animal.entrance_date}}</p>
+                <p>{{animal.adoption_date}}</p>
               </div>
             </div>
+
             <div class="row">
               <div class="alert alert-success w-100 text-center" role="alert">
                   <i class="material-icons">pets</i>
