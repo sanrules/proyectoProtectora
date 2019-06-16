@@ -1,23 +1,6 @@
 <div class="grid" *ngIf="from === 'list'; else profile">
-    <a [routerLink]="['../../animal', animal.id]">
-  <figure class="effect-milo">
-    <img [src]="animal.image"/>
-    <figcaption>
-      <h2><span>{{animal.name}}</span></h2>
-      <p>{{animal.type | animalTypeNamePipe | async}}</p>
-      <p>{{animal.breed | animalBreedNamePipe | async}}</p>
-      <p>{{animal.size}}</p>
-      <p>{{animal.birth_date | date: 'mediumDate'}}</p>
-      
-      
-    </figcaption>			
-  </figure>
-</a>
-</div>
-
-<ng-template #profile>
-  <div class="grid">
-    <figure class="effect-milo" id ="card">
+  <a [routerLink]="['../../animal', animal.id]">
+    <figure class="effect-milo">
       <img [src]="animal.image"/>
       <figcaption>
         <h2><span>{{animal.name}}</span></h2>
@@ -25,9 +8,26 @@
         <p>{{animal.breed | animalBreedNamePipe | async}}</p>
         <p>{{animal.size}}</p>
         <p>{{animal.birth_date | date: 'mediumDate'}}</p>
-        <a [routerLink]="['../../../animals/animal', animal.id]">Ver</a>
       </figcaption>			
     </figure>
+  </a>
+</div>
+
+<ng-template #profile>
+  <div class="grid">
+    <a [routerLink]="['../../../animals/animal', animal.id]">
+      <figure class="effect-milo" id ="card">
+        <img [src]="animal.image"/>
+        <figcaption>
+          <h2><span>{{animal.name}}</span></h2>
+          <p>{{animal.type | animalTypeNamePipe | async}}</p>
+          <p>{{animal.breed | animalBreedNamePipe | async}}</p>
+          <p>{{animal.size}}</p>
+          <p>{{animal.birth_date | date: 'mediumDate'}}</p>
+          <a [routerLink]="['../../../animals/animal', animal.id]">Ver</a>
+        </figcaption>			
+      </figure>
+    </a>  
   </div>
 </ng-template>
 

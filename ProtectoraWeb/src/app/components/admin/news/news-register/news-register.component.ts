@@ -1,6 +1,5 @@
-import { OnInit, Component, ViewChild, Input } from '@angular/core';
+import { OnInit, Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Type } from '../../../../_models/type.model';
 import { News } from 'src/app/_models/news.model';
 import { NewsService } from '../../../../_services/news/news-service';
 import { MatDialogConfig } from '@angular/material';
@@ -33,7 +32,7 @@ import { MatDialog } from '@angular/material';
     this.registerForm = this.formBuilder.group({
       idnews: ['', []],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-      content: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(300)]],
+      content: ['', [Validators.required, Validators.minLength(5)]],
       publicationDate: ['', []],
     });
 
@@ -132,11 +131,11 @@ dataPrepare() {
     } else {
       if ((aux !== undefined && type === 1) || (aux === undefined && type === 2) ) {
     this.confirmMessage =
-      'El registro de animal se ha completado correctamente.';
+      'La noticia se ha publicado.';
     } else {
 
     this.confirmMessage =
-      'Se ha producido un error en el registro';
+      'Se ha producido un error en la publicación.';
       }
     }
     const dialogConfig = new MatDialogConfig();
