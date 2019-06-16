@@ -33,14 +33,14 @@ try {
         $status        = filter_var($request['status'], FILTER_SANITIZE_NUMBER_INT); 
         $description   = filter_var($request['description'], FILTER_SANITIZE_SPECIAL_CHARS);
 
-        if ($status != 0) {
+        if ($status != 1) {
             $userId = filter_var($request['user_id'], FILTER_SANITIZE_NUMBER_INT); 
         } else {
             $userId = null;
         }
 
         if ($name != '' || $type != '' || $breed != '' || $gender != '' || $birth_date != '' || $entrance_date != '' || $status != '' || $description != '') {
-            if ($status == 0) {
+            if ($status == 1) {
                 $adoption_date = null;
             }
 

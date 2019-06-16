@@ -19,7 +19,7 @@ export class AnimalImagesComponent implements OnInit {
 
   @Input() public animalData: Animal;
   arrayAux: any[] = [];
-  files: any[];
+  files: any[] = [];
   images: any[];
   images2: any[] = [];
   urlImage: Observable<string>;

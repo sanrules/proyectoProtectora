@@ -49,7 +49,7 @@ import { Router } from '@angular/router';
 
   public setDatosUpdate(data) {
 
-    this.registerForm.get('idType').setValue(data.idType);
+    this.registerForm.get('idType').setValue(data.idtype);
     this.registerForm.get('idBreed').setValue(data.id);
     this.registerForm.get('name').setValue(data.name);
 }

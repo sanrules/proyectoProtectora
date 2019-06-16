@@ -20,7 +20,7 @@ try {
 
         // Validate & sanitize
         $id   = filter_var($request['id'], FILTER_SANITIZE_NUMBER_INT);
-        $idType   = filter_var($request['idtype'], FILTER_SANITIZE_NUMBER_INT);
+        $idType   = filter_var($request['idType'], FILTER_SANITIZE_NUMBER_INT);
         $name = filter_var($request['name'], FILTER_SANITIZE_STRING);        
 
 
