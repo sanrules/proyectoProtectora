@@ -57,7 +57,7 @@
 
           <div class="mt-2" *ngIf="formType != 'animalUpdate'">
             <mat-form-field>
-              <mat-label>Tipo de animal</mat-label>
+              <mat-label>Raza</mat-label>
               <mat-select formControlName="breed">
                 <mat-option>--</mat-option>
                 <mat-option *ngFor="let breed of animalBreed" [value]="breed.id">
@@ -70,7 +70,7 @@
 
           <div class="mt-2" *ngIf="formType == 'animalUpdate'">
             <mat-form-field>
-              <mat-label>Tipo de animal</mat-label>
+              <mat-label>Raza</mat-label>
               <mat-select formControlName="breed" [value]="animalData.breed">
                 <mat-option *ngFor="let breed of animalBreed" [value]="breed.id">
                   {{breed.name}}

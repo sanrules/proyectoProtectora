@@ -40,8 +40,7 @@ import { NewsService } from '../../../../_services/news/news-service';
   openModal(news) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
-    dialogConfig.height = '80%';
-    dialogConfig.width = '80%';
+    dialogConfig.autoFocus = false;
     dialogConfig.data = news;
     this.dialog.open(NewsUpdateComponent, dialogConfig);
   }

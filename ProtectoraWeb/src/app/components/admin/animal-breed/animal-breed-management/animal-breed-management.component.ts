@@ -38,8 +38,7 @@ import { AnimalBreedService } from 'src/app/_services/animals/animal-breed/anima
     openModal(razas) {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
-      dialogConfig.height = '80%';
-      dialogConfig.width = '80%';
+      dialogConfig.autoFocus = false;
       dialogConfig.data = razas;
       this.dialog.open(AnimalBreedUpdateComponent, dialogConfig);
     }

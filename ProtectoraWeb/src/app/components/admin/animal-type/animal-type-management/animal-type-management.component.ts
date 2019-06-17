@@ -46,8 +46,7 @@ import { Type } from 'src/app/_models/type.model';
 
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
-      dialogConfig.height = '80%';
-      dialogConfig.width = '80%';
+      dialogConfig.autoFocus = false;
       dialogConfig.data = types;
       this.dialog.open(AnimalTypeUpdateComponent, dialogConfig);
 
