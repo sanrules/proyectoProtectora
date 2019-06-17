@@ -2,11 +2,35 @@
 	width: 100%;
 }
 
-.imageAside {
+.imageUserData {
+	background-image: url('../../../../../assets/regformimg/person.svg');
+	background-repeat: no-repeat;
+	overflow:hidden;
+	background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+	-webkit-align-content: center;
+  align-content: center;
+}
+
+.imageAddress {
+	background-image: url('../../../../../assets/regformimg/home.png');
+	background-repeat: no-repeat;
+	overflow:hidden;
+	background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+	-webkit-align-content: center;
+  align-content: center;
+}
+
+.imagePersonalData {
 	background-image: url('../../../../../assets/regformimg/profile.svg');
 	background-repeat: no-repeat;
 	overflow:hidden;
-	object-fit: contain;
+	background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 	-webkit-align-content: center;
   align-content: center;
 }

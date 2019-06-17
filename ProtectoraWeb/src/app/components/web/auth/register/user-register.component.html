@@ -4,7 +4,7 @@
       <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
         <ng-template matStepLabel>Datos de usuario</ng-template>
         <div class="row">
-          <div class="col-md-6 imageAside"></div>
+          <div class="col-md-6 imageUserData"></div>
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-12">
@@ -47,7 +47,7 @@
       <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
         <ng-template matStepLabel>Datos Personales</ng-template>
         <div class="row">
-          <div class="col-md-6"></div>
+          
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-6">
@@ -104,6 +104,7 @@
               </div>
             </div>
           </div>
+          <div class="col-md-6 imagePersonalData"></div>
         </div>  
         <div class="mt-5 text-right">
           <button mat-button matStepperPrevious type="button">Anterior</button>
@@ -114,7 +115,6 @@
       <mat-step formGroupName="2" [stepControl]="formArray?.get([2])">
           <ng-template matStepLabel>Dirección</ng-template>
           <div class="row">
-            <div class="col-md-6"></div>
             <div class="col-md-6">
               <div class="row">
                 <div class="col-md-12">
@@ -178,6 +178,7 @@
                 </div>
               </div>
             </div>
+            <div class="col-md-6 imageAddress"></div>
         </div>
         <div class="mt-5 text-right">
           <button mat-button matStepperPrevious type="button">Anterior</button>
