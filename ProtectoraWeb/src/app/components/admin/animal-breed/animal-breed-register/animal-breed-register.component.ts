@@ -76,7 +76,7 @@ dataPrepare() {
       const animalJSON = JSON.stringify(this.breed);
       this.animalBreedService.updateAnimalBreed(animalJSON).subscribe(data => {
           this.openDialog(data, 1);
-          this.router.navigateByUrl('admin/animals-breed/management');
+          this.ngOnInit();
       }, error => {
           console.warn('Error: ', error);
           this.openDialog(error, 2);
@@ -88,7 +88,7 @@ dataPrepare() {
 
       this.animalBreedService.registerAnimalBreed(animalJSON).subscribe(data => {
           this.openDialog(data, 1);
-          this.router.navigateByUrl('admin/animals-breed/management');
+          this.ngOnInit();
       }, error => {
           console.warn('Error: ', error);
           this.openDialog(error, 2);

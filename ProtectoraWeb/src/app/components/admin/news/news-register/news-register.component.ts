@@ -103,7 +103,7 @@ dataPrepare() {
     const animalJSON = JSON.stringify(this.news);
     this.newsService.registerNew(animalJSON).subscribe(data => {
       this.openDialog(data, 1);
-      this.router.navigateByUrl('admin/news/management');
+      this.ngOnInit();
     }, error => {
         console.warn('Error: ', error);
         this.openDialog(error, 2);

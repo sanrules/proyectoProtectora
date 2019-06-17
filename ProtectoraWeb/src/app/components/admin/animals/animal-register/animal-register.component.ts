@@ -241,7 +241,6 @@ dataPrepare() {
       this.animalService.updateAnimal(userJSON).subscribe(data => {
 
         if ( this.files === undefined ) {
-          this.router.navigateByUrl('/admin/animals/management');
           this.openDialog(data, 1);
           this.ngOnInit();
         } else {

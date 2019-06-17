@@ -26,9 +26,7 @@ import { Router } from '@angular/router';
                 private dialog: MatDialog,
                 private router: Router) {}
 
-    ngOnInit() {
-
-
+  ngOnInit() {
     this.registerForm = this.formBuilder.group({
       idType: ['', []],
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
@@ -38,8 +36,6 @@ import { Router } from '@angular/router';
       this.setDatosUpdate(this.typeData);
     }
   }
-
-
 
   public setDatosUpdate(data) {
 
@@ -66,7 +62,7 @@ dataPrepare() {
       this.type = this.dataPrepare();
       const animalJSON = JSON.stringify(this.type);
       this.animalTypeService.updateAnimalType(animalJSON).subscribe(data => {
-          this.router.navigateByUrl('admin/animals-type/management');
+          this.ngOnInit();
           this.openDialog(data, 1);
       }, error => {
           console.warn('Error: ', error);
@@ -78,7 +74,7 @@ dataPrepare() {
       delete this.type.id;
       const animalJSON = JSON.stringify(this.type);
       this.animalTypeService.registerAnimalType(animalJSON).subscribe(data => {
-          this.router.navigateByUrl('admin/animals-type/management');
+          this.ngOnInit();
           this.openDialog(data, 1);
       }, error => {
           console.warn('Error: ', error);
