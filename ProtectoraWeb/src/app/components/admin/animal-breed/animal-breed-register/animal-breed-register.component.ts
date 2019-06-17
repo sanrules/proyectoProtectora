@@ -70,14 +70,11 @@ dataPrepare() {
 }
 
   registerSubmit() {
-    console.log('Entra en registerSubmit()');
-    if (this.formType == 'breedUpdate'){
+    if (this.formType == 'breedUpdate') {
       this.breed = this.dataPrepare();
 
       const animalJSON = JSON.stringify(this.breed);
-      console.log('Conversión JSON: ', animalJSON);
       this.animalBreedService.updateAnimalBreed(animalJSON).subscribe(data => {
-          console.log('respuesta registerAnimal(data): ', data);
           this.openDialog(data, 1);
           this.router.navigateByUrl('admin/animals-breed/management');
       }, error => {
@@ -88,10 +85,8 @@ dataPrepare() {
       this.breed = this.dataPrepare();
       delete this.breed.id;
       const animalJSON = JSON.stringify(this.breed);
-      console.log('Conversión JSON: ', animalJSON);
 
       this.animalBreedService.registerAnimalBreed(animalJSON).subscribe(data => {
-          console.log('respuesta registerAnimal(data): ', data);
           this.openDialog(data, 1);
           this.router.navigateByUrl('admin/animals-breed/management');
       }, error => {

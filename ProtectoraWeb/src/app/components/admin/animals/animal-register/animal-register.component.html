@@ -1,240 +1,253 @@
-<app-administrator-navbar *ngIf="formType != 'animalUpdate'"></app-administrator-navbar>
-  
-  <div class="container mt-2">
-    <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
-      <div class="row col-md-12">
+<div class="container mt-3">
+  <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
+    <div class="row">
 
       <mat-accordion class="example-headers-align">
 
-    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Datos de animal
-          </mat-panel-title>
-          <mat-panel-description>
-            Nombre, Raza, Tipo...
-            <mat-icon>pets</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="mt-2">
-          <mat-form-field>
-            <input matInput placeholder="Nombre de Animal" type="text" formControlName="name" id="name" cdkFocusInitial>
-            <mat-error *ngIf="registerForm.controls['name'].errors">
-              Nombre de Animal requerido: min 4 caracteres.
-              Mayúsculas, minúsculas, -
-            </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="mt-2" *ngIf="formType != 'animalUpdate'">
-          <mat-form-field>
-            <mat-label>Tipo de animal</mat-label>
-            <mat-select formControlName="type"  (valueChange)="getAnimalBreeds(selectType.value)" #selectType>
-              <mat-option>--</mat-option>
-              <mat-option *ngFor="let type of animalType" [value]="type.id">
-                {{type.name}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="mt-2" *ngIf="formType == 'animalUpdate'">
-          <mat-form-field>
-            <mat-label>Tipo de animal</mat-label>
-            <mat-select formControlName="type"  (valueChange)="getAnimalBreeds(selectType.value)" #selectType [value]="animalData.type">
-              <mat-option *ngFor="let type of animalType" [value]="type.id">
-                {{type.name}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
-          </mat-form-field>
-        </div>
-        
-
-
-        <div class="mt-2" *ngIf="formType != 'animalUpdate'">
-          <mat-form-field>
-            <mat-label>Tipo de animal</mat-label>
-            <mat-select formControlName="breed" >
-              <mat-option>--</mat-option>
-              <mat-option *ngFor="let breed of animalBreed" [value]="breed.id">
-                {{breed.name}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione una raza </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="mt-2" *ngIf="formType == 'animalUpdate'">
-          <mat-form-field>
-            <mat-label>Tipo de animal</mat-label>
-            <mat-select formControlName="breed" [value]="animalData.breed">
-              <mat-option *ngFor="let breed of animalBreed" [value]="breed.id">
-                {{breed.name}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione una raza </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="mt-2">
-          <mat-radio-group aria-label="Selecciona un genero" formControlName="gender">
-            <mat-radio-button value="Macho" ngDefaultControl> Macho </mat-radio-button>
-            <br>
-            <mat-radio-button value="Hembra" ngDefaultControl> Hembra </mat-radio-button>
-          </mat-radio-group>
-          <mat-error *ngIf="registerForm.controls['gender'].errors">
-            Genero requerido
-          </mat-error>
-        </div>
-
-        <div class="mt-2" *ngIf="formType != 'animalUpdate'">
-          <mat-form-field>
-            <mat-label>Tamaño de animal</mat-label>
-            <mat-select formControlName="size" >
-              <mat-option>--</mat-option>
-              <mat-option value="Pequeño">Pequeño</mat-option>
-              <mat-option value="Mediano">Mediano</mat-option>
-              <mat-option value="Grande">Grande</mat-option>
-            </mat-select>
-            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="mt-2" *ngIf="formType == 'animalUpdate'">
-          <mat-form-field>
-            <mat-label>Tamaño de animal</mat-label>
-            <mat-select formControlName="size" >
-              <mat-option value="Pequeño">Pequeño</mat-option>
-              <mat-option value="Mediano">Mediano</mat-option>
-              <mat-option value="Grande">Grande</mat-option>
-            </mat-select>
-            <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal </mat-error>
-          </mat-form-field>
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Datos de animal
+            </mat-panel-title>
+            <mat-panel-description>
+              Nombre, Raza, Tipo...
+              <mat-icon>pets</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="mt-2">
+            <mat-form-field>
+              <input matInput placeholder="Nombre de Animal" type="text" formControlName="name" id="name"
+                cdkFocusInitial>
+              <mat-error *ngIf="registerForm.controls['name'].errors">
+                Nombre de Animal requerido: min 4 caracteres.
+                Mayúsculas, minúsculas, -
+              </mat-error>
+            </mat-form-field>
           </div>
 
-        <div class="mt-2">
-          <mat-form-field>
-              <input matInput [matDatepicker]="birthDate" placeholder="Fecha de Nacimiento" formControlName="birthDate" (click)="birthDate.open()" readonly="true">
+          <div class="mt-2" *ngIf="formType != 'animalUpdate'">
+            <mat-form-field>
+              <mat-label>Tipo de animal</mat-label>
+              <mat-select formControlName="type" (valueChange)="getAnimalBreeds(selectType.value)" #selectType>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let type of animalType" [value]="type.id">
+                  {{type.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="mt-2" *ngIf="formType == 'animalUpdate'">
+            <mat-form-field>
+              <mat-label>Tipo de animal</mat-label>
+              <mat-select formControlName="type" (valueChange)="getAnimalBreeds(selectType.value)" #selectType
+                [value]="animalData.type">
+                <mat-option *ngFor="let type of animalType" [value]="type.id">
+                  {{type.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+
+
+          <div class="mt-2" *ngIf="formType != 'animalUpdate'">
+            <mat-form-field>
+              <mat-label>Tipo de animal</mat-label>
+              <mat-select formControlName="breed">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let breed of animalBreed" [value]="breed.id">
+                  {{breed.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione una raza </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="mt-2" *ngIf="formType == 'animalUpdate'">
+            <mat-form-field>
+              <mat-label>Tipo de animal</mat-label>
+              <mat-select formControlName="breed" [value]="animalData.breed">
+                <mat-option *ngFor="let breed of animalBreed" [value]="breed.id">
+                  {{breed.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione una raza </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="mt-2">
+            <mat-radio-group aria-label="Selecciona un genero" formControlName="gender">
+              <mat-radio-button value="Macho" ngDefaultControl> Macho </mat-radio-button>
+              <br>
+              <mat-radio-button value="Hembra" ngDefaultControl> Hembra </mat-radio-button>
+            </mat-radio-group>
+            <mat-error *ngIf="registerForm.controls['gender'].errors">
+              Genero requerido
+            </mat-error>
+          </div>
+
+          <div class="mt-2" *ngIf="formType != 'animalUpdate'">
+            <mat-form-field>
+              <mat-label>Tamaño de animal</mat-label>
+              <mat-select formControlName="size">
+                <mat-option>--</mat-option>
+                <mat-option value="Pequeño">Pequeño</mat-option>
+                <mat-option value="Mediano">Mediano</mat-option>
+                <mat-option value="Grande">Grande</mat-option>
+              </mat-select>
+              <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="mt-2" *ngIf="formType == 'animalUpdate'">
+            <mat-form-field>
+              <mat-label>Tamaño de animal</mat-label>
+              <mat-select formControlName="size">
+                <mat-option value="Pequeño">Pequeño</mat-option>
+                <mat-option value="Mediano">Mediano</mat-option>
+                <mat-option value="Grande">Grande</mat-option>
+              </mat-select>
+              <mat-error *ngIf="registerForm.controls['name'].errors">Por favor seleccione un tipo de animal
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="mt-2">
+            <mat-form-field>
+              <input matInput [matDatepicker]="birthDate" placeholder="Fecha de Nacimiento" formControlName="birthDate"
+                (click)="birthDate.open()" readonly="true">
               <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
               <mat-datepicker #birthDate></mat-datepicker>
               <mat-error *ngIf="registerForm.controls['birthDate'].errors">
                 Fecha de Nacimiento requerida en formato DD/MM/AAAA
               </mat-error>
             </mat-form-field>
-        </div>
+          </div>
 
-        <div *ngIf="formType == 'animalUpdate'" class="mt-2">
-          <div>
+          <div *ngIf="formType == 'animalUpdate'" class="mt-2">
+            <div>
+              <mat-form-field>
+                <input matInput [matDatepicker]="entranceDate" placeholder="Fecha de Entrada"
+                  formControlName="entranceDate" (click)="entranceDate.open()" readonly="true">
+                <mat-datepicker-toggle matSuffix [for]="entranceDate"></mat-datepicker-toggle>
+                <mat-datepicker #entranceDate></mat-datepicker>
+                <mat-error *ngIf="registerForm.controls['entranceDate'].errors">
+                  Fecha de Entrada requerida en formato DD/MM/AAAA
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-form-field>
+                <input matInput [matDatepicker]="adoptionDate" placeholder="Fecha de Adopcion"
+                  formControlName="adoptionDate" (click)="adoptionDate.open()" readonly="true">
+                <mat-datepicker-toggle matSuffix [for]="adoptionDate"></mat-datepicker-toggle>
+                <mat-datepicker #adoptionDate></mat-datepicker>
+                <mat-error *ngIf="registerForm.controls['adoptionDate'].errors">
+                  Fecha de Adopcion requerida en formato DD/MM/AAAA
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div>
+              <mat-radio-group aria-label="Selecciona un Estado" formControlName="status">
+                <mat-radio-button value="1" ngDefaultControl> En adopción </mat-radio-button>
+                <br>
+                <mat-radio-button value="2" ngDefaultControl> En proceso de adopción </mat-radio-button>
+                <br>
+                <mat-radio-button value="3" ngDefaultControl> Adoptado </mat-radio-button>
+              </mat-radio-group>
+              <mat-error *ngIf="registerForm.controls['status'].errors">
+                Estado requerido
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="mt-2">
             <mat-form-field>
-              <input matInput [matDatepicker]="entranceDate" placeholder="Fecha de Entrada" formControlName="entranceDate" (click)="entranceDate.open()" readonly="true">
-              <mat-datepicker-toggle matSuffix [for]="entranceDate"></mat-datepicker-toggle>
-              <mat-datepicker #entranceDate></mat-datepicker>
-              <mat-error *ngIf="registerForm.controls['entranceDate'].errors">
-                Fecha de Entrada requerida en formato DD/MM/AAAA
+              <textarea matInput placeholder="Descripción" formControlName="description" id="description"></textarea>
+              <mat-error *ngIf="registerForm.controls['description'].errors">
+                Descripcion requerida
               </mat-error>
             </mat-form-field>
           </div>
+        </mat-expansion-panel>
 
-          <div>
-            <mat-form-field>
-              <input matInput [matDatepicker]="adoptionDate" placeholder="Fecha de Adopcion" formControlName="adoptionDate" (click)="adoptionDate.open()" readonly="true">
-              <mat-datepicker-toggle matSuffix [for]="adoptionDate"></mat-datepicker-toggle>
-              <mat-datepicker #adoptionDate></mat-datepicker>
-              <mat-error *ngIf="registerForm.controls['adoptionDate'].errors">
-                Fecha de Adopcion requerida en formato DD/MM/AAAA
-              </mat-error>
-            </mat-form-field>
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(0)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Imagenes
+            </mat-panel-title>
+            <mat-panel-description>
+              Para subir imagenes del animal
+              <mat-icon>collections</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <div class="row mt-3">
+            <div class="col-md-4">
+              <button mat-raised-button color="primary" class="avatarBtn" type="button" (click)="openInput()">Subir imagenes</button>
+              <input hidden type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg" multiple>
+            </div>
+            <div class="col-md-8 loading">
+              <mat-progress-bar mode="determinate" [value]="uploadpercent | async"></mat-progress-bar>
+            </div>
           </div>
 
-          <div>
-            <mat-radio-group aria-label="Selecciona un Estado" formControlName="status">
-              <mat-radio-button value="1" ngDefaultControl> En adopción </mat-radio-button>
-              <br>
-              <mat-radio-button value="2" ngDefaultControl> En proceso de adopción </mat-radio-button>
-              <br>
-              <mat-radio-button value="3" ngDefaultControl> Adoptado </mat-radio-button>
-            </mat-radio-group>
-            <mat-error *ngIf="registerForm.controls['status'].errors">
-              Estado requerido
-            </mat-error>
+          <div class="row col-md-12" *ngFor="let file of files;let i = index">Nombre: {{file.name}} {{i}}
+            <button mat-icon-button type="button" (click)="removeImage(file.name)"><i class="material-icons"
+                style="color:red">close</i></button>
           </div>
-        </div>
 
-        <div class="mt-2">
-          <mat-form-field>
-            <textarea matInput placeholder="Descripción" formControlName="description" id="description"></textarea>
-            <mat-error *ngIf="registerForm.controls['description'].errors">
-              Descripcion requerida
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </mat-expansion-panel>
-
-    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(0)" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Imagenes
-        </mat-panel-title>
-        <mat-panel-description>
-          Para subir imagenes del animal
-          <mat-icon>collections</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <div class="row mt-2">
-        <div class="col">
-          <div style="width: 120px;">
-            <button mat-raised-button color="primary" class="avatarBtn" type="button" (click)="openInput()">Subir imagenes</button>
-            <input hidden type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg" multiple>
+          <div *ngIf="images.length >= 1 ">
+            <div class="row col-md-12 px-0 mx-0 mt-2">
+              <h4>Imagenes de animal</h4>
+            </div>
+            <div class="row">
+              <div class="col-md-3" *ngFor="let image of images" [ngStyle]="{'background-image':'url('+image.image+')'}"
+                id="imagenListar">
+                <button mat-icon-button type="button" (click)="imageDelete(image.id)" id="delete">
+                  <i class="material-icons" style="color:red" id="icon">delete</i>
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      
-      <div class="row my-4">
-        <div class="col loading">
-          <mat-progress-bar mode="determinate" [value]="uploadpercent | async"></mat-progress-bar>
-        </div>
-      </div>
-      
-      <div class="row col-md-12" *ngFor="let file of files;let i = index">Nombre: {{file.name}} {{i}} 
-        <button mat-icon-button type="button" (click)="removeImage(file.name)"><i class="material-icons" style="color:red">close</i></button>
-      </div>
-      
-      <div *ngIf="images.length >= 1 ">
-        <div  class="row col-md-12 px-0 mx-0">
-          <h4>Images de animal</h4>
-        </div>
-        <div class="row" >
-          <div class="col-md-3" *ngFor="let image of images" [ngStyle]="{'background-image':'url('+image.image+')'}" id="imagenListar">
-            <button mat-icon-button type="button" (click)="imageDelete(image.id)" id="delete">
-              <i class="material-icons" style="color:red" id="icon">delete</i>
-            </button>
-          </div>
-        </div> 
-      </div>  
 
-      <input *ngIf="formType == 'animalUpdate'" type="hidden" formControlName="idAnimal" value="">
-
-      <div *ngIf="formType != 'animalUpdate'">
-        <input type="hidden" formControlName="entranceDate" id="entranceDate" value="">
-        <input type="hidden" formControlName="adoptionDate" id="adoptionDate" value="">
-        <input type="hidden" formControlName="status" id="status" value="sin adoptar">
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
-        
-        
-        <div class="row mt- col-md-12">
+          <input *ngIf="formType == 'animalUpdate'" type="hidden" formControlName="idAnimal" value="">
 
           <div *ngIf="formType != 'animalUpdate'">
-              <button mat-raised-button color="primary" class="submitBtn btnPrincipalColor" [disabled]="!registerForm.valid">Registrar Animal</button>
+            <input type="hidden" formControlName="entranceDate" id="entranceDate" value="">
+            <input type="hidden" formControlName="adoptionDate" id="adoptionDate" value="">
+            <input type="hidden" formControlName="status" id="status" value="sin adoptar">
           </div>
-          <div *ngIf="formType == 'animalUpdate'">
-              <button mat-raised-button color="primary" class="submitBtn btnPrincipalColor" [disabled]="!registerForm.valid">Guardar</button>
-          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+      
+    </div>
+
+    <div class="row my-5">
+      <button *ngIf="formType != 'animalUpdate'" mat-raised-button color="primary" class="submitBtn btnPrincipalColor"
+          [disabled]="!registerForm.valid">Registrar Animal</button>
+      <button *ngIf="formType == 'animalUpdate'" mat-raised-button color="primary" class="submitBtn btnPrincipalColor"
+          [disabled]="!registerForm.valid">Guardar</button>
+    </div>
+
+      <!-- <div class="row mt-5">
+
+        <div *ngIf="formType != 'animalUpdate'">
+          <button mat-raised-button color="primary" class="submitBtn btnPrincipalColor"
+            [disabled]="!registerForm.valid">Registrar Animal</button>
         </div>
-      </div>
+        <div *ngIf="formType == 'animalUpdate'">
+          <button mat-raised-button color="primary" class="submitBtn btnPrincipalColor"
+            [disabled]="!registerForm.valid">Guardar</button>
+        </div>
+      </div> -->
   </form>
 </div>

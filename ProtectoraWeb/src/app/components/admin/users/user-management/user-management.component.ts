@@ -12,7 +12,7 @@ import { RegisterConfirmationComponent } from 'src/app/components/shared/registe
 import { ConfirmDialogModel, ConfirmDialogComponent } from 'src/app/components/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
-  selector: 'app-admin/user/management',
+  selector: 'app-admin-user-management',
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.css']
 })
@@ -37,7 +37,6 @@ export class UserManagementComponent implements OnInit {
     // Se recuperan los datos de todos los usuarios para enviarlos a la tabla
     this.users = this.userService.getUsers().subscribe(data => {
       this.dataSource.data = data.response as User[];
-      console.log('datasource: ', this.dataSource.data);
       },
       error => {
         console.error('Error: ', error);

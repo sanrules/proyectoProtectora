@@ -6,6 +6,7 @@ import { HomeComponent } from './components/web/home/home.component';
 import { UserRegisterComponent } from './components/web/auth/register/user-register.component';
 import { UserProfileComponent } from './components/web/users/user-profile/user-profile.component';
 
+import { AdminComponent } from './components/admin/admin/admin.component';
 import { AdminUserRegisterComponent } from './components/admin/users/user-register/admin-user-register.component';
 import { UserManagementComponent } from './components/admin/users/user-management/user-management.component';
 import { AnimalRegisterComponent } from './components/admin/animals/animal-register/animal-register.component';
@@ -25,7 +26,8 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'user/register', component: UserRegisterComponent},
   {path: 'user/profile/:id', component: UserProfileComponent},
-  {path: 'admin/user/register', component: AdminUserRegisterComponent, canActivate: [AuthGuard]} ,
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]} ,
+  /* {path: 'admin/user/register', component: AdminUserRegisterComponent, canActivate: [AuthGuard]} ,
   {path: 'admin/user/management', component: UserManagementComponent, canActivate: [AuthGuard]} ,
   {path: 'admin/animals/register', component: AnimalRegisterComponent, canActivate: [AuthGuard]},
   {path: 'admin/animals/management', component: AnimalManagementComponent, canActivate: [AuthGuard]},
@@ -34,7 +36,7 @@ const routes: Routes = [
   {path: 'admin/animals-breed/register', component: AnimalBreedRegisterComponent, canActivate: [AuthGuard]},
   {path: 'admin/animals-breed/management', component: AnimalBreedManagementComponent, canActivate: [AuthGuard]},
   {path: 'admin/news/register', component: NewsRegisterComponent, canActivate: [AuthGuard]},
-  {path: 'admin/news/management', component: NewsManagementComponent, canActivate: [AuthGuard]},
+  {path: 'admin/news/management', component: NewsManagementComponent, canActivate: [AuthGuard]}, */
   {path: 'animals/list/:type', component: AnimalListComponent},
   {path: 'animals/animal/:id', component: AnimalComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'home'}

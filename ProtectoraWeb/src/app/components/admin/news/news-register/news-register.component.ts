@@ -37,7 +37,6 @@ import { MatDialog } from '@angular/material';
     });
 
     if (this.formType === 'newsUpdate') {
-      console.log('noticia: ', this.NewsData);
       this.setUpdateData(this.NewsData);
     }
   }

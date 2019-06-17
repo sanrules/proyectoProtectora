@@ -22,20 +22,15 @@ import { AnimalBreedService } from 'src/app/_services/animals/animal-breed/anima
     @ViewChild(MatSort) sort: MatSort;
 
     ngOnInit() {
-        this.razas = this.animalBreedService.getAnimalBreeds().subscribe(data => {
+      this.razas = this.animalBreedService.getAnimalBreeds().subscribe(data => {
         this.dataSource.data = data.response as Breed[];
-
-        console.log('repuesta getAnimals(): ', this.dataSource.data);
-        },
-        error => {
-          console.log('Error: ', error);
-        }
-
-      );
-
-
+      },
+      error => {
+        console.log('Error: ', error);
+      });
     }
-      ngAfterViewInit(): void {
+
+    ngAfterViewInit(): void {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     }
@@ -47,7 +42,6 @@ import { AnimalBreedService } from 'src/app/_services/animals/animal-breed/anima
       dialogConfig.width = '80%';
       dialogConfig.data = razas;
       this.dialog.open(AnimalBreedUpdateComponent, dialogConfig);
-
     }
 
 }

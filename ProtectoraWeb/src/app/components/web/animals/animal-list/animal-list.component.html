@@ -1,6 +1,6 @@
 <h1 align='center'>Lista de animales</h1>
 <div class="container mt-0">
-<div class="row cardContainer card-columns" *ngIf="animalList">
+<div class="row cardContainer" *ngIf="animalList">
   <div class="col px-0" *ngFor="let animal of animalList, let i = index">
     <app-animal-card [animal]="animal" [index]="i" [from]="from"></app-animal-card>
   </div>

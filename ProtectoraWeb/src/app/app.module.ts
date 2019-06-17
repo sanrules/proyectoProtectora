@@ -83,6 +83,7 @@ import { UserIdToNamePipe } from './_pipes/user-id-to-name.pipe';
 import { AnimalStatusNamePipe } from './_pipes/animal-status-name.pipe';
 import { AnimalTypeNamePipe } from './_pipes/animal-type-name.pipe';
 import { AnimalBreedNamePipe } from './_pipes/animal-breed-name.pipe';
+import { AdminComponent } from './components/admin/admin/admin.component';
 
 
 @NgModule({
@@ -122,7 +123,8 @@ import { AnimalBreedNamePipe } from './_pipes/animal-breed-name.pipe';
     AnimalStatusNamePipe,
     AnimalTypeNamePipe,
     AnimalBreedNamePipe,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

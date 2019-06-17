@@ -17,52 +17,43 @@ import { NewsService } from '../../../../_services/news/news-service';
     displayedColumns: string[] = ['id', 'name' , 'newsDate', 'acces', 'delete'];
     dataSource = new MatTableDataSource(this.news);
 
-    constructor(private newsService: NewsService,
-                private dialog: MatDialog) { }
+  constructor(private newsService: NewsService,
+              private dialog: MatDialog) { }
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    ngOnInit() {
-      this.news = this.newsService.getNews().subscribe(data => {
+  ngOnInit() {
+    this.news = this.newsService.getNews().subscribe(data => {
       this.dataSource.data = data.response as Type[];
+    },
+    error => {
+      console.log('Error: ', error);
+    });
+  }
 
-      console.log('repuesta getAnimals(): ', this.dataSource.data);
-      },
-      error => {
-        console.log('Error: ', error);
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  openModal(news) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.height = '80%';
+    dialogConfig.width = '80%';
+    dialogConfig.data = news;
+    this.dialog.open(NewsUpdateComponent, dialogConfig);
+  }
+
+  deleteNew(id) {
+    this.newsService.deleteNew(id).subscribe(data => {
+      if (data.response === 'delete OK') {
+      this.ngOnInit();
       }
-
-    );
-
-    }
-    ngAfterViewInit(): void {
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    }
-
-    openModal(news) {
-
-      console.log('row: ', news);
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.height = '80%';
-      dialogConfig.width = '80%';
-      dialogConfig.data = news;
-      this.dialog.open(NewsUpdateComponent, dialogConfig);
-
-    }
-    deleteNew(id) {
-      this.newsService.deleteNew(id).subscribe(data => {
-
-        console.log('respuesta deleteAnimal (data): ', data);
-        if (data.response === "delete OK") {
-        this.ngOnInit();
-        }
-      }, error => {
-          console.warn('Error: ', error);
-      });
-  
-    }
+    }, error => {
+        console.warn('Error: ', error);
+    });
+  }
 
 }

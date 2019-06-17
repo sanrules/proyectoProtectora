@@ -1,0 +1,80 @@
+ngx-avatar{
+  display:inline-block;
+}
+
+.container-fluid {
+  margin: 0%;
+  padding: 0%;
+}
+
+.principal {
+  width: 95%;
+}
+
+.lateral {
+  height: 90vh;
+  margin-left: 0%;
+}
+
+.avatar {
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+  color: gray;
+}
+
+.button {
+  width: 80%;
+}
+
+.lateral {
+  background-color: #0c92bb15;
+}
+
+.btnUpdate {
+  background-color: #0c92bbda;
+}
+
+.btnAdopted {
+  background-color: hsl(44, 97%, 49%);
+}
+
+.menu {
+  width: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+.card {
+  margin-bottom: 2%;
+}
+
+.btn-link {
+  text-decoration: none;
+  font-weight: bolder;
+  color: #0c92bbda;
+}
+
+button:hover {
+  text-decoration: none;
+  color: hsl(34, 98%, 49%);
+}
+
+.submenu {
+  color: hsl(34, 98%, 49%);
+  font-weight: bold;
+}
+
+.submenu:hover {
+  color: #0c92bbda;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+
+/**/
+
+
+

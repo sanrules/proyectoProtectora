@@ -35,7 +35,6 @@ import { Router } from '@angular/router';
     });
 
     if (this.formType == 'typeUpdate') {
-      console.log('animal: ', this.typeData);
       this.setDatosUpdate(this.typeData);
     }
   }
@@ -63,14 +62,10 @@ dataPrepare() {
 }
 
   registerSubmit() {
-    console.log('Entra en registerSubmit()');
     if (this.formType == 'typeUpdate'){
       this.type = this.dataPrepare();
-      console.log(this.type);
-      let animalJSON = JSON.stringify(this.type);
-      console.log('Conversión JSON: ', animalJSON);
+      const animalJSON = JSON.stringify(this.type);
       this.animalTypeService.updateAnimalType(animalJSON).subscribe(data => {
-          console.log('respuesta registerAnimal(data): ', data);
           this.router.navigateByUrl('admin/animals-type/management');
           this.openDialog(data, 1);
       }, error => {
@@ -80,12 +75,9 @@ dataPrepare() {
     } else {
 
       this.type = this.dataPrepare();
-      console.log(this.type);
       delete this.type.id;
-      let animalJSON = JSON.stringify(this.type);
-      console.log('Conversión JSON: ', animalJSON);
+      const animalJSON = JSON.stringify(this.type);
       this.animalTypeService.registerAnimalType(animalJSON).subscribe(data => {
-          console.log('respuesta registerAnimal(data): ', data);
           this.router.navigateByUrl('admin/animals-type/management');
           this.openDialog(data, 1);
       }, error => {
@@ -101,16 +93,16 @@ dataPrepare() {
         this.confirmMessage =
         'La actualización se ha completado correctamente.';
       } else {
-        this.confirmMessage =
-        'Se ha producido un error en la actualizacion';
+          this.confirmMessage =
+            'Se ha producido un error en la actualizacion';
       }
     } else {
       if ((aux !== undefined && type === 1) || (aux === undefined && type === 2) ) {
         this.confirmMessage =
           'El registro de animal se ha completado correctamente.';
       } else {
-        this.confirmMessage =
-          'Se ha producido un error en el registro';
+          this.confirmMessage =
+            'Se ha producido un error en el registro';
       }
     }
     const dialogConfig = new MatDialogConfig();
