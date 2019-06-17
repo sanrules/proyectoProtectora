@@ -77,14 +77,14 @@
         </div>
       </div>
       <div class="row text-center" *ngIf="invalidLogin">
-        <div class="col-12 alert alert-danger invalid" *ngIf="invalidLogin">
+        <div class="col alert alert-danger invalid px-17" *ngIf="invalidLogin">
           Usuario o contraseña inválidos.
         </div>
       </div>
       <div class="row text-center">
         <div class="form-group col-12">
-            <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Aceptar</button>
-            <button mat-raised-button color="warn" (click)="modal.dismiss('Cancelar')">Cancelar</button>
+            <button mat-raised-button color="primary" [disabled]="!loginForm.valid" class="btnAccept">Aceptar</button>
+            <button mat-raised-button color="warn" (click)="modal.dismiss('Cancelar')" class="btnCancel">Cancelar</button>
           </div>
       </div>
     </form>

@@ -1,11 +1,4 @@
-<div class="container" *ngIf="animal">
-  <div class="row">
-    <div class="jumbotron jumbotron-fluid col-md-12 mt-3">
-      <div class="container">
-        <h1 class="display-4 text-center">{{ animal.name }}</h1>
-      </div>
-    </div>
-  </div>
+<div class="container mt-5" *ngIf="animal">
 
   <div class="row">
     <div class="card mb-3 w-100">
@@ -60,14 +53,25 @@
             </div>
 
             <div class="row">
-              <div class="alert alert-success w-100 text-center" role="alert">
-                  <i class="material-icons">pets</i>
-                {{animal.status | animalStatusNamePipe}} 
+              <div class="col-4 w-100">
+                  <h3 *ngIf="animal.status == 1">
+                    <span class="badge badge-secondary text-center badgeAviable p-10">
+                      <i class="material-icons">pets</i> {{animal.status | animalStatusNamePipe}}
+                    </span>
+                  </h3> 
+                  <h3 *ngIf="animal.status == 2">
+                    <span class="badge badge-secondary text-center badgePreAdopt p-10">
+                      <i class="material-icons">pets</i> {{animal.status | animalStatusNamePipe}}
+                    </span>
+                  </h3>
+                  <h3 *ngIf="animal.status == 3">
+                    <span class="badge badge-secondary text-center badgeAdopt p-10">
+                      <i class="material-icons">pets</i> {{animal.status | animalStatusNamePipe}}
+                    </span>
+                  </h3>
               </div>
-            </div>
-            <div class="row" *ngIf="animal.status == 1">
-              <div class="alert alert-success w-100 text-center" role="alert">
-                <button mat-raised-button color="primary" class="btnBG" (click)="adoptAnimal(animalId)">Adoptar</button>
+              <div class="col-6" *ngIf="animal.status == 1">
+                <button mat-raised-button color="primary" class="btnBG" (click)="adoptAnimal(animalId)">Pre-Adoptar</button>
               </div>
             </div>
           </div>

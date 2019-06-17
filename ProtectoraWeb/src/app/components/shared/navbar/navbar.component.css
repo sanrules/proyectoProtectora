@@ -27,3 +27,25 @@
 .navbarDropdown :hover {
   cursor: pointer;
 }
+
+/* Modal Login */
+.close {
+  color: red;
+}
+
+.btnAccept {
+  background-color: #0c92bbda;
+  margin-right: 5%;
+}
+
+.btnCancel {
+  background-color: hsl(44, 97%, 49%);
+}
+
+.alert-danger {
+  width: 95%;
+}
+
+mat-form-field {
+  width: 100%;
+}

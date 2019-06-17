@@ -1,3 +1,18 @@
 .btnBG {
   background-color: #0c92bbda;
 }
+
+.badgeAviable {
+  background-color: #16a129fa;
+  vertical-align: middle;
+}
+
+.badgePreAdopt {
+  background-color: hsl(44, 97%, 49%);
+  vertical-align: middle;
+}
+
+.badgeAdopt {
+  background-color: #0c92bbda;
+  vertical-align: middle;
+}

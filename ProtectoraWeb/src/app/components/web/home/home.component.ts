@@ -46,7 +46,6 @@ export class HomeComponent implements OnInit {
 
     this.newsService.getNews().subscribe(newsGet => {
       this.news = newsGet.response;
-      console.log('news: ', this.news);
     });
   }
 

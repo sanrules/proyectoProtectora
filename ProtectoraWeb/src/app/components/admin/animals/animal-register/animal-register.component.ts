@@ -80,7 +80,7 @@ export class AnimalRegisterComponent implements OnInit {
       adoptionDate: ['', []],
       entranceDate: ['', []],
       status: [1, []],
-      description: ['', [Validators.required,  Validators.minLength(4), Validators.maxLength(300)]],
+      description: ['', [Validators.required,  Validators.minLength(4)]],
       idUser: ['', []]
     });
 

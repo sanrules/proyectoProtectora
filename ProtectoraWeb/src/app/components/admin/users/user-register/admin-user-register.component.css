@@ -19,6 +19,7 @@
 }
 
 .loading {
+	display: flex;
 	align-content: center;
 	align-items: center;
 	width: 90%;

@@ -84,7 +84,6 @@ export class UserRegisterComponent  implements OnInit {
 
     this.maxDate.setDate(this.maxDate.getDate());
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
-    console.log('form: ', this.registerForm);
   }
 
   openInput() {
@@ -107,7 +106,6 @@ export class UserRegisterComponent  implements OnInit {
     task.snapshotChanges().pipe(
       finalize(() => {
         ref.getDownloadURL().subscribe(url => {
-          console.log(url); // <-- do what ever you want with the url..
           this.urlImage = url;
           this.formArray.get([3]).get('imgUrl').setValue(url);
           this.sendAvatarToBBDD(id);

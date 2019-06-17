@@ -93,12 +93,14 @@ export class AnimalComponent implements OnInit {
   }
 
   openConfirmDialog() {
-    const message = `¿Seguro que quieres pre-adoptar el animal?`;
+    const message = 
+      `¿Seguro que quieres pre-adoptar el animal? Esto cambiará su estado a pre-adoptado. Si quieres formalizar la adopción, tendrás que ir al local de Maskotak`;
     const dialogData = new ConfirmDialogModel('Pre-adoptar', message);
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       maxWidth: '400px',
-      data: dialogData
+      data: dialogData,
+      autoFocus:  false
     });
 
     dialogRef.afterClosed().subscribe(confirm => {

@@ -1,7 +1,7 @@
-<div class="grid" *ngIf="from === 'list'; else profile">
+<div class="grid card-img-top w-100" *ngIf="from === 'list'; else profile">
   <a [routerLink]="['../../animal', animal.id]">
     <figure class="effect-milo">
-      <img [src]="animal.image"/>
+      <img  [src]="animal.image" />
       <figcaption>
         <h2><span>{{animal.name}}</span></h2>
         <p>{{animal.type | animalTypeNamePipe | async}}</p>

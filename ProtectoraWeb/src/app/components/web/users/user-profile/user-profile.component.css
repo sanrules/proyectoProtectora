@@ -28,3 +28,16 @@ ngx-avatar{
 .button {
   width: 80%;
 }
+
+.lateral {
+  background-color: #0c92bb15;
+}
+
+.btnUpdate {
+  background-color: #0c92bbda;
+}
+
+.btnAdopted {
+  background-color: hsl(44, 97%, 49%);
+}
+
