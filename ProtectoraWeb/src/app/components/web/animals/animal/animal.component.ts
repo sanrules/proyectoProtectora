@@ -112,7 +112,6 @@ export class AnimalComponent implements OnInit {
         console.log('JSON: ', animalJSON);
 
         this.animalService.updateAnimal(animalJSON).subscribe(resp => {
-          console.log('resp adopt: ', resp);
           this.adoptError = false;
           this.openDialog();
         },

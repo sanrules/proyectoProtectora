@@ -29,17 +29,14 @@ import { Type } from 'src/app/_models/type.model';
 
     ngOnInit() {
       this.tipos = this.animalTypeService.getAnimalTypes().subscribe(data => {
-      this.dataSource.data = data.response as Type[];
-
-      console.log('repuesta getAnimals(): ', this.dataSource.data);
+        this.dataSource.data = data.response as Type[];
       },
       error => {
         console.log('Error: ', error);
-      }
-
-    );
+      });
 
     }
+
     ngAfterViewInit(): void {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -47,7 +44,6 @@ import { Type } from 'src/app/_models/type.model';
 
     openModal(types) {
 
-      console.log('row: ', types);
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.height = '80%';

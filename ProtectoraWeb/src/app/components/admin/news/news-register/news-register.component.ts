@@ -88,13 +88,9 @@ dataPrepare() {
 
   registerSubmit() {
     if (this.formType === 'newsUpdate') {
-    console.log('Entra en registerSubmit()');
     this.news = this.dataPrepare();
-    console.log(this.news);
     const animalJSON = JSON.stringify(this.news);
-    console.log('Conversión JSON: ', animalJSON);
     this.newsService.updateNew(animalJSON).subscribe(data => {
-        console.log('respuesta updateNew(data): ', data);
         this.openDialog(data, 1);
     }, error => {
         console.warn('Error: ', error);
@@ -102,17 +98,12 @@ dataPrepare() {
     });
 
     } else {
-    console.log('Entra en registerSubmit()');
     this.news = this.dataPrepare();
-    console.log(this.news);
     delete this.news.id;
     const animalJSON = JSON.stringify(this.news);
-    console.log('Conversión JSON: ', animalJSON);
     this.newsService.registerNew(animalJSON).subscribe(data => {
-
-        console.log('respuesta registerNew(data): ', data);
-        this.openDialog(data, 1);
-        this.router.navigateByUrl('admin/news/management');
+      this.openDialog(data, 1);
+      this.router.navigateByUrl('admin/news/management');
     }, error => {
         console.warn('Error: ', error);
         this.openDialog(error, 2);

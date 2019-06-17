@@ -18,7 +18,6 @@ export class AnimalBreedService {
 
   // Solicita a la API una lista con todas las razas de animal.
   getAnimalBreeds(): Observable<any> {
-    console.log('Respuesta backEnd => get_animalBreeds_all()');
     return this.http.get(`${this.baseURL}/animalBreedGetAll.php`);
   }
 

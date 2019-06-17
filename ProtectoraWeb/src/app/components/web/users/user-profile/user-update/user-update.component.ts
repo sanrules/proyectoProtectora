@@ -14,7 +14,6 @@ export class UserUpdateComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('userDataProfileUpdate: ', this.user);
   }
 
 }

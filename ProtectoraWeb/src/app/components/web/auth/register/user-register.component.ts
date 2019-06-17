@@ -180,12 +180,9 @@ export class UserRegisterComponent  implements OnInit {
 
     // Se convierte el objeto user a JSON para enviarlo a la API
     const userJSON = JSON.stringify(this.user);
-    console.log('Conversión JSON: ', userJSON);
 
     // Se envían los datos mediante post a la API
     this.userService.registerUser(userJSON).subscribe(data => {
-      console.log('respuesta registerUser(data): ', data);
-
       if (this.fileUpload !== undefined) {
         this.onUpload(this.fileUpload, data.response, data.response);
       } else {

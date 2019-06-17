@@ -53,7 +53,6 @@ export class AnimalImagesComponent implements OnInit {
   }
 
   openImg(img) {
-    console.log('img: ', img);
     window.open(img, '_blank');
   }
 
@@ -79,9 +78,7 @@ export class AnimalImagesComponent implements OnInit {
           ref.getDownloadURL().subscribe(url => {
 
             this.urlImageAr.push(url);
-            console.log('urls', this.urlImageAr);
             if (this.urlImageAr.length === images.length)  {
-              console.log('entra en el subir imagenes');
               this.subirImagenes(id, this.urlImageAr);
             }
           });
@@ -112,15 +109,12 @@ export class AnimalImagesComponent implements OnInit {
   public loadImages() {
     this.imagesService.getImagesByAnimal(this.animalData.id).subscribe(e =>{
       this.images = e.response;
-      console.log('imagenes de animal' , this.images);
     });
   }
 
   public imageDelete(id) {
 
     this.imagesService.deleteImage(id).subscribe(data => {
-
-      console.log('respuesta deleteAnimal (data): ', data);
       if (data.response === 'delete OK') {
       this.loadImages();
       }
@@ -181,12 +175,10 @@ export class AnimalImagesComponent implements OnInit {
       delete this.animal.user_id;
     }
     const userJSON = JSON.stringify(this.animal);
-    console.log('datos a enviar: ', userJSON);
     this.animalService.updateAnimal(userJSON).subscribe(data => {
 
       this.onUpload(this.files, data.response);
         this.ngOnInit();
-      console.log('repuesta registerAnimal(data): ', data.response);
       },
       error => {
         console.log('Error: ', error);

@@ -18,7 +18,6 @@ export class AnimalTypeService {
 
   // Solicita a la API una lista con todos los usuarios.
   getAnimalTypes(): Observable<any> {
-    console.log('Respuesta backEnd => animalTypeGetAll()');
     return this.http.get(`${this.baseURL}/animalTypeGetAll.php`);
   }
 

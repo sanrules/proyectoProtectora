@@ -17,9 +17,7 @@ import { Animal } from 'src/app/_models/animal.model';
                 @Inject(MAT_DIALOG_DATA) public data: Animal ) {}
 
     ngOnInit() {
-
       this.animalData = this.data;
-      console.log('animal Data', this.animalData);
     }
 
 }

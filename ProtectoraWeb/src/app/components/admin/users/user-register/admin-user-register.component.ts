@@ -126,20 +126,9 @@ export class AdminUserRegisterComponent {
     this.userService.setAvatar(id, this.registerForm.get('imgUrl').value).subscribe(resp => {
 
       if (!this.formType) {
-        this.userService.sendMail(id).subscribe(respEmail => {
-          console.log('respEmail: ', respEmail);
-          this.regError = 0;
-          this.openDialog();
-        },
-        error => {
-          console.log('Error: ', error);
-          this.regError = 3;
-          this.openDialog();
-        });
+        this.regError = 0;
+        this.openDialog();
       }
-
-      this.regError = 4;
-      this.openDialog();
     }, error => {
         console.log('Error: ', error);
         this.regError = 1;
@@ -224,7 +213,6 @@ export class AdminUserRegisterComponent {
       const userJSON = JSON.stringify(this.user);
 
       this.userService.updateUser(userJSON).subscribe(data => {
-        console.log('repuesta registerUser(data): ', data);
         if (this.fileUpload !== undefined) {
           this.onUpload(this.fileUpload, data.response);
         } else {
@@ -245,24 +233,14 @@ export class AdminUserRegisterComponent {
         delete this.user.id;
         // Se convierte el objeto user a JSON para enviarlo a la API
         const userJSON = JSON.stringify(this.user);
-        console.log('Send JSON: ', userJSON);
 
         // Se envían los datos mediante post a la API
         this.userService.registerUser(userJSON).subscribe(data => {
-          console.log('repuesta registerUser(data): ', data);
           if (this.fileUpload !== undefined) {
             this.onUpload(this.fileUpload, data.response);
           } else {
-              this.userService.sendMail(data.response).subscribe(respEmail => {
-                console.log('respEmail: ', respEmail);
-                this.regError = 0;
-                this.openDialog();
-              },
-              error => {
-                console.log('Error: ', error);
-                this.regError = 3;
-                this.openDialog();
-              });
+              this.regError = 0;
+              this.openDialog();
           }
         },
         error => {

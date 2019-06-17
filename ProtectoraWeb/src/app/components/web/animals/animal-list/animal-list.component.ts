@@ -43,7 +43,6 @@ export class AnimalListComponent implements OnInit {
               });
             }
           });
-          console.log('animalList', this.animalList);
         });
        } else if (this.searchType !== 0) {
         this.animalService.getAnimalByType(this.searchType).subscribe(animals => {
@@ -57,7 +56,6 @@ export class AnimalListComponent implements OnInit {
               });
             }
           });
-          console.log('animalList', this.animalList);
         });
       } else {
         this.animalService.getAnimalByStatus(1).subscribe(animals => {
