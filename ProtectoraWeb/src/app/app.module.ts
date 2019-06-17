@@ -46,7 +46,6 @@ import { CommentsComponent } from './components/web/animals/animal/comments/comm
 
 
 // Componentes Admin
-import { AdministratorNavbarComponent } from './components/admin/navbar/administrator-navbar.component';
 // User
 import { AdminUserRegisterComponent } from './components/admin/users/user-register/admin-user-register.component';
 import { UserManagementComponent } from './components/admin/users/user-management/user-management.component';
@@ -90,7 +89,6 @@ import { AdminComponent } from './components/admin/admin/admin.component';
   declarations: [
     AppComponent,
     NavbarComponent,
-    AdministratorNavbarComponent,
     RegisterConfirmationComponent,
     AnimalRegisterComponent,
     AnimalManagementComponent,
