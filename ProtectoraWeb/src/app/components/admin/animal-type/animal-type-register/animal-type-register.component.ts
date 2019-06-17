@@ -107,7 +107,7 @@ dataPrepare() {
     } else {
       if ((aux !== undefined && type === 1) || (aux === undefined && type === 2) ) {
         this.confirmMessage =
-          'El registro de animal se ha completado correctamente.';
+          'El registro de tipo de animal se ha completado correctamente.';
       } else {
         this.confirmMessage =
           'Se ha producido un error en el registro';

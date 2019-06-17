@@ -5,6 +5,7 @@ import { NewsService } from '../../../../_services/news/news-service';
 import { MatDialogConfig } from '@angular/material';
 import { RegisterConfirmationComponent } from 'src/app/components/shared/register-confirmation/register-confirmation.component';
 import { MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
 
 
 
@@ -24,7 +25,8 @@ import { MatDialog } from '@angular/material';
     public news: News;
     constructor(private formBuilder: FormBuilder,
                 private newsService: NewsService,
-                private dialog: MatDialog) {}
+                private dialog: MatDialog,
+                private router: Router) {}
 
     ngOnInit() {
 
@@ -111,6 +113,7 @@ dataPrepare() {
 
         console.log('respuesta registerNew(data): ', data);
         this.openDialog(data, 1);
+        this.router.navigateByUrl('admin/news/management');
     }, error => {
         console.warn('Error: ', error);
         this.openDialog(error, 2);
