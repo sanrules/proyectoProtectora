@@ -15,6 +15,8 @@ import { AngularFireStorage } from '@angular/fire/storage';
 // Rxjs
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { AuthService } from '../../../../_services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -42,10 +44,16 @@ export class UserRegisterComponent  implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
+              private authService: AuthService,
+              private router: Router,
               private dialog: MatDialog,
               private storage: AngularFireStorage) {}
 
   ngOnInit() {
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
+
     // Crea el formulario y le agrega a un formGroup:
     // Así se tienen las validaciones y los métodos de los formularios reactivos de Angular
     this.registerForm = this.formBuilder.group({
