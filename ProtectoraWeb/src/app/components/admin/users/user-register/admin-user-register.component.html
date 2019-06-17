@@ -34,7 +34,7 @@
               Email requerido: Formato: ejemplo@email.com
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="mt-2" *ngIf="!formType || formType === 'userUpdate'">
+          <mat-form-field class="mt-2" *ngIf="isAdmin">
             <mat-label>Tipo de Usuario</mat-label>
             <mat-select formControlName="userType" id="userType">
               <mat-option *ngFor="let usuario of tiposUsuario" [value]="usuario.value">

@@ -14,6 +14,7 @@ import { RegisterConfirmationComponent } from 'src/app/components/shared/registe
 
 // Material
 import { MatDialogConfig, MatDialog } from '@angular/material';
+import { AuthService } from 'src/app/_services/auth/auth.service';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class AdminUserRegisterComponent {
   fileUpload: any;
   uploadPercent: Observable<number>;
   urlImage: Observable<string>;
+  isAdmin: boolean;
 
   maxDate = new Date(Date.now());
 
@@ -51,6 +53,7 @@ export class AdminUserRegisterComponent {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
+              private authService: AuthService,
               private dialog: MatDialog,
               private storage: AngularFireStorage) {}
 
@@ -62,7 +65,7 @@ export class AdminUserRegisterComponent {
       userName: ['Usuario', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_-]{4,16}$/)]],
       password: ['QWas12', [Validators.required,
                       Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/)
-                     ]],
+                ]],
       email: ['usuario@correo.es', [Validators.required, Validators.email]],
       name: ['Nombre', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-zñáéíúóñç]+[ -]?){1,2}$/)]],
       surname: ['Apellidos', [Validators.required, Validators.pattern(/([A-ZÁÉÍÓÚÑ]{1}[a-záéíúóñç]+[ -]?){1,2}$/)]],
@@ -87,6 +90,8 @@ export class AdminUserRegisterComponent {
     if (this.formType === 'userUpdate' || this.formType === 'userProfileUpdate') {
       this.setUpdateData(this.userData);
     }
+
+    this.isAdmin = this.authService.isAdmin();
 
   }
 
