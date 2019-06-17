@@ -10,7 +10,7 @@ function sendMail($user)
     $name     = $user->getName();
     $username = $user->getUsername();
     $receiver = $user->getEmail();
-    $url      = "http://protectoraweb.com";
+    $url      = "http://maskotak.tk";
     $message  = <<<EMAIL
     <!DOCTYPE html>
     <html lang="es">
