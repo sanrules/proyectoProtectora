@@ -51,12 +51,22 @@ h1 {
 /* Noticias */
 
 .news {
-  border: 1px solid rgba(0, 0, 0, 0.13);
+  /* border: 1px solid rgba(0, 0, 0, 0.13); */
+  border: 1px solid #0c92bbda;
   border-radius: 5px;
 }
 
 .dateNews {
-  border-top: 1px solid rgba(0, 0, 0, 0.13);
+  /* border-top: 1px solid rgba(0, 0, 0, 0.13); */
+  border-top: 1px solid hsl(44, 97%, 49%);
+}
+
+.logo {
+  height: 40px;
+}
+
+.newsSection {
+  background-color: #0c92bb27;
 }
 
 /* Enlaces */

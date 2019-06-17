@@ -1,43 +1,44 @@
-<div class="col-md-12 carouselContainer">
-  <ngb-carousel *ngIf="images">
-    <ng-template ngbSlide *ngFor="let image of images">
-      <img [src]="image.image" alt="Random first slide">
-    </ng-template>
-  </ngb-carousel>
-</div>
-<div class="container">
+<div class="container px-0">
 
-  <div class="row mt-2">
-      <div class="col">
-        <div style="width: 120px;">
-          <button mat-raised-button color="primary" class="avatarBtn" type="button" (click)="openInput()">Subir imagenes</button>
-          <input hidden type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg" multiple>
-        </div>
-      </div>
-    </div>
-
-  <div class="row my-4">
-      <div class="col loading">
-          <mat-progress-bar mode="determinate" [value]="uploadpercent | async"></mat-progress-bar>
-      </div>
+<!-- Carousel -->
+  <div class="col-12 carouselContainer">
+    <ngb-carousel *ngIf="images">
+      <ng-template ngbSlide *ngFor="let image of images">
+        <img [src]="image.image" alt="Random first slide">
+      </ng-template>
+    </ngb-carousel>
   </div>
 
-  <div class="row col-md-12" *ngFor="let file of files;let i = index">Nombre: {{file.name}} {{i}} <button mat-icon-button (click)="removeImage(file.name)"><i class="material-icons" style="color:red">close</i></button></div>
-
-  <div *ngIf="images.length >= 1 ">
-    <div  class="row col-md-12 px-0 mx-0">
-      <h4>Images de animal</h4>
+  <!-- Images -->
+  <div class="container pr-0">
+    <div class="row mt-4" *ngIf="userId === animalData.user_id">
+      <div class="col-3 text-left pr-0">
+        <button mat-raised-button color="primary" class="imgBtn mr-2" type="button" (click)="openInput()">Elegir imagenes</button>
+        <input hidden type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg" multiple>
+        <button mat-raised-button color="primary" class="imgBtn px-10" type="button" (click)="registerSubmit()" [disabled]="files && files.length <= 0">Subir</button>
+      </div>
+      <div class="col loading px-0">
+        <mat-progress-bar mode="determinate" [value]="uploadpercent | async"></mat-progress-bar>
+      </div>
     </div>
-  <div class="row" >
-    <div class="col-md-3" *ngFor="let image of images" [ngStyle]="{'background-image':'url('+image.image+')'}" id="imagenListar">
-      <button mat-icon-button (click)="imageDelete(image.id)" id="delete">
-        <i class="material-icons" style="color:red" id="icon">delete</i>
-      </button>
+    <div class="row mt-2" > 
+      <div class="col-md-4 text-left" *ngFor="let file of files;let i = index">
+        <button mat-icon-button (click)="removeImage(file.name)">
+          <i class="material-icons" style="color:red">close</i>
+        </button>
+        Nombre: {{file.name}} {{i}}
+      </div>
     </div>
-  </div> 
-  </div> 
-  <button class="col-md-6" mat-raised-button color="primary" class="avatarBtn" type="button" (click)="registerSubmit()">Subir imagenes</button>
+    
+    <div *ngIf="images">
+      <div class="row imageList" >
+        <div class="col-md-3 imgFrame" *ngFor="let image of images" [ngStyle]="{'background-image':'url('+image.image+')'}" id="imagenListar" (click)="openImg(image.image)">
+          <button mat-icon-button (click)="imageDelete(image.id)" id="delete" *ngIf="userId === animalData.user_id">
+            <i class="material-icons" style="color:red" id="icon">delete</i>
+          </button>
+        </div>
+      </div> 
+    </div>
 
-  
-
+  </div>
 </div>

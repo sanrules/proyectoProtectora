@@ -192,7 +192,7 @@
             <h5>Imagen de Perfil (opcional)</h5>
             <div class="row">
               <div class="col-md-12">
-                <button mat-raised-button color="primary" class="avatarBtn" type="button" (click)="openInput()">Avatar</button>
+                <button mat-raised-button color="primary" class="btnGeneral" type="button" (click)="openInput()">Avatar</button>
                 <input hidden type="file" id="imgUpload" (change)="selectImage($event)" accept=".png, .jpg, .svg">
                 <input type="hidden" formControlName="imgUrl" id="imgUrl" [value]="urlImage">
               </div>
@@ -205,7 +205,7 @@
             <h5>Enviar Formulario</h5>
             <div class="row">
               <div class="col-md-12">
-                <button mat-raised-button color="primary" [disabled]="!registerForm.valid" class="btnRegister">Registrar Usuario</button>
+                <button mat-raised-button color="primary" [disabled]="!registerForm.valid" class="btnGeneral">Registrar Usuario</button>
               </div>
             </div>
           </div>

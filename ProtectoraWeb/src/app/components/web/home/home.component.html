@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  <div class="section">
+  <div class="section newsSection">
     <div class="container">
       <div class="row text-center">
         <div class="col-12">
@@ -22,21 +22,24 @@
         </div>
       </div>
       <div class="row mt-3 px-5 news" *ngFor="let item of news">
-          <div class="row mt-2">
-            <div class="col-12">
-              <h2>{{item.name}}</h2>
-            </div>
+        <div class="row mt-2 w-100">
+          <div class="col-12">
+            <h2>
+              <img src="../../../../assets/logo/logoOnly.png" alt="logo" class="logo">
+              {{item.name}}
+            </h2>
           </div>
-          <div class="row mt-2">
-            <div class="col-12 w-100">
-             <p class="w-100">{{item.content}}</p>  
-            </div>
+        </div>
+        <div class="row mt-2 w-100">
+          <div class="col-12">
+            <p class="w-100">{{item.content}}</p>  
           </div>
-          <div class="row mt-2 mb-2 w-100">
-            <div class="col-12 dateNews">
-              {{item.date}}
-            </div>
+        </div>
+        <div class="row mt-2 mb-2 w-100">
+          <div class="col-12 dateNews">
+            {{item.date | date: 'mediumDate'}}
           </div>
+        </div>
       </div>
     </div>
   </div>

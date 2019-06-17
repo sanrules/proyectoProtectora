@@ -22,7 +22,7 @@
                 <p>Raza: </p>
               </div>
               <div class="col-md-4">
-                <p>{{animal.breed}}</p>
+                <p>{{animal.breed | animalBreedNamePipe | async}}</p>
               </div>
             </div>
             <div class="row">
@@ -38,7 +38,7 @@
                 <p>Fecha de Nacimiento: </p>
               </div>
               <div class="col-md-4">
-                <p>{{animal.birth_date}}</p>
+                <p>{{animal.birth_date | date:'mediumDate'}}</p>
               </div>
             </div>
             <div class="row">
@@ -46,7 +46,7 @@
                 <p>Fecha de Entrada: </p>
               </div>
               <div class="col-md-4">
-                <p>{{animal.entrance_date}}</p>
+                <p>{{animal.entrance_date | date: 'mediumDate'}}</p>
               </div>
             </div>
 
@@ -55,7 +55,7 @@
                 <p>Fecha de Adopción: </p>
               </div>
               <div class="col-md-4">
-                <p>{{animal.adoption_date}}</p>
+                <p>{{animal.adoption_date | date: 'mediumDate'}}</p>
               </div>
             </div>
 
@@ -67,7 +67,7 @@
             </div>
             <div class="row" *ngIf="animal.status == 1">
               <div class="alert alert-success w-100 text-center" role="alert">
-                <button mat-raised-button color="primary" class="button" (click)="adoptAnimal(animalId)">Adoptar</button>
+                <button mat-raised-button color="primary" class="btnBG" (click)="adoptAnimal(animalId)">Adoptar</button>
               </div>
             </div>
           </div>

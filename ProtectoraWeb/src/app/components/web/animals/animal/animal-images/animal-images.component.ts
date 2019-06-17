@@ -1,12 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ImagesService } from 'src/app/_services/animals/images/images.service';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import { CommentService } from 'src/app/_services/animals/comments/comment.service';
-import { FirebaseStorageService } from 'src/app/_services/firebase-upload/firebase-upload-service';
 import { Observable } from 'rxjs';
-import { AnimalService } from 'src/app/_services/animals/animal/animal-service';
 import { finalize } from 'rxjs/operators';
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Animal } from 'src/app/_models/animal.model';
+import { ImagesService } from 'src/app/_services/animals/images/images.service';
+import { FirebaseStorageService } from 'src/app/_services/firebase-upload/firebase-upload-service';
+import { AnimalService } from 'src/app/_services/animals/animal/animal-service';
+import { AuthService } from '../../../../../_services/auth/auth.service';
+import { UserService } from 'src/app/_services/user/user-service';
+
+
 
 @Component({
   selector: 'app-animal-images',
@@ -16,23 +19,27 @@ import { Animal } from 'src/app/_models/animal.model';
 })
 export class AnimalImagesComponent implements OnInit {
 
-
   @Input() public animalData: Animal;
+  @Input() animalId: number;
+
+  animal: Animal;
   arrayAux: any[] = [];
   files: any[] = [];
   images: any[];
   images2: any[] = [];
+  urlImageAr: any[] = [];
   urlImage: Observable<string>;
   uploadpercent: Observable<number>;
-  urlImageAr: any[] = [];
-  animal: Animal;
-  @Input() animalId: number;
+
+  userId: number;
 
   constructor(private imgService: ImagesService,
               private config: NgbCarouselConfig,
               private firestorage: FirebaseStorageService,
               private animalService: AnimalService,
-              private imagesService: ImagesService) {
+              private imagesService: ImagesService,
+              private authService: AuthService,
+              private userService: UserService) {
     config.interval = 3000;
     config.showNavigationArrows = true;
   }
@@ -41,9 +48,14 @@ export class AnimalImagesComponent implements OnInit {
     this.imgService.getImagesByAnimal(this.animalId).subscribe(resp => {
       this.images = resp.response;
     });
-    console.log("animal", this.animalData);
+
+    this.userId = this.authService.userIdLogged();
   }
 
+  openImg(img) {
+    console.log('img: ', img);
+    window.open(img, '_blank');
+  }
 
   openInput() {
     document.getElementById('imgUpload').click();
@@ -79,7 +91,6 @@ export class AnimalImagesComponent implements OnInit {
 
   public subirImagenes(id: number, arrayImages) {
     this.animalService.uploadImages(id, arrayImages ).subscribe( data => {
-
     }, error => {
         console.log('Error: ', error);
     });
@@ -101,7 +112,7 @@ export class AnimalImagesComponent implements OnInit {
   public loadImages() {
     this.imagesService.getImagesByAnimal(this.animalData.id).subscribe(e =>{
       this.images = e.response;
-      console.log("imagenes de animal" , this.images);
+      console.log('imagenes de animal' , this.images);
     });
   }
 
@@ -110,7 +121,7 @@ export class AnimalImagesComponent implements OnInit {
     this.imagesService.deleteImage(id).subscribe(data => {
 
       console.log('respuesta deleteAnimal (data): ', data);
-      if (data.response === "delete OK") {
+      if (data.response === 'delete OK') {
       this.loadImages();
       }
     }, error => {
@@ -131,9 +142,9 @@ export class AnimalImagesComponent implements OnInit {
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();
-  
+
     date = Date.UTC(year, month, day, 0, 0, 0);
-  
+
     return date;
   }
 

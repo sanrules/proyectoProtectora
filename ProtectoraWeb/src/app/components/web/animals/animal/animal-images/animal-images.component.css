@@ -24,3 +24,22 @@ img {
   border: 0.3 solid black;
 }
 
+.imgBtn {
+  background-color: #0c92bbda;
+}
+
+.loading {
+	display: flex;
+	align-content: center;
+	align-items: center;
+}
+
+.imageList {
+  align-items: center;
+  text-align: center;
+}
+
+.imgFrame {
+  cursor:pointer;
+}
+

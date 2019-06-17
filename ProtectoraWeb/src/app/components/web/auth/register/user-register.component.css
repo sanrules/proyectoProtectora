@@ -11,12 +11,8 @@
   align-content: center;
 }
 
-.avatarBtn{
+.btnGeneral{
 	width: 100%;
-	background-color: #0c92bba6;
+	background-color: #0c92bbda;
 }
 
-.btnRegister {
-	width: 100%;
-	background-color: #0c92bba6;
-}

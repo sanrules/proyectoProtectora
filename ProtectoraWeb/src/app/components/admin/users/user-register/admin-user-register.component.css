@@ -19,12 +19,12 @@
 }
 
 .loading {
-	display: flex;
 	align-content: center;
 	align-items: center;
+	width: 90%;
 }
 
 .submitBtn, .avatarBtn {
 	width: 100%;
-	background-color: #0c92bba6;
+	background-color: #0c92bbda;
 }
