@@ -137,7 +137,7 @@ export class AnimalRegisterComponent implements OnInit {
     this.animalService.uploadImages(id, arrayImages ).subscribe( data => {
 
       this.openDialog(id , 1);
-      this.router.navigateByUrl('/admin/animals/management');
+      this.ngOnInit();
     }, error => {
         console.log('Error: ', error);
     });
@@ -263,7 +263,7 @@ dataPrepare() {
       this.animalService.registerAnimal(animalJSON).subscribe(data => {
 
         if ( this.files === undefined ) {
-          this.router.navigateByUrl('/admin/animals/management');
+          this.ngOnInit();
           this.openDialog(data, 1);
         } else {
           this.onUpload(this.files, data.response);
