@@ -25,7 +25,7 @@
     "@fullpage/angular-fullpage": "0.0.12",
     "@ng-bootstrap/ng-bootstrap": "^4.2.1",
     "angular-material-fileupload": "^2.0.0",
-    "aws-sdk": "^2.473.0",
+    "aws-sdk": "^2.814.0",
     "bootstrap": "^4.3.1",
     "core-js": "^2.6.9",
     "fine-uploader": "^5.16.2",
